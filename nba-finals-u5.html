@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NBA Finals 實戰特訓｜Ray's English Corner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght=0,700;0,900;1,700&family=Nunito:wght=400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:       #faf8f2;
+    --cream-d:     #ede8d8;
+    --green-dk:    #1e4d30;
+    --green-md:    #3a7a50;
+    --green-lt:    #6db88a;
+    --green-pl:    #e2f2e8;
+    --amber:       #f5a623;
+    --amber-pl:    #fff8ec;
+    --warm:        #e07850;
+    --warm-pl:     #fdf0ea;
+    --text:        #1a2a1a;
+    --text-md:     #466046;
+    --text-lt:     #7a9a7a;
+    --border:      #d5cbb5;
+    --white:       #ffffff;
+    --sh:          0 4px 20px rgba(30,77,48,0.10);
+    --sh-lg:       0 12px 48px rgba(30,77,48,0.15);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); line-height: 1.8; }
+  
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,248,242,0.94); backdrop-filter: blur(14px);
+    border-bottom: 1.5px solid var(--border);
+    padding: 0 5%; height: 58px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 900;
+    color: var(--green-dk); text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-logo .dot { color: var(--warm); }
+
+  /* HEADER */
+  .page-header {
+    background: var(--green-dk);
+    color: #fff;
+    padding: 50px 5%;
+    text-align: center;
+  }
+  .page-header h1 { font-family: 'Playfair Display', serif; font-size: 2.3rem; margin-bottom: 10px; }
+  .page-header p { color: rgba(255,255,255,0.7); font-size: 1.1rem; }
+
+  /* MAIN CONTENT */
+  main { max-width: 1000px; margin: 40px auto; padding: 0 20px 80px; }
+  
+  .back-btn {
+    display: inline-flex; margin-bottom: 20px; text-decoration: none;
+    color: var(--green-md); font-weight: 800; font-size: 0.95rem; transition: color .2s;
+  }
+  .back-btn:hover { color: var(--green-dk); }
+
+  .content-box {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 22px; padding: 40px; box-shadow: var(--sh); margin-bottom: 30px;
+  }
+
+  .section-main-title {
+    font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--green-dk);
+    margin-bottom: 25px; padding-left: 10px; border-left: 5px solid var(--warm);
+  }
+
+  .teacher-talk {
+    background: var(--amber-pl); border: 1.5px dashed var(--amber); border-radius: 12px;
+    padding: 16px; margin-bottom: 25px; font-size: 0.95rem; color: var(--text-md);
+  }
+
+  /* VIDEO PLAYER EMBED */
+  .video-container {
+    position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+    border-radius: 16px; border: 2px solid var(--border); box-shadow: var(--sh); margin-bottom: 30px;
+  }
+  .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+  /* FLIP CARDS GRID */
+  .flashcard-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px; }
+  .flip-card { perspective: 1000px; height: 130px; cursor: pointer; }
+  .flip-card-inner {
+    position: relative; width: 100%; height: 100%; text-align: center;
+    transition: transform 0.4s; transform-style: preserve-3d;
+  }
+  .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+  .card-front, .card-back {
+    position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+    border-radius: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 15px;
+  }
+  .card-front { background: var(--cream); border: 1.5px solid var(--border); color: var(--green-dk); }
+  .card-front .word { font-size: 1.2rem; font-weight: 800; }
+  .card-front .hint { font-size: 0.8rem; color: var(--text-lt); margin-top: 5px; }
+  .card-back { background: var(--green-pl); border: 1.5px solid var(--green-lt); color: var(--green-dk); transform: rotateY(180deg); }
+  .card-back .ch { font-size: 1.05rem; font-weight: 700; color: var(--warm); }
+  .card-back .detail { font-size: 0.83rem; color: var(--text-md); margin-top: 4px; }
+
+  /* TIMESTAMPS & TIMELINE */
+  .timeline-item {
+    border-left: 3px solid var(--green-lt); padding-left: 20px; margin-bottom: 20px; position: relative;
+  }
+  .timeline-item::before {
+    content: '🏀'; position: absolute; left: -11px; top: 4px; background: var(--cream); font-size: 0.9rem;
+  }
+  .time-btn {
+    background: var(--warm); color: white; border: none; border-radius: 6px;
+    padding: 2px 8px; font-family: 'Nunito', sans-serif; font-weight: 700;
+    font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; margin-bottom: 6px;
+    transition: background 0.2s;
+  }
+  .time-btn:hover { background: var(--green-dk); }
+  
+  .grammar-section { margin-bottom: 35px; }
+  .grammar-title { font-size: 1.2rem; color: var(--green-dk); border-bottom: 2px solid var(--green-lt); padding-bottom: 6px; margin-bottom: 15px; font-weight: 800; }
+  .rule-block { background: var(--green-pl); border-left: 4px solid var(--green-md); padding: 15px; border-radius: 0 12px 12px 0; margin: 15px 0; font-size: 0.95rem; color: var(--text-md); }
+  .example-block { background: var(--cream-pl); border-radius: 10px; padding: 12px 18px; margin: 10px 0; font-size: 0.93rem; color: var(--text); border: 1px solid rgba(213,203,181,0.4); }
+  .example-block b { color: var(--warm); }
+  .example-block .trans { display: block; font-size: 0.85rem; color: var(--text-lt); margin-top: 4px; }
+  
+  footer { background: var(--green-dk); color: rgba(255,255,255,0.65); text-align: center; padding: 36px 5%; font-size: 0.86rem; line-height: 1.9; }
+  footer span { color: var(--amber); }
+  @media (max-width: 768px) { .flashcard-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Ray's <span class="dot">·</span> English Corner</a>
+</nav>
+
+<div class="page-header">
+  <p>私校進階特訓篇・時事戰報</p>
+  <h1>看 NBA 總決賽學英文：尼克 vs 馬刺 🏆</h1>
+</div>
+
+<main>
+  <a href="index.html#private-school" class="back-btn">← 返回首頁私校專區</a>
+  
+  <!-- 影片播放區 -->
+  <div class="video-container">
+    <!-- 預載網址已加入 enablejsapi=1，以便按鈕精確控制跳轉秒數 -->
+    <iframe id="nba-player" src="https://www.youtube.com/embed/A85F2-ss4ak?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+
+  <!-- PART A: 翻轉單字卡 -->
+  <div class="content-box">
+    <h3 class="section-main-title">PART A：實戰單字庫（點擊卡片翻面）</h3>
+    <div class="teacher-talk">
+      💡 <b>雷老師解說：</b>體育播報的語速極快，但用的多是會考核心單字的衍生意。點擊下方卡片，測試看看自己是否能在第一時間反應出意思！
+    </div>
+    
+    <div class="flashcard-grid">
+      <!-- 卡片 1 -->
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="card-front"><span class="word">erase</span><span class="hint">點擊查看賽事釋義 👆</span></div>
+          <div class="card-back"><span class="ch">抹去；逆轉 (v.)</span><span class="detail">文中指尼克隊抹去、逆轉了高達 14 分的落後。</span></div>
+        </div>
+      </div>
+      <!-- 卡片 2 -->
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="card-front"><span class="word">consecutive</span><span class="hint">點擊查看賽事釋義 👆</span></div>
+          <div class="card-back"><span class="ch">連續的 (adj.)</span><span class="detail">等同於 in a row。New York won 12 consecutive playoff games.</span></div>
+        </div>
+      </div>
+      <!-- 卡片 3 -->
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="card-front"><span class="word">winning streak</span><span class="hint">點擊查看賽事釋義 👆</span></div>
+          <div class="card-back"><span class="ch">連勝紀錄 (n.)</span><span class="detail">streak 指一陣子或條紋，與 winning 組合即為連勝高潮。</span></div>
+        </div>
+      </div>
+      <!-- 卡片 4 -->
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="card-front"><span class="word">debut</span><span class="hint">點擊查看賽事釋義 👆</span></div>
+          <div class="card-back"><span class="ch">初次登場；首秀 (n.)</span><span class="detail">注意發音為 [dɪˈbju]，尾巴的 t 絕對不發音！</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PART B: 精選時間軸對照 -->
+  <div class="content-box">
+    <h3 class="section-main-title">PART B：球賽精彩英聽時間軸對照</h3>
+    <div class="teacher-talk">
+      🎧 <b>影子跟讀法特訓：</b>點擊橘色的<b>時間按鈕</b>，上方的影片就會自動為你精確跳轉到球賽精采瞬間！請試著跟讀播報員的語調。
+    </div>
+
+    <div class="timeline-wrapper">
+      <div class="timeline-item">
+        <button class="time-btn" onclick="seekTo(10)">⏱️ 0:10</button>
+        <div class="example-block">
+          The Spurs once <b>led</b> by 10 points in the first half...
+          <span class="trans">（馬刺隊在上半場一度領先高達10分。➔ lead 過去式不規則變化為 led）</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <button class="time-btn" onclick="seekTo(145)">⏱️ 2:25</button>
+        <div class="example-block">
+          Brunson is <b>looking</b>, Brunson is <b>driving</b> inside!
+          <span class="trans">（現在 Brunson 正在尋找機會，他正往內線切入！➔ 國一核心文法：現在進行式 be + V-ing）</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <button class="time-btn" onclick="seekTo(312)">⏱️ 5:12</button>
+        <div class="example-block">
+          He's <b>holding</b> his ankle on the court after that foul...
+          <span class="trans">（在那次犯規後，他正痛苦地在場上握著他的腳踝。➔ 進行式描述當下動態）</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <button class="time-btn" onclick="seekTo(528)">⏱️ 8:48</button>
+        <div class="example-block">
+          <b>BANG!</b> Jalen Brunson from downtown!
+          <span class="trans">（進了！Jalen Brunson 在外線百步穿楊！➔ from downtown 為籃球術語，形容三分球投射）</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PART C: 會考核心文法對照 -->
+  <div class="content-box">
+    <h3 class="section-main-title">PART C：會考核心文法與進階陷阱</h3>
+    
+    <div class="grammar-section">
+      <div class="grammar-title">1. 形容詞最高級與「One of the...」特殊句型（國二下重點）</div>
+      <div class="rule-block">
+        當我們要形容「最...的其中之一」時，公式為：<b>One of the ＋ 形容詞最高級 (V-est / most V) ＋ 複數名詞</b>。這裡雖然前面是 One（單數），但既然是「其中之一」，後面一定要從「複數群體」中挑選！
+      </div>
+      <div class="example-block">
+        Jalen Brunson is <b>one of the strongest guards</b> in the NBA.
+        <span class="trans">（Jalen Brunson 是整個 NBA 中最強壯的後衛之一。➔ guards 必須使用複數）</span>
+      </div>
+      <div class="example-block">
+        The Spurs blew their <b>largest lead</b> of the game in the fourth quarter.
+        <span class="trans">（馬刺隊在第四節丟失了他們本場比賽中「最大的」領先優勢。➔ large 最高級為 largest）</span>
+      </div>
+    </div>
+
+    <div class="grammar-section">
+      <div class="grammar-title">2. 複合形容詞結構（私校最愛考地雷）</div>
+      <div class="rule-block">
+        當我們把「數字 ＋ 單位名詞」用連字號（-）串起來當作形容詞修飾後面的東西時，<b>中間的單位名詞絕對不能加 s</b>！
+      </div>
+      <div class="example-block">
+        The Knicks erased a <b>14-point deficit</b> to win Game 1.
+        <span class="trans">（尼克隊抹平了「14分的落後分差」並贏下第一戰。➔ 14-point 中間的 point 不可加 s，若不加連字號則寫作 14 points）</span>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="f-logo">Ray's <span>English</span> Corner</div>
+  <p>© 2026 Ray's English Corner · 雷康誠老師 · 0958-938-383</p>
+</footer>
+
+<!-- 載入 YouTube Iframe Player API API 用於控制影片秒數跳轉 -->
+<script>
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  var player;
+  function onYouTubeIframeAPIReady() {
+    // 綁定現有的 iframe ID
+    player = new YT.Player('nba-player', {
+      events: {
+        'onReady': onPlayerReady
+      }
+    });
+  }
+
+  function onPlayerReady(event) {
+    // 播放器載入完成
+  }
+
+  // 時間跳轉函式（傳入秒數）
+  function seekTo(seconds) {
+    if (player && player.seekTo) {
+      player.seekTo(seconds, true);
+      player.playVideo();
+      // 點擊時間軸後，網頁會自動平滑滾動至頂端影片區，方便學生對照觀看
+      window.scrollTo({ top: document.querySelector('.video-container').offsetTop - 80, behavior: 'smooth' });
+    }
+  }
+</script>
+</body>
+</html>
