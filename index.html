@@ -296,13 +296,46 @@
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Ray's English Corner<span class="dot">.</span></a>
+  <!-- 這是專門給「文法」下拉選單用的一小段設計 -->
+  <style>
+    .dropdown { position: relative; }
+    .dropdown-content { 
+      display: none; 
+      position: absolute; 
+      top: 35px; 
+      left: -15px;
+      background: var(--white); 
+      box-shadow: var(--sh-lg); 
+      border-radius: 12px; 
+      min-width: 130px; 
+      flex-direction: column;
+      padding: 10px 0;
+      border: 1.5px solid var(--border);
+    }
+    .dropdown:hover .dropdown-content { display: flex; }
+    .dropdown-content a { padding: 10px 20px; font-size: 0.85rem; }
+    .dropdown-content a::after { display: none; /* 隱藏底線動畫 */ }
+    .dropdown-content a:hover { background: var(--green-pl); color: var(--green-dk); }
+  </style>
+
+  <a href="index.html#hero" class="nav-logo">Ray's <span class="dot">·</span> English Corner</a>
   <ul class="nav-links">
-    <li><a href="#about">關於雷老師</a></li>
-    <li><a href="#courses">特訓課程</a></li>
-    <li><a href="#grammar">文法專區</a></li>
-    <li><a href="#private-school">私校專區</a></li>
+    <li><a href="experience.html">關於 Ray (詳細經歷)</a></li>
+    <li><a href="index.html#courses">課程</a></li>
+    <li><a href="index.html#courses">私校專區</a></li>
+    <li><a href="practice.html">實戰練習</a></li>
+    <li><a href="index.html#contact">聯絡我</a></li>
+    
+    <!-- 文法下拉選單 -->
+    <li class="dropdown">
+      <a href="javascript:void(0)" style="cursor: default;">文法 ▾</a>
+      <div class="dropdown-content">
+        <a href="grammar-u5.html">文法 U5</a>
+        <a href="grammar-u6.html">文法 U6</a>
+      </div>
+    </li>
   </ul>
 </nav>
 
