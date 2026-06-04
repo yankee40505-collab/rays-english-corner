@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -176,32 +177,8 @@ section{padding:88px 5%}
 <body>
 
 <nav>
-  <style>
-    /* 複製上面 index.html 裡的 nav, .nav-links, .dropdown 相關 CSS 進來 */
-    /* 為了省空間，你也可以直接把 index.html 的 <style> 完整複製到這些檔案的 <head> 中 */
-  </style>
-  <a href="index.html" class="nav-logo">Ray's English Corner</a>
-  <ul class="nav-links">
-    <li><a href="index.html#about">關於 Ray</a></li>
-    <li><a href="index.html#courses">課程</a></li>
-    <li class="dropdown">
-      <a href="javascript:void(0)">私校專區 ▾</a>
-      <div class="dropdown-content">
-        <a href="nba-finals-u5.html">NBA Finals U5</a>
-        <a href="nba-section-v3.html">NBA Section V3</a>
-      </div>
-    </li>
-    <li><a href="experience.html">教學經歷</a></li>
-    <li class="dropdown">
-      <a href="javascript:void(0)">文法 ▾</a>
-      <div class="dropdown-content">
-        <a href="grammar-u5.html">文法 U5</a>
-        <a href="grammar-u6.html">文法 U6</a>
-      </div>
-    </li>
-    <li><a href="practice.html">線上練習</a></li>
-    <li><a href="index.html#contact">聯絡我</a></li>
-  </ul>
+  <a class="nav-logo" href="#">Ray<span class="dot">.</span>English</a>
+  <span class="nav-tag">Tooltip 完整版</span>
 </nav>
 
 <div id="nba-hero-band">
@@ -478,32 +455,29 @@ document.querySelectorAll('.hl').forEach(el=>{
     tipRule.textContent=el.dataset.rule||'';
     tipGrade.textContent=el.dataset.grade||'';
 
+    tip.style.opacity='0';
+    tip.style.display='block';
+
     const box=tip.querySelector('.tt-box');
     const bw=box.offsetWidth||240;
     const bh=box.offsetHeight||120;
 
     const r=el.getBoundingClientRect();
     const cx=r.left+r.width/2;
-    const M=10; /* viewport margin */
-
-    /* tooltip uses position:fixed -> coords are VIEWPORT-relative, do NOT add scrollY */
-    const spaceBelow=window.innerHeight-r.bottom;
-    const spaceAbove=r.top;
-    const showAbove=spaceBelow<bh+18 && spaceAbove>spaceBelow;
+    const spaceBelow=window.innerHeight-(r.bottom+16);
+    const spaceAbove=r.top-16;
+    const showAbove=spaceBelow<bh+12 && spaceAbove>bh+12;
 
     let top,arrowClass;
-    if(showAbove){top=r.top-bh-14;arrowClass='down';}
-    else{top=r.bottom+14;arrowClass='up';}
-    /* clamp vertically inside viewport */
-    top=Math.max(M,Math.min(top,window.innerHeight-bh-M));
+    if(showAbove){top=r.top+window.scrollY-bh-14;arrowClass='down';}
+    else{top=r.bottom+window.scrollY+14;arrowClass='up';}
 
-    /* clamp horizontally inside viewport */
     let left=cx-bw/2;
-    left=Math.max(M,Math.min(left,window.innerWidth-bw-M));
+    left=Math.max(8,Math.min(left,window.innerWidth-bw-8));
 
-    /* arrow points at the word, but stays within the box */
+    /* arrow horizontal offset relative to box */
     const arrowLeft=cx-left;
-    tipArrow.style.left=Math.max(18,Math.min(arrowLeft,bw-18))+'px';
+    tipArrow.style.left=Math.max(20,Math.min(arrowLeft,bw-20))+'px';
     tipArrow.style.transform='none';
     tipArrow.className='tt-arrow '+arrowClass;
 
