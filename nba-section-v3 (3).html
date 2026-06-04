@@ -175,10 +175,84 @@ section{padding:88px 5%}
 </head>
 <body>
 
-<nav>
-  <a class="nav-logo" href="#">Ray<span class="dot">.</span>English</a>
-  <span class="nav-tag">Tooltip 完整版</span>
+<nav>  
+  <style>    
+    /* 補上導覽列選單的橫向排版設定 */
+    .nav-links {
+      display: flex;
+      list-style: none;
+      align-items: center;
+      gap: 24px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-md);
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--green-dk);
+    }
+    /* 下拉選單基礎排版 */
+    .dropdown {
+      position: relative;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--sh);
+      min-width: 150px;
+      z-index: 10;
+    }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+    }
+    .dropdown-content a:hover {
+      background: var(--cream);
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+  </style>  
+  <a href="index.html" class="nav-logo">Ray's English Corner</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">關於 Ray</a></li>
+    <li><a href="index.html#courses">課程</a></li>
+    <li class="dropdown">
+      <a href="javascript:void(0)">私校專區 ▾</a>
+      <div class="dropdown-content">
+        <a href="nba-finals-u5.html">NBA Finals U5</a>
+        <a href="nba-section-v3.html">NBA Section V3</a>
+      </div>
+    </li>
+    <li><a href="experience.html">教學經歷</a></li>
+    <li class="dropdown">
+      <a href="javascript:void(0)">文法 ▾</a>
+      <div class="dropdown-content">
+        <a href="grammar-u5.html">文法 U5</a>
+        <a href="grammar-u6.html">文法 U6</a>
+      </div>
+    </li>
+    <li><a href="practice.html">線上練習</a></li>
+    <li><a href="index.html#contact">聯絡我</a></li>
+  </ul>
 </nav>
+
+<div class="page-header">
+  <p>私校進階特訓篇・時事戰報</p>
+  <h1>看 NBA 總決賽學英文：尼克 vs 馬刺 🏆</h1>
+</div>
+
+<main>
+  <a href="index.html#private-school" class="back-btn">← 返回首頁私校專區</a>
 
 <div id="nba-hero-band">
   <div class="band-inner">
