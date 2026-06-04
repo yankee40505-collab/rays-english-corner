@@ -134,7 +134,32 @@
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo">Ray's <span class="dot">·</span> English Corner</a>
+  <style>
+    /* 複製上面 index.html 裡的 nav, .nav-links, .dropdown 相關 CSS 進來 */
+    /* 為了省空間，你也可以直接把 index.html 的 <style> 完整複製到這些檔案的 <head> 中 */
+  </style>
+  <a href="index.html" class="nav-logo">Ray's English Corner</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">關於 Ray</a></li>
+    <li><a href="index.html#courses">課程</a></li>
+    <li class="dropdown">
+      <a href="javascript:void(0)">私校專區 ▾</a>
+      <div class="dropdown-content">
+        <a href="nba-finals-u5.html">NBA Finals U5</a>
+        <a href="nba-section-v3.html">NBA Section V3</a>
+      </div>
+    </li>
+    <li><a href="experience.html">教學經歷</a></li>
+    <li class="dropdown">
+      <a href="javascript:void(0)">文法 ▾</a>
+      <div class="dropdown-content">
+        <a href="grammar-u5.html">文法 U5</a>
+        <a href="grammar-u6.html">文法 U6</a>
+      </div>
+    </li>
+    <li><a href="practice.html">線上練習</a></li>
+    <li><a href="index.html#contact">聯絡我</a></li>
+  </ul>
 </nav>
 
 <div class="page-header">
