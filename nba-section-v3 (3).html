@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -455,29 +454,32 @@ document.querySelectorAll('.hl').forEach(el=>{
     tipRule.textContent=el.dataset.rule||'';
     tipGrade.textContent=el.dataset.grade||'';
 
-    tip.style.opacity='0';
-    tip.style.display='block';
-
     const box=tip.querySelector('.tt-box');
     const bw=box.offsetWidth||240;
     const bh=box.offsetHeight||120;
 
     const r=el.getBoundingClientRect();
     const cx=r.left+r.width/2;
-    const spaceBelow=window.innerHeight-(r.bottom+16);
-    const spaceAbove=r.top-16;
-    const showAbove=spaceBelow<bh+12 && spaceAbove>bh+12;
+    const M=10; /* viewport margin */
+
+    /* tooltip uses position:fixed -> coords are VIEWPORT-relative, do NOT add scrollY */
+    const spaceBelow=window.innerHeight-r.bottom;
+    const spaceAbove=r.top;
+    const showAbove=spaceBelow<bh+18 && spaceAbove>spaceBelow;
 
     let top,arrowClass;
-    if(showAbove){top=r.top+window.scrollY-bh-14;arrowClass='down';}
-    else{top=r.bottom+window.scrollY+14;arrowClass='up';}
+    if(showAbove){top=r.top-bh-14;arrowClass='down';}
+    else{top=r.bottom+14;arrowClass='up';}
+    /* clamp vertically inside viewport */
+    top=Math.max(M,Math.min(top,window.innerHeight-bh-M));
 
+    /* clamp horizontally inside viewport */
     let left=cx-bw/2;
-    left=Math.max(8,Math.min(left,window.innerWidth-bw-8));
+    left=Math.max(M,Math.min(left,window.innerWidth-bw-M));
 
-    /* arrow horizontal offset relative to box */
+    /* arrow points at the word, but stays within the box */
     const arrowLeft=cx-left;
-    tipArrow.style.left=Math.max(20,Math.min(arrowLeft,bw-20))+'px';
+    tipArrow.style.left=Math.max(18,Math.min(arrowLeft,bw-18))+'px';
     tipArrow.style.transform='none';
     tipArrow.className='tt-arrow '+arrowClass;
 
