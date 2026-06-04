@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>線上題目演練｜Ray's English Corner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:#faf8f2; --cream-d:#ede8d8; --green-dk:#1e4d30; --green-md:#3a7a50;
+    --green-lt:#6db88a; --green-pl:#e2f2e8; --amber:#f5a623; --amber-pl:#fff8ec;
+    --warm:#e07850; --warm-pl:#fdf0ea; --text:#1a2a1a; --text-md:#466046;
+    --text-lt:#7a9a7a; --border:#d5cbb5; --white:#ffffff;
+    --sh:0 4px 20px rgba(30,77,48,0.10); --sh-lg:0 12px 48px rgba(30,77,48,0.15);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text);line-height:1.75;overflow-x:hidden;}
+  ::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-track{background:var(--cream-d);} ::-webkit-scrollbar-thumb{background:var(--green-lt);border-radius:99px;}
+
+  nav{position:sticky;top:0;z-index:100;background:rgba(250,248,242,0.94);backdrop-filter:blur(14px);border-bottom:1.5px solid var(--border);padding:0 5%;height:58px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--green-dk);text-decoration:none;display:flex;align-items:center;gap:6px;}
+  .nav-logo .dot{color:var(--warm);}
+  .nav-links{display:flex;gap:1.6rem;list-style:none;}
+  .nav-links a{text-decoration:none;color:var(--text-md);font-size:0.86rem;font-weight:800;letter-spacing:0.04em;transition:color .18s;position:relative;}
+  .nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:2px;background:var(--amber);border-radius:99px;transform:scaleX(0);transition:transform .2s;}
+  .nav-links a:hover{color:var(--green-dk);} .nav-links a:hover::after{transform:scaleX(1);}
+  .nav-links a.active{color:var(--green-dk);} .nav-links a.active::after{transform:scaleX(1);}
+
+  /* Hero */
+  .page-hero{background:var(--green-dk);padding:64px 5% 56px;text-align:center;position:relative;overflow:hidden;}
+  .page-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:24px 24px;}
+  .page-hero .eyebrow{font-size:0.74rem;font-weight:900;letter-spacing:0.15em;text-transform:uppercase;color:var(--green-lt);margin-bottom:10px;}
+  .page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#fff;margin-bottom:14px;}
+  .page-hero p{color:rgba(255,255,255,0.65);max-width:540px;margin:0 auto;font-size:1rem;}
+
+  /* Main */
+  main{max-width:1100px;margin:0 auto;padding:56px 5% 80px;}
+
+  /* Category Tabs */
+  .cat-label{font-size:0.78rem;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-lt);margin-bottom:14px;}
+  .cats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px;}
+  .cat-btn{background:var(--white);border:2px solid var(--border);border-radius:50px;padding:9px 22px;font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:800;color:var(--text-md);cursor:pointer;transition:all .18s;}
+  .cat-btn:hover{border-color:var(--green-lt);background:var(--green-pl);color:var(--green-dk);}
+  .cat-btn.active{background:var(--green-dk);border-color:var(--green-dk);color:#fff;}
+  .cat-btn .cnt{display:inline-block;background:rgba(255,255,255,0.2);border-radius:99px;padding:1px 7px;font-size:0.75rem;margin-left:5px;}
+  .cat-btn:not(.active) .cnt{background:var(--cream-d);color:var(--text-lt);}
+
+  /* Score bar */
+  .score-bar{display:flex;align-items:center;gap:16px;background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:16px 22px;margin-bottom:28px;box-shadow:var(--sh);}
+  .score-bar .sb-label{font-size:0.82rem;font-weight:800;color:var(--text-lt);}
+  .score-bar .sb-val{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--green-dk);}
+  .score-bar .sb-sep{width:1.5px;height:32px;background:var(--border);}
+  .pb-wrap{flex:1;background:var(--cream-d);border-radius:99px;height:8px;overflow:hidden;}
+  .pb-fill{height:100%;background:linear-gradient(90deg,var(--green-md),var(--green-lt));border-radius:99px;transition:width .4s ease;}
+
+  /* Questions grid */
+  .q-grid{display:flex;flex-direction:column;gap:20px;}
+  .q-card{background:var(--white);border:1.5px solid var(--border);border-radius:18px;padding:28px;box-shadow:var(--sh);transition:box-shadow .2s;}
+  .q-card:hover{box-shadow:var(--sh-lg);}
+  .q-meta{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+  .q-num{background:var(--green-dk);color:#fff;font-size:0.78rem;font-weight:900;padding:3px 11px;border-radius:99px;}
+  .q-tag{background:var(--amber-pl);color:#a06800;font-size:0.76rem;font-weight:800;padding:3px 10px;border-radius:99px;border:1px solid rgba(245,166,35,.25);}
+  .q-text{font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:18px;line-height:1.6;}
+  .q-opts{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+  .q-opt{background:var(--cream);border:2px solid var(--border);border-radius:11px;padding:10px 15px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:700;color:var(--text);transition:all .15s;text-align:left;}
+  .q-opt:hover:not(:disabled){border-color:var(--green-lt);background:var(--green-pl);transform:translateX(2px);}
+  .q-opt.correct{border-color:var(--green-md);background:var(--green-pl);color:var(--green-dk);}
+  .q-opt.wrong{border-color:#e07070;background:#fdf0f0;color:#b84040;}
+  .q-opt:disabled{cursor:default;}
+  .q-exp{margin-top:14px;padding:11px 14px;border-radius:10px;font-size:0.88rem;font-weight:700;line-height:1.65;display:none;}
+  .q-exp.show{display:block;}
+  .q-exp.correct{background:var(--green-pl);color:var(--green-dk);}
+  .q-exp.wrong{background:#fdf0f0;color:#b84040;}
+
+  /* Result banner */
+  .result-banner{display:none;background:linear-gradient(135deg,var(--green-dk),var(--green-md));border-radius:20px;padding:36px;text-align:center;color:#fff;margin-bottom:28px;}
+  .result-banner.show{display:block;}
+  .rb-score{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;line-height:1;}
+  .rb-msg{margin:10px 0 20px;font-size:1rem;opacity:.85;line-height:1.7;}
+  .rb-btn{background:#fff;color:var(--green-dk);border:none;border-radius:50px;padding:11px 28px;font-family:'Nunito',sans-serif;font-size:0.92rem;font-weight:900;cursor:pointer;transition:transform .15s;}
+  .rb-btn:hover{transform:translateY(-2px);}
+
+  /* All done CTA */
+  .done-cta{text-align:center;margin-top:36px;display:none;}
+  .done-cta.show{display:block;}
+  .submit-all{background:linear-gradient(135deg,var(--green-dk),var(--green-md));color:#fff;border:none;border-radius:50px;padding:14px 40px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;cursor:pointer;box-shadow:0 6px 20px rgba(30,77,48,.25);transition:transform .15s,box-shadow .15s;}
+  .submit-all:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(30,77,48,.3);}
+
+  footer{background:var(--green-dk);color:rgba(255,255,255,.65);text-align:center;padding:32px 5%;font-size:0.85rem;line-height:1.9;}
+  .f-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:5px;}
+  .f-logo span{color:var(--amber);}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease;}
+  .reveal.visible{opacity:1;transform:none;}
+
+  @media(max-width:700px){.q-opts{grid-template-columns:1fr;} .nav-links{display:none;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="rays-english-corner.html" class="nav-logo">Ray's <span class="dot">·</span> English Corner</a>
+  <ul class="nav-links">
+    <li><a href="rays-english-corner.html#about">關於 Ray</a></li>
+    <li><a href="rays-english-corner.html#courses">課程</a></li>
+    <li><a href="experience.html">教學經歷</a></li>
+    <li><a href="practice.html" class="active">線上練習</a></li>
+    <li><a href="rays-english-corner.html#contact">聯絡我</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="eyebrow">Online Practice</div>
+  <h1>線上題目演練 ✏️</h1>
+  <p>選一個文法主題，從頭做到尾，答完馬上看解析。<br>每次都從頭做一遍，才是真的學會！</p>
+</div>
+
+<main>
+  <div class="cat-label">選擇練習主題</div>
+  <div class="cats" id="cats"></div>
+
+  <div class="score-bar" id="scoreBar">
+    <div>
+      <div class="sb-label">目前得分</div>
+      <div class="sb-val" id="scoreVal">0 / 0</div>
+    </div>
+    <div class="sb-sep"></div>
+    <div style="flex:1;">
+      <div class="sb-label" style="margin-bottom:6px;">答題進度</div>
+      <div class="pb-wrap"><div class="pb-fill" id="pbFill" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <div class="result-banner" id="resultBanner">
+    <div class="rb-score" id="rbScore"></div>
+    <div class="rb-msg" id="rbMsg"></div>
+    <button class="rb-btn" onclick="resetQuiz()">🔄 重新練習這個主題</button>
+  </div>
+
+  <div class="q-grid" id="qGrid"></div>
+
+  <div class="done-cta" id="doneCta">
+    <p style="color:var(--text-md);margin-bottom:16px;font-weight:700;">所有題目都做完了！</p>
+    <button class="submit-all" onclick="showResult()">查看成績 →</button>
+  </div>
+</main>
+
+<footer>
+  <div class="f-logo">Ray's <span>English</span> Corner</div>
+  <p>© 2025 Ray's English Corner · 雷康誠老師 · 0958-938-383</p>
+</footer>
+
+<script>
+const bank = {
+  'Both / Two / All / Each': [
+    {q:'I have two brothers. _____ of them are on the baseball team.',opts:['All','Both','Each','One'],ans:1,exp:'Both ＝ 剛好兩個、兩個都。只有兩個兄弟，兩個都在隊上 → Both。'},
+    {q:'There are three boys playing in the park. _____ of them look very happy.',opts:['Both','All','Much','One'],ans:1,exp:'All ＝ 三個或以上的全部。三個男孩三個都很開心 → All。'},
+    {q:'_____ of his hands were dirty after he cleaned the kitchen.',opts:['All','Both','Every','Each'],ans:1,exp:'手只有兩隻，兩隻都髒了 → Both。'},
+    {q:'_____ of the bread on the table is cold. Let\'s heat it up.',opts:['Some','Two','Many','Both'],ans:0,exp:'bread 是不可數名詞，不能用 Two/Both/Many。Some of the bread（一些麵包）+ 不可數 → is。'},
+    {q:'One of my favorite recipes for a cough _____ honey with lemon.',opts:['am','are','is','be'],ans:2,exp:'One of... 主詞是 One（單數）→ 動詞用 is。'},
+    {q:'_____ of my parents drink a lot of water every day.',opts:['All','Both','Much','One'],ans:1,exp:'父母剛好兩人，兩人都 → Both。Both 搭配複數動詞 drink。'},
+    {q:'_____ of the books has a number. You can find them easily.',opts:['All','Both','Each','Two'],ans:2,exp:'Every book has a number，一本一本都有編號 → Each（單數 → has）。'},
+    {q:'Look at the soccer players! Two of them _____ eating burgers.',opts:['is','are','has','have'],ans:1,exp:'Two of them 是複數主詞（兩個人）→ are。'},
+    {q:'How _____ of the boys know the answer? Two of them do.',opts:['many','much','little','few'],ans:0,exp:'boys 是可數複數，問數量用 how many。'},
+    {q:'How much of the money comes from your wife? _____ of it comes from her.',opts:['Two','Both','Half','Many'],ans:2,exp:'money 不可數，不能用 Two/Both/Many。Half（一半）是正確的不可數數量詞。'},
+  ],
+  '可數 vs 不可數 & 數量詞': [
+    {q:'Much of the news on TV _____ not true.',opts:['is','are','do','does'],ans:0,exp:'news 雖有 s，仍是不可數名詞 → 動詞用 is。'},
+    {q:'All of the music _____ beautiful. I love it!',opts:['sound','sounds','sounding','to sound'],ans:1,exp:'music 不可數 → 動詞單數 → sounds。'},
+    {q:'I have a lot of homework today. Most of it _____ very difficult.',opts:['is','are','has','have'],ans:0,exp:'homework 不可數 → Most of it → is。'},
+    {q:'Some of the information you gave me _____ very useful.',opts:['are','is','am','be'],ans:1,exp:'information 不可數 → is。'},
+    {q:'How _____ money do you have?',opts:['many','much','few','little'],ans:1,exp:'money 不可數 → how much（不用 how many）。'},
+    {q:'Two of the students didn\'t finish their _____.',opts:['homeworks','homework','homeworking','homework\'s'],ans:1,exp:'homework 是不可數名詞，沒有複數形，永遠都是 homework。'},
+    {q:'The good news _____ that no one was hurt in the accident.',opts:['is','are','has','have'],ans:0,exp:'news 不可數 → is。'},
+    {q:'There _____ some money on the table. Is it yours?',opts:['is','are','am','be'],ans:0,exp:'money 不可數 → There is。'},
+  ],
+  'a few / few / a little / little': [
+    {q:'I have _____ time, so let\'s talk and have a cup of coffee.',opts:['a few','few','a little','little'],ans:2,exp:'time 不可數 → 排除 a few/few。有時間可以聊天 → 夠用 → a little（好消息）。'},
+    {q:'I have _____ time left. I must go now, or I will be late!',opts:['a few','few','a little','little'],ans:3,exp:'time 不可數 → 排除 a few/few。快遲到了 → 幾乎沒有 → little（壞消息）。'},
+    {q:'The test was very hard. _____ students passed it.',opts:['A few','Few','A little','Little'],ans:1,exp:'students 可數 → 排除 a little/little。考試很難，幾乎沒人過 → Few（壞消息）。'},
+    {q:'He is very shy and has _____ friends, so he often feels lonely.',opts:['a few','few','a little','little'],ans:1,exp:'friends 可數 → 排除 a little/little。常感到孤獨 → 朋友幾乎沒有 → few（壞消息）。'},
+    {q:'Can you give me _____ water? I am very thirsty.',opts:['a few','few','a little','little'],ans:2,exp:'water 不可數 → 排除 a few/few。請給我一點水 → 夠了就好 → a little（好消息）。'},
+    {q:'There is _____ milk left in the fridge. We can\'t make the cake.',opts:['a few','few','a little','little'],ans:3,exp:'milk 不可數 → 排除 a few/few。沒辦法做蛋糕 → 幾乎沒有 → little（壞消息）。'},
+    {q:'I have _____ dollars, so I can buy you a drink.',opts:['a few','few','a little','little'],ans:0,exp:'dollars 可數 → 排除 a little/little。可以買飲料 → 夠用 → a few（好消息）。'},
+    {q:'Very _____ people know about this secret band. They are not famous.',opts:['a few','few','a little','little'],ans:1,exp:'people 可數 → 排除 a little/little。幾乎沒人知道 → few（壞消息）。'},
+    {q:'Let\'s ask Cody. He might know _____ about the science fair.',opts:['a few','few','a little','little'],ans:2,exp:'know 後面接不可數的「知識/資訊」→ a little（他可能知道一點點）。'},
+  ],
+  'Although / Though': [
+    {q:'_____ the food looks delicious, I don\'t want to eat it.',opts:['Because','Although','If','So'],ans:1,exp:'食物好看但我不想吃，兩件事相反 → Although（雖然）。'},
+    {q:'Although he was sick, _____ he still went to work.',opts:['but','so','and','（不需填字）'],ans:3,exp:'Although 和 but 不能同時出現！一句只能留一個，這裡已有 Although，所以不填。'},
+    {q:'Which sentence is correct?',opts:['Although she is rich, but she is not happy.','She is rich, although she is not happy.','Although she is rich, she is not happy.','But she is rich, although she is not happy.'],ans:2,exp:'Although 和 but 不能共存。正確：Although she is rich, she is not happy.'},
+    {q:'He spent hours shopping, _____ he wasn\'t tired at all.',opts:['although','but','so','because'],ans:1,exp:'購物幾小時但不累，已在句末（逗號後），用 but 連接兩件相反的事。'},
+    {q:'_____ it rained this morning, Samuel didn\'t use his umbrella.',opts:['Though','But','So','Because'],ans:0,exp:'下雨了但沒帶傘，兩件事相反 → Though（雖然），功能同 Although。'},
+    {q:'"Although I was late, the teacher wasn\'t mad." 哪一句意思一樣？',opts:['I was late, but the teacher wasn\'t mad.','I was late, although the teacher wasn\'t mad.','But I was late, the teacher wasn\'t mad.','Because I was late, the teacher wasn\'t mad.'],ans:0,exp:'原句重點：老師沒生氣。選項 A 用 but 保留這個結果，意思相同。選項 B 把兩件事對調了。'},
+    {q:'_____ Betty saw the trash on the floor, she didn\'t pick it up.',opts:['Because','If','Though','So'],ans:2,exp:'看到了垃圾但沒撿，相反 → Though（雖然）。'},
+    {q:'They decided to go to the beach _____ it was raining and cold.',opts:['because','even though','but','so'],ans:1,exp:'天氣不好還是去海邊，even though = 即使/雖然，語氣比 although 更強。'},
+  ],
+  '附加問句 & that 子句 & 過去式': [
+    {q:'You are a boy, _____?',opts:['are you','aren\'t you','do you','don\'t you'],ans:1,exp:'前面肯定（are）→ 後面否定（aren\'t）。'},
+    {q:'I got more points than you, _____?',opts:['do I','don\'t I','did I','didn\'t I'],ans:3,exp:'got 是過去式 → 附加問句用 did/didn\'t。前面肯定 → 後面 didn\'t I。'},
+    {q:'The science fair is around the corner, _____?',opts:['is it','isn\'t it','does it','doesn\'t it'],ans:1,exp:'is（現在式 be）→ 附加問句 isn\'t it。'},
+    {q:'Gary was never late for class, _____?（注意 never 是否定詞）',opts:['was he','wasn\'t he','did he','didn\'t he'],ans:0,exp:'never 本身就是否定，所以前面其實是否定意思 → 後面用肯定 was he。'},
+    {q:'Let\'s go sit on the grass, _____?',opts:['will we','shall we','do we','don\'t we'],ans:1,exp:'Let\'s 開頭固定搭配 shall we。'},
+    {q:'I heard _____ her favorite team won the big game.',opts:['this','that','what','which'],ans:1,exp:'heard 後面接事實/訊息，用 that 引導名詞子句：I heard that...'},
+    {q:'What _____ Fred do an hour ago?',opts:['do','does','is','did'],ans:3,exp:'an hour ago 是過去時間 → 疑問句用 did。'},
+    {q:'I _____ my knee during PE class yesterday.',opts:['hurt','hurts','hurting','to hurt'],ans:0,exp:'hurt 的過去式還是 hurt（不規則，原形 = 過去式）。'},
+    {q:'They _____ the running race last weekend.',opts:['win','won','wins','winning'],ans:1,exp:'last weekend 過去時間 → 過去式。win → won（不規則）。'},
+    {q:'Both of them _____ at the bank this morning.',opts:['are','is','was','were'],ans:3,exp:'Both of them 複數主詞，且是 this morning（過去）→ were。'},
+  ],
+};
+
+const catKeys = Object.keys(bank);
+let currentCat = catKeys[0];
+let answered = [];
+let scores = [];
+
+function init(){
+  const catsEl = document.getElementById('cats');
+  catKeys.forEach((k,i) => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn' + (i===0?' active':'');
+    btn.innerHTML = `${k} <span class="cnt">${bank[k].length}</span>`;
+    btn.onclick = () => switchCat(k, btn);
+    catsEl.appendChild(btn);
+  });
+  renderQuiz(currentCat);
+}
+
+function switchCat(key, btn){
+  currentCat = key;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderQuiz(key);
+  window.scrollTo({top: document.querySelector('.cats').offsetTop - 80, behavior:'smooth'});
+}
+
+function renderQuiz(key){
+  const qs = bank[key];
+  answered = new Array(qs.length).fill(false);
+  scores = new Array(qs.length).fill(0);
+  document.getElementById('resultBanner').classList.remove('show');
+  document.getElementById('doneCta').classList.remove('show');
+  updateScore();
+
+  const grid = document.getElementById('qGrid');
+  grid.innerHTML = '';
+  qs.forEach((q, qi) => {
+    const card = document.createElement('div');
+    card.className = 'q-card reveal';
+    card.id = `qc${qi}`;
+    const letters = ['A','B','C','D'];
+    const optsHtml = q.opts.map((o,oi) =>
+      `<button class="q-opt" id="opt${qi}_${oi}" onclick="selectOpt(${qi},${oi})">(${letters[oi]}) ${o}</button>`
+    ).join('');
+    card.innerHTML = `
+      <div class="q-meta">
+        <span class="q-num">Q${qi+1}</span>
+        <span class="q-tag">${key}</span>
+      </div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-opts">${optsHtml}</div>
+      <div class="q-exp" id="exp${qi}"></div>
+    `;
+    grid.appendChild(card);
+  });
+
+  // Reveal animation
+  setTimeout(() => {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, {threshold: 0.05});
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  }, 50);
+}
+
+function selectOpt(qi, oi){
+  if(answered[qi]) return;
+  answered[qi] = true;
+  const q = bank[currentCat][qi];
+  const opts = document.querySelectorAll(`[id^="opt${qi}_"]`);
+  opts.forEach(b => b.disabled = true);
+  const exp = document.getElementById(`exp${qi}`);
+
+  if(oi === q.ans){
+    opts[oi].classList.add('correct');
+    exp.textContent = '✓ 答對了！' + q.exp;
+    exp.className = 'q-exp show correct';
+    scores[qi] = 1;
+  } else {
+    opts[oi].classList.add('wrong');
+    opts[q.ans].classList.add('correct');
+    exp.textContent = '✗ 再想想看。' + q.exp;
+    exp.className = 'q-exp show wrong';
+    scores[qi] = 0;
+  }
+  updateScore();
+  if(answered.every(Boolean)){
+    document.getElementById('doneCta').classList.add('show');
+  }
+}
+
+function updateScore(){
+  const total = bank[currentCat].length;
+  const done = answered.filter(Boolean).length;
+  const sc = scores.reduce((a,b)=>a+b,0);
+  document.getElementById('scoreVal').textContent = `${sc} / ${done}`;
+  document.getElementById('pbFill').style.width = (done/total*100)+'%';
+}
+
+function showResult(){
+  const total = bank[currentCat].length;
+  const sc = scores.reduce((a,b)=>a+b,0);
+  const p = sc/total;
+  document.getElementById('rbScore').textContent = `${sc} / ${total}`;
+  const msgs = p>=.9?'太棒了！🎉 這個主題掌握得很好，可以挑戰下一個了！':p>=.7?'做得不錯！😊 有幾題可以再複習一下，再試一次就穩了。':p>=.5?'加油！💪 建議回去看看文法筆記，再重新練習一遍。':'再試一次沒關係！先把文法觀念搞清楚，再來做題目。😊';
+  document.getElementById('rbMsg').textContent = msgs;
+  document.getElementById('resultBanner').classList.add('show');
+  document.getElementById('doneCta').classList.remove('show');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function resetQuiz(){ renderQuiz(currentCat); window.scrollTo({top: document.querySelector('.q-grid').offsetTop - 80, behavior:'smooth'}); }
+
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>教學經歷｜Ray's English Corner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#faf8f2;--cream-d:#ede8d8;--green-dk:#1e4d30;--green-md:#3a7a50;
+    --green-lt:#6db88a;--green-pl:#e2f2e8;--amber:#f5a623;--amber-pl:#fff8ec;
+    --warm:#e07850;--warm-pl:#fdf0ea;--sky:#4a9ebb;--sky-pl:#eaf4f9;
+    --text:#1a2a1a;--text-md:#466046;--text-lt:#7a9a7a;--border:#d5cbb5;--white:#ffffff;
+    --sh:0 4px 20px rgba(30,77,48,.10);--sh-lg:0 12px 48px rgba(30,77,48,.15);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text);line-height:1.75;overflow-x:hidden;}
+  ::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-track{background:var(--cream-d);} ::-webkit-scrollbar-thumb{background:var(--green-lt);border-radius:99px;}
+
+  nav{position:sticky;top:0;z-index:100;background:rgba(250,248,242,0.94);backdrop-filter:blur(14px);border-bottom:1.5px solid var(--border);padding:0 5%;height:58px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--green-dk);text-decoration:none;}
+  .nav-logo .dot{color:var(--warm);}
+  .nav-links{display:flex;gap:1.6rem;list-style:none;}
+  .nav-links a{text-decoration:none;color:var(--text-md);font-size:0.86rem;font-weight:800;letter-spacing:0.04em;transition:color .18s;position:relative;}
+  .nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:2px;background:var(--amber);border-radius:99px;transform:scaleX(0);transition:transform .2s;}
+  .nav-links a:hover{color:var(--green-dk);} .nav-links a:hover::after{transform:scaleX(1);}
+  .nav-links a.active{color:var(--green-dk);} .nav-links a.active::after{transform:scaleX(1);}
+
+  .page-hero{background:var(--green-dk);padding:64px 5% 56px;text-align:center;position:relative;overflow:hidden;}
+  .page-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:24px 24px;}
+  .page-hero .eyebrow{font-size:.74rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--green-lt);margin-bottom:10px;}
+  .page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#fff;margin-bottom:14px;}
+  .page-hero p{color:rgba(255,255,255,.65);max-width:520px;margin:0 auto;font-size:1rem;}
+
+  main{max-width:1100px;margin:0 auto;padding:56px 5% 80px;}
+
+  /* Stats row */
+  .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:52px;}
+  .stat-card{background:var(--white);border:1.5px solid var(--border);border-radius:18px;padding:22px 20px;text-align:center;box-shadow:var(--sh);}
+  .stat-card .sn{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--green-dk);line-height:1;}
+  .stat-card .sl{font-size:.8rem;color:var(--text-lt);font-weight:800;margin-top:5px;}
+  .stat-card .si{font-size:1.6rem;margin-bottom:8px;}
+
+  /* Section */
+  .sec{margin-bottom:52px;}
+  .sec-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+  .sec-icon{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+  .sec-icon.green{background:var(--green-pl);}
+  .sec-icon.amber{background:var(--amber-pl);}
+  .sec-icon.warm{background:var(--warm-pl);}
+  .sec-icon.sky{background:var(--sky-pl);}
+  .sec-title{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:var(--green-dk);}
+  .sec-sub{font-size:.85rem;color:var(--text-lt);font-weight:700;margin-top:2px;}
+
+  /* Current positions */
+  .pos-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .pos-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:20px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--sh);transition:transform .2s,box-shadow .2s;}
+  .pos-card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);}
+  .pos-dot{width:10px;height:10px;border-radius:50%;margin-top:6px;flex-shrink:0;}
+  .pos-dot.green{background:var(--green-md);}
+  .pos-dot.amber{background:var(--amber);}
+  .pos-school{font-weight:900;color:var(--green-dk);font-size:.97rem;}
+  .pos-role{font-size:.85rem;color:var(--text-md);margin-top:2px;}
+  .pos-badge{display:inline-block;font-size:.73rem;font-weight:800;padding:2px 9px;border-radius:99px;margin-top:6px;}
+  .pb-now{background:var(--green-pl);color:var(--green-dk);}
+  .pb-online{background:var(--sky-pl);color:#2a6080;}
+
+  /* Tutoring table by level */
+  .level-block{margin-bottom:28px;}
+  .level-title{font-size:.8rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--text-lt);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+  .level-title::after{content:'';flex:1;height:1px;background:var(--border);}
+  .student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
+  .student-chip{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;font-size:.88rem;transition:border-color .18s,background .18s;}
+  .student-chip:hover{border-color:var(--green-lt);background:var(--green-pl);}
+  .sc-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;}
+  .sc-icon.g1{background:var(--green-pl);}
+  .sc-icon.g2{background:var(--amber-pl);}
+  .sc-icon.g3{background:var(--warm-pl);}
+  .sc-icon.g4{background:var(--sky-pl);}
+  .sc-name{font-weight:800;color:var(--text);font-size:.88rem;}
+  .sc-type{font-size:.78rem;color:var(--text-lt);}
+
+  /* Work history timeline */
+  .timeline{position:relative;padding-left:28px;}
+  .timeline::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--border);border-radius:99px;}
+  .tl-item{position:relative;margin-bottom:24px;}
+  .tl-item::before{content:'';position:absolute;left:-24px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--green-md);border:2px solid var(--white);box-shadow:0 0 0 2px var(--green-lt);}
+  .tl-period{font-size:.78rem;font-weight:900;color:var(--text-lt);letter-spacing:.06em;margin-bottom:4px;}
+  .tl-title{font-weight:900;color:var(--green-dk);font-size:.97rem;}
+  .tl-desc{font-size:.88rem;color:var(--text-md);margin-top:2px;}
+
+  /* Activity chips */
+  .act-grid{display:flex;flex-wrap:wrap;gap:10px;}
+  .act-chip{display:flex;align-items:center;gap:8px;background:var(--white);border:1.5px solid var(--border);border-radius:50px;padding:9px 18px;font-size:.88rem;font-weight:800;color:var(--text-md);box-shadow:var(--sh);}
+  .act-chip .ac-icon{font-size:1rem;}
+
+  footer{background:var(--green-dk);color:rgba(255,255,255,.65);text-align:center;padding:32px 5%;font-size:.85rem;line-height:1.9;}
+  .f-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:5px;}
+  .f-logo span{color:var(--amber);}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease;}
+  .reveal.visible{opacity:1;transform:none;}
+  .d1{transition-delay:.1s;} .d2{transition-delay:.2s;} .d3{transition-delay:.3s;}
+
+  @media(max-width:900px){.stats-row{grid-template-columns:1fr 1fr;} .pos-grid{grid-template-columns:1fr;} .nav-links{display:none;}}
+  @media(max-width:500px){.stats-row{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="rays-english-corner.html" class="nav-logo">Ray's <span class="dot">·</span> English Corner</a>
+  <ul class="nav-links">
+    <li><a href="rays-english-corner.html#about">關於 Ray</a></li>
+    <li><a href="rays-english-corner.html#courses">課程</a></li>
+    <li><a href="experience.html" class="active">教學經歷</a></li>
+    <li><a href="practice.html">線上練習</a></li>
+    <li><a href="rays-english-corner.html#contact">聯絡我</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="eyebrow">Teaching Experience</div>
+  <h1>教學經歷 📋</h1>
+  <p>四年多的教學資歷，從國小到大學，從家教到補習班授課，每個學生都是獨一無二的挑戰。</p>
+</div>
+
+<main>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card reveal"><div class="si">📅</div><div class="sn">4+</div><div class="sl">年教學經驗</div></div>
+    <div class="stat-card reveal d1"><div class="si">🎓</div><div class="sn">30+</div><div class="sl">累積家教學生</div></div>
+    <div class="stat-card reveal d2"><div class="si">🏫</div><div class="sn">5</div><div class="sl">補習班 / 學校任職</div></div>
+    <div class="stat-card reveal d3"><div class="si">🌏</div><div class="sn">970</div><div class="sl">多益分數</div></div>
+  </div>
+
+  <!-- 現任補習班 -->
+  <div class="sec reveal">
+    <div class="sec-header">
+      <div class="sec-icon green">🏫</div>
+      <div>
+        <div class="sec-title">補習班 / 學校（現任）</div>
+        <div class="sec-sub">目前正在授課的單位</div>
+      </div>
+    </div>
+    <div class="pos-grid">
+      <div class="pos-card">
+        <div class="pos-dot green"></div>
+        <div>
+          <div class="pos-school">汐止北大國小英文補習班</div>
+          <div class="pos-role">英文授課教師</div>
+          <span class="pos-badge pb-now">現任</span>
+        </div>
+      </div>
+      <div class="pos-card">
+        <div class="pos-dot amber"></div>
+        <div>
+          <div class="pos-school">彰化勉德補習班</div>
+          <div class="pos-role">明道中學出題老師</div>
+          <span class="pos-badge pb-now">現任</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 現任家教 -->
+  <div class="sec reveal">
+    <div class="sec-header">
+      <div class="sec-icon amber">👨‍🎓</div>
+      <div>
+        <div class="sec-title">家教（現任學生）</div>
+        <div class="sec-sub">目前正在指導的學生</div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-title">🏫 高中</div>
+      <div class="student-grid">
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">北大高中（高一，女）</div><div class="sc-type">高中英文</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">中正高中（高二，女）</div><div class="sc-type">課內加強</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">平鎮高中（高三，男）</div><div class="sc-type">國手英文學習（線上）</div></div></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-title">📐 國中</div>
+      <div class="student-grid">
+        <div class="student-chip"><div class="sc-icon g1">📗</div><div><div class="sc-name">麗山國中（國一，男）</div><div class="sc-type">課內加強</div></div></div>
+        <div class="student-chip"><div class="sc-icon g1">📗</div><div><div class="sc-name">麗山國中（國一，男）</div><div class="sc-type">課內加強</div></div></div>
+        <div class="student-chip"><div class="sc-icon g1">📗</div><div><div class="sc-name">慧燈中學（國一，男）</div><div class="sc-type">課內加強（線上）</div></div></div>
+        <div class="student-chip"><div class="sc-icon g1">📗</div><div><div class="sc-name">土城國中（國一，男）</div><div class="sc-type">興趣培養</div></div></div>
+        <div class="student-chip"><div class="sc-icon g1">📗</div><div><div class="sc-name">板橋國中（國二，女）</div><div class="sc-type">課內加強</div></div></div>
+        <div class="student-chip"><div class="sc-icon g1">📗</div><div><div class="sc-name">鶯歌國中（國二，男）</div><div class="sc-type">課內加強</div></div></div>
+        <div class="student-chip"><div class="sc-icon g1">📗</div><div><div class="sc-name">慧燈中學（國二，男）</div><div class="sc-type">課內加強（線上）</div></div></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-title">🌱 國小</div>
+      <div class="student-grid">
+        <div class="student-chip"><div class="sc-icon g4">📙</div><div><div class="sc-name">土城國小（小三，男）</div><div class="sc-type">英文培養</div></div></div>
+        <div class="student-chip"><div class="sc-icon g4">📙</div><div><div class="sc-name">鶯歌國小（小六，男）</div><div class="sc-type">英文培養</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 曾任家教 -->
+  <div class="sec reveal">
+    <div class="sec-header">
+      <div class="sec-icon warm">📁</div>
+      <div>
+        <div class="sec-title">家教（曾任學生）</div>
+        <div class="sec-sub">過去指導過的學生紀錄</div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-title">🎓 大學</div>
+      <div class="student-grid">
+        <div class="student-chip"><div class="sc-icon g3">📕</div><div><div class="sc-name">臺大化工（大一，女）</div><div class="sc-type">學測重考・英文作文指導</div></div></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-title">🏫 高中職</div>
+      <div class="student-grid">
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">樹林高中（高三，男）</div><div class="sc-type">學測英文準備</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">育成高中（高三，女）</div><div class="sc-type">學測英文準備</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">基隆商工（高二∼高三，男）</div><div class="sc-type">文法、單字學習</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">二信高中（高三，女）×2</div><div class="sc-type">統測準備</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">明德高中（高三，男）</div><div class="sc-type">學測加強</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">大同高中（高三，男）</div><div class="sc-type">學測加強</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">華僑高中（高三，女）</div><div class="sc-type">學測加強</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">南山高中（高三，男）</div><div class="sc-type">學測準備</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">華興高中（高三，男）</div><div class="sc-type">學測準備</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">中正高中（高三，男）</div><div class="sc-type">學測準備</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">松山高中（高三，男）</div><div class="sc-type">學測準備</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">金甄女中（高三，女）</div><div class="sc-type">英文面試準備</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">新北高中（高二，男）</div><div class="sc-type">校內課程加強</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">南崁高中（高二，音樂班，女）</div><div class="sc-type">英文加強</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">南山高中（高二，男）</div><div class="sc-type">課內加強</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">振聲高中（高二，男）</div><div class="sc-type">課內加強</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">大安高工（高一，男）</div><div class="sc-type">課外補充・興趣培養</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">建國中學（高一，男）</div><div class="sc-type">英文學習建議・課程掌握</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">辭修高中（高一，男）</div><div class="sc-type">課內加強</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">華僑高中（高一，女）</div><div class="sc-type">課內加強</div></div></div>
+        <div class="student-chip"><div class="sc-icon g2">📘</div><div><div class="sc-name">大里高中（高一，男）</div><div class="sc-type">校內課程加強</div></div></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-title">📐 國中</div>
+      <div class="student-grid">
+        <div class="student-chip"><div class="sc-icon g1">📗</div><div><div class="sc-name">土城國中（國三，男）</div><div class="sc-type">會考複習</div></div></div>
+        <div class="student-chip"><div class="sc-icon g1">📗</div><div><div class="sc-name">三峽國中（國三，男）</div><div class="sc-type">會考複習</div></div></div>
+        <div class="student-chip"><div class="sc-icon g1">📗</div><div><div class="sc-name">南山國中（國二，女）</div><div class="sc-type">國高中程度培養（指導三年）</div></div></div>
+        <div class="student-chip"><div class="sc-icon g1">📗</div><div><div class="sc-name">東山國中（國一，男）</div><div class="sc-type">課內加強</div></div></div>
+      </div>
+    </div>
+
+    <div class="level-block">
+      <div class="level-title">🌱 國小</div>
+      <div class="student-grid">
+        <div class="student-chip"><div class="sc-icon g4">📙</div><div><div class="sc-name">康橋國際學校（國際部四年級，女）</div><div class="sc-type">陪讀英文</div></div></div>
+        <div class="student-chip"><div class="sc-icon g4">📙</div><div><div class="sc-name">康橋國際學校（國際部二年級，男）</div><div class="sc-type">陪讀英文</div></div></div>
+        <div class="student-chip"><div class="sc-icon g4">📙</div><div><div class="sc-name">桃子腳國小（小一，男）</div><div class="sc-type">Phonics・繪本閱讀</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 工作經歷 -->
+  <div class="sec reveal">
+    <div class="sec-header">
+      <div class="sec-icon sky">💼</div>
+      <div>
+        <div class="sec-title">工作經歷</div>
+        <div class="sec-sub">補習班任職 & 其他英文相關工作</div>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-period">2022.08 – 2023.05</div>
+        <div class="tl-title">快樂瑪莉安兒童美語北大分校</div>
+        <div class="tl-desc">全英語助教兼授課老師</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-period">2022.03 – 2023.03</div>
+        <div class="tl-title">樹林給力一對一補習班</div>
+        <div class="tl-desc">英文授課老師</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-period">2019.03</div>
+        <div class="tl-title">OH! Study 留學展 口譯</div>
+        <div class="tl-desc">代表加州州立大學東灣分校（California State University – East Bay）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 活動經歷 -->
+  <div class="sec reveal">
+    <div class="sec-header">
+      <div class="sec-icon green">🌟</div>
+      <div>
+        <div class="sec-title">其他經歷</div>
+        <div class="sec-sub">課外活動 & 志工服務</div>
+      </div>
+    </div>
+    <div class="act-grid">
+      <div class="act-chip"><span class="ac-icon">🌏</span> 尼泊爾塔納胡區衛教課程英文授課志工</div>
+      <div class="act-chip"><span class="ac-icon">🏀</span> 系男籃隊長</div>
+      <div class="act-chip"><span class="ac-icon">🎬</span> 畢業公演副導演</div>
+      <div class="act-chip"><span class="ac-icon">🎥</span> 微電影競賽副導演（佳作）</div>
+      <div class="act-chip"><span class="ac-icon">📖</span> 北大翻譯計畫</div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="f-logo">Ray's <span>English</span> Corner</div>
+  <p>© 2025 Ray's English Corner · 雷康誠老師 · 0958-938-383</p>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, {threshold:.08});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
