@@ -155,61 +155,49 @@
 
 <script>
 const bank = {
-  'Both / Two / All / Each': [
-    {q:'I have two brothers. _____ of them are on the baseball team.',opts:['All','Both','Each','One'],ans:1,exp:'Both ＝ 剛好兩個、兩個都。只有兩個兄弟，兩個都在隊上 → Both。'},
-    {q:'There are three boys playing in the park. _____ of them look very happy.',opts:['Both','All','Much','One'],ans:1,exp:'All ＝ 三個或以上的全部。三個男孩三個都很開心 → All。'},
-    {q:'_____ of his hands were dirty after he cleaned the kitchen.',opts:['All','Both','Every','Each'],ans:1,exp:'手只有兩隻，兩隻都髒了 → Both。'},
-    {q:'_____ of the bread on the table is cold. Let\'s heat it up.',opts:['Some','Two','Many','Both'],ans:0,exp:'bread 是不可數名詞，不能用 Two/Both/Many。Some of the bread（一些麵包）+ 不可數 → is。'},
-    {q:'One of my favorite recipes for a cough _____ honey with lemon.',opts:['am','are','is','be'],ans:2,exp:'One of... 主詞是 One（單數）→ 動詞用 is。'},
-    {q:'_____ of my parents drink a lot of water every day.',opts:['All','Both','Much','One'],ans:1,exp:'父母剛好兩人，兩人都 → Both。Both 搭配複數動詞 drink。'},
-    {q:'_____ of the books has a number. You can find them easily.',opts:['All','Both','Each','Two'],ans:2,exp:'Every book has a number，一本一本都有編號 → Each（單數 → has）。'},
-    {q:'Look at the soccer players! Two of them _____ eating burgers.',opts:['is','are','has','have'],ans:1,exp:'Two of them 是複數主詞（兩個人）→ are。'},
-    {q:'How _____ of the boys know the answer? Two of them do.',opts:['many','much','little','few'],ans:0,exp:'boys 是可數複數，問數量用 how many。'},
-    {q:'How much of the money comes from your wife? _____ of it comes from her.',opts:['Two','Both','Half','Many'],ans:2,exp:'money 不可數，不能用 Two/Both/Many。Half（一半）是正確的不可數數量詞。'},
+  '觀念 1–2：數量不定代名詞': [
+    {q:"1. I have two brothers. _____ of them are on the baseball team.",opts:["All","Both","Each","One"],ans:1,exp:"前句提到「two brothers（兩個兄弟）」，指「兩者都...」時需使用 both。All 用於三者或三者以上；Each 強調個別（動詞需配單數）；One 指其中一個（動詞需配單數）。後方動詞為 are，故選 Both。"},
+    {q:"2. _____ of the books has a number. You can find them easily.",opts:["All","Both","Each","Two"],ans:2,exp:"注意動詞是單數的 has。All, Both, Two 若當主詞指代複數名詞時，動詞都必須是複數（have）。只有 Each（每一個）視為單數，搭配 has。"},
+    {q:"3. There are three boys playing in the park. _____ of them look very happy.",opts:["Both","All","Much","One"],ans:1,exp:"前句提到「three boys（三個男孩）」，指「三者或以上都...」必須使用 All。Both 只用於兩者。動詞 look 是複數動詞，排除 One。"},
+    {q:"4. _____ of his hands were dirty after he cleaned the kitchen.",opts:["All","Both","Every","Each"],ans:1,exp:"人只有「兩隻」手，指「兩者都...」用 Both。動詞 were 也是複數。注意 Every 不能單獨當代名詞使用（不可接 of）。"},
+    {q:"5. Look at the soccer players! Two of them _____ eating burgers.",opts:["is","are","has","have"],ans:1,exp:"主詞是 Two（兩個人），為複數，配合現在進行式 (eating)，需使用 Be 動詞複數 are。"},
+    {q:"6. A: How _____ of the boys know the answer? B: Two of them do.",opts:["many","much","little","few"],ans:0,exp:"the boys 是可數名詞，詢問「多少個（人）」要用 How many。How much 用於不可數名詞。"},
+    {q:"7. One of my favorite recipes for a cough _____ honey with lemon.",opts:["am","are","is","be"],ans:2,exp:"這是常見陷阱題！真正的主詞是句首的 One（其中一個），後面的 \"of my favorite recipes for a cough\" 只是修飾語。主詞是單數 One，所以 Be 動詞要配 is。"},
+    {q:"8. Five of my classmates _____ NBA games every weekend.",opts:["watch","watches","watching","to watch"],ans:0,exp:"真正的主詞是 Five（五個人），為複數主詞。表示習慣動作（every weekend）用現在簡單式，複數主詞搭配原形動詞 watch。"},
+    {q:"9. _____ of my parents drink a lot of water every day.",opts:["All","Both","Much","One"],ans:1,exp:"parents（雙親）固定為「兩個人」，指兩人皆是，所以使用 Both。動詞 drink 為複數動詞，也可排除 One。"},
+    {q:"10. Many of the students _____ a sore throat today.",opts:["has","have","is","are"],ans:1,exp:"主詞是 Many（許多人），為複數主詞。「有」喉嚨痛要用一般動詞 have，且配複數主詞不加 s。"}
   ],
-  '可數 vs 不可數 & 數量詞': [
-    {q:'Much of the news on TV _____ not true.',opts:['is','are','do','does'],ans:0,exp:'news 雖有 s，仍是不可數名詞 → 動詞用 is。'},
-    {q:'All of the music _____ beautiful. I love it!',opts:['sound','sounds','sounding','to sound'],ans:1,exp:'music 不可數 → 動詞單數 → sounds。'},
-    {q:'I have a lot of homework today. Most of it _____ very difficult.',opts:['is','are','has','have'],ans:0,exp:'homework 不可數 → Most of it → is。'},
-    {q:'Some of the information you gave me _____ very useful.',opts:['are','is','am','be'],ans:1,exp:'information 不可數 → is。'},
-    {q:'How _____ money do you have?',opts:['many','much','few','little'],ans:1,exp:'money 不可數 → how much（不用 how many）。'},
-    {q:'Two of the students didn\'t finish their _____.',opts:['homeworks','homework','homeworking','homework\'s'],ans:1,exp:'homework 是不可數名詞，沒有複數形，永遠都是 homework。'},
-    {q:'The good news _____ that no one was hurt in the accident.',opts:['is','are','has','have'],ans:0,exp:'news 不可數 → is。'},
-    {q:'There _____ some money on the table. Is it yours?',opts:['is','are','am','be'],ans:0,exp:'money 不可數 → There is。'},
+  '觀念 3：可數 vs 不可數名詞的陷阱': [
+    {q:"11. Much of the news on TV _____ not true.",opts:["is","are","do","does"],ans:0,exp:"news（新聞）是不可數名詞（字尾的 s 不是複數），不可數名詞永遠視為單數，因此配合單數 Be 動詞 is。"},
+    {q:"12. All of the music _____ beautiful. I love it!",opts:["sound","sounds","sounding","to sound"],ans:1,exp:"music（音樂）是不可數名詞。雖然前面有 All，但 All of + 不可數名詞，整體仍視為單數。因此動詞 sound 必須加上 s 變成 sounds（聽起來）。"},
+    {q:"13. I have a lot of homework today. Most of it _____ very difficult.",opts:["is","are","has","have"],ans:0,exp:"it 代替前面的 homework，homework 為不可數名詞，故 Most of it 也視為單數，搭配 is。"},
+    {q:"14. Some of the information you gave me _____ very useful for our plan.",opts:["are","is","am","be"],ans:1,exp:"information（資訊）在英文中是不可數名詞。Some of + 不可數名詞，視為單數，搭配 is。"},
+    {q:"15. I need to buy a new computer. How _____ money do you have?",opts:["many","much","few","little"],ans:1,exp:"money（金錢）是不可數名詞，詢問「多少（錢）」必須使用 How much。"},
+    {q:"16. Two of the students didn't finish their _____.",opts:["homeworks","homework","homeworking","homework's"],ans:1,exp:"這題考基本觀念。homework 是不可數名詞，字尾絕對不可以加 s。"},
+    {q:"17. The good news _____ that no one was hurt in the accident.",opts:["is","are","has","have"],ans:0,exp:"news 是不可數名詞，視為單數。"},
+    {q:"18. _____ of the bread on the table is cold. Let's heat it up.",opts:["Some","Two","Many","Both"],ans:0,exp:"bread（麵包）是不可數名詞。Two, Many, Both 都只能用來修飾「可數名詞複數」。只有 Some 可以同時修飾可數或不可數名詞。"}
   ],
-  'a few / few / a little / little': [
-    {q:'I have _____ time, so let\'s talk and have a cup of coffee.',opts:['a few','few','a little','little'],ans:2,exp:'time 不可數 → 排除 a few/few。有時間可以聊天 → 夠用 → a little（好消息）。'},
-    {q:'I have _____ time left. I must go now, or I will be late!',opts:['a few','few','a little','little'],ans:3,exp:'time 不可數 → 排除 a few/few。快遲到了 → 幾乎沒有 → little（壞消息）。'},
-    {q:'The test was very hard. _____ students passed it.',opts:['A few','Few','A little','Little'],ans:1,exp:'students 可數 → 排除 a little/little。考試很難，幾乎沒人過 → Few（壞消息）。'},
-    {q:'He is very shy and has _____ friends, so he often feels lonely.',opts:['a few','few','a little','little'],ans:1,exp:'friends 可數 → 排除 a little/little。常感到孤獨 → 朋友幾乎沒有 → few（壞消息）。'},
-    {q:'Can you give me _____ water? I am very thirsty.',opts:['a few','few','a little','little'],ans:2,exp:'water 不可數 → 排除 a few/few。請給我一點水 → 夠了就好 → a little（好消息）。'},
-    {q:'There is _____ milk left in the fridge. We can\'t make the cake.',opts:['a few','few','a little','little'],ans:3,exp:'milk 不可數 → 排除 a few/few。沒辦法做蛋糕 → 幾乎沒有 → little（壞消息）。'},
-    {q:'I have _____ dollars, so I can buy you a drink.',opts:['a few','few','a little','little'],ans:0,exp:'dollars 可數 → 排除 a little/little。可以買飲料 → 夠用 → a few（好消息）。'},
-    {q:'Very _____ people know about this secret band. They are not famous.',opts:['a few','few','a little','little'],ans:1,exp:'people 可數 → 排除 a little/little。幾乎沒人知道 → few（壞消息）。'},
-    {q:'Let\'s ask Cody. He might know _____ about the science fair.',opts:['a few','few','a little','little'],ans:2,exp:'know 後面接不可數的「知識/資訊」→ a little（他可能知道一點點）。'},
+  '觀念 4：a few / few / a little / little': [
+    {q:"19. I have _____ time, so let's talk and have a cup of coffee.",opts:["a few","few","a little","little"],ans:2,exp:"time 是不可數名詞，先排除 a few / few。後半句說「那我們來聊天喝咖啡吧」，代表時間是「有一點；足夠的」，偏肯定語氣，故選 a little。"},
+    {q:"20. I have _____ time left. I must go now, or I will be late!",opts:["a few","few","a little","little"],ans:3,exp:"time 為不可數名詞。後半句說「我現在必須走了，不然會遲到」，代表時間「幾乎沒有了」，偏否定語氣，故選 little。"},
+    {q:"21. The test was very hard. _____ students passed it.",opts:["A few","Few","A little","Little"],ans:1,exp:"students 是可數名詞，先排除 a little / little。前半句說「考試非常難」，代表通過的學生「幾乎沒有；很少」，否定語氣，故選 Few。"},
+    {q:"22. He is very shy and has _____ friends, so he often feels lonely.",opts:["a few","few","a little","little"],ans:1,exp:"friends 是可數名詞。後半句說「他經常覺得孤單」，代表朋友「幾乎沒有」，故選 few。"},
+    {q:"23. Can you give me _____ water? I am very thirsty.",opts:["a few","few","a little","little"],ans:2,exp:"water 是不可數名詞。跟別人要水喝，是希望對方給「一些」，有 a 才有東西，故選 a little。"},
+    {q:"24. There is _____ milk left in the fridge. We can't make the cake.",opts:["a few","few","a little","little"],ans:3,exp:"milk 是不可數名詞。後半句說「我們沒辦法做蛋糕了」，代表牛奶「幾乎沒剩下了」，否定語氣，故選 little。"},
+    {q:"25. I have _____ dollars, so I can buy you a drink.",opts:["a few","few","a little","little"],ans:0,exp:"dollars（元）是有加 s 的可數名詞（注意 money 才是不可數）。後半句說「我可以買飲料請你」，代表錢「有幾個；足夠」，肯定語氣，故選 a few。"},
+    {q:"26. Very _____ people know about this secret band. They are not famous.",opts:["a few","few","a little","little"],ans:1,exp:"people（人們）是複數可數名詞。後半句說「他們不出名」，代表知道的人「幾乎沒有」，故搭配 few。"},
+    {q:"27. Let's ask Cody. He might know _____ about the science fair.",opts:["a few","few","a little","little"],ans:2,exp:"這裡省略了名詞 things 或 information。指代知道「一些事情/資訊」用 a little 修飾抽象程度。"}
   ],
-  'Although / Though': [
-    {q:'_____ the food looks delicious, I don\'t want to eat it.',opts:['Because','Although','If','So'],ans:1,exp:'食物好看但我不想吃，兩件事相反 → Although（雖然）。'},
-    {q:'Although he was sick, _____ he still went to work.',opts:['but','so','and','（不需填字）'],ans:3,exp:'Although 和 but 不能同時出現！一句只能留一個，這裡已有 Although，所以不填。'},
-    {q:'Which sentence is correct?',opts:['Although she is rich, but she is not happy.','She is rich, although she is not happy.','Although she is rich, she is not happy.','But she is rich, although she is not happy.'],ans:2,exp:'Although 和 but 不能共存。正確：Although she is rich, she is not happy.'},
-    {q:'He spent hours shopping, _____ he wasn\'t tired at all.',opts:['although','but','so','because'],ans:1,exp:'購物幾小時但不累，已在句末（逗號後），用 but 連接兩件相反的事。'},
-    {q:'_____ it rained this morning, Samuel didn\'t use his umbrella.',opts:['Though','But','So','Because'],ans:0,exp:'下雨了但沒帶傘，兩件事相反 → Though（雖然），功能同 Although。'},
-    {q:'"Although I was late, the teacher wasn\'t mad." 哪一句意思一樣？',opts:['I was late, but the teacher wasn\'t mad.','I was late, although the teacher wasn\'t mad.','But I was late, the teacher wasn\'t mad.','Because I was late, the teacher wasn\'t mad.'],ans:0,exp:'原句重點：老師沒生氣。選項 A 用 but 保留這個結果，意思相同。選項 B 把兩件事對調了。'},
-    {q:'_____ Betty saw the trash on the floor, she didn\'t pick it up.',opts:['Because','If','Though','So'],ans:2,exp:'看到了垃圾但沒撿，相反 → Though（雖然）。'},
-    {q:'They decided to go to the beach _____ it was raining and cold.',opts:['because','even though','but','so'],ans:1,exp:'天氣不好還是去海邊，even though = 即使/雖然，語氣比 although 更強。'},
-  ],
-  '附加問句 & that 子句 & 過去式': [
-    {q:'You are a boy, _____?',opts:['are you','aren\'t you','do you','don\'t you'],ans:1,exp:'前面肯定（are）→ 後面否定（aren\'t）。'},
-    {q:'I got more points than you, _____?',opts:['do I','don\'t I','did I','didn\'t I'],ans:3,exp:'got 是過去式 → 附加問句用 did/didn\'t。前面肯定 → 後面 didn\'t I。'},
-    {q:'The science fair is around the corner, _____?',opts:['is it','isn\'t it','does it','doesn\'t it'],ans:1,exp:'is（現在式 be）→ 附加問句 isn\'t it。'},
-    {q:'Gary was never late for class, _____?（注意 never 是否定詞）',opts:['was he','wasn\'t he','did he','didn\'t he'],ans:0,exp:'never 本身就是否定，所以前面其實是否定意思 → 後面用肯定 was he。'},
-    {q:'Let\'s go sit on the grass, _____?',opts:['will we','shall we','do we','don\'t we'],ans:1,exp:'Let\'s 開頭固定搭配 shall we。'},
-    {q:'I heard _____ her favorite team won the big game.',opts:['this','that','what','which'],ans:1,exp:'heard 後面接事實/訊息，用 that 引導名詞子句：I heard that...'},
-    {q:'What _____ Fred do an hour ago?',opts:['do','does','is','did'],ans:3,exp:'an hour ago 是過去時間 → 疑問句用 did。'},
-    {q:'I _____ my knee during PE class yesterday.',opts:['hurt','hurts','hurting','to hurt'],ans:0,exp:'hurt 的過去式還是 hurt（不規則，原形 = 過去式）。'},
-    {q:'They _____ the running race last weekend.',opts:['win','won','wins','winning'],ans:1,exp:'last weekend 過去時間 → 過去式。win → won（不規則）。'},
-    {q:'Both of them _____ at the bank this morning.',opts:['are','is','was','were'],ans:3,exp:'Both of them 複數主詞，且是 this morning（過去）→ were。'},
-  ],
+  '觀念 5–6：Although / Though 的用法': [
+    {q:"28. _____ the food looks delicious, I don't want to eat it.",opts:["Because","Although","If","So"],ans:1,exp:"前後句意相反。「雖然」食物看起來好吃，「但是」我不想吃。連接詞填入 Although。"},
+    {q:"29. Although he was sick, _____ he still went to work.",opts:["but","so","and","（無需填字）"],ans:3,exp:"英文文法鐵則：Although 跟 But 一山不容二虎，一句話中只能留一個。前半句已經有 Although，後半句就不能再加 but。"},
+    {q:"30. Which sentence is correct?",opts:["Although she is rich, but she is not happy.","She is rich, although she is not happy.","Although she is rich, she is not happy.","But she is rich, although she is not happy."],ans:2,exp:"犯了 although 和 but 連用的錯誤。正確：「雖然她很有錢，但她不快樂。」"},
+    {q:"31. He spent hours shopping, _____ he wasn't tired at all.",opts:["although","but","so","because"],ans:1,exp:"前半句沒有 Although，且語氣轉折（逛了很久「但是」不累），通常連接兩個獨立子句會在中間放 but，且前方常有逗號。"},
+    {q:"32. _____ it rained this morning, Samuel didn't use his umbrella.",opts:["Though","But","So","Because"],ans:0,exp:"Though 與 Although 用法相同，放句首表示「雖然...」。But 通常不會放在句首引導從屬子句。"},
+    {q:"33. \"Although I was late, the teacher wasn't mad.\" 換句話說等於？",opts:["I was late, but the teacher wasn't mad.","Although I was late, but the teacher wasn't mad.","But I was late, the teacher wasn't mad.","Because I was late, the teacher wasn't mad."],ans:0,exp:"刪除 Although，改在兩個子句中間加上 but，語意完全一樣。"},
+    {q:"34. _____ Betty saw the trash on the floor, she didn't pick it up.",opts:["Because","If","Though","So"],ans:2,exp:"語意測試：「雖然」Betty 看到地上有垃圾，她還是沒有撿起來。"},
+    {q:"35. They decided to go to the beach _____ it was raining and cold.",opts:["because","even though","but","so"],ans:1,exp:"even though 語氣比 though/although 更強烈，表示「即使；儘管」。句意為：他們決定去海邊「即使」天氣又下雨又冷。"}
+  ]
 };
 
 const catKeys = Object.keys(bank);
