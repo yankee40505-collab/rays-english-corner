@@ -4,68 +4,171 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ray's English Corner｜雷老師英文教室</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  :root { --cream: #faf8f2; --green-dk: #1e4d30; --green-md: #3a7a50; --green-pl: #e2f2e8; --amber: #f5a623; --warm: #e07850; --border: #d5cbb5; --white: #ffffff; --sh-lg: 0 12px 48px rgba(30,77,48,0.15); }
-  body { font-family: 'Nunito', sans-serif; background: var(--cream); color: #1a2a1a; margin: 0; }
-  
-  /* 導覽列與下拉選單 */
-  nav { position: sticky; top: 0; z-index: 100; background: rgba(250,248,242,0.94); backdrop-filter: blur(14px); border-bottom: 1.5px solid var(--border); padding: 0 5%; height: 60px; display: flex; align-items: center; justify-content: space-between; }
-  .nav-logo { font-family: 'Playfair Display', serif; font-weight: 900; color: var(--green-dk); text-decoration: none; }
-  .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-  .nav-links a { text-decoration: none; color: #466046; font-weight: 800; font-size: 0.85rem; }
-  .dropdown { position: relative; }
-  .dropdown-content { display: none; position: absolute; top: 40px; left: -10px; background: var(--white); box-shadow: var(--sh-lg); border-radius: 12px; min-width: 160px; flex-direction: column; padding: 10px 0; border: 1.5px solid var(--border); }
-  .dropdown:hover .dropdown-content { display: flex; }
-  .dropdown-content a { padding: 10px 20px !important; color: #466046 !important; }
-  .dropdown-content a:hover { background: var(--green-pl); }
+  :root { --cream: #faf8f2; --cream-d: #ede8d8; --green-dk: #1e4d30; --green-md: #3a7a50; --green-lt: #6db88a; --green-pl: #e2f2e8; --amber: #f5a623; --amber-pl: #fff8ec; --warm: #e07850; --warm-pl: #fdf0ea; --sky: #4a9ebb; --text: #1a2a1a; --text-md: #466046; --text-lt: #7a9a7a; --border: #d5cbb5; --white: #ffffff; --sh: 0 4px 20px rgba(30,77,48,0.10); --sh-lg: 0 12px 48px rgba(30,77,48,0.15); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); line-height: 1.75; overflow-x: hidden; }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--cream-d); }
+  ::-webkit-scrollbar-thumb { background: var(--green-lt); border-radius: 99px; }
 
-  /* 課程區塊 (更新版) */
-  #courses { background: var(--green-dk); padding: 80px 5%; color: #fff; }
-  .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto; }
-  .course-card { background: rgba(255,255,255,0.07); border-radius: 20px; padding: 30px; transition: 0.3s; }
-  .course-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.1); cursor: pointer; }
+  /* ── NAV ── */
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(250,248,242,0.94); backdrop-filter: blur(14px); border-bottom: 1.5px solid var(--border); padding: 0 5%; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 900; color: var(--green-dk); text-decoration: none; letter-spacing: 0.01em; display: flex; align-items: center; gap: 8px; }
+  .nav-logo .dot { color: var(--warm); }
+  .nav-links { display: flex; gap: 1.2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text-md); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.02em; transition: color .18s; position: relative; }
+  .nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; right:0; height:2px; background:var(--amber); border-radius:99px; transform:scaleX(0); transition:transform .2s; }
+  .nav-links a:hover { color: var(--green-dk); }
+  .nav-links a:hover::after { transform:scaleX(1); }
+
+  /* ── 其餘樣式與原本保持一致 ── */
+  #hero { min-height: 94vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 80px 5% 60px; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 80% 60% at 15% 75%, rgba(109,184,138,0.20) 0%, transparent 55%), radial-gradient(ellipse 60% 50% at 85% 25%, rgba(245,166,35,0.13) 0%, transparent 50%), radial-gradient(ellipse 50% 50% at 50% 100%, rgba(224,120,80,0.08) 0%, transparent 50%), var(--cream); }
+  .hero-bg::after { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(30,77,48,0.07) 1px, transparent 1px); background-size: 28px 28px; }
+  .hero-deco { position: absolute; z-index: 0; user-select: none; opacity: 0.06; font-size: 10rem; line-height: 1; }
+  .hero-deco.a { top: 6%; left: 2%; transform: rotate(-15deg); animation: float 6s ease-in-out infinite; }
+  .hero-deco.b { bottom: 8%; right: 3%; transform: rotate(12deg); animation: float 7s ease-in-out infinite .5s; }
+  .hero-deco.c { top: 50%; left: 0.5%; font-size: 5rem; transform: rotate(8deg); animation: float 5s ease-in-out infinite 1s; }
+  @keyframes float { 0%,100% { transform: translateY(0) rotate(-15deg); } 50% { transform: translateY(-14px) rotate(-15deg); } }
+  .hero-content { position: relative; z-index: 1; max-width: 760px; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--green-pl); color: var(--green-dk); font-size: 0.78rem; font-weight: 900; letter-spacing: 0.1em; padding: 6px 18px; border-radius: 99px; margin-bottom: 26px; text-transform: uppercase; border: 1.5px solid rgba(58,122,80,0.2); }
+  .hero-tag .pulse { width: 7px; height: 7px; background: var(--green-md); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(58,122,80,.4);} 50%{box-shadow:0 0 0 6px rgba(58,122,80,0);} }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem, 7vw, 5rem); font-weight: 900; color: var(--green-dk); line-height: 1.08; margin-bottom: 22px; }
+  .hero-title .acc1 { color: var(--warm); font-style: italic; }
+  .hero-title .acc2 { color: var(--amber); }
+  .hero-sub { font-size: 1.05rem; color: var(--text-md); max-width: 540px; margin: 0 auto 36px; line-height: 1.85; }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-p { background: linear-gradient(135deg, var(--green-dk) 0%, var(--green-md) 100%); color: #fff; padding: 13px 34px; border-radius: 50px; font-weight: 900; font-size: 0.93rem; text-decoration: none; box-shadow: 0 6px 20px rgba(30,77,48,0.3); transition: transform .2s, box-shadow .2s; }
+  .btn-p:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(30,77,48,0.35); }
+  .btn-s { background: #fff; color: var(--green-dk); border: 2px solid var(--green-dk); padding: 12px 32px; border-radius: 50px; font-weight: 900; font-size: 0.93rem; text-decoration: none; transition: transform .2s, background .2s, color .2s; }
+  .btn-s:hover { background: var(--green-dk); color: #fff; transform: translateY(-3px); }
+  .hero-badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 46px; }
+  .badge { background: var(--white); border: 1.5px solid var(--border); border-radius: 50px; padding: 8px 20px; display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 800; color: var(--text-md); box-shadow: var(--sh); }
+  .badge .b-icon { font-size: 1.1rem; }
+  .badge .b-num { color: var(--green-dk); font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; }
+  section { padding: 88px 5%; }
+  .section-tag { font-size: 0.74rem; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; color: var(--warm); margin-bottom: 8px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 700; color: var(--green-dk); line-height: 1.25; margin-bottom: 14px; }
+  .section-desc { color: var(--text-md); max-width: 540px; font-size: 0.98rem; line-height: 1.8; }
+  .section-head { margin-bottom: 48px; }
+  .inner { max-width: 1100px; margin: 0 auto; }
+  #about { background: var(--white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 60px; align-items: center; }
+  .about-card { background: linear-gradient(150deg, var(--green-pl) 0%, var(--amber-pl) 100%); border-radius: 28px; padding: 36px 28px; box-shadow: var(--sh-lg); border: 1.5px solid rgba(109,184,138,0.25); }
+  .about-name { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--green-dk); margin-bottom: 8px; }
+  .about-univ { color: var(--text-md); font-size: 0.9rem; font-weight: 700; margin-bottom: 20px; }
+  .about-stat-row { display: flex; gap: 16px; }
+  .about-stat { text-align: center; flex: 1; }
+  .about-stat .n { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--green-dk); line-height: 1; }
+  .about-stat .l { font-size: 0.75rem; color: var(--text-md); font-weight: 700; margin-top: 3px; }
+  .chips { margin: 20px 0 24px; }
+  .chip { display: inline-flex; align-items: center; gap: 5px; font-size: 0.8rem; font-weight: 800; padding: 4px 13px; border-radius: 99px; margin: 3px; background: var(--green-pl); color: var(--green-dk); }
+  .about-quote { background: linear-gradient(135deg, var(--green-pl) 0%, var(--amber-pl) 100%); border-left: 4px solid var(--green-md); padding: 14px 18px; border-radius: 0 12px 12px 0; color: var(--text-md); font-style: italic; font-size: 0.95rem; }
+  #courses { background: var(--green-dk); position: relative; overflow: hidden; }
+  .courses-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .course-card { background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.13); border-radius: 20px; padding: 28px 22px; cursor: pointer; transition: 0.2s; }
+  .course-card:hover { background: rgba(255,255,255,0.12); transform: translateY(-6px); }
+  .course-icon { font-size: 2.2rem; margin-bottom: 14px; }
+  .course-title { color: #fff; font-family: 'Playfair Display', serif; font-size: 1.08rem; font-weight: 700; }
+  .gc { background: var(--white); border: 1.5px solid var(--border); border-radius: 18px; padding: 22px 18px; cursor: pointer; transition: 0.2s; text-decoration:none; display:block; color:inherit; }
+  .gc:hover { transform: translateY(-5px); box-shadow: var(--sh-lg); border-color: var(--green-lt); }
+  .grammar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .gc-title { font-family: 'Playfair Display', serif; font-weight: 900; color: var(--green-dk); font-size: 1.2rem; }
+  #contact { background: var(--white); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .contact-item { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 22px; }
+  .c-icon { width: 42px; height: 42px; border-radius: 12px; background: var(--green-pl); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+  .contact-form { display: flex; flex-direction: column; gap: 12px; }
+  .fg { display: flex; flex-direction: column; gap: 4px; }
+  .fg input, .fg textarea, .fg select { border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 13px; font-family: 'Nunito', sans-serif; font-size: 0.91rem; background: var(--cream); outline: none; }
+  .form-submit { background: linear-gradient(135deg,var(--warm) 0%,var(--amber) 100%); color: #fff; border: none; border-radius: 50px; padding: 13px 34px; font-weight: 900; cursor: pointer; }
+  footer { background: var(--green-dk); color: rgba(255,255,255,0.65); text-align: center; padding: 36px 5%; font-size: 0.86rem; }
+  .f-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 900; color: #fff; }
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo">Ray's English Corner</a>
+  <a href="index.html" class="nav-logo">Ray's <span class="dot">·</span> English Corner</a>
   <ul class="nav-links">
-    <li><a href="#about">關於 Ray</a></li>
-    <li><a href="#courses">課程</a></li>
-    <li class="dropdown">
-      <a href="javascript:void(0)">私校專區 ▾</a>
-      <div class="dropdown-content">
-        <a href="nba-finals-u5.html">NBA Finals U5</a>
-        <a href="nba-section-v3.html">NBA Section V3</a>
-      </div>
-    </li>
+    <li><a href="index.html#about">關於 Ray</a></li>
+    <li><a href="index.html#courses">課程</a></li>
     <li><a href="experience.html">教學經歷</a></li>
-    <li class="dropdown">
-      <a href="javascript:void(0)">文法 ▾</a>
-      <div class="dropdown-content">
-        <a href="grammar-u5.html">文法 U5</a>
-        <a href="grammar-u6.html">文法 U6</a>
-      </div>
-    </li>
+    <li><a href="index.html#grammar">文法專區</a></li>
+    <li><a href="nba-finals-u5.html">私校專區</a></li>
     <li><a href="practice.html">線上練習</a></li>
-    <li><a href="#contact">聯絡我</a></li>
+    <li><a href="index.html#contact">聯絡我</a></li>
   </ul>
 </nav>
 
-<section id="courses">
-  <div class="courses-grid">
-    <div class="course-card"><div>🌱</div><h4>國小英文基礎</h4></div>
-    <div class="course-card"><div>📐</div><h4>國中英文衝刺</h4></div>
-    <div class="course-card" style="border: 2px solid var(--amber);" onclick="location.href='nba-finals-u5.html';">
-      <div>🏰</div><h4>私校專區</h4>
-      <p style="font-size:0.8rem; opacity:0.8;">高強度訓練與專屬教材</p>
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1 class="hero-title">讓英文<span class="acc1">不再難</span>，一起學得<span class="acc2">更有趣</span></h1>
+    <div class="hero-btns">
+      <a href="#courses" class="btn-p">看看有什麼課程 →</a>
     </div>
-    <div class="course-card"><div>🎯</div><h4>高中學測/統測</h4></div>
-    <div class="course-card"><div>💬</div><h4>一對一客製</h4></div>
   </div>
 </section>
+
+<section id="about">
+  <div class="inner">
+    <div class="about-grid">
+      <div class="about-card"><div class="about-name">雷康誠 Ray</div><div class="about-univ">國立台北大學 · 應用外語學系</div></div>
+      <div class="reveal">
+        <h2 class="section-title">關於 Ray</h2>
+        <p>畢業於國立台北大學應用外語學系，教學經驗豐富。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="courses">
+  <div class="inner">
+    <h2 class="section-title" style="color:white;">課程介紹</h2>
+    <div class="courses-grid">
+      <div class="course-card"><div class="course-icon">🌱</div><div class="course-title">國小英文</div></div>
+      <div class="course-card"><div class="course-icon">📐</div><div class="course-title">國中衝刺</div></div>
+      <div class="course-card"><div class="course-icon">🎯</div><div class="course-title">高中學測</div></div>
+      <div class="course-card"><div class="course-icon">💬</div><div class="course-title">一對一家教</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="grammar">
+  <div class="inner">
+    <h2 class="section-title">文法筆記專區</h2>
+    <div class="grammar-grid">
+      <a href="grammar-u5.html" class="gc"><div class="gc-title">Grammar U5</div></a>
+      <a href="grammar-u6.html" class="gc"><div class="gc-title">Grammar U6</div></a>
+    </div>
+  </div>
+</section>
+
+<section id="grammar">
+  <div class="inner">
+    <h2 class="section-title">私校專區</h2>
+    <div class="grammar-grid">
+      <a href="nba-finals-u5.html" class="gc"><div class="gc-title">NBA Finals U5</div></a>
+      <a href="nba-section-v3.html" class="gc"><div class="gc-title">NBA Section V3</div></a>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="inner">
+    <h2 class="section-title">聯絡我</h2>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">Ray's <span>English</span> Corner</div>
+</footer>
 
 </body>
 </html>
