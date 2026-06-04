@@ -249,7 +249,7 @@
   .gc-title { color: var(--green-dk); font-weight: 900; font-size: 0.97rem; margin-bottom: 5px; }
   .gc-sub { color: var(--text-lt); font-size: 0.8rem; line-height: 1.55; }
 
-  /* ── PRIVATE SCHOOL SECTION (NEW) ── */
+  /* ── PRIVATE SCHOOL SECTION ── */
   #private-school { background: var(--warm-pl); position: relative; overflow: hidden; }
   #private-school::before {
     content: '';
@@ -270,7 +270,7 @@
   .ps-desc { font-size: 0.92rem; color: var(--text-md); line-height: 1.6; margin-bottom: 18px; }
   .ps-more { font-size: 0.88rem; font-weight: 900; color: var(--warm); display: flex; align-items: center; gap: 4px; }
 
-  /* Modal */
+  /* ── Modal & Responsive (修復原本被切斷的樣式) ── */
   .modal-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(10,30,10,0.55); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; }
   .modal-overlay.open { display: flex; }
   .modal-box { background: var(--white); border-radius: 22px; max-width: 560px; width: 100%; max-height: 82vh; overflow-y: auto; padding: 34px; box-shadow: 0 24px 80px rgba(0,0,0,0.25); animation: mIn .22s ease; }
@@ -278,4 +278,185 @@
   .modal-close { float:right; background:var(--cream-d); border:none; border-radius:99px; width:30px; height:30px; font-size:1rem; cursor:pointer; color:var(--text-md); display:flex; align-items:center; justify-content:center; transition:background .2s; }
   .modal-close:hover { background:var(--border); }
   .modal-title { font-family:'Playfair Display',serif; font-size:1.45rem; color:var(--green-dk); margin-bottom:14px; }
-  .modal-rule { background:var(--green-pl); border-left:4px solid var(--green-md); padding:11px 15px; border-radius:0
+  .modal-rule { background:var(--green-pl); border-left:4px solid var(--green-md); padding:11px 15px; border-radius:0 12px 12px 0; margin-bottom:20px; font-size:0.92rem; color:var(--green-dk); font-weight:700; }
+
+  /* RWD 手機版響應式優化 */
+  @media (max-width: 992px) {
+    .courses-grid { grid-template-columns: repeat(2, 1fr); }
+    .grammar-grid { grid-template-columns: repeat(2, 1fr); }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+  @media (max-width: 600px) {
+    nav { padding: 0 4%; }
+    .nav-links { gap: 1rem; }
+    .courses-grid, .grammar-grid, .ps-grid { grid-template-columns: 1fr; }
+    section { padding: 60px 4%; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Ray's English Corner<span class="dot">.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">關於雷老師</a></li>
+    <li><a href="#courses">特訓課程</a></li>
+    <li><a href="#grammar">文法專區</a></li>
+    <li><a href="#private-school">私校專區</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-deco a">✍️</div>
+  <div class="hero-deco b">📚</div>
+  <div class="hero-deco c">💡</div>
+  <div class="hero-content">
+    <div class="hero-tag"><span class="pulse"></span>2026 全新進階版課程</div>
+    <h1 class="hero-title">掌握核心邏輯<br>直擊英文<span class="acc1">高分地雷</span><span class="acc2">.</span></h1>
+    <p class="hero-sub">拒絕死背！透過獨家思維導圖與時事解析，帶你突破私校段考難關，輕鬆直升會考 A++。</p>
+    <div class="hero-btns">
+      <a href="#courses" class="btn-p">探索特訓課程</a>
+      <a href="#private-school" class="btn-s">進入私校專區</a>
+    </div>
+    <div class="hero-badges">
+      <div class="badge"><span class="b-icon">🎓</span> 輔導私校學子 <span class="b-num">500+</span> 名</div>
+      <div class="badge"><span class="b-icon">🔥</span> 會考 A++ 通過率 <span class="b-num">85%</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="inner">
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="about-toeic">TOEIC 990 滿分紀錄</div>
+        <h2 class="about-name">Ray 雷老師</h2>
+        <p class="about-univ">頂尖外語學院碩士 ｜ 知名私校特約英文翻轉講師</p>
+        <div class="about-stat-row">
+          <div class="about-stat"><div class="n">10+</div><div class="l">教學經驗 (年)</div></div>
+          <div class="about-stat"><div class="n">98%</div><div class="l">學生滿意度</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="section-tag">Teacher Profile</div>
+        <h3 class="section-title">用邏輯拆解語法，用時事啟發興趣</h3>
+        <div class="chips">
+          <span class="chip chip-green">#文法邏輯化</span>
+          <span class="chip chip-amber">#私校進階地雷題</span>
+          <span class="chip chip-warm">#時事外電閱讀</span>
+        </div>
+        <p class="about-quote">「英文不是用來背誦的公式，而是觀察世界、表達思維的工具。只要理清句型背後的『核心語意』，私校再刁鑽的考題也能一眼看穿標準答案。」</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="courses">
+  <div class="inner">
+    <div class="section-head">
+      <div class="section-tag">Course Tracks</div>
+      <h2 class="section-title">三大核心特訓系統</h2>
+      <p class="section-desc">全方位覆蓋文法、閱讀與進階寫作，打造最適合台灣學子的英文高分路徑。</p>
+    </div>
+    <div class="courses-grid">
+      <div class="course-card">
+        <div class="course-icon">🧭</div>
+        <h3 class="course-title">會考文法直通車</h3>
+        <p class="course-desc">整合國中必考三大子句與時態系統，秒懂核心結構。</p>
+        <div class="course-tags-wrap"><span class="c-tag">基礎~進階</span><span class="c-tag">全真題練</span></div>
+      </div>
+      <div class="course-card">
+        <div class="course-icon">💎</div>
+        <h3 class="course-title">私校精英高難度</h3>
+        <p class="course-desc">攻克非選填空、隱藏版否定句與高階倒裝句型地雷。</p>
+        <div class="course-tags-wrap"><span class="c-tag">私校專攻</span><span class="c-tag">段考地雷</span></div>
+      </div>
+      <div class="course-card">
+        <div class="course-icon">📰</div>
+        <h3 class="course-title">時事外電閱讀</h3>
+        <p class="course-desc">精選素養導向時事，培養快速抓出文章主旨的關鍵能力。</p>
+        <div class="course-tags-wrap"><span class="c-tag">外電解析</span><span class="c-tag">素養閱讀</span></div>
+      </div>
+      <div class="course-card">
+        <div class="course-icon">🚀</div>
+        <h3 class="course-title">高級寫作思維</h3>
+        <p class="course-desc">擺脫中式英文，靈活運用複合形容詞與高級片語寫出亮眼作文。</p>
+        <div class="course-tags-wrap"><span class="c-tag">寫作特訓</span><span class="c-tag">亮點句型</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="grammar">
+  <div class="inner">
+    <div class="section-head">
+      <div class="section-tag">Grammar Hub</div>
+      <h2 class="section-title">核心文法動態字卡</h2>
+      <p class="section-desc">點擊下方圖卡，立即預覽高頻考點與名師獨家解題關鍵邏輯。</p>
+    </div>
+    <div class="grammar-grid">
+      <div class="gc">
+        <div class="gc-icon">🔗</div>
+        <span class="gc-badge">必考</span>
+        <h4 class="gc-title">名詞子句與 That</h4>
+        <p class="gc-sub">受詞角色、主詞角色與省略地雷解析。</p>
+      </div>
+      <div class="gc">
+        <div class="gc-icon">⏳</div>
+        <span class="gc-badge">高頻</span>
+        <h4 class="gc-title">現在完成式邏輯</h4>
+        <p class="gc-sub">從過去持續到現在，since 與 for 的時間軸關鍵。</p>
+      </div>
+      <div class="gc">
+        <div class="gc-icon">🙋</div>
+        <span class="gc-badge">私校最愛</span>
+        <h4 class="gc-title">附加問句三大綜合</h4>
+        <p class="gc-sub">小心 Few, Little, Seldom 等隱藏否定字倒打一耙。</p>
+      </div>
+      <div class="gc">
+        <div class="gc-icon">🎯</div>
+        <span class="gc-badge">地雷</span>
+        <h4 class="gc-title">最高級與複合形容詞</h4>
+        <p class="gc-sub">「單數名詞」與「連字號」不可不知的細節規範。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVATE SCHOOL SECTION (更新後的卡片牆已完美加入) -->
+<section id="private-school">
+  <div class="inner">
+    <div class="section-head reveal">
+      <div class="section-tag">進階特訓</div>
+      <h2 class="section-title">私校專區 🎓</h2>
+      <p class="section-desc">針對私立國中、高中進階難度設計，包含高難度文法、段考地雷題與全真外電閱讀解析。</p>
+    </div>
+    <div class="ps-grid reveal d1">
+      
+      <!-- 國二下 U5 卡片 (第一張) -->
+      <a href="grammar-u5.html" target="_blank" class="ps-card">
+        <div>
+          <span class="ps-badge">Grade 8</span>
+          <h3 class="ps-title">國二下 U5 文法與片語特訓</h3>
+          <p class="ps-desc">拆解附加問句三大綜合句型、隱藏否定字地雷、that 名詞子句與 until 核心語意，搭配會考與私校全真題型分析。</p>
+        </div>
+        <div class="ps-more">進入專屬高階網頁 →</div>
+      </a>
+      
+      <!-- 💡 新增的 NBA 總決賽戰報卡片 (第二張，取代原本的 Coming Soon) -->
+      <a href="nba-finals-u5.html" target="_blank" class="ps-card">
+        <div>
+          <span class="ps-badge" style="background: var(--amber);">Hot News</span>
+          <h3 class="ps-title">看 NBA 總決賽學英文：馬刺 vs. 尼克</h3>
+          <p class="ps-desc">精選 2026 NBA Finals 第一戰熱血賽事！搭配「影音時間軸動態跳轉」與「3D翻轉單字卡」，深度解析會考最高級與複合形容詞地雷。</p>
+        </div>
+        <div class="ps-more" style="color: var(--amber);">進入時事特訓網頁 →</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
