@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ray's English Corner｜NBA Finals 教材</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#faf8f2;--cream-d:#ede8d8;--green-dk:#1e4d30;--green-md:#3a7a50;
+  --green-lt:#6db88a;--green-pl:#e2f2e8;--amber:#f5a623;--amber-pl:#fff8ec;
+  --warm:#e07850;--warm-pl:#fdf0ea;--sky:#4a9ebb;--text:#1a2a1a;
+  --text-md:#466046;--text-lt:#7a9a7a;--border:#d5cbb5;--white:#ffffff;
+  --sh:0 4px 20px rgba(30,77,48,.10);--sh-lg:0 12px 48px rgba(30,77,48,.15);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text);line-height:1.75;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--cream-d)}::-webkit-scrollbar-thumb{background:var(--green-lt);border-radius:99px}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(250,248,242,.94);backdrop-filter:blur(14px);border-bottom:1.5px solid var(--border);padding:0 5%;height:58px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--green-dk);text-decoration:none;display:flex;align-items:center;gap:8px}
+.nav-logo .dot{color:var(--warm)}
+.nav-tag{font-size:.75rem;font-weight:800;color:var(--text-lt);background:var(--amber-pl);border:1px solid rgba(245,166,35,.35);padding:3px 12px;border-radius:99px}
+
+section{padding:88px 5%}
+.section-tag{font-size:.74rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--warm);margin-bottom:8px}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.5rem);font-weight:700;color:var(--green-dk);line-height:1.25;margin-bottom:14px}
+.section-desc{color:var(--text-md);max-width:560px;font-size:.98rem;line-height:1.8}
+.section-head{margin-bottom:52px}
+.inner{max-width:1100px;margin:0 auto}
+
+/* BAND */
+#nba-hero-band{background:var(--green-dk);padding:20px 5%;position:relative;overflow:hidden}
+#nba-hero-band::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:22px 22px}
+.band-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;position:relative;z-index:1}
+.band-left{display:flex;align-items:center;gap:14px}
+.band-live-pill{background:var(--warm);color:#fff;font-size:.72rem;font-weight:900;letter-spacing:.1em;padding:4px 12px;border-radius:99px;display:flex;align-items:center;gap:6px;text-transform:uppercase}
+.band-live-pill .dot{width:6px;height:6px;background:#fff;border-radius:50%;animation:blink 1.2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.band-title{color:rgba(255,255,255,.9);font-size:.9rem;font-weight:800}
+.band-sub{color:rgba(255,255,255,.5);font-size:.78rem}
+.scorebug{display:flex;align-items:center;gap:20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:12px 22px}
+.sb-team{display:flex;flex-direction:column;align-items:center;gap:2px}
+.sb-abbr{font-size:.72rem;font-weight:900;color:rgba(255,255,255,.55);letter-spacing:.1em}
+.sb-score{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:#fff;line-height:1}
+.sb-score.win{color:var(--green-lt)}
+.sb-divider{color:rgba(255,255,255,.25);font-size:1rem}
+.sb-meta{text-align:center}
+.sb-game{font-size:.72rem;font-weight:900;color:rgba(255,255,255,.6);letter-spacing:.06em}
+.sb-final{font-size:.68rem;color:rgba(255,255,255,.38);margin-top:2px}
+.band-cta{background:var(--amber);color:var(--green-dk);font-size:.82rem;font-weight:900;padding:9px 22px;border-radius:50px;text-decoration:none;display:inline-block;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 16px rgba(245,166,35,.4)}
+.band-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,.45)}
+
+/* MATERIAL */
+#nba-material{background:var(--white);position:relative;overflow:visible}
+#nba-material::before{content:'🏀';position:absolute;top:-20px;right:-20px;font-size:10rem;opacity:.04;pointer-events:none;user-select:none;line-height:1}
+.material-layout{display:grid;grid-template-columns:1fr 1.15fr;gap:48px;align-items:start}
+.passage-card{background:linear-gradient(148deg,var(--green-pl) 0%,var(--amber-pl) 100%);border:1.5px solid rgba(109,184,138,.25);border-radius:24px;padding:32px 28px;position:relative;overflow:visible;box-shadow:var(--sh-lg)}
+.passage-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:18px}
+.p-tag{display:inline-block;background:var(--green-dk);color:#fff;font-size:.68rem;font-weight:900;padding:3px 10px;border-radius:99px;letter-spacing:.08em;text-transform:uppercase}
+.p-grade{font-size:.75rem;font-weight:800;color:var(--text-lt)}
+.passage-title{font-family:'Playfair Display',serif;font-size:1.28rem;font-weight:700;color:var(--green-dk);line-height:1.35;margin-bottom:18px}
+.passage-body{font-size:.9rem;color:var(--text-md);line-height:2.1}
+.passage-body p{margin-bottom:.9em}
+.passage-body p:last-child{margin-bottom:0}
+
+/* ── HIGHLIGHTS ── */
+.hl{
+  border-radius:4px;padding:1px 4px;font-weight:800;
+  cursor:help;display:inline;
+  transition:filter .12s;
+}
+.hl:hover{filter:brightness(.88)}
+.hl-past{background:rgba(245,166,35,.30);color:#5a3800}
+.hl-gram{background:rgba(58,122,80,.20);color:#1e4d30}
+.hl-phr {background:rgba(74,158,187,.22);color:#0d3d57}
+
+.legend-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;padding-top:16px;border-top:1px solid rgba(109,184,138,.2)}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:.73rem;font-weight:800;color:var(--text-lt)}
+.legend-dot{width:10px;height:10px;border-radius:2px}
+.legend-tip{font-size:.7rem;color:var(--text-lt);margin-left:4px;font-style:italic}
+
+/* ── GLOBAL TOOLTIP (appended to body by JS) ── */
+#hl-tooltip{
+  position:fixed;z-index:99999;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .16s ease;
+  font-family:'Nunito',sans-serif;
+}
+#hl-tooltip.show{opacity:1}
+.tt-box{
+  background:var(--green-dk);
+  color:#fff;
+  border-radius:16px;
+  padding:14px 16px 12px;
+  min-width:220px;max-width:260px;
+  box-shadow:0 10px 40px rgba(0,0,0,.35);
+  position:relative;
+  line-height:1.5;
+}
+.tt-arrow{
+  position:absolute;
+  width:0;height:0;
+  left:50%;transform:translateX(-50%);
+  border:8px solid transparent;
+}
+.tt-arrow.up  {top:-16px;border-bottom-color:var(--green-dk)}
+.tt-arrow.down{bottom:-16px;border-top-color:var(--green-dk)}
+.tt-cat{
+  font-size:.63rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase;
+  padding:2px 8px;border-radius:99px;display:inline-block;margin-bottom:6px;
+}
+.tt-cat.past{background:rgba(245,166,35,.35);color:#ffd980}
+.tt-cat.gram{background:rgba(109,184,138,.30);color:#a0e0bc}
+.tt-cat.phr {background:rgba(74,158,187,.30);color:#90d4f0}
+.tt-word{font-size:1rem;font-weight:800;color:#fff;margin-bottom:5px}
+.tt-rule{font-size:.78rem;color:rgba(255,255,255,.75);line-height:1.55;margin-bottom:5px}
+.tt-grade{font-size:.67rem;color:rgba(255,255,255,.42);font-weight:700}
+
+/* RIGHT COL */
+.right-col{display:flex;flex-direction:column;gap:20px}
+.gram-section-title{font-size:.74rem;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:var(--warm);margin-bottom:12px}
+.gram-list{display:flex;flex-direction:column;gap:10px}
+.gram-item{background:var(--cream);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.gram-item:hover{border-color:var(--green-lt);box-shadow:var(--sh)}
+.gram-header{display:flex;align-items:center;gap:10px;padding:14px 18px;cursor:pointer;user-select:none}
+.gram-num{width:22px;height:22px;border-radius:50%;background:var(--green-dk);color:#fff;font-size:.72rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gram-htitle{flex:1;font-size:.9rem;font-weight:800;color:var(--text)}
+.gram-badge{font-size:.67rem;font-weight:900;padding:2px 9px;border-radius:99px;background:var(--amber-pl);color:#a06800;border:1px solid rgba(245,166,35,.35);flex-shrink:0}
+.gram-chevron{font-size:.85rem;color:var(--text-lt);transition:transform .22s;flex-shrink:0}
+.gram-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.gram-body.open{max-height:280px}
+.gram-body-inner{padding:0 18px 16px 50px;font-size:.85rem;color:var(--text-md);line-height:1.75}
+.gram-ex{background:var(--green-pl);border-left:3px solid var(--green-md);border-radius:0 10px 10px 0;padding:10px 14px;margin-top:9px;font-size:.83rem;line-height:1.65;color:var(--text)}
+.gram-ex .zh{font-size:.77rem;color:var(--text-lt);margin-top:4px;display:block}
+.gram-ex strong{color:var(--green-dk)}
+.gram-item.active .gram-chevron{transform:rotate(180deg)}
+
+.vocab-strip{background:var(--green-dk);border-radius:20px;padding:22px 24px;position:relative;overflow:hidden}
+.vocab-strip::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:18px 18px}
+.vs-title{color:rgba(255,255,255,.6);font-size:.72rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;position:relative;z-index:1}
+.vocab-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:relative;z-index:1}
+.vocab-pill{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:9px 13px;transition:background .18s,border-color .18s;cursor:default}
+.vocab-pill:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.28)}
+.vp-word{font-size:.9rem;font-weight:800;color:#fff}
+.vp-pos{font-size:.65rem;color:rgba(255,255,255,.4);margin-bottom:2px}
+.vp-zh{font-size:.78rem;color:rgba(255,255,255,.6)}
+
+/* CTA */
+#nba-cta{background:var(--warm-pl);position:relative;overflow:hidden;padding:64px 5%}
+#nba-cta::before{content:'';position:absolute;top:-80px;right:-80px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(224,120,80,.12) 0%,transparent 70%);pointer-events:none}
+.cta-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.cta-left{flex:1;min-width:280px}
+.cta-eyebrow{font-size:.74rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--warm);margin-bottom:10px}
+.cta-title{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2rem);font-weight:700;color:var(--green-dk);line-height:1.25;margin-bottom:12px}
+.cta-desc{color:var(--text-md);font-size:.95rem;line-height:1.8;max-width:460px}
+.cta-features{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.cta-feat{display:flex;align-items:center;gap:6px;background:var(--white);border:1.5px solid var(--border);border-radius:50px;padding:6px 16px;font-size:.82rem;font-weight:800;color:var(--text-md);box-shadow:var(--sh)}
+.cta-right{display:flex;flex-direction:column;gap:12px;align-items:flex-start;flex-shrink:0}
+.cta-btn-main{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,var(--green-dk) 0%,var(--green-md) 100%);color:#fff;padding:14px 32px;border-radius:50px;font-weight:900;font-size:.93rem;text-decoration:none;border:none;cursor:pointer;box-shadow:0 6px 20px rgba(30,77,48,.3);transition:transform .2s,box-shadow .2s;font-family:'Nunito',sans-serif}
+.cta-btn-main:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(30,77,48,.36)}
+.cta-btn-sec{display:inline-flex;align-items:center;gap:7px;background:transparent;color:var(--green-dk);border:2px solid var(--green-dk);padding:12px 28px;border-radius:50px;font-weight:900;font-size:.87rem;text-decoration:none;cursor:pointer;transition:background .2s,color .2s;font-family:'Nunito',sans-serif}
+.cta-btn-sec:hover{background:var(--green-dk);color:#fff}
+.cta-stat-row{display:flex;gap:20px;margin-top:6px}
+.cta-stat{text-align:center}
+.cta-stat .n{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--green-dk);line-height:1}
+.cta-stat .l{font-size:.72rem;font-weight:800;color:var(--text-lt);margin-top:2px}
+
+@media(max-width:860px){.material-layout{grid-template-columns:1fr}.cta-inner{flex-direction:column}.cta-right{align-items:stretch;width:100%}.cta-btn-main,.cta-btn-sec{justify-content:center}}
+@media(max-width:600px){.band-inner{flex-direction:column;align-items:flex-start;gap:12px}.scorebug{align-self:stretch;justify-content:center}.vocab-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Ray<span class="dot">.</span>English</a>
+  <span class="nav-tag">Tooltip 完整版</span>
+</nav>
+
+<div id="nba-hero-band">
+  <div class="band-inner">
+    <div class="band-left">
+      <div class="band-live-pill"><span class="dot"></span> NBA Finals</div>
+      <div>
+        <div class="band-title">2026 總冠軍賽 Game 1 結果</div>
+        <div class="band-sub">今日課程主題素材 · 延平中學家教</div>
+      </div>
+    </div>
+    <div class="scorebug">
+      <div class="sb-team"><div class="sb-abbr">NYK 尼克</div><div class="sb-score win">105</div></div>
+      <div class="sb-divider">—</div>
+      <div class="sb-meta"><div class="sb-game">GAME 1 · FINAL</div><div class="sb-final">2026 / 06 / 04 · San Antonio</div></div>
+      <div class="sb-divider">—</div>
+      <div class="sb-team"><div class="sb-abbr">SAS 馬刺</div><div class="sb-score">95</div></div>
+    </div>
+    <a class="band-cta" href="#nba-material">↓ 看本課教材</a>
+  </div>
+</div>
+
+<section id="nba-material">
+  <div class="inner">
+    <div class="section-head">
+      <p class="section-tag">NBA Finals Reading</p>
+      <h2 class="section-title">Knicks Steal Game 1<br><span style="font-style:italic;color:var(--warm)">—外電改寫閱讀教材</span></h2>
+      <p class="section-desc">滑鼠移到<strong style="color:#a06800">橘色</strong>、<strong style="color:var(--green-md)">綠色</strong>、<strong style="color:var(--sky)">藍色</strong>標注詞彙即可查看文法說明與重點提示。</p>
+    </div>
+
+    <div class="material-layout">
+      <div>
+        <div class="passage-card">
+          <div class="passage-eyebrow">
+            <span class="p-tag">Reading Passage</span>
+            <span class="p-grade">私立國中 · 進階程度</span>
+          </div>
+          <h3 class="passage-title">NBA Finals: Knicks Steal Game 1 in San Antonio</h3>
+          <div class="passage-body">
+
+<p>SAN ANTONIO — The New York Knicks
+<span class="hl hl-past"
+  data-cat="past" data-word="show → showed"
+  data-rule="規則動詞直接加 -ed，表示「展示、顯示」。"
+  data-grade="國一下 U5">showed</span>
+everyone why they are the hottest team in the NBA Finals. On Wednesday night, Jalen Brunson
+<span class="hl hl-past"
+  data-cat="past" data-word="score → scored"
+  data-rule="規則動詞加 -ed，字尾已有 e 只加 d。此處表示「得到」分數。"
+  data-grade="國一下 U5">scored</span>
+30 points to lead the Knicks to a 105-95 win over the San Antonio Spurs in Game 1.</p>
+
+<p>The Spurs once
+<span class="hl hl-past"
+  data-cat="past" data-word="lead → led"
+  data-rule="⚠️ 不規則動詞！lead 的過去式是 led，不是 leaded。"
+  data-grade="國一下 U6">led</span>
+by
+<span class="hl hl-gram"
+  data-cat="gram" data-word="數字 + 名詞（複數）"
+  data-rule="當副詞說明「領先多少」，名詞用複數（points）。若當形容詞修飾名詞則不加 s：a 14-point lead ✅"
+  data-grade="國二上 U1">14 points</span>
+in the second half, but the Knicks
+<span class="hl hl-past"
+  data-cat="past" data-word="did not + 原形動詞"
+  data-rule="過去式否定句：did not（didn't）+ 原形動詞。⚠️ give 不能寫成 gave！"
+  data-grade="國一下 U5">did not give up</span>.
+Instead, New York
+<span class="hl hl-past"
+  data-cat="past" data-word="finish → finished"
+  data-rule="規則動詞加 -ed，「完成、結束」比賽。"
+  data-grade="國一下 U5">finished</span>
+the game on an amazing
+<span class="hl hl-phr"
+  data-cat="phr" data-word="on a run（連續得分高潮）"
+  data-rule="11-0 run 表示一波 11 比 0 的連續攻勢，對方完全沒得分。"
+  data-grade="新聞英文必備">11-0 run</span>
+to
+<span class="hl hl-phr"
+  data-cat="phr" data-word="steal the victory"
+  data-rule="steal 本意「偷竊」，這裡指「硬生生偷走勝利（逆轉）」。過去式為 stole。"
+  data-grade="國二進階">steal</span>
+the victory. This win
+<span class="hl hl-past"
+  data-cat="past" data-word="mark → marked"
+  data-rule="規則動詞加 -ed。此處表示「代表、標誌著」某個重要里程碑。"
+  data-grade="國一下 U5">marked</span>
+New York's
+<span class="hl hl-gram"
+  data-cat="gram" data-word="序數 + consecutive"
+  data-rule="12th = 第十二次（序數）。consecutive = 連續的（= in a row）。兩個考點在一起！"
+  data-grade="國二上 U1">12th consecutive</span>
+playoff victory,
+<span class="hl hl-gram"
+  data-cat="gram" data-word=", V-ing（分詞片語）"
+  data-rule="逗號後接 V-ing，修飾前句「造成的結果」。這場勝利使他們成為 NBA 歷史第七支有此紀錄的球隊。"
+  data-grade="國三上 U3 ⭐重點">making</span>
+them the seventh team in NBA history to have such a long winning streak.</p>
+
+<p>Victor Wembanyama, the young star of the Spurs,
+<span class="hl hl-past"
+  data-cat="past" data-word="have → had"
+  data-rule="⚠️ 不規則動詞！have → had。這裡表示「拿下、取得」（26分12籃板）。"
+  data-grade="國一下 U6">had</span>
+26 points and 12 rebounds in his finals
+<span class="hl hl-phr"
+  data-cat="phr" data-word="debut [dɪˈbjuː]"
+  data-rule="「首秀、初次登場」。⚠️ 注意：結尾的 t 完全不發音！這是從法文借來的單字。"
+  data-grade="進階單字">debut</span>.
+However, he only
+<span class="hl hl-past"
+  data-cat="past" data-word="make → made"
+  data-rule="⚠️ 不規則動詞！make → made。此處是「投籃命中」的意思（6 of 21 shots）。"
+  data-grade="國一下 U6">made</span>
+6 of his 21 shots. "I was bad tonight," Wembanyama sadly
+<span class="hl hl-past"
+  data-cat="past" data-word="say → said"
+  data-rule="⚠️ 不規則動詞！say → said（不是 sayed）。這是引述溫班亞馬賽後說的話。"
+  data-grade="國一下 U6">said</span>
+after the game.</p>
+
+<p>The Knicks are now only three wins
+<span class="hl hl-gram"
+  data-cat="gram" data-word="be + 數量 + away from"
+  data-rule="「距離目標還差多少」。結構：be + 數量 + away from + 目標物。這裡距 NBA 冠軍只差 3 勝。"
+  data-grade="國二下 U4">away from</span>
+their first NBA title in 53 years. Game 2
+<span class="hl hl-phr"
+  data-cat="phr" data-word="will take place"
+  data-rule="take place = happen（發生、舉行）。will 表示未來式。注意時態從過去式切換回未來式！"
+  data-grade="國一下 U7">will take place</span>
+on Friday in San Antonio.</p>
+
+          </div>
+          <div class="legend-row">
+            <div class="legend-item"><div class="legend-dot" style="background:rgba(245,166,35,.6)"></div>過去式動詞</div>
+            <div class="legend-item"><div class="legend-dot" style="background:rgba(58,122,80,.5)"></div>文法結構</div>
+            <div class="legend-item"><div class="legend-dot" style="background:rgba(74,158,187,.55)"></div>重要片語／單字</div>
+            <span class="legend-tip">↑ 滑鼠移上任一色塊查看說明</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-col">
+        <div>
+          <p class="gram-section-title">Grammar Focus — 5 大文法考點</p>
+          <div class="gram-list">
+            <div class="gram-item">
+              <div class="gram-header" onclick="toggleG(this)">
+                <div class="gram-num">1</div><div class="gram-htitle">過去簡單式 Past Simple</div>
+                <div class="gram-badge">國一下 U5–U6</div><div class="gram-chevron">▾</div>
+              </div>
+              <div class="gram-body"><div class="gram-body-inner">
+                肯定句直接用過去式；否定句借助動詞 <strong>did not + 原形</strong>。
+                <div class="gram-ex">✅ Brunson <strong>scored</strong> 30 points.<br>✅ The Knicks <strong>did not give up</strong>.<br><span class="zh">不規則：lead→<strong>led</strong>、have→<strong>had</strong>、make→<strong>made</strong>、say→<strong>said</strong></span></div>
+              </div></div>
+            </div>
+            <div class="gram-item">
+              <div class="gram-header" onclick="toggleG(this)">
+                <div class="gram-num">2</div><div class="gram-htitle">away from — 距目標還差多少</div>
+                <div class="gram-badge">國二下 U4</div><div class="gram-chevron">▾</div>
+              </div>
+              <div class="gram-body"><div class="gram-body-inner">
+                結構：<strong>be + 數量 + away from + 目標</strong>
+                <div class="gram-ex">The Knicks are only three wins <strong>away from</strong> their first NBA title.<span class="zh">→ 距離冠軍只差三場勝利</span></div>
+              </div></div>
+            </div>
+            <div class="gram-item">
+              <div class="gram-header" onclick="toggleG(this)">
+                <div class="gram-num">3</div><div class="gram-htitle">分詞片語 , V-ing — 修飾結果</div>
+                <div class="gram-badge">國三上 U3</div><div class="gram-chevron">▾</div>
+              </div>
+              <div class="gram-body"><div class="gram-body-inner">
+                逗號後接 V-ing 表示前句「造成的結果」，是進階閱讀的得分關鍵。
+                <div class="gram-ex">...12th consecutive playoff victory, <strong>making</strong> them the seventh team...<span class="zh">→ 這件事使他們成為第七支...</span></div>
+              </div></div>
+            </div>
+            <div class="gram-item">
+              <div class="gram-header" onclick="toggleG(this)">
+                <div class="gram-num">4</div><div class="gram-htitle">數字-名詞當形容詞（不加 s！）</div>
+                <div class="gram-badge">國二上 U1</div><div class="gram-chevron">▾</div>
+              </div>
+              <div class="gram-body"><div class="gram-body-inner">
+                【數字-單數名詞】修飾名詞，中間名詞<strong>絕不加 s</strong>。
+                <div class="gram-ex">✅ a <strong>14-point</strong> lead &nbsp; ❌ a 14-<s>points</s> lead<br>✅ <strong>12th</strong> consecutive playoff victory</div>
+              </div></div>
+            </div>
+            <div class="gram-item">
+              <div class="gram-header" onclick="toggleG(this)">
+                <div class="gram-num">5</div><div class="gram-htitle">未來式 will + V — 預告下一場</div>
+                <div class="gram-badge">國一下 U7</div><div class="gram-chevron">▾</div>
+              </div>
+              <div class="gram-body"><div class="gram-body-inner">
+                新聞末段預告下一場，時態從過去式切回未來式，注意時態跳換。
+                <div class="gram-ex">Game 2 <strong>will take place</strong> on Friday in San Antonio.<span class="zh">→ take place = happen（舉行、發生）</span></div>
+              </div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="vocab-strip">
+          <div class="vs-title">精選單字 · Vocabulary</div>
+          <div class="vocab-grid">
+            <div class="vocab-pill"><div class="vp-pos">v.</div><div class="vp-word">steal</div><div class="vp-zh">硬生生偷走勝利</div></div>
+            <div class="vocab-pill"><div class="vp-pos">n.</div><div class="vp-word">deficit</div><div class="vp-zh">落後分數量</div></div>
+            <div class="vocab-pill"><div class="vp-pos">adj.</div><div class="vp-word">consecutive</div><div class="vp-zh">連續的 = in a row</div></div>
+            <div class="vocab-pill"><div class="vp-pos">n.</div><div class="vp-word">winning streak</div><div class="vp-zh">連勝紀錄</div></div>
+            <div class="vocab-pill"><div class="vp-pos">n.</div><div class="vp-word">debut</div><div class="vp-zh">首秀（t 不發音）</div></div>
+            <div class="vocab-pill"><div class="vp-pos">phr.</div><div class="vp-word">on a run</div><div class="vp-zh">連續得分高潮</div></div>
+            <div class="vocab-pill"><div class="vp-pos">v.</div><div class="vp-word">erase</div><div class="vp-zh">抹去（落後）</div></div>
+            <div class="vocab-pill"><div class="vp-pos">phr.</div><div class="vp-word">take place</div><div class="vp-zh">舉行、發生</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="nba-cta">
+  <div class="cta-inner">
+    <div class="cta-left">
+      <p class="cta-eyebrow">互動複習系統</p>
+      <h2 class="cta-title">同步開啟測驗與閃卡<br>讓學生立刻練習</h2>
+      <p class="cta-desc">8 題選擇測驗 + 14 張單字閃卡，全以今日 Knicks vs Spurs Game 1 真實數據為情境，涵蓋過去式、比較級、跨句邏輯三大核心。</p>
+      <div class="cta-features">
+        <div class="cta-feat">📝 8 題測驗</div>
+        <div class="cta-feat">🃏 14 張閃卡</div>
+        <div class="cta-feat">🏀 真實賽事情境</div>
+        <div class="cta-feat">✅ 即時對錯解析</div>
+      </div>
+    </div>
+    <div class="cta-right">
+      <div class="cta-stat-row">
+        <div class="cta-stat"><div class="n">8</div><div class="l">測驗題數</div></div>
+        <div class="cta-stat"><div class="n">14</div><div class="l">單字閃卡</div></div>
+        <div class="cta-stat"><div class="n">5</div><div class="l">文法考點</div></div>
+      </div>
+      <a class="cta-btn-main" href="#">🏀 開啟互動複習系統</a>
+      <button class="cta-btn-sec" onclick="window.print()">🖨️ 列印本頁講義</button>
+    </div>
+  </div>
+</section>
+
+<!-- Global tooltip element -->
+<div id="hl-tooltip"><div class="tt-box"><div class="tt-arrow" id="tt-arrow"></div><div class="tt-cat" id="tt-cat"></div><div class="tt-word" id="tt-word"></div><div class="tt-rule" id="tt-rule"></div><div class="tt-grade" id="tt-grade"></div></div></div>
+
+<script>
+/* ── Grammar accordion ── */
+function toggleG(header){
+  const item=header.closest('.gram-item');
+  const body=item.querySelector('.gram-body');
+  const isOpen=item.classList.contains('active');
+  document.querySelectorAll('.gram-item').forEach(i=>{i.classList.remove('active');i.querySelector('.gram-body').classList.remove('open');});
+  if(!isOpen){item.classList.add('active');body.classList.add('open');}
+}
+
+/* ── Global tooltip ── */
+const tip=document.getElementById('hl-tooltip');
+const tipCat=document.getElementById('tt-cat');
+const tipWord=document.getElementById('tt-word');
+const tipRule=document.getElementById('tt-rule');
+const tipGrade=document.getElementById('tt-grade');
+const tipArrow=document.getElementById('tt-arrow');
+
+let hideTimer=null;
+
+document.querySelectorAll('.hl').forEach(el=>{
+  el.addEventListener('mouseenter',e=>{
+    clearTimeout(hideTimer);
+    const cat=el.dataset.cat;
+    tipCat.className='tt-cat '+cat;
+    tipCat.textContent=cat==='past'?'過去式動詞':cat==='gram'?'文法結構':'重要片語／單字';
+    tipWord.textContent=el.dataset.word||'';
+    tipRule.textContent=el.dataset.rule||'';
+    tipGrade.textContent=el.dataset.grade||'';
+
+    const box=tip.querySelector('.tt-box');
+    const bw=box.offsetWidth||240;
+    const bh=box.offsetHeight||120;
+
+    const r=el.getBoundingClientRect();
+    const cx=r.left+r.width/2;
+    const M=10; /* viewport margin */
+
+    /* tooltip uses position:fixed -> coords are VIEWPORT-relative, do NOT add scrollY */
+    const spaceBelow=window.innerHeight-r.bottom;
+    const spaceAbove=r.top;
+    const showAbove=spaceBelow<bh+18 && spaceAbove>spaceBelow;
+
+    let top,arrowClass;
+    if(showAbove){top=r.top-bh-14;arrowClass='down';}
+    else{top=r.bottom+14;arrowClass='up';}
+    /* clamp vertically inside viewport */
+    top=Math.max(M,Math.min(top,window.innerHeight-bh-M));
+
+    /* clamp horizontally inside viewport */
+    let left=cx-bw/2;
+    left=Math.max(M,Math.min(left,window.innerWidth-bw-M));
+
+    /* arrow points at the word, but stays within the box */
+    const arrowLeft=cx-left;
+    tipArrow.style.left=Math.max(18,Math.min(arrowLeft,bw-18))+'px';
+    tipArrow.style.transform='none';
+    tipArrow.className='tt-arrow '+arrowClass;
+
+    tip.style.left=left+'px';
+    tip.style.top=top+'px';
+    tip.classList.add('show');
+  });
+
+  el.addEventListener('mouseleave',()=>{
+    hideTimer=setTimeout(()=>tip.classList.remove('show'),120);
+  });
+});
+</script>
+</body>
+</html>
