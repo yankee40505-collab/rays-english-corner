@@ -3,211 +3,186 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>國二下 U5 文法重點特訓｜Ray's English Corner</title>
+<title>核心文法突破 · 國二下 U5｜Ray's English Corner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght=0,700;0,900;1,700&family=Nunito:wght=400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --cream:       #faf8f2;
-    --cream-d:     #ede8d8;
-    --green-dk:    #1e4d30;
-    --green-md:    #3a7a50;
-    --green-lt:    #6db88a;
-    --green-pl:    #e2f2e8;
-    --amber:       #f5a623;
-    --amber-pl:    #fff8ec;
-    --warm:        #e07850;
-    --warm-pl:     #fdf0ea;
-    --text:        #1a2a1a;
-    --text-md:     #466046;
-    --text-lt:     #7a9a7a;
-    --border:      #d5cbb5;
-    --white:       #ffffff;
-    --sh:          0 4px 20px rgba(30,77,48,0.10);
-    --sh-lg:       0 12px 48px rgba(30,77,48,0.15);
+    --cream:#faf8f2; --cream-d:#ede8d8; --green-dk:#1e4d30; --green-md:#3a7a50;
+    --green-lt:#6db88a; --green-pl:#e2f2e8; --amber:#f5a623; --amber-pl:#fff8ec;
+    --warm:#e07850; --warm-pl:#fdf0ea; --text:#1a2a1a; --text-md:#466046;
+    --text-lt:#7a9a7a; --border:#d5cbb5; --white:#ffffff;
+    --sh:0 4px 20px rgba(30,77,48,.10); --sh-lg:0 12px 48px rgba(30,77,48,.15);
+    --r:14px;
   }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); line-height: 1.8; }
-  
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Nunito','Noto Sans TC',sans-serif;background:var(--cream);color:var(--text);line-height:1.8;overflow-x:hidden;}
+
   /* NAV */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(250,248,242,0.94); backdrop-filter: blur(14px);
-    border-bottom: 1.5px solid var(--border);
-    padding: 0 5%; height: 58px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .nav-logo {
-    font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 900;
-    color: var(--green-dk); text-decoration: none;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .nav-logo .dot { color: var(--warm); }
+  nav{position:sticky;top:0;z-index:100;background:rgba(250,248,242,.95);backdrop-filter:blur(14px);border-bottom:1.5px solid var(--border);padding:0 5%;height:58px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--green-dk);text-decoration:none;}
+  .nav-links{display:flex;gap:1.4rem;list-style:none;align-items:center;}
+  .nav-links a{text-decoration:none;color:var(--text-md);font-size:.85rem;font-weight:800;transition:color .18s;}
+  .nav-links a:hover{color:var(--green-dk);}
+  .dropdown{position:relative;}
+  .dropdown-content{display:none;position:absolute;top:100%;left:0;background:var(--white);border:1px solid var(--border);border-radius:8px;box-shadow:var(--sh);min-width:160px;z-index:10;}
+  .dropdown-content a{display:block;padding:10px 16px;font-size:.88rem;}
+  .dropdown-content a:hover{background:var(--cream);}
+  .dropdown:hover .dropdown-content{display:block;}
 
-  /* HEADER */
-  .page-header {
-    background: var(--green-dk);
-    color: #fff;
-    padding: 60px 5%;
-    text-align: center;
-    position: relative;
-  }
-  .page-header h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 10px; }
-  .page-header p { color: rgba(255,255,255,0.7); font-size: 1.1rem; }
+  /* HERO */
+  .hero{background:var(--green-dk);padding:60px 5% 68px;text-align:center;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:24px 24px;}
+  .hero-badge{display:inline-block;background:var(--amber);color:var(--white);font-size:.72rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:4px 14px;border-radius:999px;margin-bottom:14px;}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.9rem);font-weight:900;color:var(--white);margin-bottom:10px;line-height:1.2;}
+  .hero h1 em{color:var(--amber);font-style:normal;}
+  .hero p{color:rgba(255,255,255,.68);max-width:520px;margin:0 auto 22px;font-size:.98rem;}
+  .hero-chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+  .chip{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);color:var(--white);font-size:.78rem;font-weight:700;padding:5px 14px;border-radius:999px;}
 
-  /* MAIN CONTENT */
-  main { max-width: 1000px; margin: 40px auto; padding: 0 20px 80px; }
-  
-  .content-box {
-    background: var(--white);
-    border: 1.5px solid var(--border);
-    border-radius: 22px;
-    padding: 40px;
-    box-shadow: var(--sh);
-    margin-bottom: 30px;
-  }
+  /* WRAP */
+  .wrap{max-width:960px;margin:0 auto;padding:48px 5% 80px;}
+  .back-btn{display:inline-flex;margin-bottom:28px;text-decoration:none;color:var(--green-md);font-weight:800;font-size:.95rem;transition:color .2s;}
+  .back-btn:hover{color:var(--green-dk);}
 
-  /* 文法與結構排版樣式 */
-  .section-main-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    color: var(--green-dk);
-    margin-bottom: 25px;
-    padding-left: 10px;
-    border-left: 5px solid var(--warm);
-  }
-  .grammar-section { margin-bottom: 40px; }
-  .grammar-title { 
-    font-size: 1.25rem; 
-    color: var(--green-dk); 
-    border-bottom: 2px solid var(--green-lt); 
-    padding-bottom: 6px; 
-    margin-bottom: 15px; 
-    font-weight: 800;
-  }
-  .teacher-talk {
-    background: var(--amber-pl);
-    border: 1.5px dashed var(--amber);
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 25px;
-    font-size: 0.95rem;
-    color: var(--text-md);
-  }
-  .teacher-talk b { color: var(--green-dk); }
-  
-  .rule-block { 
-    background: var(--green-pl); 
-    border-left: 4px solid var(--green-md); 
-    padding: 15px; 
-    border-radius: 0 12px 12px 0; 
-    margin: 15px 0; 
-    font-size: 0.95rem; 
-    color: var(--text-md); 
-  }
-  .rule-block b { color: var(--green-dk); }
-  
-  .example-block { 
-    background: var(--cream-pl); 
-    border-radius: 10px; 
-    padding: 12px 18px; 
-    margin: 10px 0; 
-    font-size: 0.93rem; 
-    color: var(--text); 
-    border: 1px solid rgba(213,203,181,0.4);
-  }
-  .example-block b { color: var(--warm); }
-  .example-block .trans { display: block; font-size: 0.85rem; color: var(--text-lt); font-style: normal; margin-top: 4px; }
-  
-  .trap-block {
-    background: var(--warm-pl);
-    border-left: 4px solid var(--warm);
-    padding: 15px;
-    border-radius: 0 12px 12px 0;
-    margin: 15px 0;
-  }
-  .trap-block h5 { font-size: 1rem; color: #9a4020; margin-bottom: 6px; font-weight: 800; }
-  .trap-block ul { padding-left: 20px; font-size: 0.93rem; color: var(--text-md); }
+  /* SECTION LABEL */
+  .sec-label{display:flex;align-items:center;gap:12px;margin:48px 0 20px;}
+  .sec-label .sl-icon{width:40px;height:40px;border-radius:11px;background:var(--green-dk);color:var(--white);font-size:1.1rem;display:grid;place-items:center;flex-shrink:0;}
+  .sec-label h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--green-dk);}
+  .sec-label h2 small{display:block;font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--text-lt);}
 
-  .tip-text { color: var(--warm); font-weight: 700; font-size: 0.9rem; margin-top: 5px; }
+  /* TEACHER TALK */
+  .teacher-talk{background:var(--amber-pl);border:1.5px dashed var(--amber);border-radius:12px;padding:16px 20px;margin-bottom:24px;font-size:.95rem;color:var(--text-md);font-family:'Noto Sans TC',sans-serif;line-height:1.75;}
+  .teacher-talk b{color:var(--green-dk);font-family:'Nunito',sans-serif;}
 
-  /* 單字卡片排列 */
-  .word-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px; }
-  .word-card { background: var(--cream); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
-  .word-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; border-bottom: 1px dashed var(--border); padding-bottom: 4px; }
-  .word-eng { font-size: 1.15rem; font-weight: 800; color: var(--green-dk); }
-  .word-ch { font-size: 0.95rem; font-weight: 700; color: var(--warm); }
-  .word-info { font-size: 0.88rem; color: var(--text-md); line-height: 1.6; }
+  /* WORD GRID */
+  .word-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+  @media(max-width:640px){.word-grid{grid-template-columns:1fr;}}
+  .word-card{background:var(--white);border:1.5px solid var(--border);border-radius:14px;padding:16px 18px;box-shadow:var(--sh);transition:border-color .2s;}
+  .word-card:hover{border-color:var(--green-lt);}
+  .word-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;padding-bottom:6px;border-bottom:1px dashed var(--border);}
+  .word-eng{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--green-dk);}
+  .word-pos{font-size:.72rem;font-weight:700;color:var(--text-lt);margin-left:4px;}
+  .word-ch{font-size:.88rem;font-weight:700;color:var(--warm);font-family:'Noto Sans TC',sans-serif;}
+  .word-ipa{font-size:.78rem;color:var(--text-lt);margin-bottom:6px;font-family:'Nunito',monospace;}
+  .word-tip{font-size:.85rem;color:var(--text-md);font-family:'Noto Sans TC',sans-serif;line-height:1.65;}
+  .word-tip b{font-family:'Nunito',sans-serif;color:var(--green-dk);}
 
-  .back-btn {
-    display: inline-flex;
-    margin-bottom: 20px;
-    text-decoration: none;
-    color: var(--green-md);
-    font-weight: 800;
-    font-size: 0.95rem;
-    transition: color .2s;
-  }
-  .back-btn:hover { color: var(--green-dk); }
+  /* TRAP BOX (vocab) */
+  .vocab-trap{background:var(--warm-pl);border:2px solid var(--warm);border-radius:var(--r);padding:22px 26px;margin-bottom:24px;}
+  .vocab-trap-title{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--warm);font-weight:700;margin-bottom:14px;}
+  .trap-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px;}
+  @media(max-width:560px){.trap-row{grid-template-columns:1fr;}}
+  .trap-cell{background:var(--white);border-radius:10px;padding:12px 14px;font-size:.86rem;font-family:'Noto Sans TC',sans-serif;line-height:1.7;border:1px solid rgba(224,120,80,.2);}
+  .trap-cell .tc-label{font-size:.72rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--warm);font-family:'Nunito',sans-serif;margin-bottom:4px;}
+  .trap-cell b{font-family:'Nunito',sans-serif;color:var(--green-dk);}
+  .trap-cell code{background:var(--cream-d);border-radius:4px;padding:1px 5px;font-size:.85em;}
+
+  /* GRAMMAR CARD */
+  .g-card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:20px;overflow:hidden;border:2px solid transparent;transition:border-color .25s,box-shadow .25s;}
+  .g-card:hover{border-color:var(--green-lt);box-shadow:var(--sh-lg);}
+  .g-card-head{padding:18px 24px;background:var(--green-dk);color:var(--white);display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;}
+  .gh-num{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.18);font-weight:900;font-size:.85rem;display:grid;place-items:center;flex-shrink:0;}
+  .gh-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;flex:1;}
+  .gh-sub{font-size:.78rem;opacity:.7;margin-top:2px;}
+  .gh-arrow{font-size:.9rem;transition:transform .25s;}
+  .g-card.open .gh-arrow{transform:rotate(180deg);}
+  .g-card-body{display:none;padding:24px 28px;}
+  .g-card.open .g-card-body{display:block;}
+
+  /* inside card */
+  .intro-desc{font-size:.93rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-md);line-height:1.75;margin-bottom:14px;}
+  .intro-desc b{font-family:'Nunito',sans-serif;color:var(--green-dk);}
+  .rule-block{background:var(--green-pl);border-left:4px solid var(--green-md);padding:13px 16px;border-radius:0 10px 10px 0;margin:12px 0;font-size:.9rem;color:var(--text-md);font-family:'Noto Sans TC',sans-serif;line-height:1.75;}
+  .rule-block b{font-family:'Nunito',sans-serif;color:var(--green-dk);}
+  .rule-block ul{padding-left:18px;margin-top:6px;}
+  .rule-block li{margin-bottom:5px;}
+
+  /* comparison table */
+  .cmp-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.87rem;}
+  .cmp-table th{background:var(--green-dk);color:#fff;padding:9px 14px;text-align:left;font-size:.8rem;font-weight:800;}
+  .cmp-table td{padding:9px 14px;border-bottom:1px solid var(--cream-d);vertical-align:top;font-family:'Noto Sans TC',sans-serif;}
+  .cmp-table tr:last-child td{border-bottom:none;}
+  .cmp-table tr:nth-child(even) td{background:var(--cream);}
+  .cmp-table .key{font-weight:800;color:var(--green-dk);font-family:'Nunito',sans-serif;}
+  .cmp-table .single{color:var(--warm);font-weight:800;font-family:'Nunito',sans-serif;}
+  .cmp-table .plural{color:var(--green-md);font-weight:800;font-family:'Nunito',sans-serif;}
+
+  /* ex-box */
+  .ex-box{background:var(--green-pl);border-left:4px solid var(--green-md);border-radius:8px;padding:10px 14px;font-size:.88rem;margin:8px 0;line-height:1.7;}
+  .ex-box+.ex-box{margin-top:6px;}
+  .ex-box .en{font-weight:700;color:var(--green-dk);}
+  .ex-box .zh{font-family:'Noto Sans TC',sans-serif;font-size:.82rem;color:var(--text-md);margin-top:2px;}
+  .ex-box .ok{color:var(--green-md);font-weight:900;}
+  .ex-box .ng{color:#c0392b;font-weight:900;text-decoration:line-through;}
+
+  /* warn box */
+  .warn-box{background:var(--warm-pl);border-left:4px solid var(--warm);border-radius:8px;padding:10px 14px;font-size:.88rem;font-family:'Noto Sans TC',sans-serif;line-height:1.7;margin:10px 0;}
+  .warn-box strong{font-family:'Nunito',sans-serif;color:var(--warm);}
+
+  /* trap card inside grammar */
+  .g-trap{background:var(--warm-pl);border-left:4px solid var(--warm);padding:14px 16px;border-radius:0 10px 10px 0;margin:14px 0;font-family:'Noto Sans TC',sans-serif;font-size:.9rem;line-height:1.75;}
+  .g-trap h5{font-size:.92rem;color:#9a4020;margin-bottom:8px;font-weight:800;font-family:'Nunito',sans-serif;}
+  .g-trap ul{padding-left:18px;}
+  .g-trap li{margin-bottom:6px;color:var(--text-md);}
+  .g-trap b{font-family:'Nunito',sans-serif;color:var(--green-dk);}
+  .g-trap .ok{color:var(--green-md);font-weight:900;}
+  .g-trap .ng{color:#c0392b;font-weight:900;}
+
+  /* although table */
+  .alt-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.87rem;}
+  .alt-table th{background:var(--green-dk);color:#fff;padding:9px 14px;text-align:left;font-size:.8rem;}
+  .alt-table td{padding:9px 14px;border-bottom:1px solid var(--cream-d);vertical-align:top;font-family:'Noto Sans TC',sans-serif;}
+  .alt-table tr:last-child td{border-bottom:none;}
+  .alt-table tr:nth-child(even) td{background:var(--cream);}
+  .alt-table .key{font-weight:800;font-family:'Nunito',sans-serif;color:var(--green-dk);}
+
+  /* rewrite practice */
+  .rewrite-box{background:var(--amber-pl);border:1.5px solid var(--amber);border-radius:10px;padding:16px 20px;margin:14px 0;font-size:.9rem;font-family:'Noto Sans TC',sans-serif;line-height:1.8;}
+  .rewrite-box .rb-title{font-weight:800;color:#8a5500;font-family:'Nunito',sans-serif;margin-bottom:8px;}
+  .rewrite-box .rb-sent{font-style:italic;color:var(--text);margin-bottom:10px;}
+  .rewrite-box .rb-ans{color:var(--green-dk);font-weight:700;}
+
+  /* PHRASE SECTION */
+  .phrase-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
+  @media(max-width:560px){.phrase-grid{grid-template-columns:1fr;}}
+  .phrase-card{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;box-shadow:var(--sh);transition:border-color .2s;}
+  .phrase-card:hover{border-color:var(--green-lt);}
+  .phrase-card .pc-en{font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:var(--green-dk);margin-bottom:3px;}
+  .phrase-card .pc-zh{font-family:'Noto Sans TC',sans-serif;font-size:.85rem;color:var(--text);font-weight:700;}
+
+  /* SUMMARY TABLE */
+  .sum-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:24px;font-size:.85rem;}
+  .sum-table th{background:var(--green-dk);color:#fff;padding:10px 14px;text-align:left;font-size:.8rem;font-weight:800;}
+  .sum-table td{padding:10px 14px;border-bottom:1px solid var(--cream-d);vertical-align:middle;font-family:'Noto Sans TC',sans-serif;}
+  .sum-table tr:last-child td{border-bottom:none;}
+  .sum-table tr:nth-child(even) td{background:var(--cream);}
+  .sum-table .key{font-weight:800;font-family:'Nunito',sans-serif;color:var(--green-dk);}
+  .sum-table .s{color:var(--warm);font-weight:800;font-family:'Nunito',sans-serif;}
+  .sum-table .p{color:var(--green-md);font-weight:800;font-family:'Nunito',sans-serif;}
+
+  /* TRAP SUMMARY */
+  .trap-summary{background:var(--green-dk);color:var(--white);border-radius:16px;padding:32px 36px;margin-top:48px;box-shadow:var(--sh-lg);}
+  .trap-summary h2{font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:18px;}
+  .trap-list{display:flex;flex-direction:column;gap:10px;}
+  .trap-chip{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:11px 16px;font-size:.88rem;font-family:'Noto Sans TC',sans-serif;line-height:1.65;}
+  .trap-chip strong{font-family:'Nunito',sans-serif;color:var(--amber);}
 
   /* FOOTER */
-  footer { background: var(--green-dk); color: rgba(255,255,255,0.65); text-align: center; padding: 36px 5%; font-size: 0.86rem; line-height: 1.9; }
-  footer span { color: var(--amber); }
+  footer{background:var(--green-dk);color:rgba(255,255,255,.55);text-align:center;padding:28px 5%;font-size:.83rem;line-height:1.9;}
+  .f-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--white);margin-bottom:4px;}
+  .f-logo span{color:var(--amber);}
 
-  @media (max-width: 768px) {
-    .word-grid { grid-template-columns: 1fr; }
-  }
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;}
+  .reveal.visible{opacity:1;transform:none;}
 </style>
 </head>
 <body>
 
-<nav>  
-  <style>    
-    /* 補上導覽列選單的橫向排版設定 */
-    .nav-links {
-      display: flex;
-      list-style: none;
-      align-items: center;
-      gap: 24px;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-md);
-      font-weight: 700;
-      font-size: 0.95rem;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover {
-      color: var(--green-dk);
-    }
-    /* 下拉選單基礎排版 */
-    .dropdown {
-      position: relative;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      box-shadow: var(--sh);
-      min-width: 150px;
-      z-index: 10;
-    }
-    .dropdown-content a {
-      display: block;
-      padding: 10px 16px;
-      font-size: 0.9rem;
-    }
-    .dropdown-content a:hover {
-      background: var(--cream);
-    }
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-  </style>  
+<!-- NAV -->
+<nav>
   <a href="index.html" class="nav-logo">Ray's English Corner</a>
   <ul class="nav-links">
     <li><a href="index.html#about">關於 Ray</a></li>
@@ -223,8 +198,9 @@
     <li class="dropdown">
       <a href="javascript:void(0)">文法 ▾</a>
       <div class="dropdown-content">
-        <a href="grammar-u5.html">文法 U5</a>
+        <a href="grammar-u5.html" style="color:var(--green-dk);font-weight:800;">文法 U5 ◀</a>
         <a href="grammar-u6.html">文法 U6</a>
+        <a href="participle-clauses.html">分詞構句筆記</a>
       </div>
     </li>
     <li><a href="practice.html">線上練習</a></li>
@@ -232,385 +208,564 @@
   </ul>
 </nav>
 
-<div class="page-header">
-  <p>康軒國中英語 2 下</p>
-  <h1>Unit 5 文法與片語重點特訓 📝</h1>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">📖 翰林國二下 Unit 5</div>
+  <h1>核心文法突破<br><em>All of the Food Stands Look Great</em></h1>
+  <p>數量不定代名詞 × although / though × 生病單字精析</p>
+  <div class="hero-chips">
+    <div class="chip">one of / both / all</div>
+    <div class="chip">each / either / neither / none</div>
+    <div class="chip">although vs. but</div>
+    <div class="chip">⚠️ 5大陷阱</div>
+  </div>
 </div>
 
-<main>
+<div class="wrap">
   <a href="index.html#grammar" class="back-btn">← 返回首頁文法筆記</a>
-  
-  <!-- PART A: 單字研習營與重點延伸 -->
-  <div class="content-box">
-    <h3 class="section-main-title">PART A 核心單字與重要片語研習營</h3>
-    
-    <div class="teacher-talk">
-      📢 <b>雷老師白話說明：</b><br>
-      本單元的單字與日常學習、人際互動和生活態度密不可分。除了記住基本字義，更要精熟動詞後面<b>接不定詞 (to V) 還是動名詞 (V-ing)</b> 的搭配！這可是會考選擇題與非選題出題率極高的核心地雷喔！
+
+  <!-- ══ PART A 單字 ══ -->
+  <div class="sec-label reveal">
+    <div class="sl-icon">📝</div>
+    <h2><small>Part A · Vocabulary</small>重要單字整理</h2>
+  </div>
+
+  <div class="teacher-talk reveal">
+    📢 <b>白話說明：</b>本單元主要跟「身體、生病、食物」有關，很多名詞和動詞都固定搭配，不能亂換。把下面的「黃色小提示」背熟，考試最常考搭配動詞的填空！
+  </div>
+
+  <div class="word-grid reveal">
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">matter<span class="word-pos">(n.)</span></span><span class="word-ch">問題；事件；病況</span></div>
+      <div class="word-ipa">[ˈmætə]</div>
+      <div class="word-tip">💡 <b>What's the matter?</b> ＝ 怎麼了？（最常用！）</div>
     </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">sore throat<span class="word-pos">(n.)</span></span><span class="word-ch">喉嚨痛</span></div>
+      <div class="word-ipa">[ˈsɔr ˌθroʊt]</div>
+      <div class="word-tip">💡 <b>have a sore throat</b> ＝ 喉嚨痛</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">medicine<span class="word-pos">(n.)</span></span><span class="word-ch">藥（通常不可數）</span></div>
+      <div class="word-ipa">[ˈmedəsn]</div>
+      <div class="word-tip">💡 <b>take medicine</b> ＝ 吃藥（不用 eat！）</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">honey<span class="word-pos">(n.)</span></span><span class="word-ch">蜂蜜；（暱稱）親愛的</span></div>
+      <div class="word-ipa">[hʌnɪ]</div>
+      <div class="word-tip">💡 honeymoon ＝ 蜜月；<b>honey with lemon</b> ＝ 蜂蜜檸檬</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">cold<span class="word-pos">(n./adj.)</span></span><span class="word-ch">感冒；寒冷的</span></div>
+      <div class="word-ipa">[koʊld]</div>
+      <div class="word-tip">💡 <b>have a cold</b> ＝ 感冒；cold medicine ＝ 感冒藥</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">head<span class="word-pos">(n.)</span></span><span class="word-ch">頭；首領</span></div>
+      <div class="word-ipa">[hɛd]</div>
+      <div class="word-tip">💡 from head to toe ＝ 從頭到腳；headache ＝ 頭痛</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">stomachache<span class="word-pos">(n.)</span></span><span class="word-ch">胃痛</span></div>
+      <div class="word-ipa">[ˈstʌmək.eɪk]</div>
+      <div class="word-tip">💡 stomach（胃）+ ache（痛）組合字，考試常考拼字！</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">fever<span class="word-pos">(n.)</span></span><span class="word-ch">發燒</span></div>
+      <div class="word-ipa">[ˈfiːvər]</div>
+      <div class="word-tip">💡 <b>have a (high) fever</b> ＝ 發（高）燒</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">runny nose<span class="word-pos">(n.)</span></span><span class="word-ch">流鼻水</span></div>
+      <div class="word-ipa">[ˌrʌniˈnoʊz]</div>
+      <div class="word-tip">💡 runny ＝ 一直流的；running nose 也正確</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">nail<span class="word-pos">(n.)</span></span><span class="word-ch">指甲</span></div>
+      <div class="word-ipa">[neɪl]</div>
+      <div class="word-tip">💡 fingernail（手指甲）/ toenail（腳趾甲）</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">finger<span class="word-pos">(n.)</span></span><span class="word-ch">手指</span></div>
+      <div class="word-ipa">[ˈfɪŋɡər]</div>
+      <div class="word-tip">💡 thumb 拇指、forefinger 食指、middle finger 中指</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">memory<span class="word-pos">(n.)</span></span><span class="word-ch">記憶；記憶力</span></div>
+      <div class="word-ipa">[ˈmemərɪ]</div>
+      <div class="word-tip">💡 memory bread ＝ 哆啦A夢記憶麵包</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">explain<span class="word-pos">(v.)</span></span><span class="word-ch">解釋；說明</span></div>
+      <div class="word-ipa">[ɪkˈspleɪn]</div>
+      <div class="word-tip">💡 <b>explain sth to sb</b> ＝ 向某人解釋某事</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">cough<span class="word-pos">(v./n.)</span></span><span class="word-ch">咳嗽</span></div>
+      <div class="word-ipa">[kɔːf]</div>
+      <div class="word-tip">💡 <b>have a cough</b> ＝ 咳嗽（名詞用法）</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">treat<span class="word-pos">(v.)</span></span><span class="word-ch">治療；對待；款待</span></div>
+      <div class="word-ipa">[triːt]</div>
+      <div class="word-tip">💡 <b>treat sb. to sth.</b> ＝ 請某人某物；treat a cold ＝ 治療感冒</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">probably<span class="word-pos">(adv.)</span></span><span class="word-ch">很可能；大概（約80%）</span></div>
+      <div class="word-ipa">[ˈprɒbəblɪ]</div>
+      <div class="word-tip">💡 vs. perhaps（約40%）；probably 確定度更高</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">actually<span class="word-pos">(adv.)</span></span><span class="word-ch">實際上；事實上</span></div>
+      <div class="word-ipa">[ˈæktʃuəlɪ]</div>
+      <div class="word-tip">💡 ＝ in fact；修飾整句話，放在動詞前</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">useful<span class="word-pos">(adj.)</span></span><span class="word-ch">有用的</span></div>
+      <div class="word-ipa">[ˈjuːsfəl]</div>
+      <div class="word-tip">💡 反義詞：useless；helpful（有幫助的）是近義詞</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">common<span class="word-pos">(adj.)</span></span><span class="word-ch">常見的；共同的</span></div>
+      <div class="word-ipa">[ˈkɒmən]</div>
+      <div class="word-tip">💡 common sense ＝ 常識；<b>have...in common</b> ＝ 有共同點</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng">sweet<span class="word-pos">(adj.)</span></span><span class="word-ch">甜的；甜蜜的；可愛的</span></div>
+      <div class="word-ipa">[swiːt]</div>
+      <div class="word-tip">💡 英式 sweets ＝ 糖果；美式 candy</div>
+    </div>
+  </div>
 
-    <div class="word-grid">
-      <!-- 1-5 -->
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">1. point</span><span class="word-ch">得分；尖端；小數點 (n.)</span></div>
-        <div class="word-info">💡 可指「尖頭」、(比賽等的)「得分」，或數學的「小數點」。<br><div class="example-block">In the game, our school got ten <b>points</b>, but theirs got only two.<span class="trans">（在比賽中，我們學校得了十分，但是他們只得兩分。）</span></div></div>
+  <!-- 考試陷阱單字 -->
+  <div class="vocab-trap reveal">
+    <div class="vocab-trap-title">🚨 考試陷阱：生病搭配的動詞最常考！</div>
+    <div class="trap-row">
+      <div class="trap-cell">
+        <div class="tc-label">填空陷阱</div>
+        He _____ medicine every day.<br>
+        ✅ <b>takes</b>（吃藥用 take，不是 eat）<br>
+        ❌ 常錯：eats medicine
       </div>
-
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">2. test</span><span class="word-ch">考試 (n.)</span></div>
-        <div class="word-info">💡 隨堂小考常用 quiz / quizzes；重要的大考常叫 exam(s)。<br><div class="example-block">He didn't do well on the English <b>test</b> today.<span class="trans">（他今天的英文考試沒考好。）</span></div></div>
+      <div class="trap-cell">
+        <div class="tc-label">選擇題常考</div>
+        She has a _____ and can't sleep.<br>
+        (A) fever (B) fever cold (C) cold fever<br>
+        ✅ (A) <b>fever</b>（發燒，前面加 have a）
       </div>
-
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">3. excuse</span><span class="word-ch">藉口；理由 (n.)</span></div>
-        <div class="word-info">💡 常用片語：no excuse (沒有藉口) / make up an excuse (捏造藉口)。<br><div class="example-block">There is no <b>excuse</b> for you to be late again.<span class="trans">（你沒有再次遲到的藉口。）</span></div></div>
+      <div class="trap-cell">
+        <div class="tc-label">字彙填空</div>
+        I have a sore t_____. It hurts.<br>
+        ✅ <b>throat</b>（喉嚨）
       </div>
-
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">4. grade</span><span class="word-ch">成績；年級 (n.)</span></div>
-        <div class="word-info">💡 指「單一分數」用單數 get a good grade；指「多次或各科整體成績」用複數 get good grades。亦可指年級（如 in the eighth grade）。<br><div class="example-block">My daughter never gets good <b>grades</b> in math.<span class="trans">（我女兒數學從未拿過好成績。）</span></div></div>
-      </div>
-
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">5. mistake</span><span class="word-ch">錯誤 (n.)</span></div>
-        <div class="word-info">💡 「犯錯」固定搭配動詞 make ➔ make a mistake。後面常接介系詞 about。<br>📌 延伸片語：by mistake (錯誤地、無意中)；mistake... for... (把...誤認為...)。<br><div class="example-block">She made a <b>mistake</b> about the time.<span class="trans">（她弄錯時間了。）</span></div></div>
-      </div>
-
-      <!-- 6-10 -->
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">6. pass</span><span class="word-ch">傳遞；通過 (v.)</span></div>
-        <div class="word-info">💡 授與動詞用法：pass ＋ 人 ＋ 物 ＝ pass ＋ 物 ＋ to ＋ 人。修飾通過某場所時可用 go past。當「及格」解時，相對字為 fail (不及格)。<br><div class="example-block">Please <b>pass</b> me the ruler on your right.<span class="trans">（請把你右邊的尺傳給我。）</span></div></div>
-      </div>
-
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">7. throw</span><span class="word-ch">丟；投擲 (v.)</span></div>
-        <div class="word-info">💡 後方直接接受詞（如 a ball）。過去式為不規則變化 ➔ <b>threw</b>。<br>📌 常用片語：throw away (丟掉)、throw out (處理掉)、throw up (嘔吐)。<br><div class="example-block">Don't <b>throw</b> a ball like a girl, Ted.<span class="trans">（泰德，丟球不要像個女孩子一樣。）</span></div></div>
-      </div>
-
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">8. win</span><span class="word-ch">贏；獲勝 (v.)</span></div>
-        <div class="word-info">💡 名詞形式為 winning (獲勝) 及 winner (獲勝者)。過去式為 <b>won</b>。win-win 則形容「雙贏的」。<br>📌 常用片語：win first place (贏得第一名)。相對字為 lose (輸)。<br><div class="example-block">Our class almost <b>won</b> the game, but ended up losing it at the last minute.<span class="trans">（我們班幾乎要贏得比賽了，但在最後一刻卻輸掉了。）</span></div></div>
-      </div>
-
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">9. fail</span><span class="word-ch">不及格；失敗 (v.)</span></div>
-        <div class="word-info">💡 (1) 指考試不及格時，後面直接接受詞即可 (如 fail the test)。<br>(2) <b>fail to + 原形 V</b> ➔ 意為「未能做到、沒做到某事」。<br><div class="example-block">Why did you <b>fail</b> the math test today?<span class="trans">（你今天數學考試為什麼不及格？）</span></div></div>
-      </div>
-
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">10. forget</span><span class="word-ch">忘記 (v.)</span></div>
-        <div class="word-info">💡 過去式為 <b>forgot</b>。形容詞為 forgetful (健忘的)。其後接動作時用法與反義字 remember 相同，有兩種核心變化：<br>
-        <div class="rule-block" style="margin:5px 0; padding:8px;">
-          • <b>forget + to V</b> ➔ 忘記去幹嘛（<b>沒做</b>該動作）<br>
-          • <b>forget + V-ing</b> ➔ 忘記做過某事（<b>有做</b>但忘了）
-        </div>
-        <div class="example-block">Grandpa fell asleep last night, and he <b>forgot to turn off</b> the TV.<span class="trans">（爺爺昨晚睡著了，而且他忘了關電視。➔ 沒做「關電視」這件事）</span></div></div>
-      </div>
-
-      <!-- 11-15 -->
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">11. begin</span><span class="word-ch">開始 (v.)</span></div>
-        <div class="word-info">💡 過去式為 <b>began</b>。與 start 相同，後方接動作時<b>接 to V 或 V-ing 皆可</b>，且語意相同。名詞形式為 beginning。<br><div class="example-block">When will Sara's concert <b>begin</b>?<span class="trans">（莎拉的演唱會什麼時候開始？）</span></div></div>
-      </div>
-
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">12. expect</span><span class="word-ch">預計；期望 (v.)</span></div>
-        <div class="word-info">💡 後方接動作時固定接 <b>to V</b>，亦可接「人/事/that子句」。<br><div class="example-block">If it rains tomorrow, don't <b>expect</b> me to go.<span class="trans">（如果明天下雨，就別期望我會去了。）</span></div></div>
-      </div>
-
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">13. allow</span><span class="word-ch">允許 (v.)</span></div>
-        <div class="word-info">💡 核心用法有兩種：<br>
-        (1) <b>allow ＋ 受詞 ＋ to V</b> (允許某人做某事)<br>
-        (2) <b>allow ＋ V-ing</b> (主動允許某動作)<br>
-        <div class="example-block">His parents <b>allow him to go</b> swimming by himself.<span class="trans">（他的父母允許他自己去游泳。）</span></div></div>
-      </div>
-
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">14. laugh</span><span class="word-ch">笑 (v./n.)</span></div>
-        <div class="word-info">💡 📌 常用片語：<b>laugh at...</b> (嘲笑/對...發笑)、laugh off (對...一笑置之)。<br><div class="example-block">I can't stop <b>laughing</b> at her joke.<span class="trans">（聽了她的笑話，我禁不住笑個不停。）</span></div></div>
-      </div>
-
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">15. push</span><span class="word-ch">推；敦促；逼迫 (v.)</span></div>
-        <div class="word-info">💡 除了物理上的「推」，常用於延伸意「敦促、逼迫」，句型為 <b>push sb. to V</b>。相對字為 pull (拉)。<br><div class="example-block">Don't <b>push</b> me!<span class="trans">（不要逼我！/ 不要推我！）</span></div></div>
-      </div>
-
-      <!-- 16-22 -->
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">16. picture</span><span class="word-ch">想像 (v.)</span></div>
-        <div class="word-info">💡 當動詞時指「想像、在腦海中勾勒畫面」，與 imagine 語意相近。後常接名詞或 <b>V-ing</b>。<br><div class="example-block">I can't <b>picture</b> the house without a TV.<span class="trans">（我無法想像沒有電視的房子會是什麼樣子。）</span></div></div>
-      </div>
-
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">17. afraid</span><span class="word-ch">害怕的 (adj.)</span></div>
-        <div class="word-info">💡 常用句型：be afraid of + N/V-ing 或是 be afraid + to V。口語上常用 "I'm afraid so." (恐怕是這樣) / "I'm afraid not." (恐怕不是)。後面也可接 that 引導名詞子句。<br><div class="example-block">Although Kelly has lots of questions, she is <b>afraid</b> to speak up in class.<span class="trans">（雖然 Kelly 有很多問題，但她害怕在課堂上發言。）</span></div></div>
-      </div>
-
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">18. fresh</span><span class="word-ch">新鮮的；新穎的 (adj.)</span></div>
-        <div class="word-info">💡 除了修飾食物新鮮，亦可修飾空氣 (fresh air) 或想法新穎 (fresh ideas)。<br><div class="example-block">He's smart and full of <b>fresh</b> ideas.<span class="trans">（他很聰明，而且充滿新穎的想法。）</span></div></div>
-      </div>
-
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">19. honest</span><span class="word-ch">誠實的 (adj.)</span></div>
-        <div class="word-info">💡 ⚠️ 注意：<b>honest 的 h 不發音</b>，所以前方若要加不定冠詞時必須用 <b>an</b> honest man。名詞形式為 honesty (誠實)。名言：Honesty is the best policy.<br><div class="example-block">That's not <b>honest</b> of him.<span class="trans">（他那樣做不誠實。）</span></div></div>
-      </div>
-
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">20. excellent</span><span class="word-ch">優秀的；極佳的 (adj.)</span></div>
-        <div class="word-info">💡 用於稱讚人、事、物極佳。📌 常用片語：be excellent at... (在...方面極其優秀)。<br><div class="example-block">Hot tea makes an <b>excellent</b> drink in winter.<span class="trans">（熱茶是冬天極佳的飲品。）</span></div></div>
-      </div>
-
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">21. until</span><span class="word-ch">直到 (conj./prep.)</span></div>
-        <div class="word-info">💡 當連接詞或介系詞。若是尚未發生的未來動作，until 引導的子句須用<b>現在簡單式</b>代替未來式。詳細文法對照請見 PART C。<br><div class="example-block">He kept playing video games <b>until</b> 12 a.m. last night.<span class="trans">（昨晚他一直打電動到凌晨12點。）</span></div></div>
-      </div>
-
-      <div class="word-card">
-        <div class="word-head"><span class="word-eng">22. come on</span><span class="word-ch">快點；少來了 (phr.)</span></div>
-        <div class="word-info">💡 口語常用片語。可用於催促對方「快點」，或是對旁人所說的話不太認同、要對方「少來了、拜託」。<br><div class="example-block"><b>Come on</b>! Don't you watch TV at night?<span class="trans">（拜託！你晚上不看電視嗎？）</span></div></div>
+      <div class="trap-cell">
+        <div class="tc-label">看圖題</div>
+        Jack 抱著膝蓋（圖）→ 問 what was wrong?<br>
+        ✅ He hurt <b>one of his knees</b>.（「膝蓋」複數，但只有一個受傷用 one of）
       </div>
     </div>
   </div>
 
-  <!-- PART B: 必考文法核心 01：附加問句 -->
-  <div class="content-box">
-    <h3 class="section-main-title">PART B 觀念 01：附加問句（Tag Questions）的型態及用法</h3>
-    
-    <div class="teacher-talk">
-      「附加問句」是附加在直述句後面的隨短問句，用來尋求確認或贊同。其公式核心鐵則：<b>「前肯後否，前否後肯」</b>。且前後句的<b>時態與動詞家族必須一致</b>！
+  <!-- ══ PART B 文法01 數量不定代名詞 ══ -->
+  <div class="sec-label reveal">
+    <div class="sl-icon">01</div>
+    <h2><small>Part B · Grammar</small>數量不定代名詞（one of / some of / most of...）</h2>
+  </div>
+
+  <div class="teacher-talk reveal">
+    📢 <b>白話解說：</b>想像你有一籃10顆蘋果。你要說「裡面有幾顆」或「裡面大多數」，就需要這個文法。<br>
+    數量不定代名詞就是「one / two / some / most / many / both / all...」這類詞，後面加 of + 那一群東西。<br>
+    <b>最重要的規則：動詞單複數由「of 前面的代名詞」決定，不是由後面的名詞決定！</b>
+  </div>
+
+  <!-- 可數名詞 -->
+  <div class="g-card reveal open" id="gc1">
+    <div class="g-card-head" onclick="toggleCard('gc1')">
+      <div class="gh-num">1</div>
+      <div><div class="gh-title">接「可數名詞」的用法</div><div class="gh-sub">one / two / some / many / most / both / all of + 複數可數名詞</div></div>
+      <div class="gh-arrow">▼</div>
     </div>
-
-    <!-- be動詞型態 -->
-    <div class="grammar-section">
-      <div class="grammar-title">1. 附加問句包含 be 動詞的句型</div>
-      <div class="rule-block">
-        <b>【前肯後否】</b> 主詞 ＋ be動詞 ..., <b>be動詞否定縮寫</b> ＋ 代名詞主格？<br>
-        <b>【前否後肯】</b> 主詞 ＋ be動詞否定 ..., <b>be動詞肯定</b> ＋ 代名詞主格？
-      </div>
-      <div class="example-block">
-        Max <b>was not</b> a weather reporter years ago, <b>was</b> he?<span class="trans">（Max 幾年前不是氣象預報員，對吧？）</span>
-      </div>
-      <div class="trap-block">
-        <h5>🚨 傲嬌第一人稱特常考點：</h5>
-        <ul>
-          <li>當直述句是肯定句的 <b>I am ...</b> 時，後面的否定附加問句固定要縮寫成 <b>aren't I?</b>（絕不可寫成 amn't I?）</li>
-          <li>例句：I am late for the show, <b>aren't I</b>?（我遲到了，對吧？）</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 一般動詞型態 -->
-    <div class="grammar-section">
-      <div class="grammar-title">2. 附加問句包含一般動詞的句型</div>
-      <div class="rule-block">
-        一般動詞家族沒有出現在問句的本錢，必須依時態借用助動詞 <b>do / does / did</b>：
-        <ul>
-          <li>現在簡單式（肯定）：主詞 ＋ V(-s) ..., <b>don't / doesn't</b> ＋ 代名詞？</li>
-          <li>過去簡單式（肯定）：主詞 ＋ V-ed ..., <b>didn't</b> ＋ 代名詞？</li>
-          <li>否定直述句：主詞 ＋ don't/doesn't/didn't ＋ 原形V ..., <b>do / does / did</b> ＋ 代名詞？</li>
-        </ul>
-      </div>
-      <div class="example-block">
-        Helen <b>read</b> (過去式) my LINE, <b>didn't</b> she?<span class="trans">（Helen 讀了我的 LINE 訊息，不是嗎？ ➔ read 此處沒加 s 故為過去式）</span>
-      </div>
-      <div class="trap-block">
-        <h5>🔥 超高頻會考地雷：</h5>
-        <ul>
-          <li><b>have to / has to / had to（必須）並不是助動詞！</b> 它們是一般動詞，所以附加問句必須借用 do / does / did！</li>
-          <li>例句：They will have a meeting later, <b>won't they</b>?（他們等一下要開會，對吧？ ➔ 主要動詞前有助動詞will，跟will走）</li>
-          <li>例句：Greg <b>has to</b> make more money, <b>doesn't</b> he?（Greg 必須賺更多錢，對吧？ ➔ has to 是一般動詞，第三人稱單數借用 does）</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 語氣助動詞型態 -->
-    <div class="grammar-section">
-      <div class="grammar-title">3. 附加問句包含語氣助動詞的句型</div>
-      <div class="rule-block">
-        直述句若本來就含有 <b>will / can / should / must</b> 等助動詞，後方直接使用其相反縮寫型態。
-      </div>
-      <div class="example-block">
-        Rick\'s sister <b>can</b> lend us some money, <b>can't</b> she?<span class="trans">（Rick 的姊姊可以借我們一些錢，不行嗎？）</span>
-      </div>
-    </div>
-
-    <!-- 隱藏否定與特殊主詞 -->
-    <div class="grammar-section">
-      <div class="grammar-title">4. 附加問句之特殊考點與魔鬼陷阱</div>
-      
-      <div class="trap-block" style="background: var(--cream-pl); border-left-color: var(--green-md);">
-        <h5>💡 陷阱 A：直述句中含有「隱藏否定字詞」</h5>
-        <ul>
-          <li>若句中出現 <b>never（從不）、seldom（很少）、no / little / few（沒有/幾乎沒有）</b>，此句文法上已視為「否定句」，後方附加問句必須用<b>肯定型態</b>！</li>
-          <li>例句：Zac <b>seldom</b> takes the metro to work, <b>does</b> he?<span class="trans">（Zac 很少搭捷運上班，對吧？）</span></li>
-          <li>例句：Susan drank <b>little</b> tea after dinner tonight, <b>did</b> she?<span class="trans">（Susan 今晚晚餐後幾乎沒喝茶，對吧？）</span></li>
-        </ul>
-      </div>
-
-      <div class="trap-block" style="background: var(--cream-pl); border-left-color: var(--green-md); margin-top: 15px;">
-        <h5>💡 陷阱 B：主要子句與從屬子句（複句）共存時</h5>
-        <ul>
-          <li>當句子由 because, when, though 等連接詞引導時，後方的附加問句<b>一律由主要子句決定</b>，跟從屬子句完全無關！</li>
-          <li>例句：<b>When Dad is at home</b>, Mom has to make a big dinner, <b>doesn't she</b>?<span class="trans">（當爸爸在家時，媽媽必須做大餐，不是嗎？ ➔ 由主要子句 Mom has to... 決定）</span></li>
-          <li>例句：David still wore a mask in class <b>though he did not keep coughing</b>, <b>didn't he</b>?<span class="trans">（雖然 David 沒一直咳嗽，他還是戴著口罩，不是嗎？ ➔ 由主要子句 David still wore... 決定）</span></li>
-        </ul>
-      </div>
-
-      <div class="trap-block" style="background: var(--cream-pl); border-left-color: var(--green-md); margin-top: 15px;">
-        <h5>💡 陷阱 C：主詞是 This / That / 動名詞 / 名詞子句時</h5>
-        <ul>
-          <li>直述句主詞若為 <b>This / That / The baby / V-ing / 名詞子句</b>，附加問句的主詞一律用 <b>it</b> 代替。</li>
-          <li>例句：<b>That's</b> your brother, Jeff, <b>isn't it</b>?<span class="trans">（那是你哥哥 Jeff，不是嗎？）</span></li>
-          <li>比較：<b>That boy</b> is your brother, <b>isn't he</b>?<span class="trans">（那個男孩是你哥哥，不是嗎？ ➔ 明確指代人時才用 he/she）</span></li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 祈使句特殊型態 -->
-    <div class="grammar-section">
-      <div class="grammar-title">5. 祈使句與 Let's 的特殊附加問句總整理</div>
-      <div class="rule-block">
-        祈使句與祈使句變體的附加問句多為固定慣用法，不受前肯後否規則限制，請直接熟記公式：
-      </div>
-      <table style="width:100%; border-collapse: collapse; margin: 15px 0; font-size: 0.9rem;">
-        <thead>
-          <tr style="background: var(--green-dk); color: #fff; text-align: left;">
-            <th style="padding: 10px; border: 1px solid var(--border);">直述句結構類型</th>
-            <th style="padding: 10px; border: 1px solid var(--border);">標準附加問句</th>
-            <th style="padding: 10px; border: 1px solid var(--border);">白話核心語意說明</th>
-          </tr>
-        </thead>
+    <div class="g-card-body">
+      <table class="cmp-table">
+        <thead><tr><th>代名詞</th><th>白話意思</th><th>動詞用</th><th>例句</th></tr></thead>
         <tbody>
-          <tr>
-            <td style="padding: 10px; border: 1px solid var(--border);"><b>肯定祈使句</b> (原形Be / 原形V...)</td>
-            <td style="padding: 10px; border: 1px solid var(--border);"><b>will you?</b></td>
-            <td style="padding: 10px; border: 1px solid var(--border);">用於請求、命令對方「請你...好嗎？」</td>
-          </tr>
-          <tr style="background: var(--cream);">
-            <td style="padding: 10px; border: 1px solid var(--border);"><b>否定祈使句</b> (Don't ＋ 原形V...)</td>
-            <td style="padding: 10px; border: 1px solid var(--border);"><b>will you?</b></td>
-            <td style="padding: 10px; border: 1px solid var(--border);">叮嚀、告誡對方「不要...好嗎？」</td>
-          </tr>
-          <tr>
-            <td style="padding: 10px; border: 1px solid var(--border);"><b>Let's ＋ 原形 V</b></td>
-            <td style="padding: 10px; border: 1px solid var(--border);"><b>shall we?</b></td>
-            <td style="padding: 10px; border: 1px solid var(--border);">「我們一起...吧，好不好？」(包含說話者)</td>
-          </tr>
-          <tr style="background: var(--cream);">
-            <td style="padding: 10px; border: 1px solid var(--border);"><b>Let's not ＋ 原形 V</b></td>
-            <td style="padding: 10px; border: 1px solid var(--border);"><b>OK / all right?</b></td>
-            <td style="padding: 10px; border: 1px solid var(--border);">「我們不要...吧，好不好？」</td>
-          </tr>
-          <tr>
-            <td style="padding: 10px; border: 1px solid var(--border);"><b>Have some (more) ＋ 食品/飲品</b></td>
-            <td style="padding: 10px; border: 1px solid var(--border);"><b>won't you?</b></td>
-            <td style="padding: 10px; border: 1px solid var(--border);">熱情邀請、勸誘對方享用「再吃點/喝點，好嗎？」</td>
-          </tr>
+          <tr><td class="key">One of...</td><td>其中一個</td><td class="single">單數（is/was/V-s）</td><td>One of the students <b>is</b> sick.</td></tr>
+          <tr><td class="key">Two / Three of...</td><td>其中兩個/三個</td><td class="plural">複數（are/were/V）</td><td>Two of them <b>are</b> doctors.</td></tr>
+          <tr><td class="key">Some / Many / Most of...</td><td>一些/很多/大多數</td><td class="plural">複數</td><td>Many of them <b>are</b> coughing.</td></tr>
         </tbody>
       </table>
-      <div class="example-block">
-        Be quiet when you watch TV, <b>will you</b>?<span class="trans">（看電視時安靜點，好嗎？ ➔ 肯定祈使句）</span>
-      </div>
-      <div class="example-block">
-        Let's enjoy the yummy snacks together, <b>shall we</b>?<span class="trans">（我們一起享用這些美味的點心，好不好？）</span>
+      <div class="warn-box">
+        ⚠️ <strong>超重要！</strong>of 後面如果是代名詞，只能用受格 <strong>us / you / them</strong><br>
+        ❌ One of <del>we</del> / One of <del>they</del><br>
+        ✅ One of <strong>us</strong> / One of <strong>them</strong>
       </div>
     </div>
   </div>
 
-  <!-- PART C: 文法核心 02 & 03：that 子句與 until -->
-  <div class="content-box">
-    <h3 class="section-main-title">PART C 觀念 02 & 03：that 引導之名詞子句與 until 用法</h3>
-    
-    <!-- that子句 -->
-    <div class="grammar-section">
-      <div class="grammar-title">1. 連接詞 that 引導的名詞子句（當受詞）</div>
+  <!-- 不可數名詞 -->
+  <div class="g-card reveal" id="gc2">
+    <div class="g-card-head" onclick="toggleCard('gc2')">
+      <div class="gh-num">2</div>
+      <div><div class="gh-title">接「不可數名詞」的用法</div><div class="gh-sub">some / most / much / half / little of + 不可數名詞 → 動詞永遠單數</div></div>
+      <div class="gh-arrow">▼</div>
+    </div>
+    <div class="g-card-body">
       <div class="rule-block">
-        當你想表達「相信、聽說、覺得『某一整件事』」時，會用 <b>that ＋ 完整子句</b> 作為主要動詞的受詞。
-        <ul>
-          <li>結構：主詞 ＋ 一般動詞 (believe/remember/think/know...) ＋ <b>that (可省略)</b> ＋ 主語 ＋ 動詞...</li>
-          <li>結構：主詞 ＋ be動詞 ＋ 形容詞 (afraid/happy/sad...) ＋ <b>that (可省略)</b> ＋ 主語 ＋ 動詞...</li>
-        </ul>
+        數量不定代名詞 + of + the / 所有格 + 不可數名詞 → <b>動詞永遠用單數，代名詞用 it</b><br><br>
+        📌 注意：以下代名詞<b>不能接不可數名詞</b><br>
+        ❌ 不能用：one / two / three / <b>both</b> / many of + 不可數名詞<br>
+        ✅ 可以用：some / most / <b>much</b> / half / <b>little</b> of + 不可數名詞
       </div>
-      <div class="example-block">
-        We all believe <b>(that)</b> Josh is smart and full of fresh ideas.<span class="trans">（我們大家都相信 Josh 很聰明且充滿新點子。）</span>
+      <div class="ex-box">
+        <div class="en">Some of the medicine <b>is</b> for stomachache.</div>
+        <div class="zh">那些藥中有一些是治胃痛的。</div>
       </div>
-      <div class="example-block">
-        I'm worried <b>(that)</b> the old woman can't find her way home by herself.<span class="trans">（我擔心那位老太太沒辦法自己找到路回家。）</span>
+      <div class="ex-box">
+        <div class="en">Much of the butter <b>is</b> from New Zealand.</div>
+        <div class="zh">那奶油大多來自紐西蘭。</div>
       </div>
     </div>
+  </div>
 
-    <!-- until 用法 -->
-    <div class="grammar-section">
-      <div class="grammar-title">2. until (直到...) 肯定與否定的語意玄機</div>
+  <!-- 疑問句 -->
+  <div class="g-card reveal" id="gc3">
+    <div class="g-card-head" onclick="toggleCard('gc3')">
+      <div class="gh-num">3</div>
+      <div><div class="gh-title">疑問句怎麼問？</div><div class="gh-sub">How many of... / How much of...</div></div>
+      <div class="gh-arrow">▼</div>
+    </div>
+    <div class="g-card-body">
+      <table class="cmp-table">
+        <thead><tr><th>問誰？</th><th>用這個疑問詞</th><th>例句</th></tr></thead>
+        <tbody>
+          <tr><td>複數可數名詞</td><td class="key">How many of + 複數名詞...?</td><td>How many of the women are waitresses?</td></tr>
+          <tr><td>不可數名詞</td><td class="key">How much of + 不可數名詞...?</td><td>How much of the pork comes from the USA?</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 陷阱題 -->
+  <div class="g-card reveal" id="gc4">
+    <div class="g-card-head" onclick="toggleCard('gc4')">
+      <div class="gh-num">4</div>
+      <div><div class="gh-title">考試必考：數量不定代名詞的陷阱題</div><div class="gh-sub">4大陷阱逐一解析</div></div>
+      <div class="gh-arrow">▼</div>
+    </div>
+    <div class="g-card-body">
+      <div class="g-trap">
+        <h5>陷阱一：of 前面的代名詞決定動詞</h5>
+        One of the soccer players _____ good care of all the others.<br>
+        (A) takes good care &nbsp; (B) are sick &nbsp; (C) eat &nbsp; (D) ate<br>
+        <span class="ok">✅ (A) takes</span>（One of... → 單數動詞！）<br>
+        <span class="ng">❌</span> 很多人看到 players（複數）就選 are，這是陷阱！要看 of 前面的 One
+      </div>
+      <div class="g-trap" style="margin-top:10px;">
+        <h5>陷阱二：of 後面的代名詞只能用受格</h5>
+        How many _____ are waitresses?<br>
+        (A) of the men &nbsp; (B) your friends &nbsp; (C) the women &nbsp; (D) of them<br>
+        <span class="ok">✅ (C) the women 或 (D) of them</span><br>
+        <span class="ng">❌ (B) your friends</span>：How many 後面不直接加所有格+名詞，要加 of
+      </div>
+      <div class="g-trap" style="margin-top:10px;">
+        <h5>陷阱三：不可數名詞接單數</h5>
+        _____ of the pork comes from the USA.<br>
+        (A) Both &nbsp; (B) Few &nbsp; (C) Much &nbsp; (D) Two<br>
+        <span class="ok">✅ (C) Much</span>（pork 豬肉是不可數名詞，只有 Much 可接不可數）<br>
+        <span class="ng">❌ Both / Few / Two 不能接不可數名詞！</span>
+      </div>
+      <div class="g-trap" style="margin-top:10px;">
+        <h5>陷阱四：One of 接複數名詞 + 單數動詞</h5>
+        One of _____ having a fever.<br>
+        (A) the child is &nbsp; (B) the children is &nbsp; (C) us are &nbsp; (D) the kids are<br>
+        <span class="ok">✅ (B) the children is</span>（One of + 複數名詞 + 單數動詞）<br>
+        <span class="ng">❌ (D) the kids are</span> → are 是複數，但 One of 接單數！
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ BOTH / ALL ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">02</div>
+    <h2><small>Part B · Grammar</small>both（兩者都）與 all（三者或以上都）</h2>
+  </div>
+
+  <div class="g-card reveal open" id="gc5">
+    <div class="g-card-head" onclick="toggleCard('gc5')">
+      <div class="gh-num">1</div>
+      <div><div class="gh-title">both vs. all 的基本區別</div><div class="gh-sub">兩個 → both；三個以上 → all</div></div>
+      <div class="gh-arrow">▼</div>
+    </div>
+    <div class="g-card-body">
+      <table class="cmp-table">
+        <thead><tr><th>代名詞</th><th>用幾個？</th><th>接的名詞</th><th>動詞</th></tr></thead>
+        <tbody>
+          <tr><td class="key">Both of</td><td>剛好兩個</td><td>複數可數（us/you/them）</td><td class="plural">複數</td></tr>
+          <tr><td class="key">All of（可數）</td><td>三個以上</td><td>複數可數（us/you/them）</td><td class="plural">複數</td></tr>
+          <tr><td class="key">All of（不可數）</td><td>全部</td><td>不可數（it）</td><td class="single">單數</td></tr>
+        </tbody>
+      </table>
       <div class="rule-block">
-        until 意思是「直到...」，當作連接詞（後接子句）或介系詞（後接時間點），主句的動詞特質非常關鍵：
-        <ul>
-          <li><b>【肯定直述句 ➔ 搭配可持續性動詞】</b>：主句動作是一直持續不間斷進行的，直到 until 的時間點才停止。</li>
-          <li><b>【否定直述句 ➔ 搭配瞬間/不可持續動詞】</b>：即 <b>not ... until ... (直到...才...)</b>。表示在 until 的時間點之前動作「完全沒發生」，直到那一刻到了動作才發生。</li>
-        </ul>
+        💡 <b>主詞/受詞的替換技巧（考試愛考！）</b><br>
+        主詞位置：Both/All of us/you/them → 可換成 We/You/They both/all<br>
+        受詞位置：both/all of us/you/them → 可換成 us/you/them both/all<br><br>
+        Both of us like food. = <b>We both like food.</b><br>
+        I ate all of it. = <b>I ate it all.</b>
       </div>
-      <div class="example-block">
-        He kept playing video games <b>until</b> 12 a.m. last night.<span class="trans">（昨晚他一直打電動到凌晨12點。 ➔ 「玩遊戲」此動作持續了整個晚上直到半夜停止）</span>
-      </div>
-      <div class="example-block">
-        Dan won't leave the house <b>until</b> he finishes taking a shower.<span class="trans">（直到洗完浴，Dan 「才」會出門。 ➔ 洗完澡前一直維持「不出門」的狀態，洗完澡那一刻才發生「出門」的瞬間動作）</span>
+      <div class="warn-box">
+        ⚠️ <strong>部分否定：not...both / not all（超重要！）</strong><br>
+        <b>not...both</b> ＝「並非兩者都⋯」（其中一個不⋯）<br>
+        My hands are <b>not both</b> dirty. → 我的手不是兩隻都髒（一隻乾淨）<br><br>
+        <b>not all</b> ＝「並非全部都⋯」（有些不⋯）<br>
+        I don't know <b>all of</b> the rivers in Taiwan. → 我並非認識台灣所有的河流
       </div>
     </div>
   </div>
 
-  <!-- PART D: 片語佳句精析 -->
-  <div class="content-box">
-    <h3 class="section-main-title">PART D 片成語與會考核心佳句精析</h3>
-    
-    <div class="word-grid" style="grid-template-columns: 1fr;">
-      <div class="word-card" style="background: var(--white); border-color: var(--border);">
-        <div class="word-info">
-          🎯 <b>around the corner</b> ➔ 即將來臨；在附近<br>
-          <div class="example-block" style="background: var(--cream);">Grandpa's ninetieth birthday is <b>around the corner</b>.<span class="trans">（爺爺的九十歲大壽即將來臨。）</span></div>
-        </div>
-        <div class="word-info" style="margin-top: 15px;">
-          🎯 <b>hold back</b> ➔ 阻礙；阻擋；拖後腿（雙字可拆片語，受詞為代名詞時必須置於中間）<br>
-          <div class="example-block" style="background: var(--cream);">She thinks that raising children will <b>hold her back</b>.<span class="trans">（她認為撫養孩子會阻礙她的發展。）</span></div>
-        </div>
-        <div class="word-info" style="margin-top: 15px;">
-          🎯 <b>count... in</b> ➔ 算...參加一份（反義字為 count... out 排除在外）<br>
-          <div class="example-block" style="background: var(--cream);">Jim: I'm going to the barbecue party this Friday evening. Liz: Really? <b>Count me in</b>!<span class="trans">（Jim: 我這週五晚上要去烤肉派對。Liz: 真的嗎？算我一份！）</span></div>
-        </div>
-        <div class="word-info" style="margin-top: 15px;">
-          🎯 <b>keep in mind</b> ➔ 記住；把...記在心裡<br>
-          <div class="example-block" style="background: var(--cream);">Don't forget to <b>keep it in mind</b>.<span class="trans">（別忘了把它牢記在心。）</span></div>
-        </div>
-        <div class="word-info" style="margin-top: 15px;">
-          🎯 <b>lead to ＋ N / V-ing</b> ➔ 導致...（注意此處 to 是<b>介系詞</b>，後面若接動詞必須加 -ing 變動名詞！）<br>
-          <div class="example-block" style="background: var(--cream);">His hard work <b>led to buying</b> five expensive houses in Taipei.<span class="trans">（他的努力工作，導致他在台北買了五棟昂貴的房子。）</span></div>
-        </div>
-        <div class="word-info" style="margin-top: 15px;">
-          🎯 <b>to the full / fullest</b> ➔ 盡可能地；充分地；充實地過生活<br>
-          <div class="example-block" style="background: var(--cream);">He's able to live his life <b>to the full</b>.<span class="trans">（他能夠盡情充實地過生活。）</span></div>
-        </div>
+  <div class="g-card reveal" id="gc6">
+    <div class="g-card-head" onclick="toggleCard('gc6')">
+      <div class="gh-num">2</div>
+      <div><div class="gh-title">考試必考：both / all 題型</div><div class="gh-sub">三種常見題型解析</div></div>
+      <div class="gh-arrow">▼</div>
+    </div>
+    <div class="g-card-body">
+      <div class="g-trap">
+        <h5>常考一：both vs. all</h5>
+        Josh had three girlfriends. After he broke up with two, _____ of them last week, Jessica is now his only girlfriend.<br>
+        (A) two &nbsp; (B) three &nbsp; (C) both &nbsp; (D) all<br>
+        <span class="ok">✅ (A) two</span>（分手兩個，且兩個是數字，用 two of them）<br>
+        <span class="ng">❌ both</span> 表「兩者都」，但題目只是說分手了其中兩個
+      </div>
+      <div class="g-trap" style="margin-top:10px;">
+        <h5>常考二：部分否定</h5>
+        ___ of her eyes are big.（其中一隻大）<br>
+        (A) One &nbsp; (B) Both &nbsp; (C) Two &nbsp; (D) All<br>
+        <span class="ok">✅ (A) One</span>（只有其中一隻眼睛大）
+      </div>
+      <div class="g-trap" style="margin-top:10px;">
+        <h5>常考三：情境題</h5>
+        I guess the rainwater has come in from the kitchen. See? _____ of the windows are closed except the one in the kitchen.<br>
+        (A) All &nbsp; (B) Both &nbsp; (C) Most &nbsp; (D) Some<br>
+        <span class="ok">✅ (A) All</span>（除了廚房那扇，其他「全都」關著）
       </div>
     </div>
-
-    <h4 class="grammar-h4" style="margin-top: 30px;">⭐ 會考高分必背佳句剖析：</h4>
-    <div class="example-block" style="padding: 20px;">
-      Both Jason Wu and Kuo Hsing-chun are able to live lives <b>to the full</b> because they didn't let gender stereotypes <b>hold them back</b>.
-      <span class="trans" style="font-size: 0.95rem; margin-top: 8px;">（吳季剛和郭婞淳兩人都得以活出充實精彩的人生，因為他們沒有讓性別刻板印象阻礙他們的發展。）</span>
-    </div>
-    <p class="tip-text" style="font-size: 0.88rem; margin-left: 5px; line-height: 1.6;">
-      🔍 <b>核心亮點解析：</b><br>
-      1. <b>Both A and B</b> 當主詞時，動詞固定使用複數 be 動詞 <b>are</b>。<br>
-      2. 使役動詞 <b>let</b> 後方的受詞接<b>原形動詞 hold</b>，且代名詞受詞 <b>them</b> 必須夾在雙字片語 <b>hold back</b> 的正中間！
-    </p>
   </div>
-</main>
+
+  <!-- ══ ALTHOUGH / THOUGH ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">03</div>
+    <h2><small>Part B · Grammar</small>從屬連接詞 although / though（雖然）</h2>
+  </div>
+
+  <div class="g-card reveal open" id="gc7">
+    <div class="g-card-head" onclick="toggleCard('gc7')">
+      <div class="gh-num">1</div>
+      <div><div class="gh-title">三種句型結構</div><div class="gh-sub">although/though 的位置與逗號規則</div></div>
+      <div class="gh-arrow">▼</div>
+    </div>
+    <div class="g-card-body">
+      <div class="intro-desc">「雖然」的感覺——把轉折對比的意思放進句子裡。<b>最關鍵的規則：although/though 和 but 不能同時出現在一句話裡！</b></div>
+      <table class="alt-table">
+        <thead><tr><th>句型</th><th>結構</th><th>逗號</th></tr></thead>
+        <tbody>
+          <tr><td><span class="key">句型1：although/though 在前</span></td><td>Although/Though + S + V, S + V...</td><td>附屬子句後面打逗號 ✅</td></tr>
+          <tr><td><span class="key">句型2：but 連接（中間）</span></td><td>S + V, but S + V...</td><td>but 前面打逗號 ✅</td></tr>
+          <tr><td><span class="key">句型3：although/though 在後</span></td><td>S + V + although/though + S + V...</td><td>不須打逗號 ✅</td></tr>
+        </tbody>
+      </table>
+      <div class="warn-box">
+        🚫 <strong>大忌：Although/Though 絕對不能和 but 一起出現！</strong><br>
+        ❌ Although the food is good, <del>but</del> I don't want to eat it.<br>
+        ✅ Although the food is good, I don't want to eat it.<br>
+        ✅ The food is good, but I don't want to eat it.
+      </div>
+      <div class="rewrite-box">
+        <div class="rb-title">✅ 三種句型的改寫練習</div>
+        <div class="rb-sent">原句意思：雖然 Alex 不舒服，他還是為孩子做晚餐。</div>
+        <div class="rb-ans">句型1：Although Alex didn't feel well, he still made dinner for his children.</div>
+        <div class="rb-ans">句型2：Alex didn't feel well, but he still made dinner for his children.</div>
+        <div class="rb-ans">句型3：Alex still made dinner for his children although he didn't feel well.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="g-card reveal" id="gc8">
+    <div class="g-card-head" onclick="toggleCard('gc8')">
+      <div class="gh-num">2</div>
+      <div><div class="gh-title">考試必考：although / though 歷屆題型</div><div class="gh-sub">選擇題 + 改寫題</div></div>
+      <div class="gh-arrow">▼</div>
+    </div>
+    <div class="g-card-body">
+      <div class="g-trap">
+        <h5>選擇題常考（歷屆考題）</h5>
+        Jimmy would not get up for breakfast, _____ his dad had already tried to pull him from his bed several times.<br>
+        (A) although &nbsp; (B) because &nbsp; (C) if &nbsp; (D) until<br>
+        <span class="ok">✅ (A) although</span>（雖然爸爸試了好幾次，他還是不起床）<br>
+        <span class="ng">❌ because</span> 表原因，不符合「對比」語意
+      </div>
+      <div class="g-trap" style="margin-top:10px;">
+        Fried chicken is not good for our health _____ it smells so great.<br>
+        (A) although &nbsp; (B) because &nbsp; (C) if &nbsp; (D) when<br>
+        <span class="ok">✅ (A) although</span>（雖然很香，但對健康不好）
+      </div>
+      <div class="g-trap" style="margin-top:10px;">
+        Kyle did not wear a mask _____ he kept coughing.<br>
+        (A) although &nbsp; (B) but &nbsp; (C) or &nbsp; (D) ×<br>
+        <span class="ok">✅ (A) although</span>（雖然一直咳嗽，他沒戴口罩）<br>
+        <span class="ng">❌ (B) but</span>：前面沒有主詞+動詞，不能用 but 當從屬連接詞
+      </div>
+      <div class="g-trap" style="margin-top:10px;">
+        <h5>改寫題：合併為一句（用 ...he did not... 合併）</h5>
+        Ken did not wear a mask. He kept coughing all morning.<br>
+        <span class="ok">✅ Although he kept coughing all morning, he did not wear a mask.</span><br>
+        <span class="ok">或：He kept coughing all morning, but he did not wear a mask.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 延伸補充 04 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">04</div>
+    <h2><small>Part B · Grammar</small>延伸補充：each / either / neither / none / few / little</h2>
+  </div>
+
+  <div class="g-card reveal open" id="gc9">
+    <div class="g-card-head" onclick="toggleCard('gc9')">
+      <div class="gh-num">1</div>
+      <div><div class="gh-title">精細分類對照表</div><div class="gh-sub">each / every one / either / any / neither / none / few / little</div></div>
+      <div class="gh-arrow">▼</div>
+    </div>
+    <div class="g-card-body">
+      <div class="intro-desc">這些詞都是「更精確的數量不定代名詞」，幫你說清楚到底是哪幾個。<br>
+        <b>each/every one</b> ＝ 一個一個、每一個（強調個別）<br>
+        <b>either/any</b> ＝ 任一個（你選哪個都行）<br>
+        <b>neither/none</b> ＝ 一個都沒有（零個）<br>
+        <b>few/little</b> ＝ 很少（不多，有點負面的感覺）
+      </div>
+      <table class="cmp-table">
+        <thead><tr><th>代名詞</th><th>白話意思</th><th>接名詞</th><th>動詞</th></tr></thead>
+        <tbody>
+          <tr><td class="key">Each (one) / Every one of</td><td>每一個（個別強調）</td><td>複數可數</td><td class="single">單數</td></tr>
+          <tr><td class="key">Either (one) of</td><td>兩個裡任一個</td><td>複數可數</td><td class="single">單數</td></tr>
+          <tr><td class="key">Any (one) of</td><td>三個以上任一個</td><td>複數可數</td><td class="single">單數</td></tr>
+          <tr><td class="key">Neither of</td><td>兩個都不（零個）</td><td>複數可數</td><td class="single">單數（可複數）</td></tr>
+          <tr><td class="key">None of</td><td>三個以上都不（零個）</td><td>複數可數</td><td class="single">單數（可複數）</td></tr>
+          <tr><td class="key">Few of</td><td>很少幾個</td><td>複數可數</td><td class="plural">複數</td></tr>
+          <tr><td class="key">Little of</td><td>很少份量</td><td>不可數</td><td class="single">單數</td></tr>
+        </tbody>
+      </table>
+      <div class="rule-block">
+        💡 <b>either / neither 限2個；any / none 用於3個以上</b><br>
+        You may take <b>either</b> of the <u>two</u> books.（兩本中任一本）<br>
+        You may take <b>any</b> of the <u>three</u> books.（三本中任一本）<br>
+        <b>Neither</b> of my parents is good at taking care of pets.（兩者都不）<br>
+        <b>None</b> of the computers at the 3C shop meets my needs.（三個以上都不）
+      </div>
+    </div>
+  </div>
+
+  <div class="g-card reveal" id="gc10">
+    <div class="g-card-head" onclick="toggleCard('gc10')">
+      <div class="gh-num">2</div>
+      <div><div class="gh-title">考試必考：either / any / neither / none 選填</div><div class="gh-sub">觀念混淆題解析</div></div>
+      <div class="gh-arrow">▼</div>
+    </div>
+    <div class="g-card-body">
+      <div class="g-trap">
+        <h5>常考：Sue/Leo 對話情境（觀念混淆題）</h5>
+        Sue: Are _____ of my hands clean?<br>
+        Leo: Yes, _____ of them is clean.<br>
+        (A) both; every one &nbsp; (B) all; either &nbsp; (C) both; each &nbsp; (D) all; any<br>
+        <span class="ok">✅ (A) both; every one</span>（問「兩隻手是否都乾淨？」「每一隻都乾淨。」）
+      </div>
+      <div class="g-trap" style="margin-top:10px;">
+        Jay: You may take _____ of the five CDs for free.<br>
+        Emi: Yeah! _____ of my two brothers will be happy about that.<br>
+        (A) any; Either &nbsp; (B) any; Any &nbsp; (C) either; Any &nbsp; (D) either; Either<br>
+        <span class="ok">✅ (A) any; Either</span>（5張CD → any；2個兄弟 → Either）<br>
+        <span class="ng">❌ 5個要用 any（不是 either），2個要用 either（不是 any）</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PART C 片語 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">📌</div>
+    <h2><small>Part C · Phrases</small>重要片語與佳句</h2>
+  </div>
+
+  <div class="phrase-grid reveal">
+    <div class="phrase-card"><div class="pc-en">have a sore throat</div><div class="pc-zh">喉嚨痛</div></div>
+    <div class="phrase-card"><div class="pc-en">have a cold / fever / cough</div><div class="pc-zh">感冒 / 發燒 / 咳嗽</div></div>
+    <div class="phrase-card"><div class="pc-en">take medicine</div><div class="pc-zh">吃藥（注意！不是 eat）</div></div>
+    <div class="phrase-card"><div class="pc-en">use...as...</div><div class="pc-zh">用⋯當作⋯</div></div>
+    <div class="phrase-card"><div class="pc-en">power up</div><div class="pc-zh">增強活力；啟動</div></div>
+    <div class="phrase-card"><div class="pc-en">go under the knife</div><div class="pc-zh">接受手術（慣用語）</div></div>
+    <div class="phrase-card"><div class="pc-en">be in the pink</div><div class="pc-zh">非常健康；容光煥發</div></div>
+    <div class="phrase-card"><div class="pc-en">take care of yourself</div><div class="pc-zh">保重；照顧好自己</div></div>
+    <div class="phrase-card"><div class="pc-en">get well soon</div><div class="pc-zh">早日康復</div></div>
+    <div class="phrase-card"><div class="pc-en">feel like + V-ing</div><div class="pc-zh">想要做⋯</div></div>
+    <div class="phrase-card"><div class="pc-en">What's the matter?</div><div class="pc-zh">怎麼了？</div></div>
+    <div class="phrase-card"><div class="pc-en">That explains it.</div><div class="pc-zh">原來如此。</div></div>
+    <div class="phrase-card"><div class="pc-en">have...in common</div><div class="pc-zh">有共同之處</div></div>
+    <div class="phrase-card"><div class="pc-en">honey with lemon</div><div class="pc-zh">蜂蜜檸檬</div></div>
+    <div class="phrase-card"><div class="pc-en">at one's best</div><div class="pc-zh">在某人最佳狀態</div></div>
+    <div class="phrase-card"><div class="pc-en">for these reasons</div><div class="pc-zh">因此；基於這些原因</div></div>
+  </div>
+
+  <!-- ══ PART D 總整理 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">🎯</div>
+    <h2><small>Part D · Exam</small>考試重點總整理</h2>
+  </div>
+
+  <div class="reveal">
+    <table class="sum-table">
+      <thead><tr><th>代名詞</th><th>對象</th><th>動詞</th><th>人稱代名詞用法</th><th>白話</th></tr></thead>
+      <tbody>
+        <tr><td class="key">one of</td><td>複數可數（3+）</td><td class="s">單數</td><td>of them/us/you</td><td>其中一個</td></tr>
+        <tr><td class="key">two/some/many/most of</td><td>複數可數</td><td class="p">複數</td><td>of them/us/you</td><td>二個/一些/很多/大多數</td></tr>
+        <tr><td class="key">both of</td><td>複數可數（只2個）</td><td class="p">複數</td><td>of us/you/them</td><td>兩者都</td></tr>
+        <tr><td class="key">all of（可數）</td><td>複數可數（3+）</td><td class="p">複數</td><td>of us/you/them</td><td>全部都</td></tr>
+        <tr><td class="key">all of（不可數）</td><td>不可數</td><td class="s">單數</td><td>of it</td><td>全部</td></tr>
+        <tr><td class="key">each one / every one of</td><td>複數可數</td><td class="s">單數</td><td>of them</td><td>每一個</td></tr>
+        <tr><td class="key">either of</td><td>複數可數（限2個）</td><td class="s">單數</td><td>of them/us/you</td><td>兩者任一</td></tr>
+        <tr><td class="key">any of</td><td>複數可數（3+）</td><td class="s">單數</td><td>of them/us/you</td><td>三者以上任一</td></tr>
+        <tr><td class="key">neither of</td><td>複數可數（限2個）</td><td class="s">單數（可複數）</td><td>of them/us/you</td><td>兩者都不</td></tr>
+        <tr><td class="key">none of</td><td>複數可數（3+）</td><td class="s">單數（可複數）</td><td>of them/us/you</td><td>三者以上都不</td></tr>
+        <tr><td class="key">few of</td><td>複數可數</td><td class="p">複數</td><td>of them</td><td>很少幾個</td></tr>
+        <tr><td class="key">little of</td><td>不可數</td><td class="s">單數</td><td>of it</td><td>很少份量</td></tr>
+        <tr><td class="key">much of</td><td>不可數</td><td class="s">單數</td><td>of it</td><td>大部分</td></tr>
+        <tr><td class="key">half of</td><td>可數/不可數皆可</td><td>依後面名詞</td><td>of them/it</td><td>一半</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="trap-summary reveal">
+    <h2>🚨 5大考試必知陷阱</h2>
+    <div class="trap-list">
+      <div class="trap-chip"><strong>陷阱①</strong> 動詞看 of 前面，不看 of 後面。One of the students <b>is</b>（不是 are）sick. ❌ 不要被後面的複數名詞騙了！</div>
+      <div class="trap-chip"><strong>陷阱②</strong> of 後面的代名詞必須是受格。✅ one of <b>us / you / them</b>　❌ one of <del>we / they</del></div>
+      <div class="trap-chip"><strong>陷阱③</strong> although / though 不能和 but 同時用。✅ Although it's sweet, it's good for your brain. ❌ Although..., <del>but</del>...</div>
+      <div class="trap-chip"><strong>陷阱④</strong> either / neither 限「兩個」；any / none 用於三個以上。✅ either of the <b>two</b> books；✅ any of the <b>three</b> books</div>
+      <div class="trap-chip"><strong>陷阱⑤</strong> 吃藥說 take，不說 eat。✅ She <b>takes</b> medicine every day. ❌ She <del>eats</del> medicine every day.</div>
+    </div>
+  </div>
+
+</div><!-- /.wrap -->
 
 <footer>
   <div class="f-logo">Ray's <span>English</span> Corner</div>
-  <p>新北市 · 國小 → 高中英文 · 一對一家教 · 補習班授課</p>
-  <p style="margin-top:6px;font-size:.8rem;">© 2026 Ray's English Corner · 雷康誠老師</p>
+  <p>翰林國中英文二下 Unit 5 · 整理自教科書 pp. 104–125（含歷屆試題與會考模擬）</p>
+  <p style="margin-top:4px;font-size:.8rem;">© 2026 Ray's English Corner · 雷康誠老師</p>
 </footer>
 
+<script>
+  function toggleCard(id){ document.getElementById(id).classList.toggle('open'); }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, {threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
