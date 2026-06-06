@@ -177,7 +177,22 @@
   /* REVEAL */
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;}
   .reveal.visible{opacity:1;transform:none;}
-</style>
+</style
+  /* AUDIO BUTTON */
+.word-eng {
+  cursor: pointer;
+  position: relative;
+  transition: opacity 0.2s;
+}
+.word-eng:hover {
+  opacity: 0.7;
+}
+.word-eng::after {
+  content: '🔊';
+  font-size: 0.8rem;
+  margin-left: 6px;
+  vertical-align: middle;
+}
 </head>
 <body>
 
@@ -767,5 +782,34 @@
   }, {threshold:.08});
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
+  // 發音功能函數
+function speakWord(text) {
+  // 檢查瀏覽器是否支援 Web Speech API
+  if ('speechSynthesis' in window) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US'; // 設定為美式英文
+    utterance.rate = 0.9;     // 語速 (1 為正常，0.9 稍微放慢適合教學)
+    window.speechSynthesis.speak(utterance);
+  } else {
+    alert('你的瀏覽器不支援發音功能，請嘗試使用最新版的 Chrome 或 Safari。');
+  }
+}
+
+// 綁定點擊事件到每個英文單字上
+document.querySelectorAll('.word-eng').forEach(el => {
+  el.addEventListener('click', function() {
+    let wordToSpeak = '';
+    // 遍歷子節點，只取出純文字部分（避開 <span class="word-pos">）
+    for (let node of this.childNodes) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        wordToSpeak += node.textContent.trim();
+      }
+    }
+    
+    if (wordToSpeak) {
+      speakWord(wordToSpeak);
+    }
+  });
+});
 </body>
 </html>
