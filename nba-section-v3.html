@@ -19,10 +19,27 @@ html{scroll-behavior:smooth}
 body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text);line-height:1.75;overflow-x:hidden}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--cream-d)}::-webkit-scrollbar-thumb{background:var(--green-lt);border-radius:99px}
 
+/* NAV */
 nav{position:sticky;top:0;z-index:100;background:rgba(250,248,242,.94);backdrop-filter:blur(14px);border-bottom:1.5px solid var(--border);padding:0 5%;height:58px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--green-dk);text-decoration:none;display:flex;align-items:center;gap:8px}
-.nav-logo .dot{color:var(--warm)}
-.nav-tag{font-size:.75rem;font-weight:800;color:var(--text-lt);background:var(--amber-pl);border:1px solid rgba(245,166,35,.35);padding:3px 12px;border-radius:99px}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--green-dk);text-decoration:none}
+.nav-links{display:flex;list-style:none;align-items:center;gap:24px}
+.nav-links a{text-decoration:none;color:var(--text-md);font-weight:700;font-size:.88rem;transition:color .2s}
+.nav-links a:hover{color:var(--green-dk)}
+.dropdown{position:relative}
+.dropdown-content{display:none;position:absolute;top:100%;left:0;background:var(--white);border:1px solid var(--border);border-radius:8px;box-shadow:var(--sh);min-width:160px;z-index:10}
+.dropdown-content a{display:block;padding:10px 16px;font-size:.88rem}
+.dropdown-content a:hover{background:var(--cream)}
+.dropdown:hover .dropdown-content{display:block}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--green-dk) 0%,var(--green-md) 60%,var(--green-lt) 100%);color:#fff;padding:64px 5% 72px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1px);background-size:24px 24px;pointer-events:none}
+.hero-badge{display:inline-block;background:var(--warm);color:#fff;font-size:.74rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:5px 16px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,4.5vw,3rem);font-weight:900;line-height:1.18;margin-bottom:12px}
+.hero h1 em{color:var(--amber);font-style:normal}
+.hero-sub{font-size:1rem;opacity:.82;max-width:520px;margin:0 auto 28px}
+.hero-chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.hero-chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);color:#fff;font-size:.8rem;font-weight:700;padding:6px 16px;border-radius:999px;backdrop-filter:blur(4px)}
 
 section{padding:88px 5%}
 .section-tag{font-size:.74rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--warm);margin-bottom:8px}
@@ -66,61 +83,31 @@ section{padding:88px 5%}
 .passage-body p{margin-bottom:.9em}
 .passage-body p:last-child{margin-bottom:0}
 
-/* ── HIGHLIGHTS ── */
-.hl{
-  border-radius:4px;padding:1px 4px;font-weight:800;
-  cursor:help;display:inline;
-  transition:filter .12s;
-}
+.hl{border-radius:4px;padding:1px 4px;font-weight:800;cursor:help;display:inline;transition:filter .12s}
 .hl:hover{filter:brightness(.88)}
 .hl-past{background:rgba(245,166,35,.30);color:#5a3800}
 .hl-gram{background:rgba(58,122,80,.20);color:#1e4d30}
-.hl-phr {background:rgba(74,158,187,.22);color:#0d3d57}
+.hl-phr{background:rgba(74,158,187,.22);color:#0d3d57}
 
 .legend-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;padding-top:16px;border-top:1px solid rgba(109,184,138,.2)}
 .legend-item{display:flex;align-items:center;gap:5px;font-size:.73rem;font-weight:800;color:var(--text-lt)}
 .legend-dot{width:10px;height:10px;border-radius:2px}
 .legend-tip{font-size:.7rem;color:var(--text-lt);margin-left:4px;font-style:italic}
 
-/* ── GLOBAL TOOLTIP (appended to body by JS) ── */
-#hl-tooltip{
-  position:fixed;z-index:99999;
-  pointer-events:none;
-  opacity:0;
-  transition:opacity .16s ease;
-  font-family:'Nunito',sans-serif;
-}
+#hl-tooltip{position:fixed;z-index:99999;pointer-events:none;opacity:0;transition:opacity .16s ease;font-family:'Nunito',sans-serif}
 #hl-tooltip.show{opacity:1}
-.tt-box{
-  background:var(--green-dk);
-  color:#fff;
-  border-radius:16px;
-  padding:14px 16px 12px;
-  min-width:220px;max-width:260px;
-  box-shadow:0 10px 40px rgba(0,0,0,.35);
-  position:relative;
-  line-height:1.5;
-}
-.tt-arrow{
-  position:absolute;
-  width:0;height:0;
-  left:50%;transform:translateX(-50%);
-  border:8px solid transparent;
-}
-.tt-arrow.up  {top:-16px;border-bottom-color:var(--green-dk)}
+.tt-box{background:var(--green-dk);color:#fff;border-radius:16px;padding:14px 16px 12px;min-width:220px;max-width:260px;box-shadow:0 10px 40px rgba(0,0,0,.35);position:relative;line-height:1.5}
+.tt-arrow{position:absolute;width:0;height:0;left:50%;transform:translateX(-50%);border:8px solid transparent}
+.tt-arrow.up{top:-16px;border-bottom-color:var(--green-dk)}
 .tt-arrow.down{bottom:-16px;border-top-color:var(--green-dk)}
-.tt-cat{
-  font-size:.63rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase;
-  padding:2px 8px;border-radius:99px;display:inline-block;margin-bottom:6px;
-}
+.tt-cat{font-size:.63rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase;padding:2px 8px;border-radius:99px;display:inline-block;margin-bottom:6px}
 .tt-cat.past{background:rgba(245,166,35,.35);color:#ffd980}
 .tt-cat.gram{background:rgba(109,184,138,.30);color:#a0e0bc}
-.tt-cat.phr {background:rgba(74,158,187,.30);color:#90d4f0}
+.tt-cat.phr{background:rgba(74,158,187,.30);color:#90d4f0}
 .tt-word{font-size:1rem;font-weight:800;color:#fff;margin-bottom:5px}
 .tt-rule{font-size:.78rem;color:rgba(255,255,255,.75);line-height:1.55;margin-bottom:5px}
 .tt-grade{font-size:.67rem;color:rgba(255,255,255,.42);font-weight:700}
 
-/* RIGHT COL */
 .right-col{display:flex;flex-direction:column;gap:20px}
 .gram-section-title{font-size:.74rem;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:var(--warm);margin-bottom:12px}
 .gram-list{display:flex;flex-direction:column;gap:10px}
@@ -149,7 +136,6 @@ section{padding:88px 5%}
 .vp-pos{font-size:.65rem;color:rgba(255,255,255,.4);margin-bottom:2px}
 .vp-zh{font-size:.78rem;color:rgba(255,255,255,.6)}
 
-/* CTA */
 #nba-cta{background:var(--warm-pl);position:relative;overflow:hidden;padding:64px 5%}
 #nba-cta::before{content:'';position:absolute;top:-80px;right:-80px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(224,120,80,.12) 0%,transparent 70%);pointer-events:none}
 .cta-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
@@ -175,59 +161,14 @@ section{padding:88px 5%}
 </head>
 <body>
 
-<nav>  
-  <style>    
-    .nav-links {
-      display: flex;
-      list-style: none;
-      align-items: center;
-      gap: 24px;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-md);
-      font-weight: 700;
-      font-size: 0.95rem;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover {
-      color: var(--green-dk);
-    }
-    .dropdown {
-      position: relative;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      box-shadow: var(--sh);
-      min-width: 160px;
-      z-index: 10;
-    }
-    .dropdown-content a {
-      display: block;
-      padding: 10px 16px;
-      font-size: 0.9rem;
-    }
-    .dropdown-content a:hover {
-      background: var(--cream);
-    }
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-  </style>  
+<!-- NAV -->
+<nav>
   <a href="index.html" class="nav-logo">Ray's English Corner</a>
   <ul class="nav-links">
     <li><a href="index.html#about">關於 Ray</a></li>
     <li><a href="index.html#courses">課程</a></li>
-      </div>
-    </li>
-    <li><a href="experience.html">教學經歷</a></li>
-  <a href="javascript:void(0)">私校專區 ▾</a>
+    <li class="dropdown">
+      <a href="javascript:void(0)">私校專區 ▾</a>
       <div class="dropdown-content">
         <a href="nba-finals-u5.html">NBA Finals G1 Video</a>
         <a href="nba-section-v3.html">NBA Finals G1 NEWS</a>
@@ -240,7 +181,7 @@ section{padding:88px 5%}
       <div class="dropdown-content">
         <a href="grammar-u5.html">文法 國二U5</a>
         <a href="grammar-g2u6.html">文法 國二U6</a>
-        <a href="grammar-u6.html">文法 國一U6</a> 
+        <a href="grammar-u6.html">文法 國一U6</a>
       </div>
     </li>
     <li><a href="practice.html">線上練習</a></li>
@@ -248,14 +189,20 @@ section{padding:88px 5%}
   </ul>
 </nav>
 
-<div class="page-header">
-  <p>私校進階特訓篇・時事戰報</p>
-  <h1>看 NBA 總決賽學英文：尼克 vs 馬刺 🏆</h1>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🏀 私校進階特訓篇・時事戰報</div>
+  <h1>看 NBA 總決賽學英文<br><em>Knicks vs Spurs</em></h1>
+  <p class="hero-sub">時事閱讀 × 過去式動詞 × 5 大文法考點精析</p>
+  <div class="hero-chips">
+    <div class="hero-chip">私立國中進階</div>
+    <div class="hero-chip">5 大文法考點</div>
+    <div class="hero-chip">真實賽事情境</div>
+    <div class="hero-chip">互動標注閱讀</div>
+  </div>
 </div>
 
-<main>
-  <a href="index.html#private-school" class="back-btn">← 返回首頁私校專區</a>
-
+<!-- SCORE BAND -->
 <div id="nba-hero-band">
   <div class="band-inner">
     <div class="band-left">
@@ -295,96 +242,45 @@ section{padding:88px 5%}
           <div class="passage-body">
 
 <p>SAN ANTONIO — The New York Knicks
-<span class="hl hl-past"
-  data-cat="past" data-word="show → showed"
-  data-rule="規則動詞直接加 -ed，表示「展示、顯示」。"
-  data-grade="國一下 U5">showed</span>
+<span class="hl hl-past" data-cat="past" data-word="show → showed" data-rule="規則動詞直接加 -ed，表示「展示、顯示」。" data-grade="國一下 U5">showed</span>
 everyone why they are the hottest team in the NBA Finals. On Wednesday night, Jalen Brunson
-<span class="hl hl-past"
-  data-cat="past" data-word="score → scored"
-  data-rule="規則動詞加 -ed，字尾已有 e 只加 d。此處表示「得到」分數。"
-  data-grade="國一下 U5">scored</span>
+<span class="hl hl-past" data-cat="past" data-word="score → scored" data-rule="規則動詞加 -ed，字尾已有 e 只加 d。此處表示「得到」分數。" data-grade="國一下 U5">scored</span>
 30 points to lead the Knicks to a 105-95 win over the San Antonio Spurs in Game 1.</p>
 
 <p>The Spurs once
-<span class="hl hl-past"
-  data-cat="past" data-word="lead → led"
-  data-rule="⚠️ 不規則動詞！lead 的過去式是 led，不是 leaded。"
-  data-grade="國一下 U6">led</span>
+<span class="hl hl-past" data-cat="past" data-word="lead → led" data-rule="⚠️ 不規則動詞！lead 的過去式是 led，不是 leaded。" data-grade="國一下 U6">led</span>
 by
-<span class="hl hl-gram"
-  data-cat="gram" data-word="數字 + 名詞（複數）"
-  data-rule="當副詞說明「領先多少」，名詞用複數（points）。若當形容詞修飾名詞則不加 s：a 14-point lead ✅"
-  data-grade="國二上 U1">14 points</span>
+<span class="hl hl-gram" data-cat="gram" data-word="數字 + 名詞（複數）" data-rule="當副詞說明「領先多少」，名詞用複數（points）。若當形容詞修飾名詞則不加 s：a 14-point lead ✅" data-grade="國二上 U1">14 points</span>
 in the second half, but the Knicks
-<span class="hl hl-past"
-  data-cat="past" data-word="did not + 原形動詞"
-  data-rule="過去式否定句：did not（didn't）+ 原形動詞。⚠️ give 不能寫成 gave！"
-  data-grade="國一下 U5">did not give up</span>.
+<span class="hl hl-past" data-cat="past" data-word="did not + 原形動詞" data-rule="過去式否定句：did not（didn't）+ 原形動詞。⚠️ give 不能寫成 gave！" data-grade="國一下 U5">did not give up</span>.
 Instead, New York
-<span class="hl hl-past"
-  data-cat="past" data-word="finish → finished"
-  data-rule="規則動詞加 -ed，「完成、結束」比賽。"
-  data-grade="國一下 U5">finished</span>
+<span class="hl hl-past" data-cat="past" data-word="finish → finished" data-rule="規則動詞加 -ed，「完成、結束」比賽。" data-grade="國一下 U5">finished</span>
 the game on an amazing
-<span class="hl hl-phr"
-  data-cat="phr" data-word="on a run（連續得分高潮）"
-  data-rule="11-0 run 表示一波 11 比 0 的連續攻勢，對方完全沒得分。"
-  data-grade="新聞英文必備">11-0 run</span>
+<span class="hl hl-phr" data-cat="phr" data-word="on a run（連續得分高潮）" data-rule="11-0 run 表示一波 11 比 0 的連續攻勢，對方完全沒得分。" data-grade="新聞英文必備">11-0 run</span>
 to
-<span class="hl hl-phr"
-  data-cat="phr" data-word="steal the victory"
-  data-rule="steal 本意「偷竊」，這裡指「硬生生偷走勝利（逆轉）」。過去式為 stole。"
-  data-grade="國二進階">steal</span>
+<span class="hl hl-phr" data-cat="phr" data-word="steal the victory" data-rule="steal 本意「偷竊」，這裡指「硬生生偷走勝利（逆轉）」。過去式為 stole。" data-grade="國二進階">steal</span>
 the victory. This win
-<span class="hl hl-past"
-  data-cat="past" data-word="mark → marked"
-  data-rule="規則動詞加 -ed。此處表示「代表、標誌著」某個重要里程碑。"
-  data-grade="國一下 U5">marked</span>
+<span class="hl hl-past" data-cat="past" data-word="mark → marked" data-rule="規則動詞加 -ed。此處表示「代表、標誌著」某個重要里程碑。" data-grade="國一下 U5">marked</span>
 New York's
-<span class="hl hl-gram"
-  data-cat="gram" data-word="序數 + consecutive"
-  data-rule="12th = 第十二次（序數）。consecutive = 連續的（= in a row）。兩個考點在一起！"
-  data-grade="國二上 U1">12th consecutive</span>
+<span class="hl hl-gram" data-cat="gram" data-word="序數 + consecutive" data-rule="12th = 第十二次（序數）。consecutive = 連續的（= in a row）。兩個考點在一起！" data-grade="國二上 U1">12th consecutive</span>
 playoff victory,
-<span class="hl hl-gram"
-  data-cat="gram" data-word=", V-ing（分詞片語）"
-  data-rule="逗號後接 V-ing，修飾前句「造成的結果」。這場勝利使他們成為 NBA 歷史第七支有此紀錄的球隊。"
-  data-grade="國三上 U3 ⭐重點">making</span>
+<span class="hl hl-gram" data-cat="gram" data-word=", V-ing（分詞片語）" data-rule="逗號後接 V-ing，修飾前句「造成的結果」。這場勝利使他們成為 NBA 歷史第七支有此紀錄的球隊。" data-grade="國三上 U3 ⭐重點">making</span>
 them the seventh team in NBA history to have such a long winning streak.</p>
 
 <p>Victor Wembanyama, the young star of the Spurs,
-<span class="hl hl-past"
-  data-cat="past" data-word="have → had"
-  data-rule="⚠️ 不規則動詞！have → had。這裡表示「拿下、取得」（26分12籃板）。"
-  data-grade="國一下 U6">had</span>
+<span class="hl hl-past" data-cat="past" data-word="have → had" data-rule="⚠️ 不規則動詞！have → had。這裡表示「拿下、取得」（26分12籃板）。" data-grade="國一下 U6">had</span>
 26 points and 12 rebounds in his finals
-<span class="hl hl-phr"
-  data-cat="phr" data-word="debut [dɪˈbjuː]"
-  data-rule="「首秀、初次登場」。⚠️ 注意：結尾的 t 完全不發音！這是從法文借來的單字。"
-  data-grade="進階單字">debut</span>.
+<span class="hl hl-phr" data-cat="phr" data-word="debut [dɪˈbjuː]" data-rule="「首秀、初次登場」。⚠️ 注意：結尾的 t 完全不發音！這是從法文借來的單字。" data-grade="進階單字">debut</span>.
 However, he only
-<span class="hl hl-past"
-  data-cat="past" data-word="make → made"
-  data-rule="⚠️ 不規則動詞！make → made。此處是「投籃命中」的意思（6 of 21 shots）。"
-  data-grade="國一下 U6">made</span>
+<span class="hl hl-past" data-cat="past" data-word="make → made" data-rule="⚠️ 不規則動詞！make → made。此處是「投籃命中」的意思（6 of 21 shots）。" data-grade="國一下 U6">made</span>
 6 of his 21 shots. "I was bad tonight," Wembanyama sadly
-<span class="hl hl-past"
-  data-cat="past" data-word="say → said"
-  data-rule="⚠️ 不規則動詞！say → said（不是 sayed）。這是引述溫班亞馬賽後說的話。"
-  data-grade="國一下 U6">said</span>
+<span class="hl hl-past" data-cat="past" data-word="say → said" data-rule="⚠️ 不規則動詞！say → said（不是 sayed）。這是引述溫班亞馬賽後說的話。" data-grade="國一下 U6">said</span>
 after the game.</p>
 
 <p>The Knicks are now only three wins
-<span class="hl hl-gram"
-  data-cat="gram" data-word="be + 數量 + away from"
-  data-rule="「距離目標還差多少」。結構：be + 數量 + away from + 目標物。這裡距 NBA 冠軍只差 3 勝。"
-  data-grade="國二下 U4">away from</span>
+<span class="hl hl-gram" data-cat="gram" data-word="be + 數量 + away from" data-rule="「距離目標還差多少」。結構：be + 數量 + away from + 目標物。這裡距 NBA 冠軍只差 3 勝。" data-grade="國二下 U4">away from</span>
 their first NBA title in 53 years. Game 2
-<span class="hl hl-phr"
-  data-cat="phr" data-word="will take place"
-  data-rule="take place = happen（發生、舉行）。will 表示未來式。注意時態從過去式切換回未來式！"
-  data-grade="國一下 U7">will take place</span>
+<span class="hl hl-phr" data-cat="phr" data-word="will take place" data-rule="take place = happen（發生、舉行）。will 表示未來式。注意時態從過去式切換回未來式！" data-grade="國一下 U7">will take place</span>
 on Friday in San Antonio.</p>
 
           </div>
@@ -497,11 +393,9 @@ on Friday in San Antonio.</p>
   </div>
 </section>
 
-<!-- Global tooltip element -->
 <div id="hl-tooltip"><div class="tt-box"><div class="tt-arrow" id="tt-arrow"></div><div class="tt-cat" id="tt-cat"></div><div class="tt-word" id="tt-word"></div><div class="tt-rule" id="tt-rule"></div><div class="tt-grade" id="tt-grade"></div></div></div>
 
 <script>
-/* ── Grammar accordion ── */
 function toggleG(header){
   const item=header.closest('.gram-item');
   const body=item.querySelector('.gram-body');
@@ -510,14 +404,12 @@ function toggleG(header){
   if(!isOpen){item.classList.add('active');body.classList.add('open');}
 }
 
-/* ── Global tooltip ── */
 const tip=document.getElementById('hl-tooltip');
 const tipCat=document.getElementById('tt-cat');
 const tipWord=document.getElementById('tt-word');
 const tipRule=document.getElementById('tt-rule');
 const tipGrade=document.getElementById('tt-grade');
 const tipArrow=document.getElementById('tt-arrow');
-
 let hideTimer=null;
 
 document.querySelectorAll('.hl').forEach(el=>{
@@ -529,41 +421,29 @@ document.querySelectorAll('.hl').forEach(el=>{
     tipWord.textContent=el.dataset.word||'';
     tipRule.textContent=el.dataset.rule||'';
     tipGrade.textContent=el.dataset.grade||'';
-
     const box=tip.querySelector('.tt-box');
     const bw=box.offsetWidth||240;
     const bh=box.offsetHeight||120;
-
     const r=el.getBoundingClientRect();
     const cx=r.left+r.width/2;
-    const M=10; /* viewport margin */
-
-    /* tooltip uses position:fixed -> coords are VIEWPORT-relative, do NOT add scrollY */
+    const M=10;
     const spaceBelow=window.innerHeight-r.bottom;
     const spaceAbove=r.top;
-    const showAbove=spaceBelow<bh+18 && spaceAbove>spaceBelow;
-
+    const showAbove=spaceBelow<bh+18&&spaceAbove>spaceBelow;
     let top,arrowClass;
     if(showAbove){top=r.top-bh-14;arrowClass='down';}
     else{top=r.bottom+14;arrowClass='up';}
-    /* clamp vertically inside viewport */
     top=Math.max(M,Math.min(top,window.innerHeight-bh-M));
-
-    /* clamp horizontally inside viewport */
     let left=cx-bw/2;
     left=Math.max(M,Math.min(left,window.innerWidth-bw-M));
-
-    /* arrow points at the word, but stays within the box */
     const arrowLeft=cx-left;
     tipArrow.style.left=Math.max(18,Math.min(arrowLeft,bw-18))+'px';
     tipArrow.style.transform='none';
     tipArrow.className='tt-arrow '+arrowClass;
-
     tip.style.left=left+'px';
     tip.style.top=top+'px';
     tip.classList.add('show');
   });
-
   el.addEventListener('mouseleave',()=>{
     hideTimer=setTimeout(()=>tip.classList.remove('show'),120);
   });
