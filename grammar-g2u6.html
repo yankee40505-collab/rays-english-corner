@@ -19,7 +19,7 @@
   html{scroll-behavior:smooth;}
   body{font-family:'Nunito','Noto Sans TC',sans-serif;background:var(--cream);color:var(--text);line-height:1.8;overflow-x:hidden;}
 
-  /* ── NAV ── */
+  /* NAV */
   nav{position:sticky;top:0;z-index:100;background:rgba(250,248,242,.95);backdrop-filter:blur(14px);border-bottom:1.5px solid var(--border);padding:0 5%;height:58px;display:flex;align-items:center;justify-content:space-between;}
   .nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--green-dk);text-decoration:none;}
   .nav-links{display:flex;gap:1.4rem;list-style:none;align-items:center;}
@@ -31,7 +31,7 @@
   .dropdown-content a:hover{background:var(--cream);}
   .dropdown:hover .dropdown-content{display:block;}
 
-  /* ── HERO ── */
+  /* HERO */
   .hero{background:var(--green-dk);padding:60px 5% 68px;text-align:center;position:relative;overflow:hidden;}
   .hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:24px 24px;}
   .hero-badge{display:inline-block;background:var(--amber);color:var(--white);font-size:.72rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:4px 14px;border-radius:999px;margin-bottom:14px;}
@@ -41,27 +41,34 @@
   .hero-chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
   .chip{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);color:var(--white);font-size:.78rem;font-weight:700;padding:5px 14px;border-radius:999px;}
 
-  /* ── MAIN WRAP ── */
+  /* WRAP */
   .wrap{max-width:840px;margin:0 auto;padding:52px 5% 80px;}
 
-  /* ── SECTION LABEL ── */
+  /* SECTION LABEL */
   .sec-label{display:flex;align-items:center;gap:12px;margin:48px 0 18px;}
   .sec-label .sl-icon{width:40px;height:40px;border-radius:11px;background:var(--green-dk);color:var(--white);font-size:1.1rem;display:grid;place-items:center;flex-shrink:0;}
   .sec-label h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--green-dk);}
   .sec-label h2 small{display:block;font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--text-lt);}
 
-  /* ── VOCAB TABLE ── */
+  /* VOCAB TABLE */
   .vocab-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:12px;}
   .vocab-table th{background:var(--green-dk);color:var(--white);padding:11px 16px;font-size:.82rem;font-weight:800;letter-spacing:.06em;text-align:left;}
   .vocab-table td{padding:11px 16px;font-size:.9rem;border-bottom:1px solid var(--cream-d);vertical-align:top;}
   .vocab-table tr:last-child td{border-bottom:none;}
   .vocab-table tr:hover td{background:var(--green-pl);}
-  .vocab-table .word{font-weight:800;color:var(--green-dk);font-family:'Playfair Display',serif;font-size:1rem;}
-  .vocab-table .pos{font-size:.72rem;font-weight:700;color:var(--text-lt);margin-left:4px;}
+
+  /* 單字發音樣式 */
+  .vocab-table .word{
+    font-weight:800;color:var(--green-dk);font-family:'Playfair Display',serif;font-size:1rem;
+    cursor:pointer;transition:opacity .2s;display:inline-block;
+  }
+  .vocab-table .word:hover{opacity:.65;}
+  .vocab-table .word::after{content:'🔊';font-size:.75rem;margin-left:5px;vertical-align:middle;}
+  .vocab-table .pos{font-size:.72rem;font-weight:700;color:var(--text-lt);margin-left:2px;}
   .vocab-table .zh{font-family:'Noto Sans TC',sans-serif;font-weight:700;color:var(--text);}
   .vocab-table .note{font-size:.82rem;color:var(--text-md);font-family:'Noto Sans TC',sans-serif;line-height:1.65;}
 
-  /* ── TRAP BOX ── */
+  /* TRAP BOX */
   .trap-box{background:#fff8ec;border:2px solid var(--amber);border-radius:var(--r);padding:24px 28px;margin-bottom:24px;}
   .trap-title{display:flex;align-items:center;gap:8px;font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--warm);margin-bottom:14px;}
   .trap-item{display:flex;gap:12px;margin-bottom:14px;font-size:.9rem;font-family:'Noto Sans TC',sans-serif;line-height:1.7;}
@@ -70,7 +77,7 @@
   .trap-item .ti-body strong{font-family:'Nunito',sans-serif;color:var(--green-dk);}
   .trap-item .ti-body code{background:var(--cream-d);border-radius:4px;padding:1px 6px;font-size:.88em;font-family:'Nunito',monospace;color:var(--warm);}
 
-  /* ── GRAMMAR CARD ── */
+  /* GRAMMAR CARD */
   .g-card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:20px;overflow:hidden;border:2px solid transparent;transition:border-color .25s,box-shadow .25s;}
   .g-card:hover{border-color:var(--green-lt);box-shadow:var(--sh-lg);}
   .g-card-head{padding:18px 24px;background:var(--green-dk);color:var(--white);display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;}
@@ -82,7 +89,6 @@
   .g-card-body{display:none;padding:22px 26px;}
   .g-card.open .g-card-body{display:block;}
 
-  /* inside body */
   .rule-block{margin-bottom:18px;}
   .rule-block:last-child{margin-bottom:0;}
   .rule-title{font-weight:800;color:var(--green-dk);font-size:.92rem;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
@@ -94,7 +100,6 @@
   .warn-box{background:var(--warm-pl);border-left:4px solid var(--warm);border-radius:8px;padding:10px 14px;font-size:.88rem;font-family:'Noto Sans TC',sans-serif;line-height:1.7;margin-top:8px;color:var(--text);}
   .warn-box strong{font-family:'Nunito',sans-serif;color:var(--warm);}
 
-  /* comparison grid */
   .cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
   .cmp-cell{border-radius:10px;padding:12px 14px;font-size:.88rem;line-height:1.65;}
   .cmp-cell.ok{background:var(--green-pl);border:1.5px solid var(--green-md);}
@@ -104,19 +109,23 @@
   .cmp-cell.ng .cl{color:#b84040;}
   .cmp-cell .sent{font-weight:700;color:var(--text);font-family:'Nunito',sans-serif;}
   .cmp-cell .zh{font-family:'Noto Sans TC',sans-serif;font-size:.8rem;color:var(--text-md);margin-top:3px;}
-
   @media(max-width:560px){.cmp-grid{grid-template-columns:1fr;}}
 
-  /* ── PHRASE TABLE ── */
+  /* PHRASE CARDS — 片語發音樣式 */
   .phrase-grid{display:grid;gap:12px;margin-bottom:12px;}
   .phrase-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:16px 20px;box-shadow:var(--sh);transition:border-color .2s;}
   .phrase-card:hover{border-color:var(--green-lt);}
-  .phrase-card .pc-en{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--green-dk);margin-bottom:4px;}
+  .phrase-card .pc-en{
+    font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--green-dk);margin-bottom:4px;
+    cursor:pointer;display:inline-block;transition:opacity .2s;
+  }
+  .phrase-card .pc-en:hover{opacity:.65;}
+  .phrase-card .pc-en::after{content:'🔊';font-size:.75rem;margin-left:6px;vertical-align:middle;}
   .phrase-card .pc-zh{font-family:'Noto Sans TC',sans-serif;font-weight:700;font-size:.88rem;color:var(--text);margin-bottom:6px;}
   .phrase-card .pc-ex{font-size:.85rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-md);line-height:1.65;}
   .phrase-card .pc-ex em{font-style:italic;color:var(--text);font-family:'Nunito',sans-serif;}
 
-  /* ── SUMMARY CARD ── */
+  /* SUMMARY CARD */
   .summary-card{background:var(--green-dk);color:var(--white);border-radius:16px;padding:36px 40px;text-align:center;box-shadow:var(--sh-lg);margin-top:52px;}
   .summary-card h2{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:20px;}
   .step-list{display:flex;flex-direction:column;gap:10px;text-align:left;max-width:480px;margin:0 auto 24px;}
@@ -126,19 +135,18 @@
   .trap-chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 16px;font-size:.88rem;font-family:'Noto Sans TC',sans-serif;text-align:left;line-height:1.65;}
   .trap-chip strong{font-family:'Nunito',sans-serif;color:var(--amber);}
 
-  /* ── FOOTER ── */
+  /* FOOTER */
   footer{background:var(--green-dk);color:rgba(255,255,255,.55);text-align:center;padding:28px 5%;font-size:.83rem;line-height:1.9;}
   .f-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--white);margin-bottom:4px;}
   .f-logo span{color:var(--amber);}
 
-  /* ── SCROLL REVEAL ── */
+  /* SCROLL REVEAL */
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;}
   .reveal.visible{opacity:1;transform:none;}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">Ray's English Corner</a>
   <ul class="nav-links">
@@ -165,7 +173,6 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-badge">📖 國二 Unit 6</div>
   <h1>核心文法突破<br><em>Does Gender Matter?</em></h1>
@@ -180,7 +187,7 @@
 
 <div class="wrap">
 
-  <!-- ══ VOCAB ══ -->
+  <!-- VOCAB -->
   <div class="sec-label reveal">
     <div class="sl-icon">📝</div>
     <h2><small>Part A · Vocabulary</small>重要單字整理</h2>
@@ -190,69 +197,69 @@
     <table class="vocab-table">
       <thead>
         <tr>
-          <th style="width:22%">單字</th>
+          <th style="width:22%">單字（點擊發音）</th>
           <th style="width:18%">中文</th>
           <th>白話說明 / 考試重點</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><span class="word">point</span><span class="pos">(n.)</span></td>
+          <td><span class="word" data-speak="point">point</span><span class="pos">(n.)</span></td>
           <td class="zh">得分；重點</td>
           <td class="note">可指比賽得分，也可用於小數點。</td>
         </tr>
         <tr>
-          <td><span class="word">excuse</span><span class="pos">(n.)</span></td>
+          <td><span class="word" data-speak="excuse">excuse</span><span class="pos">(n.)</span></td>
           <td class="zh">藉口；理由</td>
           <td class="note">搭配：<strong>make up an excuse</strong>（捏造藉口）、<strong>no excuse</strong>（沒有藉口）。</td>
         </tr>
         <tr>
-          <td><span class="word">grade</span><span class="pos">(n.)</span></td>
+          <td><span class="word" data-speak="grade">grade</span><span class="pos">(n.)</span></td>
           <td class="zh">成績；年級</td>
           <td class="note"><strong>get a good/bad grade</strong>（得好/壞成績）；eighth-grader（八年級生）。</td>
         </tr>
         <tr>
-          <td><span class="word">mistake</span><span class="pos">(n.)</span></td>
+          <td><span class="word" data-speak="mistake">mistake</span><span class="pos">(n.)</span></td>
           <td class="zh">錯誤</td>
           <td class="note">必考搭配：<strong>make a mistake</strong>（犯錯）；<strong>by mistake</strong>（不小心地）。</td>
         </tr>
         <tr>
-          <td><span class="word">pass</span><span class="pos">(v.)</span></td>
+          <td><span class="word" data-speak="pass">pass</span><span class="pos">(v.)</span></td>
           <td class="zh">傳遞；通過</td>
           <td class="note">pass + 人 + 物 ＝ pass + 物 + to + 人；及格用 pass，不及格用 <strong>fail</strong>。</td>
         </tr>
         <tr>
-          <td><span class="word">throw</span><span class="pos">(v.)</span></td>
+          <td><span class="word" data-speak="throw">throw</span><span class="pos">(v.)</span></td>
           <td class="zh">丟；投擲</td>
           <td class="note">過去式為 <strong>threw</strong>；<strong>throw away</strong>（丟掉）。</td>
         </tr>
         <tr>
-          <td><span class="word">win</span><span class="pos">(v.)</span></td>
+          <td><span class="word" data-speak="win">win</span><span class="pos">(v.)</span></td>
           <td class="zh">贏；獲勝</td>
           <td class="note">過去式 <strong>won</strong>；名詞 winner；反義 lose。注意：打敗「對手」要用 <strong>beat</strong>，不用 win。</td>
         </tr>
         <tr>
-          <td><span class="word">forget</span><span class="pos">(v.)</span></td>
+          <td><span class="word" data-speak="forget">forget</span><span class="pos">(v.)</span></td>
           <td class="zh">忘記</td>
           <td class="note">過去式 <strong>forgot</strong>。後接 to V 或 V-ing 意思不同（見陷阱區）。</td>
         </tr>
         <tr>
-          <td><span class="word">begin</span><span class="pos">(v.)</span></td>
+          <td><span class="word" data-speak="begin">begin</span><span class="pos">(v.)</span></td>
           <td class="zh">開始</td>
           <td class="note">同義詞 start，過去式 <strong>began</strong>。後接 to V 或 V-ing 皆可。</td>
         </tr>
         <tr>
-          <td><span class="word">picture</span><span class="pos">(v.)</span></td>
+          <td><span class="word" data-speak="picture">picture</span><span class="pos">(v.)</span></td>
           <td class="zh">想像</td>
           <td class="note">當動詞用 ＝ imagine。課文：<em>Picture that you're sick...</em>（祈使句用法）。</td>
         </tr>
         <tr>
-          <td><span class="word">afraid</span><span class="pos">(adj.)</span></td>
+          <td><span class="word" data-speak="afraid">afraid</span><span class="pos">(adj.)</span></td>
           <td class="zh">害怕的；擔憂的</td>
           <td class="note"><strong>be afraid of</strong> + N/V-ing；或 <strong>be afraid (that)</strong> + 子句。</td>
         </tr>
         <tr>
-          <td><span class="word">honest</span><span class="pos">(adj.)</span></td>
+          <td><span class="word" data-speak="honest">honest</span><span class="pos">(adj.)</span></td>
           <td class="zh">誠實的</td>
           <td class="note">h 不發音！冠詞用 <strong>an</strong>（an honest boy）。</td>
         </tr>
@@ -260,7 +267,6 @@
     </table>
   </div>
 
-  <!-- vocab trap -->
   <div class="trap-box reveal">
     <div class="trap-title">🚨 考試陷阱：單字常考點</div>
     <div class="trap-item">
@@ -283,13 +289,12 @@
     </div>
   </div>
 
-  <!-- ══ GRAMMAR 01 TAG QUESTIONS ══ -->
+  <!-- GRAMMAR 01 TAG QUESTIONS -->
   <div class="sec-label reveal">
     <div class="sl-icon">01</div>
     <h2><small>Part B · Grammar</small>附加問句 Tag Questions</h2>
   </div>
 
-  <!-- 基本句型 -->
   <div class="g-card reveal open" id="gc1">
     <div class="g-card-head" onclick="toggleCard('gc1')">
       <div class="gh-num">1</div>
@@ -332,7 +337,6 @@
     </div>
   </div>
 
-  <!-- 特殊規則 -->
   <div class="g-card reveal" id="gc2">
     <div class="g-card-head" onclick="toggleCard('gc2')">
       <div class="gh-num">2</div>
@@ -347,28 +351,16 @@
         <div class="rule-title">代名詞替換</div>
         <div class="rule-desc">附加問句的主詞一定要用代名詞（I / you / we / they / he / she / it / there）。</div>
         <div class="cmp-grid">
-          <div class="cmp-cell ok">
-            <div class="cl">✓ 正確</div>
-            <div class="sent">That boy is tall, isn't <u>he</u>?</div>
-          </div>
-          <div class="cmp-cell ng">
-            <div class="cl">✗ 錯誤</div>
-            <div class="sent">That boy is tall, isn't <u>that boy</u>?</div>
-          </div>
+          <div class="cmp-cell ok"><div class="cl">✓ 正確</div><div class="sent">That boy is tall, isn't <u>he</u>?</div></div>
+          <div class="cmp-cell ng"><div class="cl">✗ 錯誤</div><div class="sent">That boy is tall, isn't <u>that boy</u>?</div></div>
         </div>
       </div>
       <div class="rule-block">
         <div class="rule-title">縮寫規定</div>
         <div class="rule-desc">否定的附加問句<strong>一定要縮寫</strong>。</div>
         <div class="cmp-grid">
-          <div class="cmp-cell ok">
-            <div class="cl">✓ 正確</div>
-            <div class="sent">aren't you</div>
-          </div>
-          <div class="cmp-cell ng">
-            <div class="cl">✗ 錯誤</div>
-            <div class="sent">are not you</div>
-          </div>
+          <div class="cmp-cell ok"><div class="cl">✓ 正確</div><div class="sent">aren't you</div></div>
+          <div class="cmp-cell ng"><div class="cl">✗ 錯誤</div><div class="sent">are not you</div></div>
         </div>
       </div>
       <div class="rule-block">
@@ -382,7 +374,6 @@
     </div>
   </div>
 
-  <!-- 隱藏否定 -->
   <div class="g-card reveal" id="gc3">
     <div class="g-card-head" onclick="toggleCard('gc3')">
       <div class="gh-num">3</div>
@@ -410,7 +401,6 @@
     </div>
   </div>
 
-  <!-- 祈使句 -->
   <div class="g-card reveal" id="gc4">
     <div class="g-card-head" onclick="toggleCard('gc4')">
       <div class="gh-num">4</div>
@@ -444,7 +434,7 @@
     </div>
   </div>
 
-  <!-- ══ GRAMMAR 02 THAT CLAUSE ══ -->
+  <!-- GRAMMAR 02 THAT CLAUSE -->
   <div class="sec-label reveal" style="margin-top:52px;">
     <div class="sl-icon">02</div>
     <h2><small>Part B · Grammar</small>that 引導的名詞子句</h2>
@@ -505,56 +495,56 @@
     </div>
   </div>
 
-  <!-- ══ PHRASES ══ -->
+  <!-- PHRASES -->
   <div class="sec-label reveal" style="margin-top:52px;">
     <div class="sl-icon">📌</div>
-    <h2><small>Part C · Phrases</small>重要片語與佳句</h2>
+    <h2><small>Part C · Phrases</small>重要片語與佳句（點擊發音）</h2>
   </div>
 
   <div class="phrase-grid reveal">
     <div class="phrase-card">
-      <div class="pc-en">around the corner</div>
+      <div class="pc-en" data-speak="around the corner">around the corner</div>
       <div class="pc-zh">即將來臨；在附近</div>
       <div class="pc-ex"><em>The science fair is just around the corner.</em>（科展快到了。）</div>
     </div>
     <div class="phrase-card">
-      <div class="pc-en">hold back</div>
+      <div class="pc-en" data-speak="hold back">hold back</div>
       <div class="pc-zh">阻礙；拖累</div>
       <div class="pc-ex"><em>I'm afraid that I will just hold you back.</em></div>
     </div>
     <div class="phrase-card">
-      <div class="pc-en">count... in / out</div>
+      <div class="pc-en" data-speak="count in, count out">count... in / out</div>
       <div class="pc-zh">算…一份 / 不算</div>
       <div class="pc-ex"><em>Count me in!</em>（算我一份！）反義：count... out</div>
     </div>
     <div class="phrase-card">
-      <div class="pc-en">lead to</div>
+      <div class="pc-en" data-speak="lead to">lead to</div>
       <div class="pc-zh">導致</div>
       <div class="pc-ex"><em>Gender stereotypes can lead to many problems.</em>（後接名詞或 V-ing）</div>
     </div>
     <div class="phrase-card">
-      <div class="pc-en">be able to</div>
+      <div class="pc-en" data-speak="be able to">be able to</div>
       <div class="pc-zh">能夠（＝ can）</div>
       <div class="pc-ex"><em>Both Jason and Kuo are able to live lives to the full.</em></div>
     </div>
     <div class="phrase-card">
-      <div class="pc-en">take... for example</div>
+      <div class="pc-en" data-speak="take for example">take... for example</div>
       <div class="pc-zh">以…為例</div>
       <div class="pc-ex"><em>Take Jason Wu and Kuo Hsing-chun for example.</em></div>
     </div>
     <div class="phrase-card">
-      <div class="pc-en">as for</div>
+      <div class="pc-en" data-speak="as for">as for</div>
       <div class="pc-zh">至於…</div>
       <div class="pc-ex"><em>As for girls, they should be thin...</em>（通常放句首，引出新話題）</div>
     </div>
     <div class="phrase-card">
-      <div class="pc-en">No worries. / I'm good now.</div>
+      <div class="pc-en" data-speak="No worries. I'm good now.">No worries. / I'm good now.</div>
       <div class="pc-zh">沒關係。／我沒事了。</div>
       <div class="pc-ex">No worries ＝ Don't worry about it.<br>I'm good now ＝ I'm fine now.（表示已恢復）</div>
     </div>
   </div>
 
-  <!-- ══ SUMMARY ══ -->
+  <!-- SUMMARY -->
   <div class="sec-label reveal" style="margin-top:52px;">
     <div class="sl-icon">🎯</div>
     <h2><small>Part D · Exam</small>考試重點快速總整理</h2>
@@ -576,7 +566,6 @@
         <div>換代名詞：把前面的主詞換成 I / you / he / she / it / we / they / there 放在最後。</div>
       </div>
     </div>
-
     <h2 style="margin-top:28px;">💣 6 大必考陷阱</h2>
     <div class="trap-list">
       <div class="trap-chip"><strong>陷阱①</strong> 看到 seldom / never / few / little → 把它當作有 not，附加問句直接用肯定。</div>
@@ -588,7 +577,7 @@
     </div>
   </div>
 
-</div><!-- /.wrap -->
+</div>
 
 <footer>
   <div class="f-logo">Ray's <span>English</span> Corner</div>
@@ -596,10 +585,36 @@
 </footer>
 
 <script>
-  function toggleCard(id){
-    const c = document.getElementById(id);
-    c.classList.toggle('open');
+  function toggleCard(id){ document.getElementById(id).classList.toggle('open'); }
+
+  // 發音功能
+  function speakWord(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      utterance.rate = 0.9;
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert('你的瀏覽器不支援發音功能，請嘗試使用最新版的 Chrome 或 Safari。');
+    }
   }
+
+  // 單字表發音（用 data-speak）
+  document.querySelectorAll('.vocab-table .word[data-speak]').forEach(el => {
+    el.addEventListener('click', function() {
+      speakWord(this.dataset.speak);
+    });
+  });
+
+  // 片語卡發音（用 data-speak）
+  document.querySelectorAll('.phrase-card .pc-en[data-speak]').forEach(el => {
+    el.addEventListener('click', function() {
+      speakWord(this.dataset.speak);
+    });
+  });
+
+  // Scroll reveal
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
   }, {threshold:.08});
