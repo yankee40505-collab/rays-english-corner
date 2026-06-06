@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>核心文法突破 · 國二 U6｜Ray's English Corner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:#faf8f2; --cream-d:#ede8d8; --green-dk:#1e4d30; --green-md:#3a7a50;
+    --green-lt:#6db88a; --green-pl:#e2f2e8; --amber:#f5a623; --amber-pl:#fff8ec;
+    --warm:#e07850; --warm-pl:#fdf0ea; --text:#1a2a1a; --text-md:#466046;
+    --text-lt:#7a9a7a; --border:#d5cbb5; --white:#ffffff;
+    --sh:0 4px 20px rgba(30,77,48,.10); --sh-lg:0 12px 48px rgba(30,77,48,.15);
+    --r:14px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Nunito','Noto Sans TC',sans-serif;background:var(--cream);color:var(--text);line-height:1.8;overflow-x:hidden;}
+
+  /* ── NAV ── */
+  nav{position:sticky;top:0;z-index:100;background:rgba(250,248,242,.95);backdrop-filter:blur(14px);border-bottom:1.5px solid var(--border);padding:0 5%;height:58px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--green-dk);text-decoration:none;}
+  .nav-links{display:flex;gap:1.4rem;list-style:none;align-items:center;}
+  .nav-links a{text-decoration:none;color:var(--text-md);font-size:.85rem;font-weight:800;transition:color .18s;}
+  .nav-links a:hover{color:var(--green-dk);}
+  .dropdown{position:relative;}
+  .dropdown-content{display:none;position:absolute;top:100%;left:0;background:var(--white);border:1px solid var(--border);border-radius:8px;box-shadow:var(--sh);min-width:160px;z-index:10;}
+  .dropdown-content a{display:block;padding:10px 16px;font-size:.88rem;}
+  .dropdown-content a:hover{background:var(--cream);}
+  .dropdown:hover .dropdown-content{display:block;}
+
+  /* ── HERO ── */
+  .hero{background:var(--green-dk);padding:60px 5% 68px;text-align:center;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:24px 24px;}
+  .hero-badge{display:inline-block;background:var(--amber);color:var(--white);font-size:.72rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:4px 14px;border-radius:999px;margin-bottom:14px;}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.9rem);font-weight:900;color:var(--white);margin-bottom:10px;line-height:1.2;}
+  .hero h1 em{color:var(--amber);font-style:normal;}
+  .hero p{color:rgba(255,255,255,.68);max-width:520px;margin:0 auto 22px;font-size:.98rem;}
+  .hero-chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+  .chip{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);color:var(--white);font-size:.78rem;font-weight:700;padding:5px 14px;border-radius:999px;}
+
+  /* ── MAIN WRAP ── */
+  .wrap{max-width:840px;margin:0 auto;padding:52px 5% 80px;}
+
+  /* ── SECTION LABEL ── */
+  .sec-label{display:flex;align-items:center;gap:12px;margin:48px 0 18px;}
+  .sec-label .sl-icon{width:40px;height:40px;border-radius:11px;background:var(--green-dk);color:var(--white);font-size:1.1rem;display:grid;place-items:center;flex-shrink:0;}
+  .sec-label h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--green-dk);}
+  .sec-label h2 small{display:block;font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--text-lt);}
+
+  /* ── VOCAB TABLE ── */
+  .vocab-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:12px;}
+  .vocab-table th{background:var(--green-dk);color:var(--white);padding:11px 16px;font-size:.82rem;font-weight:800;letter-spacing:.06em;text-align:left;}
+  .vocab-table td{padding:11px 16px;font-size:.9rem;border-bottom:1px solid var(--cream-d);vertical-align:top;}
+  .vocab-table tr:last-child td{border-bottom:none;}
+  .vocab-table tr:hover td{background:var(--green-pl);}
+  .vocab-table .word{font-weight:800;color:var(--green-dk);font-family:'Playfair Display',serif;font-size:1rem;}
+  .vocab-table .pos{font-size:.72rem;font-weight:700;color:var(--text-lt);margin-left:4px;}
+  .vocab-table .zh{font-family:'Noto Sans TC',sans-serif;font-weight:700;color:var(--text);}
+  .vocab-table .note{font-size:.82rem;color:var(--text-md);font-family:'Noto Sans TC',sans-serif;line-height:1.65;}
+
+  /* ── TRAP BOX ── */
+  .trap-box{background:#fff8ec;border:2px solid var(--amber);border-radius:var(--r);padding:24px 28px;margin-bottom:24px;}
+  .trap-title{display:flex;align-items:center;gap:8px;font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--warm);margin-bottom:14px;}
+  .trap-item{display:flex;gap:12px;margin-bottom:14px;font-size:.9rem;font-family:'Noto Sans TC',sans-serif;line-height:1.7;}
+  .trap-item:last-child{margin-bottom:0;}
+  .trap-item .ti-label{background:var(--warm);color:var(--white);font-size:.72rem;font-weight:900;padding:2px 9px;border-radius:999px;white-space:nowrap;align-self:flex-start;margin-top:3px;font-family:'Nunito',sans-serif;}
+  .trap-item .ti-body strong{font-family:'Nunito',sans-serif;color:var(--green-dk);}
+  .trap-item .ti-body code{background:var(--cream-d);border-radius:4px;padding:1px 6px;font-size:.88em;font-family:'Nunito',monospace;color:var(--warm);}
+
+  /* ── GRAMMAR CARD ── */
+  .g-card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:20px;overflow:hidden;border:2px solid transparent;transition:border-color .25s,box-shadow .25s;}
+  .g-card:hover{border-color:var(--green-lt);box-shadow:var(--sh-lg);}
+  .g-card-head{padding:18px 24px;background:var(--green-dk);color:var(--white);display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;}
+  .g-card-head .gh-num{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.18);font-weight:900;font-size:.85rem;display:grid;place-items:center;flex-shrink:0;}
+  .g-card-head .gh-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;flex:1;}
+  .g-card-head .gh-sub{font-size:.78rem;opacity:.7;margin-top:2px;}
+  .g-card-head .gh-arrow{font-size:.9rem;transition:transform .25s;}
+  .g-card.open .gh-arrow{transform:rotate(180deg);}
+  .g-card-body{display:none;padding:22px 26px;}
+  .g-card.open .g-card-body{display:block;}
+
+  /* inside body */
+  .rule-block{margin-bottom:18px;}
+  .rule-block:last-child{margin-bottom:0;}
+  .rule-title{font-weight:800;color:var(--green-dk);font-size:.92rem;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+  .rule-title::before{content:'';width:4px;height:14px;border-radius:2px;background:var(--amber);display:inline-block;}
+  .rule-desc{font-size:.9rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-md);line-height:1.75;margin-bottom:8px;}
+  .ex-box{background:var(--green-pl);border-left:4px solid var(--green-md);border-radius:8px;padding:10px 14px;font-size:.9rem;margin-top:6px;line-height:1.7;}
+  .ex-box .en{font-weight:700;color:var(--green-dk);}
+  .ex-box .zh{font-family:'Noto Sans TC',sans-serif;font-size:.83rem;color:var(--text-md);margin-top:2px;}
+  .warn-box{background:var(--warm-pl);border-left:4px solid var(--warm);border-radius:8px;padding:10px 14px;font-size:.88rem;font-family:'Noto Sans TC',sans-serif;line-height:1.7;margin-top:8px;color:var(--text);}
+  .warn-box strong{font-family:'Nunito',sans-serif;color:var(--warm);}
+
+  /* comparison grid */
+  .cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
+  .cmp-cell{border-radius:10px;padding:12px 14px;font-size:.88rem;line-height:1.65;}
+  .cmp-cell.ok{background:var(--green-pl);border:1.5px solid var(--green-md);}
+  .cmp-cell.ng{background:#fdf0f0;border:1.5px solid #e07070;}
+  .cmp-cell .cl{font-size:.7rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;font-family:'Nunito',sans-serif;}
+  .cmp-cell.ok .cl{color:var(--green-md);}
+  .cmp-cell.ng .cl{color:#b84040;}
+  .cmp-cell .sent{font-weight:700;color:var(--text);font-family:'Nunito',sans-serif;}
+  .cmp-cell .zh{font-family:'Noto Sans TC',sans-serif;font-size:.8rem;color:var(--text-md);margin-top:3px;}
+
+  @media(max-width:560px){.cmp-grid{grid-template-columns:1fr;}}
+
+  /* ── PHRASE TABLE ── */
+  .phrase-grid{display:grid;gap:12px;margin-bottom:12px;}
+  .phrase-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:16px 20px;box-shadow:var(--sh);transition:border-color .2s;}
+  .phrase-card:hover{border-color:var(--green-lt);}
+  .phrase-card .pc-en{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--green-dk);margin-bottom:4px;}
+  .phrase-card .pc-zh{font-family:'Noto Sans TC',sans-serif;font-weight:700;font-size:.88rem;color:var(--text);margin-bottom:6px;}
+  .phrase-card .pc-ex{font-size:.85rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-md);line-height:1.65;}
+  .phrase-card .pc-ex em{font-style:italic;color:var(--text);font-family:'Nunito',sans-serif;}
+
+  /* ── SUMMARY CARD ── */
+  .summary-card{background:var(--green-dk);color:var(--white);border-radius:16px;padding:36px 40px;text-align:center;box-shadow:var(--sh-lg);margin-top:52px;}
+  .summary-card h2{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:20px;}
+  .step-list{display:flex;flex-direction:column;gap:10px;text-align:left;max-width:480px;margin:0 auto 24px;}
+  .step-item{display:flex;gap:12px;align-items:flex-start;font-size:.92rem;}
+  .step-num{width:26px;height:26px;border-radius:50%;background:var(--amber);color:var(--white);font-weight:900;font-size:.8rem;display:grid;place-items:center;flex-shrink:0;margin-top:2px;}
+  .trap-list{display:flex;flex-direction:column;gap:8px;margin-top:16px;}
+  .trap-chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 16px;font-size:.88rem;font-family:'Noto Sans TC',sans-serif;text-align:left;line-height:1.65;}
+  .trap-chip strong{font-family:'Nunito',sans-serif;color:var(--amber);}
+
+  /* ── FOOTER ── */
+  footer{background:var(--green-dk);color:rgba(255,255,255,.55);text-align:center;padding:28px 5%;font-size:.83rem;line-height:1.9;}
+  .f-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--white);margin-bottom:4px;}
+  .f-logo span{color:var(--amber);}
+
+  /* ── SCROLL REVEAL ── */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;}
+  .reveal.visible{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Ray's English Corner</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">關於 Ray</a></li>
+    <li><a href="index.html#courses">課程</a></li>
+    <li class="dropdown">
+      <a href="javascript:void(0)">私校專區 ▾</a>
+      <div class="dropdown-content">
+        <a href="nba-finals-u5.html">NBA Finals U5</a>
+        <a href="nba-section-v3.html">NBA Section V3</a>
+      </div>
+    </li>
+    <li><a href="experience.html">教學經歷</a></li>
+    <li class="dropdown">
+      <a href="javascript:void(0)">文法 ▾</a>
+      <div class="dropdown-content">
+        <a href="grammar-u5.html">文法 U5</a>
+        <a href="grammar-u6.html" style="color:var(--green-dk);font-weight:800;">文法 U6 ◀</a>
+        <a href="participle-clauses.html">分詞構句筆記</a>
+      </div>
+    </li>
+    <li><a href="practice.html">線上練習</a></li>
+    <li><a href="index.html#contact">聯絡我</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">📖 國二 Unit 6</div>
+  <h1>核心文法突破<br><em>Does Gender Matter?</em></h1>
+  <p>附加問句 × 名詞子句 × 必考陷阱整理</p>
+  <div class="hero-chips">
+    <div class="chip">附加問句 Tag Questions</div>
+    <div class="chip">that 子句</div>
+    <div class="chip">否定轉移</div>
+    <div class="chip">⚠️ 6 大陷阱</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ══ VOCAB ══ -->
+  <div class="sec-label reveal">
+    <div class="sl-icon">📝</div>
+    <h2><small>Part A · Vocabulary</small>重要單字整理</h2>
+  </div>
+
+  <div class="reveal">
+    <table class="vocab-table">
+      <thead>
+        <tr>
+          <th style="width:22%">單字</th>
+          <th style="width:18%">中文</th>
+          <th>白話說明 / 考試重點</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="word">point</span><span class="pos">(n.)</span></td>
+          <td class="zh">得分；重點</td>
+          <td class="note">可指比賽得分，也可用於小數點。</td>
+        </tr>
+        <tr>
+          <td><span class="word">excuse</span><span class="pos">(n.)</span></td>
+          <td class="zh">藉口；理由</td>
+          <td class="note">搭配：<strong>make up an excuse</strong>（捏造藉口）、<strong>no excuse</strong>（沒有藉口）。</td>
+        </tr>
+        <tr>
+          <td><span class="word">grade</span><span class="pos">(n.)</span></td>
+          <td class="zh">成績；年級</td>
+          <td class="note"><strong>get a good/bad grade</strong>（得好/壞成績）；eighth-grader（八年級生）。</td>
+        </tr>
+        <tr>
+          <td><span class="word">mistake</span><span class="pos">(n.)</span></td>
+          <td class="zh">錯誤</td>
+          <td class="note">必考搭配：<strong>make a mistake</strong>（犯錯）；<strong>by mistake</strong>（不小心地）。</td>
+        </tr>
+        <tr>
+          <td><span class="word">pass</span><span class="pos">(v.)</span></td>
+          <td class="zh">傳遞；通過</td>
+          <td class="note">pass + 人 + 物 ＝ pass + 物 + to + 人；及格用 pass，不及格用 <strong>fail</strong>。</td>
+        </tr>
+        <tr>
+          <td><span class="word">throw</span><span class="pos">(v.)</span></td>
+          <td class="zh">丟；投擲</td>
+          <td class="note">過去式為 <strong>threw</strong>；<strong>throw away</strong>（丟掉）。</td>
+        </tr>
+        <tr>
+          <td><span class="word">win</span><span class="pos">(v.)</span></td>
+          <td class="zh">贏；獲勝</td>
+          <td class="note">過去式 <strong>won</strong>；名詞 winner；反義 lose。注意：打敗「對手」要用 <strong>beat</strong>，不用 win。</td>
+        </tr>
+        <tr>
+          <td><span class="word">forget</span><span class="pos">(v.)</span></td>
+          <td class="zh">忘記</td>
+          <td class="note">過去式 <strong>forgot</strong>。後接 to V 或 V-ing 意思不同（見陷阱區）。</td>
+        </tr>
+        <tr>
+          <td><span class="word">begin</span><span class="pos">(v.)</span></td>
+          <td class="zh">開始</td>
+          <td class="note">同義詞 start，過去式 <strong>began</strong>。後接 to V 或 V-ing 皆可。</td>
+        </tr>
+        <tr>
+          <td><span class="word">picture</span><span class="pos">(v.)</span></td>
+          <td class="zh">想像</td>
+          <td class="note">當動詞用 ＝ imagine。課文：<em>Picture that you're sick...</em>（祈使句用法）。</td>
+        </tr>
+        <tr>
+          <td><span class="word">afraid</span><span class="pos">(adj.)</span></td>
+          <td class="zh">害怕的；擔憂的</td>
+          <td class="note"><strong>be afraid of</strong> + N/V-ing；或 <strong>be afraid (that)</strong> + 子句。</td>
+        </tr>
+        <tr>
+          <td><span class="word">honest</span><span class="pos">(adj.)</span></td>
+          <td class="zh">誠實的</td>
+          <td class="note">h 不發音！冠詞用 <strong>an</strong>（an honest boy）。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- vocab trap -->
+  <div class="trap-box reveal">
+    <div class="trap-title">🚨 考試陷阱：單字常考點</div>
+    <div class="trap-item">
+      <div class="ti-label">forget</div>
+      <div class="ti-body">
+        <div style="font-family:'Noto Sans TC',sans-serif;font-size:.9rem;line-height:1.75;">
+          <strong>forget + to V</strong>：忘記去做⋯（事情<u>還沒做</u>）<br>
+          <code>Don't forget to lock the door.</code>（別忘了鎖門）<br><br>
+          <strong>forget + V-ing</strong>：忘記曾經做過⋯（事情<u>做過了但忘了</u>）<br>
+          <code>I forgot locking the door.</code>（我忘了我鎖過門）
+        </div>
+      </div>
+    </div>
+    <div class="trap-item">
+      <div class="ti-label">win vs. beat</div>
+      <div class="ti-body" style="font-family:'Noto Sans TC',sans-serif;font-size:.9rem;line-height:1.75;">
+        <strong>win</strong> 後接比賽、獎品：<code>win the game</code><br>
+        打敗「對手（人/隊）」要用 <strong>beat</strong>：<code>beat the other team</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ GRAMMAR 01 TAG QUESTIONS ══ -->
+  <div class="sec-label reveal">
+    <div class="sl-icon">01</div>
+    <h2><small>Part B · Grammar</small>附加問句 Tag Questions</h2>
+  </div>
+
+  <!-- 基本句型 -->
+  <div class="g-card reveal open" id="gc1">
+    <div class="g-card-head" onclick="toggleCard('gc1')">
+      <div class="gh-num">1</div>
+      <div>
+        <div class="gh-title">基本句型規則</div>
+        <div class="gh-sub">Be 動詞 / 一般動詞 / 助動詞</div>
+      </div>
+      <div class="gh-arrow">▼</div>
+    </div>
+    <div class="g-card-body">
+      <div class="rule-block">
+        <div class="rule-title">最高指導原則：前肯後否，前否後肯</div>
+        <div class="rule-desc">附加問句就像中文的「對吧？」「是不是？」前面肯定句，後面就補否定；前面否定句，後面就補肯定。</div>
+      </div>
+      <div class="rule-block">
+        <div class="rule-title">Be 動詞句</div>
+        <div class="ex-box">
+          <div class="en">You are a student, <u>aren't you</u>?</div>
+          <div class="zh">你是學生，對吧？</div>
+        </div>
+      </div>
+      <div class="rule-block">
+        <div class="rule-title">一般動詞句（用 do / does / did）</div>
+        <div class="ex-box">
+          <div class="en">He plays tennis, <u>doesn't he</u>?（現在式單數）</div>
+          <div class="zh">他打網球，對吧？</div>
+        </div>
+        <div class="ex-box" style="margin-top:8px;">
+          <div class="en">They went home, <u>didn't they</u>?（過去式）</div>
+          <div class="zh">他們回家了，對吧？</div>
+        </div>
+      </div>
+      <div class="rule-block">
+        <div class="rule-title">助動詞句（will / can / should...）</div>
+        <div class="ex-box">
+          <div class="en">She can swim, <u>can't she</u>?</div>
+          <div class="zh">她會游泳，對吧？</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 特殊規則 -->
+  <div class="g-card reveal" id="gc2">
+    <div class="g-card-head" onclick="toggleCard('gc2')">
+      <div class="gh-num">2</div>
+      <div>
+        <div class="gh-title">必考代換與特殊規則</div>
+        <div class="gh-sub">代名詞替換 · 縮寫規定 · I am 特例</div>
+      </div>
+      <div class="gh-arrow">▼</div>
+    </div>
+    <div class="g-card-body">
+      <div class="rule-block">
+        <div class="rule-title">代名詞替換</div>
+        <div class="rule-desc">附加問句的主詞一定要用代名詞（I / you / we / they / he / she / it / there）。</div>
+        <div class="cmp-grid">
+          <div class="cmp-cell ok">
+            <div class="cl">✓ 正確</div>
+            <div class="sent">That boy is tall, isn't <u>he</u>?</div>
+          </div>
+          <div class="cmp-cell ng">
+            <div class="cl">✗ 錯誤</div>
+            <div class="sent">That boy is tall, isn't <u>that boy</u>?</div>
+          </div>
+        </div>
+      </div>
+      <div class="rule-block">
+        <div class="rule-title">縮寫規定</div>
+        <div class="rule-desc">否定的附加問句<strong>一定要縮寫</strong>。</div>
+        <div class="cmp-grid">
+          <div class="cmp-cell ok">
+            <div class="cl">✓ 正確</div>
+            <div class="sent">aren't you</div>
+          </div>
+          <div class="cmp-cell ng">
+            <div class="cl">✗ 錯誤</div>
+            <div class="sent">are not you</div>
+          </div>
+        </div>
+      </div>
+      <div class="rule-block">
+        <div class="rule-title">⚠️ I am 的特例</div>
+        <div class="warn-box">
+          <strong>I am</strong> 的否定附加問句是 <strong>aren't I?</strong><br>
+          絕對不能寫 <strong>am not I</strong>。<br><br>
+          例：I'm your best friend, <u>aren't I</u>?
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 隱藏否定 -->
+  <div class="g-card reveal" id="gc3">
+    <div class="g-card-head" onclick="toggleCard('gc3')">
+      <div class="gh-num">3</div>
+      <div>
+        <div class="gh-title">隱藏版的否定句</div>
+        <div class="gh-sub">看到這些字 = 當作否定句</div>
+      </div>
+      <div class="gh-arrow">▼</div>
+    </div>
+    <div class="g-card-body">
+      <div class="rule-block">
+        <div class="rule-desc">當句子裡出現以下字眼，該句視為否定句，後面的附加問句要用<strong>肯定</strong>！</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px;">
+          <span style="background:var(--warm);color:#fff;padding:4px 14px;border-radius:999px;font-weight:800;font-size:.85rem;">never</span>
+          <span style="background:var(--warm);color:#fff;padding:4px 14px;border-radius:999px;font-weight:800;font-size:.85rem;">seldom</span>
+          <span style="background:var(--warm);color:#fff;padding:4px 14px;border-radius:999px;font-weight:800;font-size:.85rem;">no</span>
+          <span style="background:var(--warm);color:#fff;padding:4px 14px;border-radius:999px;font-weight:800;font-size:.85rem;">little</span>
+          <span style="background:var(--warm);color:#fff;padding:4px 14px;border-radius:999px;font-weight:800;font-size:.85rem;">few</span>
+        </div>
+        <div class="ex-box">
+          <div class="en">Zac <u>seldom</u> takes the metro to work, <u>does he</u>?</div>
+          <div class="zh">Zac 很少搭捷運，是吧？（seldom＝隱性否定 → 後面用肯定 does he）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 祈使句 -->
+  <div class="g-card reveal" id="gc4">
+    <div class="g-card-head" onclick="toggleCard('gc4')">
+      <div class="gh-num">4</div>
+      <div>
+        <div class="gh-title">祈使句的附加問句</div>
+        <div class="gh-sub">口訣背誦版</div>
+      </div>
+      <div class="gh-arrow">▼</div>
+    </div>
+    <div class="g-card-body">
+      <div class="rule-block">
+        <div style="display:grid;gap:10px;">
+          <div class="ex-box">
+            <div class="en">一般祈使句（V... / Don't V...）→ <strong>will you?</strong></div>
+            <div class="zh">Be quiet, will you?（安靜，好嗎？）</div>
+          </div>
+          <div class="ex-box">
+            <div class="en"><strong>Let's</strong> 開頭（包含說話者與聽話者）→ <strong>shall we?</strong></div>
+            <div class="zh">Let's go home, shall we?（我們回家吧，好嗎？）</div>
+          </div>
+          <div class="ex-box">
+            <div class="en"><strong>Let us</strong> 開頭（不包含聽話者，請求允許）→ <strong>will you?</strong></div>
+            <div class="zh">Let us go to the party, will you?（讓我們去派對，好嗎？）</div>
+          </div>
+          <div class="ex-box">
+            <div class="en">邀請/勸吃喝（Have some...）→ <strong>won't you?</strong></div>
+            <div class="zh">Have a cup of tea, won't you?（喝杯茶吧，好嗎？）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ GRAMMAR 02 THAT CLAUSE ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">02</div>
+    <h2><small>Part B · Grammar</small>that 引導的名詞子句</h2>
+  </div>
+
+  <div class="g-card reveal open" id="gc5">
+    <div class="g-card-head" onclick="toggleCard('gc5')">
+      <div class="gh-num">1</div>
+      <div>
+        <div class="gh-title">基本句型</div>
+        <div class="gh-sub">一般動詞 / be 動詞 + 形容詞</div>
+      </div>
+      <div class="gh-arrow">▼</div>
+    </div>
+    <div class="g-card-body">
+      <div class="rule-block">
+        <div class="rule-title">主詞 + 一般動詞（think / know / believe / hear...）+ (that) + 完整子句</div>
+        <div class="ex-box">
+          <div class="en">I know <u>(that)</u> you failed the test yesterday.</div>
+          <div class="zh">我知道你昨天考試不及格。（口語中 that 常省略）</div>
+        </div>
+      </div>
+      <div class="rule-block">
+        <div class="rule-title">主詞 + be 動詞 + 形容詞（afraid / sure / glad / sorry...）+ (that) + 完整子句</div>
+        <div class="ex-box">
+          <div class="en">I'm afraid <u>(that)</u> I will hold you back.</div>
+          <div class="zh">我恐怕會拖累你們。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="g-card reveal" id="gc6">
+    <div class="g-card-head" onclick="toggleCard('gc6')">
+      <div class="gh-num">2</div>
+      <div>
+        <div class="gh-title">否定轉移（超重要！）</div>
+        <div class="gh-sub">think / believe 類的否定習慣放前面</div>
+      </div>
+      <div class="gh-arrow">▼</div>
+    </div>
+    <div class="g-card-body">
+      <div class="rule-block">
+        <div class="rule-desc">當主要動詞是表示「看法」的字（如：<strong>think, believe</strong>），如果後面的子句是否定意思，習慣把「否定（not）」搬到前面的主要子句。</div>
+        <div class="cmp-grid">
+          <div class="cmp-cell ng">
+            <div class="cl">✗ 較不道地</div>
+            <div class="sent">I think that he <u>won't</u> come.</div>
+            <div class="zh">（我認為他「不會」來）</div>
+          </div>
+          <div class="cmp-cell ok">
+            <div class="cl">✓ 道地用法</div>
+            <div class="sent">I <u>don't think</u> that he will come.</div>
+            <div class="zh">（我「不認為」他會來）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PHRASES ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">📌</div>
+    <h2><small>Part C · Phrases</small>重要片語與佳句</h2>
+  </div>
+
+  <div class="phrase-grid reveal">
+    <div class="phrase-card">
+      <div class="pc-en">around the corner</div>
+      <div class="pc-zh">即將來臨；在附近</div>
+      <div class="pc-ex"><em>The science fair is just around the corner.</em>（科展快到了。）</div>
+    </div>
+    <div class="phrase-card">
+      <div class="pc-en">hold back</div>
+      <div class="pc-zh">阻礙；拖累</div>
+      <div class="pc-ex"><em>I'm afraid that I will just hold you back.</em></div>
+    </div>
+    <div class="phrase-card">
+      <div class="pc-en">count... in / out</div>
+      <div class="pc-zh">算…一份 / 不算</div>
+      <div class="pc-ex"><em>Count me in!</em>（算我一份！）反義：count... out</div>
+    </div>
+    <div class="phrase-card">
+      <div class="pc-en">lead to</div>
+      <div class="pc-zh">導致</div>
+      <div class="pc-ex"><em>Gender stereotypes can lead to many problems.</em>（後接名詞或 V-ing）</div>
+    </div>
+    <div class="phrase-card">
+      <div class="pc-en">be able to</div>
+      <div class="pc-zh">能夠（＝ can）</div>
+      <div class="pc-ex"><em>Both Jason and Kuo are able to live lives to the full.</em></div>
+    </div>
+    <div class="phrase-card">
+      <div class="pc-en">take... for example</div>
+      <div class="pc-zh">以…為例</div>
+      <div class="pc-ex"><em>Take Jason Wu and Kuo Hsing-chun for example.</em></div>
+    </div>
+    <div class="phrase-card">
+      <div class="pc-en">as for</div>
+      <div class="pc-zh">至於…</div>
+      <div class="pc-ex"><em>As for girls, they should be thin...</em>（通常放句首，引出新話題）</div>
+    </div>
+    <div class="phrase-card">
+      <div class="pc-en">No worries. / I'm good now.</div>
+      <div class="pc-zh">沒關係。／我沒事了。</div>
+      <div class="pc-ex">No worries ＝ Don't worry about it.<br>I'm good now ＝ I'm fine now.（表示已恢復）</div>
+    </div>
+  </div>
+
+  <!-- ══ SUMMARY ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">🎯</div>
+    <h2><small>Part D · Exam</small>考試重點快速總整理</h2>
+  </div>
+
+  <div class="summary-card reveal">
+    <h2>📌 附加問句萬用解題 3 步驟</h2>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div>找動詞：確認直述句是 <strong>Be動詞</strong>、<strong>一般動詞</strong>（注意時態），還是<strong>助動詞</strong>。</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div>判斷肯否：前面沒 not/never → 後面補 not（要縮寫）；前面有否定字 → 後面不用 not。</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div>換代名詞：把前面的主詞換成 I / you / he / she / it / we / they / there 放在最後。</div>
+      </div>
+    </div>
+
+    <h2 style="margin-top:28px;">💣 6 大必考陷阱</h2>
+    <div class="trap-list">
+      <div class="trap-chip"><strong>陷阱①</strong> 看到 seldom / never / few / little → 把它當作有 not，附加問句直接用肯定。</div>
+      <div class="trap-chip"><strong>陷阱②</strong> I am 的否定附加問句 → 絕對是 aren't I?，沒有 am not I。</div>
+      <div class="trap-chip"><strong>陷阱③</strong> 祈使句 → 不管肯定 Stand up 還是否定 Don't move，附加問句都是 will you?（只有 Let's 是 shall we?）</div>
+      <div class="trap-chip"><strong>陷阱④</strong> There is/are 句型 → 附加問句的主詞繼續用 there（例如：isn't there? / weren't there?）</div>
+      <div class="trap-chip"><strong>陷阱⑤</strong> that 子句當受詞時 that 可省略；但 that 在句首當主詞時，絕對不能省略。</div>
+      <div class="trap-chip"><strong>陷阱⑥</strong> push 人 into + V-ing → 介系詞 into 後面的動詞一定要加 -ing。<br><em>push people into hiding their true selves</em></div>
+    </div>
+  </div>
+
+</div><!-- /.wrap -->
+
+<footer>
+  <div class="f-logo">Ray's <span>English</span> Corner</div>
+  <p>© 2026 Ray's English Corner · 雷康誠老師 · 新北市</p>
+</footer>
+
+<script>
+  function toggleCard(id){
+    const c = document.getElementById(id);
+    c.classList.toggle('open');
+  }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, {threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
