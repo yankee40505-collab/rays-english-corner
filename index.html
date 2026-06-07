@@ -6,53 +6,10 @@
 <title>Ray's English Corner｜雷老師英文教室</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<!-- ★ 全站共用樣式 -->
+<link rel="stylesheet" href="styles.css">
 <style>
-  :root {
-    --cream:       #faf8f2;
-    --cream-d:     #ede8d8;
-    --green-dk:    #1e4d30;
-    --green-md:    #3a7a50;
-    --green-lt:    #6db88a;
-    --green-pl:    #e2f2e8;
-    --amber:       #f5a623;
-    --amber-pl:    #fff8ec;
-    --warm:        #e07850;
-    --warm-pl:     #fdf0ea;
-    --sky:         #4a9ebb;
-    --text:        #1a2a1a;
-    --text-md:     #466046;
-    --text-lt:     #7a9a7a;
-    --border:      #d5cbb5;
-    --white:       #ffffff;
-    --sh:          0 4px 20px rgba(30,77,48,0.10);
-    --sh-lg:       0 12px 48px rgba(30,77,48,0.15);
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); line-height: 1.75; overflow-x: hidden; }
-  ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-track { background: var(--cream-d); }
-  ::-webkit-scrollbar-thumb { background: var(--green-lt); border-radius: 99px; }
-
-  /* NAV */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(250,248,242,0.94); backdrop-filter: blur(14px);
-    border-bottom: 1.5px solid var(--border);
-    padding: 0 5%; height: 58px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .nav-logo {
-    font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 900;
-    color: var(--green-dk); text-decoration: none; letter-spacing: 0.01em;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .nav-logo .dot { color: var(--warm); }
-  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
-  .nav-links a { text-decoration: none; color: var(--text-md); font-size: 0.87rem; font-weight: 800; letter-spacing: 0.04em; transition: color .18s; position: relative; }
-  .nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; right:0; height:2px; background:var(--amber); border-radius:99px; transform:scaleX(0); transition:transform .2s; }
-  .nav-links a:hover { color: var(--green-dk); }
-  .nav-links a:hover::after { transform:scaleX(1); }
+  /* ===== 首頁專屬樣式（共用部分已移到 styles.css）===== */
 
   /* HERO */
   #hero {
@@ -133,13 +90,8 @@
   .badge .b-icon { font-size: 1.1rem; }
   .badge .b-num { color: var(--green-dk); font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; }
 
-  /* SECTION BASE */
+  /* SECTION BASE（首頁版，含上下 padding）*/
   section { padding: 88px 5%; }
-  .section-tag { font-size: 0.74rem; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; color: var(--warm); margin-bottom: 8px; }
-  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 700; color: var(--green-dk); line-height: 1.25; margin-bottom: 14px; }
-  .section-desc { color: var(--text-md); max-width: 540px; font-size: 0.98rem; line-height: 1.8; }
-  .section-head { margin-bottom: 48px; }
-  .inner { max-width: 1100px; margin: 0 auto; }
 
   /* ABOUT */
   #about { background: var(--white); position: relative; overflow: hidden; }
@@ -218,10 +170,8 @@
   .course-tags-wrap { display: flex; flex-wrap: wrap; gap: 5px; }
   .c-tag { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.75); font-size: 0.73rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; }
 
-  /* GRAMMAR */
+  /* GRAMMAR / PRIVATE 區塊 */
   #grammar { background: var(--cream); }
-
-  /* PRIVATE SCHOOL ← 修正：獨立區塊，淡綠底 */
   #private { background: var(--green-pl); }
 
   .grammar-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
@@ -273,22 +223,11 @@
   .form-submit { background: linear-gradient(135deg,var(--warm) 0%,var(--amber) 100%); color: #fff; border: none; border-radius: 50px; padding: 13px 34px; font-size: 0.93rem; font-weight: 900; cursor: pointer; box-shadow: 0 6px 20px rgba(224,120,80,0.3); align-self: flex-start; margin-top: 4px; font-family: 'Nunito', sans-serif; transition: transform .15s, box-shadow .15s; }
   .form-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(224,120,80,0.38); }
 
-  /* FOOTER */
-  footer { background: var(--green-dk); color: rgba(255,255,255,0.65); text-align: center; padding: 36px 5%; font-size: 0.86rem; line-height: 1.9; }
-  .f-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
-  .f-logo span { color: var(--amber); }
-
-  /* REVEAL */
-  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .58s ease, transform .58s ease; }
-  .reveal.visible { opacity: 1; transform: none; }
-  .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .3s; }
-
   /* RESPONSIVE */
   @media (max-width: 960px) {
     .about-grid, .contact-grid { grid-template-columns: 1fr; }
     .courses-grid { grid-template-columns: 1fr 1fr; }
     .grammar-grid { grid-template-columns: repeat(2,1fr); }
-    .nav-links { display: none; }
   }
   @media (max-width: 560px) {
     .courses-grid { grid-template-columns: 1fr; }
@@ -299,19 +238,8 @@
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-logo">Ray's <span class="dot">.</span> English Corner</a>
-  <ul class="nav-links">
-    <li><a href="#about">關於 Ray</a></li>
-    <li><a href="#courses">課程</a></li>
-    <li><a href="experience.html">教學經歷</a></li>
-    <li><a href="#grammar">文法專區</a></li>
-    <li><a href="#private">私校專區</a></li>
-    <li><a href="practice.html">線上練習</a></li>
-    <li><a href="#contact">聯絡我</a></li>
-  </ul>
-</nav>
+<!-- ★ 導覽列：由 main.js 注入 -->
+<div id="site-nav"></div>
 
 <!-- HERO -->
 <section id="hero">
@@ -429,13 +357,11 @@
           <span class="c-tag">客製化</span><span class="c-tag">線上 / 實體</span><span class="c-tag">彈性時間</span>
         </div>
       </div>
-    </div><!-- /.courses-grid -->
-  </div><!-- /.inner -->
-</section><!-- /#courses 正確關閉 -->
+    </div>
+  </div>
+</section>
 
-<!-- ══════════════════════════════
-     文法專區（獨立 section，米白底，深色文字）
-     ══════════════════════════════ -->
+<!-- 文法專區 -->
 <section id="grammar">
   <div class="inner">
     <div class="section-head reveal">
@@ -464,11 +390,9 @@
       </a>
     </div>
   </div>
-</section><!-- /#grammar -->
+</section>
 
-<!-- ══════════════════════════════
-     私校專區（獨立 section，淡綠底）
-     ══════════════════════════════ -->
+<!-- 私校專區 -->
 <section id="private">
   <div class="inner">
     <div class="section-head reveal">
@@ -491,13 +415,13 @@
       </a>
       <a href="participle-clauses.html" class="gc reveal d2" style="background: var(--white);">
       <div class="gc-icon">📝</div>
-      <div class="gc-badge" style="background: var(--green-mid);">文法筆記</div>
+      <div class="gc-badge" style="background: var(--green-md);">文法筆記</div>
       <div class="gc-title">分詞構句</div>
       <div class="gc-sub">Participle Clauses · 省話魔術三步驟</div>
       </a>
     </div>
   </div>
-</section><!-- /#private -->
+</section>
 
 <!-- CONTACT -->
 <section id="contact">
@@ -553,12 +477,8 @@
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="f-logo">Ray's <span>English</span> Corner</div>
-  <p>新北市 · 國小 · 國中 · 高中英文 · 一對一家教 · 線上教學 · 補習班授課</p>
-  <p style="margin-top:6px;font-size:.8rem;">© 2026 Ray's English Corner · 雷康誠老師 · 0958-938-383</p>
-</footer>
+<!-- ★ 頁尾：由 main.js 注入 -->
+<div id="site-footer"></div>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modal" onclick="closeModal(event)">
@@ -568,6 +488,10 @@
   </div>
 </div>
 
+<!-- ★ 全站共用腳本（含 nav/footer 注入、reveal、發音）-->
+<script src="main.js"></script>
+
+<!-- 首頁專屬腳本：modal + 表單 -->
 <script>
 const grammarData = {
   q1: { title: '🔢 Both / Two / All', content: `<div class="modal-rule"><b>both</b> ＝ 剛好兩個、兩個都算進去<br><b>two</b> ＝ 其中兩個（總數可能不只兩個）<br><b>all</b> ＝ 三個或以上的全部</div><p style="color:var(--text-md);font-size:.9rem;margin:10px 0 6px;">👉 先數「總共幾個」，再決定！</p><div class="modal-eg">I have <b>three</b> brothers. <b>Two</b> of them are doctors.（三個裡面兩個 → Two）</div><div class="modal-eg">Mr. Lin has <b>two</b> daughters. <b>Both</b> of them have long hair.（就只有兩個、兩個都 → Both）</div><div class="modal-eg">There are five apples. <b>All</b> of them look fresh.（三個以上全部 → All）</div>` },
@@ -583,9 +507,6 @@ const grammarData = {
 function openModal(k){ document.getElementById('modalContent').innerHTML=`<h3 class="modal-title">${grammarData[k].title}</h3>${grammarData[k].content}`; document.getElementById('modal').classList.add('open'); document.body.style.overflow='hidden'; }
 function closeModal(e){ if(e.target===document.getElementById('modal')) closeModalBtn(); }
 function closeModalBtn(){ document.getElementById('modal').classList.remove('open'); document.body.style.overflow=''; }
-
-const obs=new IntersectionObserver(e=>e.forEach(x=>{ if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);} }),{threshold:.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
 function submitForm(btn){ btn.textContent='✓ 已送出！我會盡快聯絡您'; btn.style.background='var(--green-md)'; btn.disabled=true; }
 </script>
