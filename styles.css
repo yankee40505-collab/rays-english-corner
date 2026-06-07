@@ -1,0 +1,192 @@
+/* ============================================================
+   Ray's English Corner — 全站共用樣式
+   ------------------------------------------------------------
+   維護重點：改主色 → 只改下面 :root 的變數，全站同步。
+   各頁專屬樣式（NBA 計分板、分詞構句步驟卡等）留在各頁 <style>。
+   ============================================================ */
+
+/* ---------- 色票（全站唯一來源）---------- */
+:root {
+  --cream:    #faf8f2;
+  --cream-d:  #ede8d8;
+  --green-dk: #1e4d30;
+  --green-md: #3a7a50;
+  --green-lt: #6db88a;
+  --green-pl: #e2f2e8;
+  --amber:    #f5a623;
+  --amber-pl: #fff8ec;
+  --warm:     #e07850;
+  --warm-pl:  #fdf0ea;
+  --sky:      #4a9ebb;
+  --sky-pl:   #eaf4f9;
+  --text:     #1a2a1a;
+  --text-md:  #466046;
+  --text-lt:  #7a9a7a;
+  --border:   #d5cbb5;
+  --white:    #ffffff;
+  --ink:      #1a2318;
+  --muted:    #5a6b5e;
+  --sh:       0 4px 20px rgba(30,77,48,0.10);
+  --sh-lg:    0 12px 48px rgba(30,77,48,0.15);
+  --r:        14px;
+
+  /* 相容別名：分詞構句頁原本用的變數名，指到統一色值 */
+  --green-dark:  #1e4d30;
+  --green-mid:   #3a7a50;
+  --green-light: #6db88a;
+  --green-pale:  #e2f2e8;
+  --cream-dark:  #ede8d8;
+  --amber-light: #f5a623;
+}
+
+/* ---------- 基礎 ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Nunito', 'Noto Sans TC', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--cream-d); }
+::-webkit-scrollbar-thumb { background: var(--green-lt); border-radius: 99px; }
+
+/* ---------- 導覽列（由 main.js 注入）---------- */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(250,248,242,0.94); backdrop-filter: blur(14px);
+  border-bottom: 1.5px solid var(--border);
+  padding: 0 5%; height: 58px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 900;
+  color: var(--green-dk); text-decoration: none; letter-spacing: 0.01em;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-logo .dot { color: var(--warm); }
+.nav-links { display: flex; gap: 1.4rem; list-style: none; align-items: center; }
+.nav-links a {
+  text-decoration: none; color: var(--text-md);
+  font-size: 0.86rem; font-weight: 800; letter-spacing: 0.04em;
+  transition: color .18s; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+  height: 2px; background: var(--amber); border-radius: 99px;
+  transform: scaleX(0); transition: transform .2s;
+}
+.nav-links a:hover { color: var(--green-dk); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-links a.active { color: var(--green-dk); }
+.nav-links a.active::after { transform: scaleX(1); }
+
+/* dropdown */
+.dropdown { position: relative; }
+.dropdown > a::after { display: none; }   /* 下拉父項不要底線動畫 */
+.dropdown-content {
+  display: none; position: absolute; top: 100%; left: 0;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 8px; box-shadow: var(--sh); min-width: 170px; z-index: 10;
+  overflow: hidden;
+}
+.dropdown-content a {
+  display: block; padding: 10px 16px; font-size: 0.88rem; font-weight: 700;
+}
+.dropdown-content a::after { display: none; }
+.dropdown-content a:hover { background: var(--cream); color: var(--green-dk); }
+.dropdown:hover .dropdown-content { display: block; }
+
+/* ---------- 頁尾（由 main.js 注入）---------- */
+footer {
+  background: var(--green-dk); color: rgba(255,255,255,0.65);
+  text-align: center; padding: 36px 5%; font-size: 0.86rem; line-height: 1.9;
+}
+.f-logo {
+  font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 900;
+  color: #fff; margin-bottom: 6px;
+}
+.f-logo span { color: var(--amber); }
+
+/* ---------- 共用：捲動淡入 ---------- */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .58s ease, transform .58s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.sr { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
+.sr.vis { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .3s; }
+
+/* ---------- 共用：通用 hero（內頁綠底）---------- */
+.hero {
+  background: var(--green-dk); padding: 60px 5% 68px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 24px 24px; pointer-events: none;
+}
+.hero-badge {
+  display: inline-block; background: var(--amber); color: #fff;
+  font-size: 0.72rem; font-weight: 900; letter-spacing: 0.12em;
+  text-transform: uppercase; padding: 4px 14px; border-radius: 999px; margin-bottom: 14px;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.9rem); font-weight: 900;
+  color: #fff; margin-bottom: 10px; line-height: 1.2; position: relative;
+}
+.hero h1 em { color: var(--amber); font-style: normal; }
+.hero p { color: rgba(255,255,255,0.68); max-width: 520px; margin: 0 auto 22px; font-size: 0.98rem; position: relative; }
+.hero-sub { font-size: 1rem; opacity: .82; max-width: 520px; margin: 0 auto 28px; position: relative; }
+.hero-chips { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; position: relative; }
+.hero-chips .chip {
+  background: rgba(255,255,255,0.13); border: 1px solid rgba(255,255,255,0.22);
+  color: #fff; font-size: 0.78rem; font-weight: 700; padding: 5px 14px; border-radius: 999px;
+}
+
+/* ---------- 共用：section 標題系統 ---------- */
+.section-tag { font-size: 0.74rem; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; color: var(--warm); margin-bottom: 8px; }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 700; color: var(--green-dk); line-height: 1.25; margin-bottom: 14px; }
+.section-desc { color: var(--text-md); max-width: 560px; font-size: 0.98rem; line-height: 1.8; }
+.section-head { margin-bottom: 48px; }
+.inner { max-width: 1100px; margin: 0 auto; }
+
+/* ---------- 共用：sec-label（課程頁區塊標題）---------- */
+.sec-label { display: flex; align-items: center; gap: 12px; margin: 48px 0 20px; }
+.sec-label .sl-icon { width: 40px; height: 40px; border-radius: 11px; background: var(--green-dk); color: #fff; font-size: 1.1rem; display: grid; place-items: center; flex-shrink: 0; }
+.sec-label h2 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--green-dk); }
+.sec-label h2 small { display: block; font-family: 'Nunito', sans-serif; font-size: 0.72rem; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-lt); }
+
+/* ---------- 共用：返回鈕 ---------- */
+.back-btn { display: inline-flex; margin-bottom: 28px; text-decoration: none; color: var(--green-md); font-weight: 800; font-size: 0.95rem; transition: color .2s; }
+.back-btn:hover { color: var(--green-dk); }
+
+/* ---------- 共用：老師白話框 ---------- */
+.teacher-talk { background: var(--amber-pl); border: 1.5px dashed var(--amber); border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; font-size: 0.95rem; color: var(--text-md); font-family: 'Noto Sans TC', sans-serif; line-height: 1.75; }
+.teacher-talk b { color: var(--green-dk); font-family: 'Nunito', sans-serif; }
+
+/* ---------- 共用：grammar 展開卡 ---------- */
+.g-card { background: var(--white); border-radius: var(--r); box-shadow: var(--sh); margin-bottom: 20px; overflow: hidden; border: 2px solid transparent; transition: border-color .25s, box-shadow .25s; }
+.g-card:hover { border-color: var(--green-lt); box-shadow: var(--sh-lg); }
+.g-card-head { padding: 18px 24px; background: var(--green-dk); color: #fff; display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; }
+.g-card-head .gh-num, .gh-num { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.18); font-weight: 900; font-size: 0.85rem; display: grid; place-items: center; flex-shrink: 0; }
+.g-card-head .gh-title, .gh-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; flex: 1; }
+.g-card-head .gh-sub, .gh-sub { font-size: 0.78rem; opacity: 0.7; margin-top: 2px; }
+.g-card-head .gh-arrow, .gh-arrow { font-size: 0.9rem; transition: transform .25s; }
+.g-card.open .gh-arrow { transform: rotate(180deg); }
+.g-card-body { display: none; padding: 22px 26px; }
+.g-card.open .g-card-body { display: block; }
+
+/* ---------- 共用：例句/規則/警告框 ---------- */
+.ex-box { background: var(--green-pl); border-left: 4px solid var(--green-md); border-radius: 8px; padding: 10px 14px; font-size: 0.9rem; margin: 6px 0; line-height: 1.7; }
+.ex-box .en { font-weight: 700; color: var(--green-dk); }
+.ex-box .zh { font-family: 'Noto Sans TC', sans-serif; font-size: 0.83rem; color: var(--text-md); margin-top: 2px; }
+.warn-box { background: var(--warm-pl); border-left: 4px solid var(--warm); border-radius: 8px; padding: 10px 14px; font-size: 0.88rem; font-family: 'Noto Sans TC', sans-serif; line-height: 1.7; margin: 8px 0; color: var(--text); }
+.warn-box strong { font-family: 'Nunito', sans-serif; color: var(--warm); }
+
+/* ---------- 響應式 ---------- */
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+}
