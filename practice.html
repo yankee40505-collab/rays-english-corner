@@ -115,10 +115,11 @@
 
 <!-- ★ 全站共用腳本 -->
 <script src="main.js"></script>
-
+<script src="questions-u6-tags.js"></script>
 <!-- 本頁專屬：題庫與測驗邏輯（原樣保留）-->
 <script>
 const bank = {
+  ...(window.EXTRA_BANKS || {}),
   '分詞構句特訓': [
     {type:'mc',q:"_____ tired after a long day of work, Mary went to bed early.",opts:["Feeling","Felt","Feels","To feel"],ans:0,exp:"主角是 Mary，Mary「自己感到」疲倦，為主動，故選 V-ing 的 Feeling。"},
     {type:'mc',q:"_____ in plain English, the book is easy for junior high school students to understand.",opts:["Writing","Written","Writes","Write"],ans:1,exp:"後面的主角是 the book（這本書），書是「被寫出來的」，為被動，故選 V-p.p. 的 Written。"},
