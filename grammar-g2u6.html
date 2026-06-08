@@ -6,69 +6,25 @@
 <title>核心文法突破 · 國二 U6｜Ray's English Corner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 <style>
-  :root {
-    --cream:#faf8f2; --cream-d:#ede8d8; --green-dk:#1e4d30; --green-md:#3a7a50;
-    --green-lt:#6db88a; --green-pl:#e2f2e8; --amber:#f5a623; --amber-pl:#fff8ec;
-    --warm:#e07850; --warm-pl:#fdf0ea; --text:#1a2a1a; --text-md:#466046;
-    --text-lt:#7a9a7a; --border:#d5cbb5; --white:#ffffff;
-    --sh:0 4px 20px rgba(30,77,48,.10); --sh-lg:0 12px 48px rgba(30,77,48,.15);
-    --r:14px;
-  }
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{font-family:'Nunito','Noto Sans TC',sans-serif;background:var(--cream);color:var(--text);line-height:1.8;overflow-x:hidden;}
-
-  /* NAV */
-  nav{position:sticky;top:0;z-index:100;background:rgba(250,248,242,.95);backdrop-filter:blur(14px);border-bottom:1.5px solid var(--border);padding:0 5%;height:58px;display:flex;align-items:center;justify-content:space-between;}
-  .nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--green-dk);text-decoration:none;}
-  .nav-links{display:flex;gap:1.4rem;list-style:none;align-items:center;}
-  .nav-links a{text-decoration:none;color:var(--text-md);font-size:.85rem;font-weight:800;transition:color .18s;}
-  .nav-links a:hover{color:var(--green-dk);}
-  .dropdown{position:relative;}
-  .dropdown-content{display:none;position:absolute;top:100%;left:0;background:var(--white);border:1px solid var(--border);border-radius:8px;box-shadow:var(--sh);min-width:160px;z-index:10;}
-  .dropdown-content a{display:block;padding:10px 16px;font-size:.88rem;}
-  .dropdown-content a:hover{background:var(--cream);}
-  .dropdown:hover .dropdown-content{display:block;}
-
-  /* HERO */
-  .hero{background:var(--green-dk);padding:60px 5% 68px;text-align:center;position:relative;overflow:hidden;}
-  .hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:24px 24px;}
-  .hero-badge{display:inline-block;background:var(--amber);color:var(--white);font-size:.72rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:4px 14px;border-radius:999px;margin-bottom:14px;}
-  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.9rem);font-weight:900;color:var(--white);margin-bottom:10px;line-height:1.2;}
-  .hero h1 em{color:var(--amber);font-style:normal;}
-  .hero p{color:rgba(255,255,255,.68);max-width:520px;margin:0 auto 22px;font-size:.98rem;}
-  .hero-chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
-  .chip{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);color:var(--white);font-size:.78rem;font-weight:700;padding:5px 14px;border-radius:999px;}
-
-  /* WRAP */
+  /* ===== 本頁專屬樣式 ===== */
   .wrap{max-width:840px;margin:0 auto;padding:52px 5% 80px;}
 
-  /* SECTION LABEL */
-  .sec-label{display:flex;align-items:center;gap:12px;margin:48px 0 18px;}
-  .sec-label .sl-icon{width:40px;height:40px;border-radius:11px;background:var(--green-dk);color:var(--white);font-size:1.1rem;display:grid;place-items:center;flex-shrink:0;}
-  .sec-label h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--green-dk);}
-  .sec-label h2 small{display:block;font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--text-lt);}
-
-  /* VOCAB TABLE */
+  /* 單字表 */
   .vocab-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:12px;}
   .vocab-table th{background:var(--green-dk);color:var(--white);padding:11px 16px;font-size:.82rem;font-weight:800;letter-spacing:.06em;text-align:left;}
   .vocab-table td{padding:11px 16px;font-size:.9rem;border-bottom:1px solid var(--cream-d);vertical-align:top;}
   .vocab-table tr:last-child td{border-bottom:none;}
   .vocab-table tr:hover td{background:var(--green-pl);}
-
-  /* 單字發音樣式 */
-  .vocab-table .word{
-    font-weight:800;color:var(--green-dk);font-family:'Playfair Display',serif;font-size:1rem;
-    cursor:pointer;transition:opacity .2s;display:inline-block;
-  }
+  .vocab-table .word{font-weight:800;color:var(--green-dk);font-family:'Playfair Display',serif;font-size:1rem;cursor:pointer;transition:opacity .2s;display:inline-block;}
   .vocab-table .word:hover{opacity:.65;}
   .vocab-table .word::after{content:'🔊';font-size:.75rem;margin-left:5px;vertical-align:middle;}
   .vocab-table .pos{font-size:.72rem;font-weight:700;color:var(--text-lt);margin-left:2px;}
   .vocab-table .zh{font-family:'Noto Sans TC',sans-serif;font-weight:700;color:var(--text);}
   .vocab-table .note{font-size:.82rem;color:var(--text-md);font-family:'Noto Sans TC',sans-serif;line-height:1.65;}
 
-  /* TRAP BOX */
+  /* 陷阱框 */
   .trap-box{background:#fff8ec;border:2px solid var(--amber);border-radius:var(--r);padding:24px 28px;margin-bottom:24px;}
   .trap-title{display:flex;align-items:center;gap:8px;font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--warm);margin-bottom:14px;}
   .trap-item{display:flex;gap:12px;margin-bottom:14px;font-size:.9rem;font-family:'Noto Sans TC',sans-serif;line-height:1.7;}
@@ -77,29 +33,14 @@
   .trap-item .ti-body strong{font-family:'Nunito',sans-serif;color:var(--green-dk);}
   .trap-item .ti-body code{background:var(--cream-d);border-radius:4px;padding:1px 6px;font-size:.88em;font-family:'Nunito',monospace;color:var(--warm);}
 
-  /* GRAMMAR CARD */
-  .g-card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:20px;overflow:hidden;border:2px solid transparent;transition:border-color .25s,box-shadow .25s;}
-  .g-card:hover{border-color:var(--green-lt);box-shadow:var(--sh-lg);}
-  .g-card-head{padding:18px 24px;background:var(--green-dk);color:var(--white);display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;}
-  .g-card-head .gh-num{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.18);font-weight:900;font-size:.85rem;display:grid;place-items:center;flex-shrink:0;}
-  .g-card-head .gh-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;flex:1;}
-  .g-card-head .gh-sub{font-size:.78rem;opacity:.7;margin-top:2px;}
-  .g-card-head .gh-arrow{font-size:.9rem;transition:transform .25s;}
-  .g-card.open .gh-arrow{transform:rotate(180deg);}
-  .g-card-body{display:none;padding:22px 26px;}
-  .g-card.open .g-card-body{display:block;}
-
+  /* g-card 內部專屬規則（g-card 骨架本身已在 styles.css）*/
   .rule-block{margin-bottom:18px;}
   .rule-block:last-child{margin-bottom:0;}
   .rule-title{font-weight:800;color:var(--green-dk);font-size:.92rem;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
   .rule-title::before{content:'';width:4px;height:14px;border-radius:2px;background:var(--amber);display:inline-block;}
   .rule-desc{font-size:.9rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-md);line-height:1.75;margin-bottom:8px;}
-  .ex-box{background:var(--green-pl);border-left:4px solid var(--green-md);border-radius:8px;padding:10px 14px;font-size:.9rem;margin-top:6px;line-height:1.7;}
-  .ex-box .en{font-weight:700;color:var(--green-dk);}
-  .ex-box .zh{font-family:'Noto Sans TC',sans-serif;font-size:.83rem;color:var(--text-md);margin-top:2px;}
-  .warn-box{background:var(--warm-pl);border-left:4px solid var(--warm);border-radius:8px;padding:10px 14px;font-size:.88rem;font-family:'Noto Sans TC',sans-serif;line-height:1.7;margin-top:8px;color:var(--text);}
-  .warn-box strong{font-family:'Nunito',sans-serif;color:var(--warm);}
 
+  /* 對比格 */
   .cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
   .cmp-cell{border-radius:10px;padding:12px 14px;font-size:.88rem;line-height:1.65;}
   .cmp-cell.ok{background:var(--green-pl);border:1.5px solid var(--green-md);}
@@ -111,21 +52,18 @@
   .cmp-cell .zh{font-family:'Noto Sans TC',sans-serif;font-size:.8rem;color:var(--text-md);margin-top:3px;}
   @media(max-width:560px){.cmp-grid{grid-template-columns:1fr;}}
 
-  /* PHRASE CARDS — 片語發音樣式 */
+  /* 片語卡 */
   .phrase-grid{display:grid;gap:12px;margin-bottom:12px;}
   .phrase-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:16px 20px;box-shadow:var(--sh);transition:border-color .2s;}
   .phrase-card:hover{border-color:var(--green-lt);}
-  .phrase-card .pc-en{
-    font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--green-dk);margin-bottom:4px;
-    cursor:pointer;display:inline-block;transition:opacity .2s;
-  }
+  .phrase-card .pc-en{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--green-dk);margin-bottom:4px;cursor:pointer;display:inline-block;transition:opacity .2s;}
   .phrase-card .pc-en:hover{opacity:.65;}
   .phrase-card .pc-en::after{content:'🔊';font-size:.75rem;margin-left:6px;vertical-align:middle;}
   .phrase-card .pc-zh{font-family:'Noto Sans TC',sans-serif;font-weight:700;font-size:.88rem;color:var(--text);margin-bottom:6px;}
   .phrase-card .pc-ex{font-size:.85rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-md);line-height:1.65;}
   .phrase-card .pc-ex em{font-style:italic;color:var(--text);font-family:'Nunito',sans-serif;}
 
-  /* SUMMARY CARD */
+  /* 總整理卡 */
   .summary-card{background:var(--green-dk);color:var(--white);border-radius:16px;padding:36px 40px;text-align:center;box-shadow:var(--sh-lg);margin-top:52px;}
   .summary-card h2{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:20px;}
   .step-list{display:flex;flex-direction:column;gap:10px;text-align:left;max-width:480px;margin:0 auto 24px;}
@@ -134,45 +72,12 @@
   .trap-list{display:flex;flex-direction:column;gap:8px;margin-top:16px;}
   .trap-chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 16px;font-size:.88rem;font-family:'Noto Sans TC',sans-serif;text-align:left;line-height:1.65;}
   .trap-chip strong{font-family:'Nunito',sans-serif;color:var(--amber);}
-
-  /* FOOTER */
-  footer{background:var(--green-dk);color:rgba(255,255,255,.55);text-align:center;padding:28px 5%;font-size:.83rem;line-height:1.9;}
-  .f-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--white);margin-bottom:4px;}
-  .f-logo span{color:var(--amber);}
-
-  /* SCROLL REVEAL */
-  .reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;}
-  .reveal.visible{opacity:1;transform:none;}
 </style>
 </head>
 <body>
 
-<nav>
-  <a href="index.html" class="nav-logo">Ray's English Corner</a>
-  <ul class="nav-links">
-    <li><a href="index.html#about">關於 Ray</a></li>
-    <li><a href="index.html#courses">課程</a></li>
-    <li class="dropdown">
-     <a href="javascript:void(0)">私校專區 ▾</a>
-      <div class="dropdown-content">
-        <a href="nba-finals-u5.html">NBA Finals G1 Video</a>
-        <a href="nba-section-v3.html">NBA Finals G1 NEWS</a>
-        <a href="participle-clauses.html">分詞構句</a>
-      </div>
-    </li>
-    <li><a href="experience.html">教學經歷</a></li>
-    <li class="dropdown">
-      <a href="javascript:void(0)">文法 ▾</a>
-      <div class="dropdown-content">
-        <a href="grammar-u5.html">文法 國二U5</a>
-        <a href="grammar-g2u6.html">文法 國二U6</a>
-        <a href="grammar-u6.html">文法 國一U6</a> 
-      </div>
-    </li>
-    <li><a href="practice.html">線上練習</a></li>
-    <li><a href="index.html#contact">聯絡我</a></li>
-  </ul>
-</nav>
+<!-- ★ 導覽列：由 main.js 注入 -->
+<div id="site-nav"></div>
 
 <div class="hero">
   <div class="hero-badge">📖 國二 Unit 6</div>
@@ -580,46 +485,10 @@
 
 </div>
 
-<footer>
-  <div class="f-logo">Ray's <span>English</span> Corner</div>
-  <p>© 2026 Ray's English Corner · 雷康誠老師 · 新北市</p>
-</footer>
+<!-- ★ 頁尾：由 main.js 注入 -->
+<div id="site-footer"></div>
 
-<script>
-  function toggleCard(id){ document.getElementById(id).classList.toggle('open'); }
-
-  // 發音功能
-  function speakWord(text) {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-US';
-      utterance.rate = 0.9;
-      window.speechSynthesis.speak(utterance);
-    } else {
-      alert('你的瀏覽器不支援發音功能，請嘗試使用最新版的 Chrome 或 Safari。');
-    }
-  }
-
-  // 單字表發音（用 data-speak）
-  document.querySelectorAll('.vocab-table .word[data-speak]').forEach(el => {
-    el.addEventListener('click', function() {
-      speakWord(this.dataset.speak);
-    });
-  });
-
-  // 片語卡發音（用 data-speak）
-  document.querySelectorAll('.phrase-card .pc-en[data-speak]').forEach(el => {
-    el.addEventListener('click', function() {
-      speakWord(this.dataset.speak);
-    });
-  });
-
-  // Scroll reveal
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, {threshold:.08});
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-</script>
+<!-- ★ 全站共用腳本（toggleCard、data-speak 發音、reveal 全由 main.js 提供）-->
+<script src="main.js"></script>
 </body>
 </html>

@@ -6,57 +6,12 @@
 <title>核心文法突破 · 國一下 U6｜Ray's English Corner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 <style>
-  :root {
-    --cream:#faf8f2; --cream-d:#ede8d8; --green-dk:#1e4d30; --green-md:#3a7a50;
-    --green-lt:#6db88a; --green-pl:#e2f2e8; --amber:#f5a623; --amber-pl:#fff8ec;
-    --warm:#e07850; --warm-pl:#fdf0ea; --text:#1a2a1a; --text-md:#466046;
-    --text-lt:#7a9a7a; --border:#d5cbb5; --white:#ffffff;
-    --sh:0 4px 20px rgba(30,77,48,.10); --sh-lg:0 12px 48px rgba(30,77,48,.15);
-    --r:14px;
-  }
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{font-family:'Nunito','Noto Sans TC',sans-serif;background:var(--cream);color:var(--text);line-height:1.8;overflow-x:hidden;}
-
-  /* NAV */
-  nav{position:sticky;top:0;z-index:100;background:rgba(250,248,242,.95);backdrop-filter:blur(14px);border-bottom:1.5px solid var(--border);padding:0 5%;height:58px;display:flex;align-items:center;justify-content:space-between;}
-  .nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--green-dk);text-decoration:none;}
-  .nav-links{display:flex;gap:1.4rem;list-style:none;align-items:center;}
-  .nav-links a{text-decoration:none;color:var(--text-md);font-size:.85rem;font-weight:800;transition:color .18s;}
-  .nav-links a:hover{color:var(--green-dk);}
-  .dropdown{position:relative;}
-  .dropdown-content{display:none;position:absolute;top:100%;left:0;background:var(--white);border:1px solid var(--border);border-radius:8px;box-shadow:var(--sh);min-width:160px;z-index:10;}
-  .dropdown-content a{display:block;padding:10px 16px;font-size:.88rem;}
-  .dropdown-content a:hover{background:var(--cream);}
-  .dropdown:hover .dropdown-content{display:block;}
-
-  /* HERO */
-  .hero{background:var(--green-dk);padding:60px 5% 68px;text-align:center;position:relative;overflow:hidden;}
-  .hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:24px 24px;}
-  .hero-badge{display:inline-block;background:var(--amber);color:var(--white);font-size:.72rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:4px 14px;border-radius:999px;margin-bottom:14px;}
-  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.9rem);font-weight:900;color:var(--white);margin-bottom:10px;line-height:1.2;}
-  .hero h1 em{color:var(--amber);font-style:normal;}
-  .hero p{color:rgba(255,255,255,.68);max-width:520px;margin:0 auto 22px;font-size:.98rem;}
-  .hero-chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
-  .chip{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);color:var(--white);font-size:.78rem;font-weight:700;padding:5px 14px;border-radius:999px;}
-
-  /* WRAP */
+  /* ===== 本頁專屬樣式 ===== */
   .wrap{max-width:960px;margin:0 auto;padding:48px 5% 80px;}
-  .back-btn{display:inline-flex;margin-bottom:28px;text-decoration:none;color:var(--green-md);font-weight:800;font-size:.95rem;transition:color .2s;}
-  .back-btn:hover{color:var(--green-dk);}
 
-  /* SECTION LABEL */
-  .sec-label{display:flex;align-items:center;gap:12px;margin:48px 0 20px;}
-  .sec-label .sl-icon{width:40px;height:40px;border-radius:11px;background:var(--green-dk);color:var(--white);font-size:1.1rem;display:grid;place-items:center;flex-shrink:0;}
-  .sec-label h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--green-dk);}
-  .sec-label h2 small{display:block;font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--text-lt);}
-
-  /* TEACHER TALK */
-  .teacher-talk{background:var(--amber-pl);border:1.5px dashed var(--amber);border-radius:12px;padding:16px 20px;margin-bottom:24px;font-size:.95rem;color:var(--text-md);font-family:'Noto Sans TC',sans-serif;line-height:1.75;}
-  .teacher-talk b{color:var(--green-dk);font-family:'Nunito',sans-serif;}
-
-  /* WORD GRID */
+  /* 單字格 */
   .word-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
   @media(max-width:640px){.word-grid{grid-template-columns:1fr;}}
   .word-card{background:var(--white);border:1.5px solid var(--border);border-radius:14px;padding:16px 18px;box-shadow:var(--sh);transition:border-color .2s;}
@@ -72,7 +27,7 @@
   .ex-inline{background:var(--cream);border-radius:8px;padding:7px 11px;margin-top:7px;font-size:.83rem;border:1px solid rgba(213,203,181,.4);font-family:'Noto Sans TC',sans-serif;line-height:1.6;}
   .ex-inline .trans{display:block;font-size:.78rem;color:var(--text-lt);margin-top:2px;}
 
-  /* IRREGULAR VERB TABLE */
+  /* 不規則動詞表 */
   .v-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:24px;font-size:.88rem;}
   .v-table th{background:var(--green-dk);color:#fff;padding:10px 14px;text-align:left;font-size:.8rem;font-weight:800;}
   .v-table td{padding:9px 14px;border-bottom:1px solid var(--cream-d);vertical-align:middle;}
@@ -82,29 +37,11 @@
   .v-table .base{font-weight:700;color:var(--text);}
   .v-table .past{font-weight:800;color:var(--warm);font-family:'Playfair Display',serif;font-size:.95rem;}
 
-  /* GRAMMAR CARD */
-  .g-card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:20px;overflow:hidden;border:2px solid transparent;transition:border-color .25s,box-shadow .25s;}
-  .g-card:hover{border-color:var(--green-lt);box-shadow:var(--sh-lg);}
-  .g-card-head{padding:18px 24px;background:var(--green-dk);color:var(--white);display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;}
-  .gh-num{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.18);font-weight:900;font-size:.85rem;display:grid;place-items:center;flex-shrink:0;}
-  .gh-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;flex:1;}
-  .gh-sub{font-size:.78rem;opacity:.7;margin-top:2px;}
-  .gh-arrow{font-size:.9rem;transition:transform .25s;}
-  .g-card.open .gh-arrow{transform:rotate(180deg);}
-  .g-card-body{display:none;padding:24px 28px;}
-  .g-card.open .g-card-body{display:block;}
-
-  /* inside card */
+  /* g-card 內部 */
   .rule-block{background:var(--green-pl);border-left:4px solid var(--green-md);padding:13px 16px;border-radius:0 10px 10px 0;margin:12px 0;font-size:.9rem;color:var(--text-md);font-family:'Noto Sans TC',sans-serif;line-height:1.75;}
   .rule-block b{font-family:'Nunito',sans-serif;color:var(--green-dk);}
   .rule-block ul{padding-left:18px;margin-top:6px;}
   .rule-block li{margin-bottom:5px;}
-  .ex-box{background:var(--green-pl);border-left:4px solid var(--green-md);border-radius:8px;padding:10px 14px;font-size:.9rem;margin:8px 0;line-height:1.7;}
-  .ex-box+.ex-box{margin-top:6px;}
-  .ex-box .en{font-weight:700;color:var(--green-dk);}
-  .ex-box .zh{font-family:'Noto Sans TC',sans-serif;font-size:.83rem;color:var(--text-md);margin-top:2px;}
-  .warn-box{background:var(--warm-pl);border-left:4px solid var(--warm);border-radius:8px;padding:10px 14px;font-size:.88rem;font-family:'Noto Sans TC',sans-serif;line-height:1.7;margin:10px 0;}
-  .warn-box strong{font-family:'Nunito',sans-serif;color:var(--warm);}
   .g-trap{background:var(--warm-pl);border-left:4px solid var(--warm);padding:14px 16px;border-radius:0 10px 10px 0;margin:14px 0;font-family:'Noto Sans TC',sans-serif;font-size:.9rem;line-height:1.75;}
   .g-trap h5{font-size:.92rem;color:#9a4020;margin-bottom:8px;font-weight:800;font-family:'Nunito',sans-serif;}
   .g-trap ul{padding-left:18px;}
@@ -113,7 +50,7 @@
   .ok{color:var(--green-md);font-weight:900;}
   .ng{color:#c0392b;font-weight:900;}
 
-  /* cmp grid */
+  /* 對比格 */
   .cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
   @media(max-width:520px){.cmp-grid{grid-template-columns:1fr;}}
   .cmp-cell{border-radius:10px;padding:12px 14px;font-size:.88rem;line-height:1.65;}
@@ -125,58 +62,22 @@
   .cmp-cell .sent{font-weight:700;color:var(--text);}
   .cmp-cell .zh{font-family:'Noto Sans TC',sans-serif;font-size:.8rem;color:var(--text-md);margin-top:3px;}
 
-  /* sentence pattern */
+  /* 句型框 */
   .pattern-box{background:var(--green-pl);border-left:4px solid var(--green-md);border-radius:0 10px 10px 0;padding:14px 18px;margin:12px 0;font-size:.9rem;line-height:1.85;font-family:'Noto Sans TC',sans-serif;}
   .pattern-box b{font-family:'Nunito',sans-serif;color:var(--green-dk);}
 
-  /* SUMMARY */
+  /* 總整理 */
   .trap-summary{background:var(--green-dk);color:var(--white);border-radius:16px;padding:32px 36px;margin-top:48px;box-shadow:var(--sh-lg);}
   .trap-summary h2{font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:18px;}
   .trap-list{display:flex;flex-direction:column;gap:10px;}
   .trap-chip{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:11px 16px;font-size:.88rem;font-family:'Noto Sans TC',sans-serif;line-height:1.65;}
   .trap-chip strong{font-family:'Nunito',sans-serif;color:var(--amber);}
-
-  /* FOOTER */
-  footer{background:var(--green-dk);color:rgba(255,255,255,.55);text-align:center;padding:28px 5%;font-size:.83rem;line-height:1.9;}
-  .f-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--white);margin-bottom:4px;}
-  .f-logo span{color:var(--amber);}
-
-  /* REVEAL */
-  .reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;}
-  .reveal.visible{opacity:1;transform:none;}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-logo">Ray's English Corner</a>
-  <ul class="nav-links">
-    <li><a href="index.html#about">關於 Ray</a></li>
-    <li><a href="index.html#courses">課程</a></li>
-      </div>
-    </li>
-    <li><a href="experience.html">教學經歷</a></li>
-<a href="javascript:void(0)">私校專區 ▾</a>
-      <div class="dropdown-content">
-        <a href="nba-finals-u5.html">NBA Finals G1 Video</a>
-        <a href="nba-section-v3.html">NBA Finals G1 NEWS</a>
-        <a href="participle-clauses.html">分詞構句</a>
-      </div>
-    </li>
-    <li><a href="experience.html">教學經歷</a></li>
-    <li class="dropdown">
-      <a href="javascript:void(0)">文法 ▾</a>
-      <div class="dropdown-content">
-        <a href="grammar-u5.html">文法 國二U5</a>
-        <a href="grammar-g2u6.html">文法 國二U6</a>
-        <a href="grammar-u6.html">文法 國一U6</a> 
-      </div>
-    </li>
-    <li><a href="practice.html">線上練習</a></li>
-    <li><a href="index.html#contact">聯絡我</a></li>
-  </ul>
-</nav>
+<!-- ★ 導覽列：由 main.js 注入（同時修好原始頁的破損 nav）-->
+<div id="site-nav"></div>
 
 <!-- HERO -->
 <div class="hero">
@@ -339,7 +240,6 @@
     <h2><small>Part C · Grammar</small>過去式直述句與問答句型</h2>
   </div>
 
-  <!-- 肯定否定 -->
   <div class="g-card reveal open" id="gc1">
     <div class="g-card-head" onclick="toggleCard('gc1')">
       <div class="gh-num">A</div>
@@ -362,7 +262,6 @@
     </div>
   </div>
 
-  <!-- Yes/No 問句 -->
   <div class="g-card reveal" id="gc2">
     <div class="g-card-head" onclick="toggleCard('gc2')">
       <div class="gh-num">B</div>
@@ -393,7 +292,6 @@
     </div>
   </div>
 
-  <!-- Wh- 問句 -->
   <div class="g-card reveal" id="gc3">
     <div class="g-card-head" onclick="toggleCard('gc3')">
       <div class="gh-num">C</div>
@@ -587,40 +485,10 @@
 
 </div><!-- /.wrap -->
 
-<footer>
-  <div class="f-logo">Ray's <span>English</span> Corner</div>
-  <p>翰林國中英文一下 Unit 6 · I Took a Trip to India Last Month</p>
-  <p style="margin-top:4px;font-size:.8rem;">© 2026 Ray's English Corner · 雷康誠老師</p>
-</footer>
+<!-- ★ 頁尾：由 main.js 注入 -->
+<div id="site-footer"></div>
 
-<script>
-  function toggleCard(id){ document.getElementById(id).classList.toggle('open'); }
-
-  // 發音功能
-  function speakWord(text) {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-US';
-      utterance.rate = 0.9;
-      window.speechSynthesis.speak(utterance);
-    } else {
-      alert('你的瀏覽器不支援發音功能，請嘗試使用最新版的 Chrome 或 Safari。');
-    }
-  }
-  document.querySelectorAll('.word-eng').forEach(el => {
-    el.addEventListener('click', function() {
-      let word = '';
-      for (let node of this.childNodes) {
-        if (node.nodeType === Node.TEXT_NODE) word += node.textContent.trim();
-      }
-      if (word) speakWord(word);
-    });
-  });
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, {threshold:.08});
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-</script>
+<!-- ★ 全站共用腳本（toggleCard、.word-eng 發音、reveal 全由 main.js 提供）-->
+<script src="main.js"></script>
 </body>
 </html>

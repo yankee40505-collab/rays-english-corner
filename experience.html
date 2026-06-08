@@ -6,44 +6,17 @@
 <title>教學經歷｜Ray's English Corner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 <style>
-  :root{
-    --cream:#faf8f2;--cream-d:#ede8d8;--green-dk:#1e4d30;--green-md:#3a7a50;
-    --green-lt:#6db88a;--green-pl:#e2f2e8;--amber:#f5a623;--amber-pl:#fff8ec;
-    --warm:#e07850;--warm-pl:#fdf0ea;--sky:#4a9ebb;--sky-pl:#eaf4f9;
-    --text:#1a2a1a;--text-md:#466046;--text-lt:#7a9a7a;--border:#d5cbb5;--white:#ffffff;
-    --sh:0 4px 20px rgba(30,77,48,.10);--sh-lg:0 12px 48px rgba(30,77,48,.15);
-  }
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text);line-height:1.75;overflow-x:hidden;}
-  ::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-track{background:var(--cream-d);} ::-webkit-scrollbar-thumb{background:var(--green-lt);border-radius:99px;}
-
-  nav{position:sticky;top:0;z-index:100;background:rgba(250,248,242,0.94);backdrop-filter:blur(14px);border-bottom:1.5px solid var(--border);padding:0 5%;height:58px;display:flex;align-items:center;justify-content:space-between;}
-  .nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--green-dk);text-decoration:none;}
-  .nav-logo .dot{color:var(--warm);}
-  .nav-links{display:flex;gap:1.6rem;list-style:none;}
-  .nav-links a{text-decoration:none;color:var(--text-md);font-size:0.86rem;font-weight:800;letter-spacing:0.04em;transition:color .18s;position:relative;}
-  .nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:2px;background:var(--amber);border-radius:99px;transform:scaleX(0);transition:transform .2s;}
-  .nav-links a:hover{color:var(--green-dk);} .nav-links a:hover::after{transform:scaleX(1);}
-  .nav-links a.active{color:var(--green-dk);} .nav-links a.active::after{transform:scaleX(1);}
-
-  .page-hero{background:var(--green-dk);padding:64px 5% 56px;text-align:center;position:relative;overflow:hidden;}
-  .page-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:24px 24px;}
-  .page-hero .eyebrow{font-size:.74rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--green-lt);margin-bottom:10px;}
-  .page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#fff;margin-bottom:14px;}
-  .page-hero p{color:rgba(255,255,255,.65);max-width:520px;margin:0 auto;font-size:1rem;}
-
+  /* ===== 本頁專屬樣式 ===== */
   main{max-width:1100px;margin:0 auto;padding:56px 5% 80px;}
 
-  /* Stats row */
   .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:52px;}
   .stat-card{background:var(--white);border:1.5px solid var(--border);border-radius:18px;padding:22px 20px;text-align:center;box-shadow:var(--sh);}
   .stat-card .sn{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--green-dk);line-height:1;}
   .stat-card .sl{font-size:.8rem;color:var(--text-lt);font-weight:800;margin-top:5px;}
   .stat-card .si{font-size:1.6rem;margin-bottom:8px;}
 
-  /* Section */
   .sec{margin-bottom:52px;}
   .sec-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
   .sec-icon{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
@@ -54,7 +27,6 @@
   .sec-title{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:var(--green-dk);}
   .sec-sub{font-size:.85rem;color:var(--text-lt);font-weight:700;margin-top:2px;}
 
-  /* Current positions */
   .pos-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
   .pos-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:20px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--sh);transition:transform .2s,box-shadow .2s;}
   .pos-card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);}
@@ -67,7 +39,6 @@
   .pb-now{background:var(--green-pl);color:var(--green-dk);}
   .pb-online{background:var(--sky-pl);color:#2a6080;}
 
-  /* Tutoring table by level */
   .level-block{margin-bottom:28px;}
   .level-title{font-size:.8rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--text-lt);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
   .level-title::after{content:'';flex:1;height:1px;background:var(--border);}
@@ -82,7 +53,6 @@
   .sc-name{font-weight:800;color:var(--text);font-size:.88rem;}
   .sc-type{font-size:.78rem;color:var(--text-lt);}
 
-  /* Work history timeline */
   .timeline{position:relative;padding-left:28px;}
   .timeline::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--border);border-radius:99px;}
   .tl-item{position:relative;margin-bottom:24px;}
@@ -91,96 +61,26 @@
   .tl-title{font-weight:900;color:var(--green-dk);font-size:.97rem;}
   .tl-desc{font-size:.88rem;color:var(--text-md);margin-top:2px;}
 
-  /* Activity chips */
   .act-grid{display:flex;flex-wrap:wrap;gap:10px;}
   .act-chip{display:flex;align-items:center;gap:8px;background:var(--white);border:1.5px solid var(--border);border-radius:50px;padding:9px 18px;font-size:.88rem;font-weight:800;color:var(--text-md);box-shadow:var(--sh);}
   .act-chip .ac-icon{font-size:1rem;}
 
-  footer{background:var(--green-dk);color:rgba(255,255,255,.65);text-align:center;padding:32px 5%;font-size:.85rem;line-height:1.9;}
-  .f-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:5px;}
-  .f-logo span{color:var(--amber);}
-
-  .reveal{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease;}
-  .reveal.visible{opacity:1;transform:none;}
-  .d1{transition-delay:.1s;} .d2{transition-delay:.2s;} .d3{transition-delay:.3s;}
-
-  @media(max-width:900px){.stats-row{grid-template-columns:1fr 1fr;} .pos-grid{grid-template-columns:1fr;} .nav-links{display:none;}}
+  @media(max-width:900px){.stats-row{grid-template-columns:1fr 1fr;} .pos-grid{grid-template-columns:1fr;}}
   @media(max-width:500px){.stats-row{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
 
-<nav>  
-  <style>    
-    .nav-links {
-      display: flex;
-      list-style: none;
-      align-items: center;
-      gap: 24px;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-md);
-      font-weight: 700;
-      font-size: 0.95rem;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover {
-      color: var(--green-dk);
-    }
-    .dropdown {
-      position: relative;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      box-shadow: var(--sh);
-      min-width: 160px;
-      z-index: 10;
-    }
-    .dropdown-content a {
-      display: block;
-      padding: 10px 16px;
-      font-size: 0.9rem;
-    }
-    .dropdown-content a:hover {
-      background: var(--cream);
-    }
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-  </style>  
-  <a href="index.html" class="nav-logo">Ray's English Corner</a>
-  <ul class="nav-links">
-    <li><a href="index.html#about">關於 Ray</a></li>
-    <li><a href="index.html#courses">課程</a></li>
-    <li class="dropdown">
-      <a href="javascript:void(0)">私校專區 ▾</a>
-      <div class="dropdown-content">
-        <a href="nba-finals-u5.html">NBA Finals G1 Video</a>
-        <a href="nba-section-v3.html">NBA Finals G1 NEWS</a>
-        <a href="participle-clauses.html">分詞構句</a>
-      </div>
-    </li>
-    <li><a href="experience.html">教學經歷</a></li>
-    <li class="dropdown">
-      <a href="javascript:void(0)">文法 ▾</a>
-      <div class="dropdown-content">
-        <a href="grammar-u5.html">文法 國二U5</a>
-        <a href="grammar-g2u6.html">文法 國二U6</a>
-        <a href="grammar-u6.html">文法 國一U6</a> 
-      </div>
-    </li>
-    <li><a href="practice.html">線上練習</a></li>
-    <li><a href="index.html#contact">聯絡我</a></li>
-  </ul>
-</nav>
-  
+<!-- ★ 導覽列：由 main.js 注入 -->
+<div id="site-nav"></div>
+
+<!-- 補上全站一致的綠底頁首（原始頁無此區，新增以求統一外觀）-->
+<div class="hero">
+  <div class="hero-badge">Teaching Experience</div>
+  <h1>教學經歷</h1>
+  <p>四年多來，從國小到大學、從補習班到家教，陪過各種程度的學生一起進步。</p>
+</div>
+
 <main>
 
   <!-- Stats -->
@@ -373,16 +273,10 @@
 
 </main>
 
-<footer>
-  <div class="f-logo">Ray's <span>English</span> Corner</div>
-  <p>© 2025 Ray's English Corner · 雷康誠老師 · 0958-938-383</p>
-</footer>
+<!-- ★ 頁尾：由 main.js 注入 -->
+<div id="site-footer"></div>
 
-<script>
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
-}, {threshold:.08});
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-</script>
+<!-- ★ 全站共用腳本（含 nav/footer 注入、reveal、發音）-->
+<script src="main.js"></script>
 </body>
 </html>
