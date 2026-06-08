@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>核心文法突破 · 國一下 U5｜Ray's English Corner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ===== 本頁專屬樣式 ===== */
+  .wrap { max-width: 960px; margin: 0 auto; padding: 48px 5% 80px; }
+
+  /* WORD GRID */
+  .word-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  @media(max-width:640px){ .word-grid { grid-template-columns: 1fr; } }
+  .word-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 16px 18px; box-shadow: var(--sh); transition: border-color .2s; }
+  .word-card:hover { border-color: var(--green-lt); }
+  .word-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px dashed var(--border); }
+  .word-eng { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--green-dk); cursor: pointer; transition: opacity .2s; }
+  .word-eng:hover { opacity: .7; }
+  .word-eng::after { content: '🔊'; font-size: .8rem; margin-left: 6px; vertical-align: middle; }
+  .word-pos { font-size: .72rem; font-weight: 700; color: var(--text-lt); margin-left: 4px; }
+  .word-ch { font-size: .88rem; font-weight: 700; color: var(--warm); font-family: 'Noto Sans TC', sans-serif; }
+  .word-ipa { font-size: .78rem; color: var(--text-lt); margin-bottom: 6px; font-family: 'Nunito', monospace; }
+  .word-tip { font-size: .85rem; color: var(--text-md); font-family: 'Noto Sans TC', sans-serif; line-height: 1.65; }
+  .word-tip b { font-family: 'Nunito', sans-serif; color: var(--green-dk); }
+
+  /* RULE BLOCK */
+  .intro-desc { font-size: .93rem; font-family: 'Noto Sans TC', sans-serif; color: var(--text-md); line-height: 1.75; margin-bottom: 14px; }
+  .intro-desc b { font-family: 'Nunito', sans-serif; color: var(--green-dk); }
+  .rule-block { background: var(--green-pl); border-left: 4px solid var(--green-md); padding: 13px 16px; border-radius: 0 10px 10px 0; margin: 12px 0; font-size: .9rem; color: var(--text-md); font-family: 'Noto Sans TC', sans-serif; line-height: 1.75; }
+  .rule-block b { font-family: 'Nunito', sans-serif; color: var(--green-dk); }
+  .rule-block ul { padding-left: 18px; margin-top: 6px; }
+  .rule-block li { margin-bottom: 5px; }
+
+  /* TRAP CARD */
+  .g-trap { background: var(--warm-pl); border-left: 4px solid var(--warm); padding: 14px 16px; border-radius: 0 10px 10px 0; margin: 14px 0; font-family: 'Noto Sans TC', sans-serif; font-size: .9rem; line-height: 1.75; }
+  .g-trap h5 { font-size: .92rem; color: #9a4020; margin-bottom: 8px; font-weight: 800; font-family: 'Nunito', sans-serif; }
+  .g-trap ul { padding-left: 18px; }
+  .g-trap li { margin-bottom: 6px; color: var(--text-md); }
+  .g-trap b { font-family: 'Nunito', sans-serif; color: var(--green-dk); }
+  .g-trap .ok { color: var(--green-md); font-weight: 900; }
+  .g-trap .ng { color: #c0392b; font-weight: 900; }
+
+  /* COMPARISON TABLE */
+  .cmp-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: .87rem; }
+  .cmp-table th { background: var(--green-dk); color: #fff; padding: 9px 14px; text-align: left; font-size: .8rem; font-weight: 800; }
+  .cmp-table td { padding: 9px 14px; border-bottom: 1px solid var(--cream-d); vertical-align: top; font-family: 'Noto Sans TC', sans-serif; }
+  .cmp-table tr:last-child td { border-bottom: none; }
+  .cmp-table tr:nth-child(even) td { background: var(--cream); }
+  .cmp-table .key { font-weight: 800; color: var(--green-dk); font-family: 'Nunito', sans-serif; }
+  .cmp-table .ok { color: var(--green-md); font-weight: 800; font-family: 'Nunito', sans-serif; }
+  .cmp-table .ng { color: #c0392b; font-weight: 800; text-decoration: line-through; font-family: 'Nunito', sans-serif; }
+
+  /* SENTENCE PATTERN TABLE */
+  .pat-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: .86rem; border-radius: var(--r); overflow: hidden; box-shadow: var(--sh); }
+  .pat-table th { background: var(--green-dk); color: #fff; padding: 10px 14px; text-align: left; font-size: .79rem; font-weight: 800; }
+  .pat-table td { padding: 10px 14px; border-bottom: 1px solid var(--cream-d); vertical-align: middle; font-family: 'Noto Sans TC', sans-serif; line-height: 1.6; }
+  .pat-table tr:last-child td { border-bottom: none; }
+  .pat-table tr:nth-child(even) td { background: var(--cream); }
+  .pat-table .label { font-weight: 800; font-family: 'Nunito', sans-serif; color: var(--green-dk); white-space: nowrap; }
+  .pat-table .struct { font-family: 'Nunito', sans-serif; font-weight: 700; color: var(--text); font-size: .84rem; }
+  .pat-table .ex { color: var(--text-lt); font-size: .82rem; }
+
+  /* IRREGULAR VERB TABLE */
+  .irr-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: .86rem; border-radius: var(--r); overflow: hidden; box-shadow: var(--sh); }
+  .irr-table th { background: var(--amber); color: #fff; padding: 9px 14px; text-align: left; font-size: .79rem; font-weight: 800; }
+  .irr-table td { padding: 9px 14px; border-bottom: 1px solid var(--cream-d); font-family: 'Noto Sans TC', sans-serif; }
+  .irr-table tr:last-child td { border-bottom: none; }
+  .irr-table tr:nth-child(even) td { background: var(--cream); }
+  .irr-table .v { font-family: 'Nunito', sans-serif; font-weight: 800; color: var(--green-dk); }
+  .irr-table .vp { font-family: 'Nunito', sans-serif; font-weight: 800; color: var(--warm); }
+  .irr-table .note { font-size: .78rem; color: var(--text-lt); }
+
+  /* TIME WORD GRID */
+  .time-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+  @media(max-width:560px){ .time-grid { grid-template-columns: 1fr; } }
+  .time-chip { background: var(--white); border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 14px; font-family: 'Noto Sans TC', sans-serif; font-size: .86rem; box-shadow: var(--sh); }
+  .time-chip b { font-family: 'Nunito', sans-serif; color: var(--green-dk); font-size: .92rem; }
+
+  /* PREP TABLE */
+  .prep-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: .86rem; }
+  .prep-table th { background: var(--green-dk); color: #fff; padding: 9px 14px; text-align: left; font-size: .79rem; font-weight: 800; }
+  .prep-table td { padding: 9px 14px; border-bottom: 1px solid var(--cream-d); font-family: 'Noto Sans TC', sans-serif; line-height: 1.65; vertical-align: top; }
+  .prep-table tr:last-child td { border-bottom: none; }
+  .prep-table tr:nth-child(even) td { background: var(--cream); }
+  .prep-table .prep { font-family: 'Nunito', sans-serif; font-weight: 900; color: var(--green-dk); font-size: .95rem; }
+  .prep-table .en { font-family: 'Nunito', sans-serif; font-weight: 700; }
+
+  /* PHRASE SECTION */
+  .phrase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+  @media(max-width:560px){ .phrase-grid { grid-template-columns: 1fr; } }
+  .phrase-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 14px 18px; box-shadow: var(--sh); transition: border-color .2s; }
+  .phrase-card:hover { border-color: var(--green-lt); }
+  .phrase-card .pc-en { font-family: 'Playfair Display', serif; font-size: .98rem; font-weight: 700; color: var(--green-dk); margin-bottom: 3px; }
+  .phrase-card .pc-zh { font-family: 'Noto Sans TC', sans-serif; font-size: .85rem; color: var(--text); font-weight: 700; }
+
+  /* TRAP SUMMARY */
+  .trap-summary { background: var(--green-dk); color: var(--white); border-radius: 16px; padding: 32px 36px; margin-top: 48px; box-shadow: var(--sh-lg); }
+  .trap-summary h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 18px; }
+  .trap-list { display: flex; flex-direction: column; gap: 10px; }
+  .trap-chip { background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.2); border-radius: 10px; padding: 11px 16px; font-size: .88rem; font-family: 'Noto Sans TC', sans-serif; line-height: 1.65; }
+  .trap-chip strong { font-family: 'Nunito', sans-serif; color: var(--amber); }
+
+  /* VOCAB TRAP */
+  .vocab-trap { background: var(--warm-pl); border: 2px solid var(--warm); border-radius: var(--r); padding: 22px 26px; margin-bottom: 24px; }
+  .vocab-trap-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--warm); font-weight: 700; margin-bottom: 14px; }
+  .trap-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 10px; }
+  @media(max-width:560px){ .trap-row { grid-template-columns: 1fr; } }
+  .trap-cell { background: var(--white); border-radius: 10px; padding: 12px 14px; font-size: .86rem; font-family: 'Noto Sans TC', sans-serif; line-height: 1.7; border: 1px solid rgba(224,120,80,.2); }
+  .trap-cell .tc-label { font-size: .72rem; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; color: var(--warm); font-family: 'Nunito', sans-serif; margin-bottom: 4px; }
+  .trap-cell b { font-family: 'Nunito', sans-serif; color: var(--green-dk); }
+
+  /* HOW COME TABLE */
+  .howcome-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: .86rem; border-radius: var(--r); overflow: hidden; box-shadow: var(--sh); }
+  .howcome-table th { background: var(--green-dk); color: #fff; padding: 9px 14px; text-align: left; font-size: .79rem; font-weight: 800; }
+  .howcome-table td { padding: 9px 14px; border-bottom: 1px solid var(--cream-d); font-family: 'Noto Sans TC', sans-serif; line-height: 1.65; }
+  .howcome-table tr:last-child td { border-bottom: none; }
+  .howcome-table tr:nth-child(even) td { background: var(--cream); }
+  .howcome-table .key { font-family: 'Nunito', sans-serif; font-weight: 800; color: var(--green-dk); }
+</style>
+</head>
+<body>
+
+<!-- ★ 導覽列：由 main.js 注入 -->
+<div id="site-nav"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">📖 翰林國一下 Unit 5</div>
+  <h1>核心文法突破<br><em>There Was a Lot of Trash in the Sea</em></h1>
+  <p>Be 動詞過去式 × 一般動詞過去式 × 自然景觀介系詞</p>
+  <div class="hero-chips">
+    <div class="chip">was / were</div>
+    <div class="chip">V-ed 變化規則</div>
+    <div class="chip">不規則動詞</div>
+    <div class="chip">自然景觀介系詞</div>
+    <div class="chip">⚠️ 6大陷阱</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <a href="index.html#grammar" class="back-btn">← 返回首頁文法筆記</a>
+
+  <!-- ══ PART A 單字 ══ -->
+  <div class="sec-label reveal">
+    <div class="sl-icon">📝</div>
+    <h2><small>Part A · Vocabulary</small>重要單字整理</h2>
+  </div>
+  <div class="teacher-talk reveal">
+    📢 <b>白話說明：</b>本單元單字大多跟「大自然、戶外景觀、環境」有關，很多動詞都需要背過去式！特別注意：有些動詞是「不規則變化」（如 burn → burned 或 burnt），考試常考！
+  </div>
+  <div class="word-grid reveal">
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">beach<span class="word-pos">(n.)</span></span><span class="word-ch">海灘</span></div>
+      <div class="word-ipa">[biːtʃ]</div>
+      <div class="word-tip">💡 <b>on the beach</b> ＝ 在海灘上（介系詞用 on）</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">trash<span class="word-pos">(n.)</span></span><span class="word-ch">垃圾（不可數）</span></div>
+      <div class="word-ipa">[træʃ]</div>
+      <div class="word-tip">💡 美式說法；英式用 garbage；leftovers ＝ 廚餘</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">island<span class="word-pos">(n.)</span></span><span class="word-ch">島嶼</span></div>
+      <div class="word-ipa">[ˈaɪlənd]</div>
+      <div class="word-tip">💡 注意：<b>s 不發音！</b>唸 [ˈaɪlənd]，不是 [ˈɪslənd]</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">sea<span class="word-pos">(n.)</span></span><span class="word-ch">海（靠近陸地的海）</span></div>
+      <div class="word-ipa">[siː]</div>
+      <div class="word-tip">💡 sea 靠近陸地；ocean 是大洋（如太平洋）</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">rainforest<span class="word-pos">(n.)</span></span><span class="word-ch">雨林</span></div>
+      <div class="word-ipa">[ˈreɪnˌfɒrɪst]</div>
+      <div class="word-tip">💡 rain（雨）+ forest（森林）組合，兩種拼法都對</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">river<span class="word-pos">(n.)</span></span><span class="word-ch">河流</span></div>
+      <div class="word-ipa">[ˈrɪvər]</div>
+      <div class="word-tip">💡 in the river（在河流中）/ on the river（在河面上）</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">lake<span class="word-pos">(n.)</span></span><span class="word-ch">湖泊</span></div>
+      <div class="word-ipa">[leɪk]</div>
+      <div class="word-tip">💡 at the lake / in the lake 皆可使用</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">hill<span class="word-pos">(n.)</span></span><span class="word-ch">山丘（較矮的山）</span></div>
+      <div class="word-ipa">[hɪl]</div>
+      <div class="word-tip">💡 on the hill / in the hills；mountain 是更高的山</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">mountain<span class="word-pos">(n.)</span></span><span class="word-ch">山</span></div>
+      <div class="word-ipa">[ˈmaʊntɪn]</div>
+      <div class="word-tip">💡 on the mountain / in the mountains 皆可</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">coral reef<span class="word-pos">(n.)</span></span><span class="word-ch">珊瑚礁</span></div>
+      <div class="word-ipa">[ˌkɒrəl ˈriːf]</div>
+      <div class="word-tip">💡 珊瑚礁因海水暖化而死亡（課文重要主題）</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">burn<span class="word-pos">(v.)</span></span><span class="word-ch">燃燒</span></div>
+      <div class="word-ipa">[bɜːrn]</div>
+      <div class="word-tip">💡 過去式：<b>burned</b> 或 <b>burnt</b> 皆可</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">climb<span class="word-pos">(v.)</span></span><span class="word-ch">爬（山）；攀爬</span></div>
+      <div class="word-ipa">[klaɪm]</div>
+      <div class="word-tip">💡 <b>b 不發音！</b>go mountain climbing ＝ 去爬山；過去式 climbed</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">plant<span class="word-pos">(v./n.)</span></span><span class="word-ch">種植；植物</span></div>
+      <div class="word-ipa">[plænt]</div>
+      <div class="word-tip">💡 plant trees ＝ 種樹；過去式 planted</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">hike<span class="word-pos">(v.)</span></span><span class="word-ch">健行</span></div>
+      <div class="word-ipa">[haɪk]</div>
+      <div class="word-tip">💡 go hiking ＝ 去健行；過去式 hiked；hiking trail ＝ 登山步道</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">happen<span class="word-pos">(v.)</span></span><span class="word-ch">發生</span></div>
+      <div class="word-ipa">[ˈhæpən]</div>
+      <div class="word-tip">💡 主詞只能是「事」！What happened? ✅　She happened. ❌</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">die<span class="word-pos">(v.)</span></span><span class="word-ch">死亡</span></div>
+      <div class="word-ipa">[daɪ]</div>
+      <div class="word-tip">💡 過去式 died；dying（垂死的）/ dead（死亡的形容詞）</div>
+    </div>
+  </div>
+
+  <!-- 單字陷阱 -->
+  <div class="vocab-trap reveal">
+    <div class="vocab-trap-title">🚨 考試陷阱：die / dead / dying 區別</div>
+    <div class="trap-row">
+      <div class="trap-cell">
+        <div class="tc-label">die（動詞）</div>
+        My grandpa <b>died</b> this morning.（✅ 過去式）<br>
+        ❌ My grandpa is dead this morning.（died 才對）
+      </div>
+      <div class="trap-cell">
+        <div class="tc-label">dead（形容詞）</div>
+        The coral reefs are <b>dead</b>.（已經死了）<br>
+        The coral reefs are <b>dying</b>.（正在死去）
+      </div>
+    </div>
+    <div class="trap-row">
+      <div class="trap-cell">
+        <div class="tc-label">sea vs. ocean</div>
+        <b>sea</b> ＝ 靠近陸地的海（日本海）<br>
+        <b>ocean</b> ＝ 大洋（太平洋 the Pacific Ocean）
+      </div>
+      <div class="trap-cell">
+        <div class="tc-label">island 發音</div>
+        island 唸作 [ˈaɪlənd]<br>
+        <b>s 不發音！</b>拼字不要寫成 iland
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PART B 時間詞 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">⏰</div>
+    <h2><small>Part B · Time Expressions</small>過去式時間詞</h2>
+  </div>
+  <div class="teacher-talk reveal">
+    📢 <b>白話說明：</b>看到這些時間詞，動詞要用過去式！這是考試最常考的判斷方式。
+  </div>
+  <div class="time-grid reveal">
+    <div class="time-chip"><b>yesterday</b>　昨天</div>
+    <div class="time-chip"><b>yesterday morning</b>　昨天早上</div>
+    <div class="time-chip"><b>yesterday afternoon</b>　昨天下午</div>
+    <div class="time-chip"><b>last night / yesterday evening</b>　昨晚</div>
+    <div class="time-chip"><b>last Sunday / last weekend</b>　上週日 / 上週末</div>
+    <div class="time-chip"><b>last year</b>　去年</div>
+    <div class="time-chip"><b>the day before yesterday</b>　前天</div>
+    <div class="time-chip"><b>three days ago</b>　三天前</div>
+    <div class="time-chip"><b>an hour ago</b>　一小時前</div>
+    <div class="time-chip"><b>two years ago</b>　兩年前</div>
+    <div class="time-chip"><b>before</b>　以前（可單獨用）</div>
+    <div class="time-chip"><b>then / at that time</b>　那時候</div>
+  </div>
+  <div class="g-trap reveal">
+    <h5>⚠️ ago / before / then 三個容易混淆</h5>
+    <ul>
+      <li><b>ago</b> 必須加在「一段時間」後面：three days ago、an hour ago。❌ 不能單獨使用</li>
+      <li><b>before</b> 可以單獨使用，表示「在那之前；以前」</li>
+      <li><b>then</b> ＝ at that time，指過去「那個當下」</li>
+    </ul>
+  </div>
+
+  <!-- ══ PART B-2 介系詞 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">📍</div>
+    <h2><small>Part B · Prepositions</small>自然景觀搭配介系詞</h2>
+  </div>
+  <div class="teacher-talk reveal">
+    📢 <b>白話說明：</b>說「在哪裡」要用介系詞（on / in / at / by），但不同的自然景觀要搭配不同的介系詞。這個規則沒有辦法死背，要靠多記例子！
+  </div>
+  <div class="reveal">
+    <table class="prep-table">
+      <thead><tr><th>介系詞</th><th>中文</th><th>搭配景觀（例句）</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="prep">on</span></td>
+          <td>在…上（表面）</td>
+          <td class="en">on the beach / on the river / on the lake / on the hill / on the mountain</td>
+        </tr>
+        <tr>
+          <td><span class="prep">in</span></td>
+          <td>在…中（範圍內）</td>
+          <td class="en">in the river / in the lake / in the hills / in the mountains / in the rainforest</td>
+        </tr>
+        <tr>
+          <td><span class="prep">at</span></td>
+          <td>在…（泛指地點）</td>
+          <td class="en">at the beach / at the river / at the lake</td>
+        </tr>
+        <tr>
+          <td><span class="prep">by</span></td>
+          <td>在…旁邊</td>
+          <td class="en">by the beach / by the river / by the lake（＝ beside）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="g-trap reveal">
+    <h5>💡 on the hill vs. in the hills 有什麼不同？</h5>
+    <ul>
+      <li><b>on the hill</b>（單數）→ 在那座特定山丘的頂部</li>
+      <li><b>in the hills</b>（複數）→ 在廣泛的山丘地帶中</li>
+      <li>同樣道理：<b>on the mountain</b> vs. <b>in the mountains</b></li>
+    </ul>
+  </div>
+
+  <!-- ══ PART C Be 動詞過去式 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">📝</div>
+    <h2><small>Part C · Grammar 1</small>Be 動詞過去式（was / were）</h2>
+  </div>
+  <div class="teacher-talk reveal">
+    📢 <b>白話說明：</b>Be 動詞過去式只有兩個：was 和 were。記住：「I、He/She/It → was；You、We、They → were」。特別注意：You 就算指你一個人，也永遠用 were！
+  </div>
+  <div class="reveal">
+    <table class="cmp-table">
+      <thead><tr><th>主詞</th><th>現在式</th><th>過去式（肯定）</th><th>過去式（否定）</th></tr></thead>
+      <tbody>
+        <tr><td class="key">I</td><td>am</td><td class="ok">was</td><td>was not / wasn't</td></tr>
+        <tr><td class="key">He / She / It / 單數名詞</td><td>is</td><td class="ok">was</td><td>was not / wasn't</td></tr>
+        <tr><td class="key">You</td><td>are</td><td class="ok">were</td><td>were not / weren't</td></tr>
+        <tr><td class="key">We / They / 複數名詞</td><td>are</td><td class="ok">were</td><td>were not / weren't</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="reveal">
+    <table class="pat-table">
+      <thead><tr><th>句型</th><th>結構</th><th>例句</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="label">肯定直述句</td>
+          <td class="struct">主詞 + was/were + 名詞/形容詞/地方</td>
+          <td class="ex">Ted was thirsty after the game.</td>
+        </tr>
+        <tr>
+          <td class="label">否定直述句</td>
+          <td class="struct">主詞 + wasn't/weren't + ...</td>
+          <td class="ex">Mia wasn't thirsty.</td>
+        </tr>
+        <tr>
+          <td class="label">Yes/No 問句</td>
+          <td class="struct">Was/Were + 主詞 + ...?</td>
+          <td class="ex">Were you at the party?</td>
+        </tr>
+        <tr>
+          <td class="label">肯定回答</td>
+          <td class="struct">Yes, 主詞 + was/were.</td>
+          <td class="ex">Yes, they were.</td>
+        </tr>
+        <tr>
+          <td class="label">否定回答</td>
+          <td class="struct">No, 主詞 + wasn't/weren't.</td>
+          <td class="ex">No, they weren't.</td>
+        </tr>
+        <tr>
+          <td class="label">Wh- 問句</td>
+          <td class="struct">Where + was/were + 主詞 + 時間?</td>
+          <td class="ex">Where were they an hour ago?</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="g-trap reveal">
+    <h5>⚠️ there was / there were 陷阱</h5>
+    <ul>
+      <li><b>There was</b> + 單數名詞：There was a bird on the tree.</li>
+      <li><b>There were</b> + 複數名詞：There were lots of fish in the sea.</li>
+      <li>注意：lots of / a lot of 後面視名詞的單複數決定用 was 或 were</li>
+    </ul>
+  </div>
+
+  <!-- ══ PART C 規則動詞過去式 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">✏️</div>
+    <h2><small>Part C · Grammar 2</small>規則動詞過去式（V-ed）變化規則</h2>
+  </div>
+  <div class="teacher-talk reveal">
+    📢 <b>白話說明：</b>規則動詞的過去式就是在字尾加 -ed，但加的方式有四種。加完都叫「V-ed」，統一代表規則動詞過去式。
+  </div>
+  <div class="reveal">
+    <table class="cmp-table">
+      <thead><tr><th>情況</th><th>規則</th><th>例子</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>一般字尾是子音</td>
+          <td>直接加 <b>-ed</b></td>
+          <td class="ok">camp → camped　check → checked　wash → washed</td>
+        </tr>
+        <tr>
+          <td>字尾已有 e</td>
+          <td>只加 <b>-d</b></td>
+          <td class="ok">hike → hiked　live → lived　change → changed</td>
+        </tr>
+        <tr>
+          <td>子音 + y</td>
+          <td>去 y 加 <b>-ied</b></td>
+          <td class="ok">study → studied　try → tried　hurry → hurried</td>
+        </tr>
+        <tr>
+          <td>母音 + y</td>
+          <td>直接加 <b>-ed</b></td>
+          <td class="ok">play → played　enjoy → enjoyed　stay → stayed</td>
+        </tr>
+        <tr>
+          <td>子音+母音+子音（重音在末音節）</td>
+          <td>重複字尾再加 <b>-ed</b></td>
+          <td class="ok">stop → stopped　jog → jogged　plan → planned</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="rule-block reveal">
+    <b>-ed 字尾發音三種：</b>
+    <ul>
+      <li><b>[t]</b>：字尾為無聲子音（p/k/s/f/ch/sh）→ camped、cooked、washed</li>
+      <li><b>[d]</b>：字尾為有聲子音或母音 → jogged、loved、rowed</li>
+      <li><b>[ɪd]</b>：字尾已是 [t] 或 [d] → wanted、planted、visited（多一個音節）</li>
+    </ul>
+  </div>
+
+  <!-- 規則動詞句型 -->
+  <div class="reveal">
+    <table class="pat-table">
+      <thead><tr><th>句型</th><th>結構</th><th>例句</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="label">肯定直述句</td>
+          <td class="struct">主詞 + V-ed + 時間</td>
+          <td class="ex">He hiked last Sunday.</td>
+        </tr>
+        <tr>
+          <td class="label">否定直述句</td>
+          <td class="struct">主詞 + didn't + 原形V + 時間</td>
+          <td class="ex">He didn't hike last Sunday.</td>
+        </tr>
+        <tr>
+          <td class="label">Yes/No 問句</td>
+          <td class="struct">Did + 主詞 + 原形V + 時間?</td>
+          <td class="ex">Did he hike last Sunday?</td>
+        </tr>
+        <tr>
+          <td class="label">肯定回答</td>
+          <td class="struct">Yes, 主詞 + did.</td>
+          <td class="ex">Yes, he did.</td>
+        </tr>
+        <tr>
+          <td class="label">否定回答</td>
+          <td class="struct">No, 主詞 + didn't.</td>
+          <td class="ex">No, he didn't.</td>
+        </tr>
+        <tr>
+          <td class="label">Wh- 問句</td>
+          <td class="struct">疑問詞 + did + 主詞 + 原形V?</td>
+          <td class="ex">What did he do?</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="g-trap reveal">
+    <h5>⚠️ didn't 後面一定接原形動詞！</h5>
+    <ul>
+      <li><span class="ok">✅</span> She <b>didn't walk</b> the dog.（原形 walk）</li>
+      <li><span class="ng">❌</span> She <b>didn't walked</b> the dog.（didn't 後面不能接過去式！）</li>
+    </ul>
+  </div>
+
+  <!-- How come -->
+  <div class="rule-block reveal" style="margin-top:8px;">
+    <b>特別補充：How come？（怎麼會？為什麼？）</b>
+    <ul>
+      <li><b>Why</b>：Why + 助動詞 + 主詞 + 原形V?（需要倒裝）</li>
+      <li><b>How come</b>：How come + 主詞 + 動詞?（<b>不倒裝！</b>）</li>
+    </ul>
+  </div>
+  <div class="reveal">
+    <table class="howcome-table">
+      <thead><tr><th>用法</th><th>正確</th><th>錯誤</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Why（需倒裝）</td>
+          <td class="en"><span class="key">Why are you</span> wearing a mask?</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>How come（不倒裝）</td>
+          <td class="en"><span class="key">How come you are</span> wearing a mask?</td>
+          <td class="en"><del>How come are you wearing a mask?</del></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══ PART C 不規則動詞 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">🔀</div>
+    <h2><small>Part C · Irregular Verbs</small>不規則動詞對照表</h2>
+  </div>
+  <div class="teacher-talk reveal">
+    📢 <b>白話說明：</b>這些動詞的過去式沒有規律可循，只能一個一個背。考試最常考的就是這裡！
+  </div>
+  <div class="reveal">
+    <table class="irr-table">
+      <thead><tr><th>中文</th><th>原形 V</th><th>過去式 V-ed</th><th>備注</th></tr></thead>
+      <tbody>
+        <tr><td>買</td><td class="v">buy</td><td class="vp">bought</td><td></td></tr>
+        <tr><td>帶；搭乘</td><td class="v">take</td><td class="vp">took</td><td></td></tr>
+        <tr><td>學習</td><td class="v">learn</td><td class="vp">learned / learnt</td><td class="note">兩種寫法皆可</td></tr>
+        <tr><td>建造</td><td class="v">build</td><td class="vp">built</td><td></td></tr>
+        <tr><td>嘗試</td><td class="v">try</td><td class="vp">tried</td><td class="note">規則動詞（y→ied）</td></tr>
+        <tr><td>躲藏</td><td class="v">hide</td><td class="vp">hid</td><td></td></tr>
+        <tr><td>失去；輸</td><td class="v">lose</td><td class="vp">lost</td><td></td></tr>
+        <tr><td>哭泣</td><td class="v">cry</td><td class="vp">cried</td><td class="note">規則動詞（y→ied）</td></tr>
+        <tr><td>吹</td><td class="v">blow</td><td class="vp">blew</td><td></td></tr>
+        <tr><td>製造</td><td class="v">make</td><td class="vp">made</td><td></td></tr>
+        <tr><td>遇見</td><td class="v">meet</td><td class="vp">met</td><td></td></tr>
+        <tr><td>可以；能</td><td class="v">can</td><td class="vp">could</td><td></td></tr>
+        <tr><td>來</td><td class="v">come</td><td class="vp">came</td><td></td></tr>
+        <tr><td>放（置）</td><td class="v">put</td><td class="vp">put</td><td class="note">原形＝過去式</td></tr>
+        <tr><td>畫圖</td><td class="v">draw</td><td class="vp">drew</td><td></td></tr>
+        <tr><td>閱讀</td><td class="v">read</td><td class="vp">read</td><td class="note">拼法同，發音從 /riːd/ 變 /rɛd/</td></tr>
+        <tr><td>喝</td><td class="v">drink</td><td class="vp">drank</td><td></td></tr>
+        <tr><td>騎</td><td class="v">ride</td><td class="vp">rode</td><td></td></tr>
+        <tr><td>開車</td><td class="v">drive</td><td class="vp">drove</td><td></td></tr>
+        <tr><td>跑</td><td class="v">run</td><td class="vp">ran</td><td></td></tr>
+        <tr><td>吃</td><td class="v">eat</td><td class="vp">ate</td><td></td></tr>
+        <tr><td>看見</td><td class="v">see</td><td class="vp">saw</td><td></td></tr>
+        <tr><td>掉落</td><td class="v">fall</td><td class="vp">fell</td><td></td></tr>
+        <tr><td>賣</td><td class="v">sell</td><td class="vp">sold</td><td></td></tr>
+        <tr><td>飛</td><td class="v">fly</td><td class="vp">flew</td><td></td></tr>
+        <tr><td>睡覺</td><td class="v">sleep</td><td class="vp">slept</td><td></td></tr>
+        <tr><td>得到</td><td class="v">get</td><td class="vp">got</td><td></td></tr>
+        <tr><td>教導</td><td class="v">teach</td><td class="vp">taught</td><td></td></tr>
+        <tr><td>給予</td><td class="v">give</td><td class="vp">gave</td><td></td></tr>
+        <tr><td>認為</td><td class="v">think</td><td class="vp">thought</td><td></td></tr>
+        <tr><td>去</td><td class="v">go</td><td class="vp">went</td><td></td></tr>
+        <tr><td>叫醒</td><td class="v">wake</td><td class="vp">woke</td><td></td></tr>
+        <tr><td>划船</td><td class="v">row</td><td class="vp">rowed</td><td class="note">規則動詞（發音 [d]）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══ PART C 片語 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">💬</div>
+    <h2><small>Part C · Phrases</small>重要片語與佳句</h2>
+  </div>
+  <div class="phrase-grid reveal">
+    <div class="phrase-card"><div class="pc-en">look around</div><div class="pc-zh">四處看看；環顧</div></div>
+    <div class="phrase-card"><div class="pc-en">climb a mountain</div><div class="pc-zh">爬山</div></div>
+    <div class="phrase-card"><div class="pc-en">row a boat</div><div class="pc-zh">划船</div></div>
+    <div class="phrase-card"><div class="pc-en">plant trees</div><div class="pc-zh">種樹</div></div>
+    <div class="phrase-card"><div class="pc-en">go camping / go hiking</div><div class="pc-zh">去露營 / 去健行</div></div>
+    <div class="phrase-card"><div class="pc-en">have a picnic / go on a picnic</div><div class="pc-zh">野餐</div></div>
+    <div class="phrase-card"><div class="pc-en">little by little</div><div class="pc-zh">漸漸地；一點一點地</div></div>
+    <div class="phrase-card"><div class="pc-en">in trouble</div><div class="pc-zh">陷入困境</div></div>
+    <div class="phrase-card"><div class="pc-en">What happened?</div><div class="pc-zh">發生什麼事了？</div></div>
+    <div class="phrase-card"><div class="pc-en">be full of life</div><div class="pc-zh">充滿生機</div></div>
+    <div class="phrase-card"><div class="pc-en">miss the good old days</div><div class="pc-zh">想念美好的往日時光</div></div>
+    <div class="phrase-card"><div class="pc-en">make money / lose money</div><div class="pc-zh">賺錢 / 賠錢</div></div>
+    <div class="phrase-card"><div class="pc-en">go + V-ing</div><div class="pc-zh">從事某種活動（go swimming / shopping）</div></div>
+    <div class="phrase-card"><div class="pc-en">How come?</div><div class="pc-zh">怎麼會？為什麼？</div></div>
+    <div class="phrase-card"><div class="pc-en">around the world</div><div class="pc-zh">全世界各地（= all over the world）</div></div>
+    <div class="phrase-card"><div class="pc-en">a few</div><div class="pc-zh">幾個；一些（接複數可數名詞）</div></div>
+  </div>
+
+  <!-- ══ PART D 總整理 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">🎯</div>
+    <h2><small>Part D · Exam</small>6大考試必知陷阱</h2>
+  </div>
+  <div class="trap-summary reveal">
+    <h2>🚨 6大必考陷阱整理</h2>
+    <div class="trap-list">
+      <div class="trap-chip"><strong>陷阱①</strong> was / were 的主詞判斷：You 永遠用 <b>were</b>，不管是你一個人還是你們一群人。He/She/It/單數名詞 → was；複數名詞 → were</div>
+      <div class="trap-chip"><strong>陷阱②</strong> 否定句 didn't 後面一定接<b>原形動詞</b>。✅ She <b>didn't walk</b> the dog. ❌ She <b>didn't walked</b> the dog.</div>
+      <div class="trap-chip"><strong>陷阱③</strong> How come 後面<b>不倒裝</b>。✅ How come <b>you are</b> here?（主詞在動詞前） ❌ How come <b>are you</b> here?</div>
+      <div class="trap-chip"><strong>陷阱④</strong> happen 主詞不能是人。✅ <b>What happened</b> to her?（事情發生了） ❌ <b>She happened.</b>（人不能當 happen 的主詞）</div>
+      <div class="trap-chip"><strong>陷阱⑤</strong> 介系詞 + 自然景觀：<b>on</b> the beach/hill/mountain（表面上）；<b>in</b> the river/lake/hills/mountains（範圍中）；<b>at</b> the beach/river/lake（泛指地點）；<b>by</b> the beach/river/lake（旁邊）</div>
+      <div class="trap-chip"><strong>陷阱⑥</strong> 規則動詞字尾 -ed 變化：stop → <b>stopped</b>（重複字尾）；study → <b>studied</b>（y→ied）；live → <b>lived</b>（有 e 只加 d）；play → <b>played</b>（母音+y 直接加 ed）</div>
+    </div>
+  </div>
+
+</div><!-- /.wrap -->
+
+<!-- ★ 頁尾：由 main.js 注入 -->
+<div id="site-footer"></div>
+
+<!-- ★ 全站共用腳本 -->
+<script src="main.js"></script>
+<script>
+function speak(el) {
+  const text = el.childNodes[0].textContent.trim();
+  if ('speechSynthesis' in window) {
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US'; u.rate = 0.85;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+  }
+}
+</script>
+</body>
+</html>
