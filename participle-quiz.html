@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>分詞構句實戰測驗｜Ray's English Corner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ===== 本頁專屬覆寫 / 頁面特定色票 ===== */
+    :root {
+      /* 本頁自訂（不覆蓋全站）*/
+      --amber-light:  #f4a942;
+      --correct-bg:   #e8f5ee;
+      --correct-bd:   #4a7c5c;
+      --wrong-bg:     #fdecea;
+      --wrong-bd:     #c0392b;
+      --shadow-sm:    0 2px 8px rgba(45,90,61,.10);
+      --shadow-md:    0 6px 24px rgba(45,90,61,.14);
+    }
+
+    /* Hero：漸層覆蓋 styles.css 的單色背景；動畫覆蓋原無動畫樣式 */
+    .hero { background: linear-gradient(135deg, var(--green-dk) 0%, var(--green-md) 100%) }
+    .hero-badge { animation: fadeDown .6s ease both }
+    .hero h1    { animation: fadeDown .7s .1s ease both }
+    .hero-sub   { animation: fadeDown .7s .2s ease both }
+    .hero-chips { animation: fadeDown .7s .3s ease both }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── LAYOUT ── */
+    .wrap { max-width: 780px; margin: 0 auto; padding: 48px 20px 80px; }
+
+    /* ── SCORE BANNER ── */
+    #score-banner {
+      display: none; background: var(--green-dk); color: var(--white);
+      border-radius: var(--r); padding: 28px 32px; text-align: center;
+      margin-bottom: 40px; box-shadow: var(--shadow-md);
+    }
+    #score-banner h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 8px; }
+    #score-banner .score-num { font-size: 3rem; font-weight: 800; color: var(--amber-light); line-height: 1; margin: 8px 0; }
+    #score-banner .score-msg { font-size: .95rem; opacity: .8; margin-top: 6px; }
+
+    /* ── SECTION TITLE ── */
+    .part-title { display: flex; align-items: center; gap: 12px; margin: 40px 0 20px; }
+    .part-title .pt-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: var(--green-dk); color: var(--white);
+      font-size: 1.1rem; display: grid; place-items: center; flex-shrink: 0;
+    }
+    .part-title h2 { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--green-dk); }
+    .part-title h2 small {
+      display: block; font-family: 'Nunito', sans-serif;
+      font-size: .75rem; font-weight: 800; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--text-lt);
+    }
+
+    /* ── QUESTION CARD ── */
+    .q-card {
+      background: var(--white); border-radius: var(--r);
+      box-shadow: var(--shadow-sm); margin-bottom: 20px;
+      overflow: hidden; border: 2px solid transparent; transition: border-color .25s;
+    }
+    .q-card.answered { border-color: var(--green-lt); }
+    .q-head {
+      padding: 20px 24px 16px; border-bottom: 1px solid var(--cream-d);
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .q-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--green-pl); color: var(--green-dk);
+      font-weight: 800; font-size: .9rem; display: grid; place-items: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .q-text { font-size: 1rem; line-height: 1.65; color: var(--text); }
+    .q-text .blank {
+      display: inline-block; width: 80px;
+      border-bottom: 2.5px solid var(--green-md); margin: 0 4px; vertical-align: bottom;
+    }
+    .q-choices { padding: 14px 24px 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 520px) { .q-choices { grid-template-columns: 1fr; } }
+    .choice-btn {
+      background: var(--cream); border: 2px solid var(--cream-d);
+      border-radius: 10px; padding: 10px 16px;
+      font-family: 'Nunito', 'Noto Sans TC', sans-serif;
+      font-size: .93rem; font-weight: 600; color: var(--text);
+      cursor: pointer; text-align: left; transition: background .18s, border-color .18s, transform .15s;
+    }
+    .choice-btn:hover:not(:disabled) { background: var(--green-pl); border-color: var(--green-lt); transform: translateY(-2px); }
+    .choice-btn.correct { background: var(--correct-bg); border-color: var(--correct-bd); color: var(--green-dk); font-weight: 800; }
+    .choice-btn.wrong   { background: var(--wrong-bg); border-color: var(--wrong-bd); color: #c0392b; text-decoration: line-through; }
+    .choice-btn:disabled { cursor: default; transform: none; }
+
+    /* ── EXPLANATION ── */
+    .q-explain {
+      display: none; margin: 0 24px 18px;
+      background: var(--green-pl); border-left: 4px solid var(--green-md);
+      border-radius: 8px; padding: 12px 16px;
+      font-size: .88rem; color: var(--green-dk);
+      font-family: 'Noto Sans TC', sans-serif; line-height: 1.7;
+    }
+    .q-explain.show { display: block; }
+    .q-explain strong { color: var(--green-dk); font-family: 'Nunito', sans-serif; }
+
+    /* ── FILL CARDS ── */
+    .fill-card {
+      background: var(--white); border-radius: var(--r);
+      box-shadow: var(--shadow-sm); margin-bottom: 20px;
+      overflow: hidden; border: 2px solid transparent; transition: border-color .25s;
+    }
+    .fill-card.correct { border-color: var(--correct-bd); }
+    .fill-card.wrong   { border-color: var(--wrong-bd); }
+    .fill-head {
+      padding: 20px 24px 14px; border-bottom: 1px solid var(--cream-d);
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .fill-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--warm-pl); color: var(--warm);
+      font-weight: 800; font-size: .9rem; display: grid; place-items: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .fill-body { padding: 14px 24px 6px; }
+    .fill-orig { font-size: .9rem; color: var(--text-lt); font-family: 'Noto Sans TC', sans-serif; margin-bottom: 10px; }
+    .fill-orig span { font-style: italic; color: var(--text); }
+    .fill-arrow { color: var(--amber); font-weight: 700; margin: 4px 0 10px; font-size: .85rem; }
+    .fill-sentence {
+      font-size: 1rem; font-weight: 600; line-height: 2.2;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 4px;
+    }
+    .fill-input {
+      border: none; border-bottom: 2.5px solid var(--amber);
+      background: transparent; font-family: 'Nunito', sans-serif;
+      font-size: 1rem; font-weight: 700; color: var(--text);
+      padding: 2px 6px; outline: none; min-width: 110px; width: auto;
+      transition: border-color .2s, background .2s;
+    }
+    .fill-input:focus { border-bottom-color: var(--green-md); background: var(--green-pl); border-radius: 4px 4px 0 0; }
+    .fill-input.input-correct { border-bottom-color: var(--correct-bd); color: var(--correct-bd); background: var(--correct-bg); border-radius: 4px 4px 0 0; }
+    .fill-input.input-wrong   { border-bottom-color: var(--wrong-bd);   color: var(--wrong-bd);   background: var(--wrong-bg);   border-radius: 4px 4px 0 0; }
+    .fill-input:disabled { cursor: default; }
+    .fill-feedback { display: none; margin: 8px 24px 14px; font-size: .88rem; font-family: 'Noto Sans TC', sans-serif; }
+    .fill-feedback.show { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+    .fb-icon { font-size: 1rem; font-weight: 800; }
+    .fb-icon.ok  { color: var(--correct-bd); }
+    .fb-icon.err { color: var(--wrong-bd); }
+    .fb-ans { font-weight: 800; font-family: 'Nunito', sans-serif; color: var(--amber); }
+    .fill-actions { padding: 10px 24px 18px; display: flex; gap: 10px; align-items: center; }
+    .check-btn {
+      background: var(--amber); color: var(--white); border: none; border-radius: 999px;
+      padding: 8px 22px; font-family: 'Nunito', sans-serif; font-size: .85rem; font-weight: 800;
+      cursor: pointer; transition: background .2s, transform .15s;
+    }
+    .check-btn:hover { background: var(--warm); transform: translateY(-2px); }
+    .check-btn:disabled { background: var(--text-lt); cursor: default; transform: none; }
+    .hint-btn {
+      background: transparent; border: 2px solid var(--amber); color: var(--amber);
+      border-radius: 999px; padding: 6px 16px; font-family: 'Nunito', sans-serif;
+      font-size: .82rem; font-weight: 800; cursor: pointer; transition: background .2s, color .2s;
+    }
+    .hint-btn:hover { background: var(--amber); color: var(--white); }
+    .hint-btn:disabled { opacity: .4; cursor: default; }
+    .fill-explain {
+      display: none; margin: 0 24px 18px;
+      background: var(--warm-pl); border-left: 4px solid var(--amber);
+      border-radius: 8px; padding: 12px 16px;
+      font-size: .88rem; color: var(--text); font-family: 'Noto Sans TC', sans-serif; line-height: 1.7;
+    }
+    .fill-explain.show { display: block; }
+    .fill-explain strong { font-family: 'Nunito', sans-serif; color: var(--amber); }
+
+    /* ── SUBMIT ── */
+    .submit-wrap { text-align: center; margin: 36px 0 0; }
+    #submit-btn {
+      background: var(--green-dk); color: var(--white); border: none; border-radius: 999px;
+      padding: 14px 48px; font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700; cursor: pointer;
+      box-shadow: var(--shadow-md); transition: background .2s, transform .15s;
+    }
+    #submit-btn:hover { background: var(--green-md); transform: translateY(-3px); }
+    #submit-btn:disabled { background: var(--text-lt); cursor: default; transform: none; }
+
+    /* ── REVEAL ALL ── */
+    .reveal-all-wrap { text-align: center; margin: 16px 0 0; }
+    #reveal-all-btn {
+      background: transparent; border: 2px solid var(--amber); color: var(--amber);
+      border-radius: 999px; padding: 10px 32px; font-family: 'Nunito', sans-serif;
+      font-size: .9rem; font-weight: 800; cursor: pointer; transition: background .2s, color .2s;
+    }
+    #reveal-all-btn:hover { background: var(--amber); color: var(--white); }
+  </style>
+</head>
+<body>
+
+<!-- ★ 導覽列：由 main.js 注入（原頁為簡版 logo + 返回鈕，統一改為全站導覽）-->
+<div id="site-nav"></div>
+
+<!-- HERO（用 section.hero，套 styles.css 共用排版；背景漸層由上方 style 覆蓋）-->
+<section class="hero">
+  <div class="hero-badge">📝 實戰測驗</div>
+  <h1>分詞構句<br><em>實戰練習題</em></h1>
+  <p class="hero-sub">10 題選擇 + 5 題改寫，全部做完再對答案！</p>
+  <div class="hero-chips">
+    <div class="chip">V-ing vs V-p.p.</div>
+    <div class="chip">15 題</div>
+    <div class="chip">即時解析</div>
+    <div class="chip">⚠️ 先不要偷看！</div>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <!-- SCORE BANNER -->
+  <div id="score-banner">
+    <h2>🎯 選擇題結果出爐！</h2>
+    <div class="score-num" id="score-display">0 / 10</div>
+    <div class="score-msg" id="score-msg"></div>
+  </div>
+
+  <!-- PART 1 -->
+  <div class="part-title sr">
+    <div class="pt-icon">①</div>
+    <h2><small>Part 1 · 10 Questions</small>基礎選擇題</h2>
+  </div>
+
+  <!-- Q1 -->
+  <div class="q-card sr" id="q1">
+    <div class="q-head"><div class="q-num">1</div><div class="q-text"><span class="blank"></span> tired after a long day of work, Mary went to bed early.</div></div>
+    <div class="q-choices">
+      <button class="choice-btn" onclick="answer(this,'q1','A','A')">(A) Feeling</button>
+      <button class="choice-btn" onclick="answer(this,'q1','B','A')">(B) Felt</button>
+      <button class="choice-btn" onclick="answer(this,'q1','C','A')">(C) Feels</button>
+      <button class="choice-btn" onclick="answer(this,'q1','D','A')">(D) To feel</button>
+    </div>
+    <div class="q-explain" id="q1-exp">主角是 Mary，Mary「自己感到」疲倦，為<strong>主動</strong>，故選 <strong>V-ing</strong> 的 Feeling。</div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card sr" id="q2">
+    <div class="q-head"><div class="q-num">2</div><div class="q-text"><span class="blank"></span> in plain English, the book is easy for junior high school students to understand.</div></div>
+    <div class="q-choices">
+      <button class="choice-btn" onclick="answer(this,'q2','A','B')">(A) Writing</button>
+      <button class="choice-btn" onclick="answer(this,'q2','B','B')">(B) Written</button>
+      <button class="choice-btn" onclick="answer(this,'q2','C','B')">(C) Writes</button>
+      <button class="choice-btn" onclick="answer(this,'q2','D','B')">(D) Write</button>
+    </div>
+    <div class="q-explain" id="q2-exp">後面的主角是 the book，書是「被寫出來的」，為<strong>被動</strong>，故選 <strong>V-p.p.</strong> 的 Written。</div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card sr" id="q3">
+    <div class="q-head"><div class="q-num">3</div><div class="q-text">The boy <span class="blank"></span> a blue cap next to the door is my cousin, Tom.</div></div>
+    <div class="q-choices">
+      <button class="choice-btn" onclick="answer(this,'q3','A','C')">(A) wears</button>
+      <button class="choice-btn" onclick="answer(this,'q3','B','C')">(B) wore</button>
+      <button class="choice-btn" onclick="answer(this,'q3','C','C')">(C) wearing</button>
+      <button class="choice-btn" onclick="answer(this,'q3','D','C')">(D) worn</button>
+    </div>
+    <div class="q-explain" id="q3-exp">修飾前面的名詞 The boy。男孩「自己主動穿著」藍色帽子，為<strong>主動</strong>，故選 <strong>wearing</strong>。</div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card sr" id="q4">
+    <div class="q-head"><div class="q-num">4</div><div class="q-text"><span class="blank"></span> by the loud noise outside, the baby started to cry out loud.</div></div>
+    <div class="q-choices">
+      <button class="choice-btn" onclick="answer(this,'q4','A','B')">(A) Frightening</button>
+      <button class="choice-btn" onclick="answer(this,'q4','B','B')">(B) Frightened</button>
+      <button class="choice-btn" onclick="answer(this,'q4','C','B')">(C) Frighten</button>
+      <button class="choice-btn" onclick="answer(this,'q4','D','B')">(D) Frightens</button>
+    </div>
+    <div class="q-explain" id="q4-exp">主角是 the baby，嬰兒是被外面的噪音「嚇到了（<strong>被動</strong>）」，故選 <strong>V-p.p.</strong> 的 Frightened。</div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card sr" id="q5">
+    <div class="q-head"><div class="q-num">5</div><div class="q-text">Do you know the girl <span class="blank"></span> a guitar on the stage?</div></div>
+    <div class="q-choices">
+      <button class="choice-btn" onclick="answer(this,'q5','A','A')">(A) playing</button>
+      <button class="choice-btn" onclick="answer(this,'q5','B','A')">(B) played</button>
+      <button class="choice-btn" onclick="answer(this,'q5','C','A')">(C) plays</button>
+      <button class="choice-btn" onclick="answer(this,'q5','D','A')">(D) to play</button>
+    </div>
+    <div class="q-explain" id="q5-exp">修飾前面的名詞 the girl。女孩「自己主動彈奏」吉他，為<strong>主動</strong>，故選 <strong>playing</strong>。</div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card sr" id="q6">
+    <div class="q-head"><div class="q-num">6</div><div class="q-text"><span class="blank"></span> not knowing what to do, the lost child burst into tears.</div></div>
+    <div class="q-choices">
+      <button class="choice-btn" onclick="answer(this,'q6','A','C')">(A) Because</button>
+      <button class="choice-btn" onclick="answer(this,'q6','B','C')">(B) Although</button>
+      <button class="choice-btn" onclick="answer(this,'q6','C','C')">(C) Feeling</button>
+      <button class="choice-btn" onclick="answer(this,'q6','D','C')">(D) Deleted</button>
+    </div>
+    <div class="q-explain" id="q6-exp">句子已經去掉了連接詞，不能再選 (A)(B)。主角主動「感到」不知道該怎麼辦，故選 <strong>Feeling</strong>。</div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card sr" id="q7">
+    <div class="q-head"><div class="q-num">7</div><div class="q-text">Most products <span class="blank"></span> in that factory are exported to Japan.</div></div>
+    <div class="q-choices">
+      <button class="choice-btn" onclick="answer(this,'q7','A','B')">(A) making</button>
+      <button class="choice-btn" onclick="answer(this,'q7','B','B')">(B) made</button>
+      <button class="choice-btn" onclick="answer(this,'q7','C','B')">(C) makes</button>
+      <button class="choice-btn" onclick="answer(this,'q7','D','B')">(D) to make</button>
+    </div>
+    <div class="q-explain" id="q7-exp">修飾前面的名詞 Most products，產品是「被製造」的，為<strong>被動</strong>，故選 <strong>V-p.p.</strong> 的 made。</div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-card sr" id="q8">
+    <div class="q-head"><div class="q-num">8</div><div class="q-text"><span class="blank"></span> the room, the teacher saw all the students studying hard.</div></div>
+    <div class="q-choices">
+      <button class="choice-btn" onclick="answer(this,'q8','A','A')">(A) Entering</button>
+      <button class="choice-btn" onclick="answer(this,'q8','B','A')">(B) Entered</button>
+      <button class="choice-btn" onclick="answer(this,'q8','C','A')">(C) Enters</button>
+      <button class="choice-btn" onclick="answer(this,'q8','D','A')">(D) To enter</button>
+    </div>
+    <div class="q-explain" id="q8-exp">主角是 the teacher，老師「自己主動走進」教室，為<strong>主動</strong>，故選 <strong>Entering</strong>。</div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q-card sr" id="q9">
+    <div class="q-head"><div class="q-num">9</div><div class="q-text">The pictures <span class="blank"></span> by the famous artist will be shown in the museum next week.</div></div>
+    <div class="q-choices">
+      <button class="choice-btn" onclick="answer(this,'q9','A','B')">(A) painting</button>
+      <button class="choice-btn" onclick="answer(this,'q9','B','B')">(B) painted</button>
+      <button class="choice-btn" onclick="answer(this,'q9','C','B')">(C) paints</button>
+      <button class="choice-btn" onclick="answer(this,'q9','D','B')">(D) paint</button>
+    </div>
+    <div class="q-explain" id="q9-exp">修飾前面的名詞 The pictures，畫作是「被畫出來的」，為<strong>被動</strong>，故選 <strong>V-p.p.</strong> 的 painted。</div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-card sr" id="q10">
+    <div class="q-head"><div class="q-num">10</div><div class="q-text"><span class="blank"></span> around the beautiful lake, we enjoyed the fresh morning air.</div></div>
+    <div class="q-choices">
+      <button class="choice-btn" onclick="answer(this,'q10','A','B')">(A) Walked</button>
+      <button class="choice-btn" onclick="answer(this,'q10','B','B')">(B) Walking</button>
+      <button class="choice-btn" onclick="answer(this,'q10','C','B')">(C) Walks</button>
+      <button class="choice-btn" onclick="answer(this,'q10','D','B')">(D) Walk</button>
+    </div>
+    <div class="q-explain" id="q10-exp">主角是 we，我們「自己主動散步」，為<strong>主動</strong>，故選 <strong>Walking</strong>。</div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-wrap sr">
+    <button id="submit-btn" onclick="submitScore()">✓ 計算選擇題分數</button>
+  </div>
+
+  <!-- PART 2 -->
+  <div class="part-title sr" style="margin-top:56px;">
+    <div class="pt-icon">②</div>
+    <h2><small>Part 2 · 5 Questions</small>進階改寫與填空題</h2>
+  </div>
+  <p class="sr" style="font-size:.9rem; color:var(--text-lt); margin-bottom:20px; font-family:'Noto Sans TC',sans-serif;">
+    ✏️ 在空格裡打出答案，再按「批改」看結果！不確定的話可以按「看答案」直接顯示。
+  </p>
+
+  <!-- F11 -->
+  <div class="fill-card sr" id="f11">
+    <div class="fill-head"><div class="fill-num">11</div><div class="q-text">請簡化句子</div></div>
+    <div class="fill-body">
+      <div class="fill-orig">原句：<span>Because he was hit by a motorcycle, Kevin was sent to the hospital.</span></div>
+      <div class="fill-arrow">↓ 省話版</div>
+      <div class="fill-sentence">
+        <input class="fill-input" id="f11-input" data-answer="hit" placeholder="打出答案…" autocomplete="off" spellcheck="false" />
+        <span>by a motorcycle, Kevin was sent to the hospital.</span>
+      </div>
+    </div>
+    <div class="fill-feedback" id="f11-fb"></div>
+    <div class="fill-actions">
+      <button class="check-btn" onclick="checkFill('f11')">批改</button>
+      <button class="hint-btn"  onclick="showHint('f11')">看答案</button>
+    </div>
+    <div class="fill-explain" id="f11-exp">刪掉 Because 和 he。因為 Kevin 是<strong>被撞</strong>（被動），保留 <strong>V-p.p.</strong>。注意：hit 的三態同形（hit-hit-hit），所以答案就是 <strong>Hit</strong>。</div>
+  </div>
+
+  <!-- F12 -->
+  <div class="fill-card sr" id="f12">
+    <div class="fill-head"><div class="fill-num">12</div><div class="q-text">請簡化句子</div></div>
+    <div class="fill-body">
+      <div class="fill-orig">原句：<span>The hamburgers which are sold at that fast-food restaurant are delicious.</span></div>
+      <div class="fill-arrow">↓ 省話版</div>
+      <div class="fill-sentence">
+        <span>The hamburgers</span>
+        <input class="fill-input" id="f12-input" data-answer="sold" placeholder="打出答案…" autocomplete="off" spellcheck="false" />
+        <span>at that fast-food restaurant are delicious.</span>
+      </div>
+    </div>
+    <div class="fill-feedback" id="f12-fb"></div>
+    <div class="fill-actions">
+      <button class="check-btn" onclick="checkFill('f12')">批改</button>
+      <button class="hint-btn"  onclick="showHint('f12')">看答案</button>
+    </div>
+    <div class="fill-explain" id="f12-exp">關係子句簡化：刪掉關係代名詞 which 和 be 動詞 are，直接留下被動的 <strong>V-p.p. → sold</strong>。</div>
+  </div>
+
+  <!-- F13 -->
+  <div class="fill-card sr" id="f13">
+    <div class="fill-head"><div class="fill-num">13</div><div class="q-text">請簡化句子</div></div>
+    <div class="fill-body">
+      <div class="fill-orig">原句：<span>When she heard the good news, Iris jumped up and down with joy.</span></div>
+      <div class="fill-arrow">↓ 省話版</div>
+      <div class="fill-sentence">
+        <input class="fill-input" id="f13-input" data-answer="hearing" placeholder="打出答案…" autocomplete="off" spellcheck="false" />
+        <span>the good news, Iris jumped up and down with joy.</span>
+      </div>
+    </div>
+    <div class="fill-feedback" id="f13-fb"></div>
+    <div class="fill-actions">
+      <button class="check-btn" onclick="checkFill('f13')">批改</button>
+      <button class="hint-btn"  onclick="showHint('f13')">看答案</button>
+    </div>
+    <div class="fill-explain" id="f13-exp">刪掉 When 和 she。Iris 自己主動聽到，<strong>主動</strong>變 <strong>V-ing</strong>，故用 <strong>Hearing</strong>。</div>
+  </div>
+
+  <!-- F14 -->
+  <div class="fill-card sr" id="f14">
+    <div class="fill-head"><div class="fill-num">14</div><div class="q-text">⚠️ 注意否定字 not 的位置！（此題答案為兩個字）</div></div>
+    <div class="fill-body">
+      <div class="fill-orig">原句：<span>Because I didn't want to wake up my family, I walked into the house quietly.</span></div>
+      <div class="fill-arrow">↓ 省話版</div>
+      <div class="fill-sentence">
+        <input class="fill-input" id="f14-input" data-answer="not wanting" placeholder="打出答案（兩個字）…" autocomplete="off" spellcheck="false" style="min-width:160px;" />
+        <span>to wake up my family, I walked into the house quietly.</span>
+      </div>
+    </div>
+    <div class="fill-feedback" id="f14-fb"></div>
+    <div class="fill-actions">
+      <button class="check-btn" onclick="checkFill('f14')">批改</button>
+      <button class="hint-btn"  onclick="showHint('f14')">看答案</button>
+    </div>
+    <div class="fill-explain" id="f14-exp">⚠️ <strong>大考陷阱！</strong>分詞構句的否定字（not / never）一定要放在<strong>分詞最前面</strong>。原本的 didn't 刪掉，留下 Not，後面的動詞 want 改成主動的 wanting → <strong>Not wanting</strong>。</div>
+  </div>
+
+  <!-- F15 -->
+  <div class="fill-card sr" id="f15">
+    <div class="fill-head"><div class="fill-num">15</div><div class="q-text">請簡化句子</div></div>
+    <div class="fill-body">
+      <div class="fill-orig">原句：<span>I live in a house that overlooks the beautiful ocean.</span></div>
+      <div class="fill-arrow">↓ 省話版</div>
+      <div class="fill-sentence">
+        <span>I live in a house</span>
+        <input class="fill-input" id="f15-input" data-answer="overlooking" placeholder="打出答案…" autocomplete="off" spellcheck="false" />
+        <span>the beautiful ocean.</span>
+      </div>
+    </div>
+    <div class="fill-feedback" id="f15-fb"></div>
+    <div class="fill-actions">
+      <button class="check-btn" onclick="checkFill('f15')">批改</button>
+      <button class="hint-btn"  onclick="showHint('f15')">看答案</button>
+    </div>
+    <div class="fill-explain" id="f15-exp">關係子句簡化：刪掉關係代名詞 that，後面的動詞 overlooks 是<strong>主動</strong>（房子呈現「眺望」的狀態），改成 <strong>V-ing → overlooking</strong>。</div>
+  </div>
+
+  <!-- REVEAL ALL -->
+  <div class="reveal-all-wrap sr">
+    <button id="reveal-all-btn" onclick="revealAll()">👁 一次顯示全部改寫題答案</button>
+  </div>
+
+</main>
+
+<!-- ★ 頁尾：由 main.js 注入 -->
+<div id="site-footer"></div>
+
+<!-- ★ 全站共用腳本（含 nav/footer 注入、.sr 淡入觀察器）-->
+<script src="main.js"></script>
+
+<!-- 本頁專屬：測驗邏輯（原樣保留，移除 IntersectionObserver — 改由 main.js 處理）-->
+<script>
+  // ── 選擇題 ──
+  const answers = {};
+  const correct = { q1:'A', q2:'B', q3:'C', q4:'B', q5:'A', q6:'C', q7:'B', q8:'A', q9:'B', q10:'B' };
+
+  function answer(btn, qid, chosen, correctKey) {
+    const card = document.getElementById(qid);
+    if (card.classList.contains('answered')) return;
+    card.classList.add('answered');
+    answers[qid] = (chosen === correctKey);
+    const btns = card.querySelectorAll('.choice-btn');
+    btns.forEach(b => {
+      b.disabled = true;
+      const letter = b.textContent.trim()[1];
+      if (letter === correctKey) b.classList.add('correct');
+      else if (b === btn && chosen !== correctKey) b.classList.add('wrong');
+    });
+    document.getElementById(qid + '-exp').classList.add('show');
+  }
+
+  function submitScore() {
+    const total = Object.keys(correct).length;
+    const done  = Object.keys(answers).length;
+    if (done < total) { alert(`還有 ${total - done} 題沒作答，請先完成所有選擇題！`); return; }
+    const score = Object.values(answers).filter(Boolean).length;
+    document.getElementById('score-display').textContent = `${score} / ${total}`;
+    const msgs = ['再加油！把解析多讀幾遍，一定可以的！💪','還差一點點！複習一下主動被動的判斷方式吧。😊','不錯喔！再把錯的題目看一遍就完美了！👍','很厲害！分詞構句快要出師了！🎉','滿分！你的分詞構句完全沒問題，可以出師啦！🏆'];
+    document.getElementById('score-msg').textContent = msgs[Math.min(Math.floor(score / 2), 4)];
+    const banner = document.getElementById('score-banner');
+    banner.style.display = 'block';
+    banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('submit-btn').disabled = true;
+  }
+
+  // ── 改寫題（打字版）──
+  const fillAnswers = { f11:'hit', f12:'sold', f13:'hearing', f14:'not wanting', f15:'overlooking' };
+  const fillDisplay = { f11:'Hit', f12:'sold', f13:'Hearing', f14:'Not wanting', f15:'overlooking' };
+
+  function checkFill(id) {
+    const input = document.getElementById(id + '-input');
+    const fb    = document.getElementById(id + '-fb');
+    const exp   = document.getElementById(id + '-exp');
+    const card  = document.getElementById(id);
+    const typed = input.value.trim().toLowerCase();
+    const isOk  = typed === fillAnswers[id];
+    input.disabled = true;
+    card.querySelector('.check-btn').disabled = true;
+    card.querySelector('.hint-btn').disabled  = true;
+    if (isOk) {
+      input.classList.add('input-correct'); card.classList.add('correct');
+      fb.innerHTML = `<span class="fb-icon ok">✓</span> 正確！答案是 <span class="fb-ans">${fillDisplay[id]}</span>`;
+    } else {
+      input.classList.add('input-wrong'); card.classList.add('wrong');
+      fb.innerHTML = `<span class="fb-icon err">✗</span> 你的答案：<em>${input.value || '（空白）'}</em>　正確答案：<span class="fb-ans">${fillDisplay[id]}</span>`;
+    }
+    fb.classList.add('show'); exp.classList.add('show');
+  }
+
+  function showHint(id) {
+    const input = document.getElementById(id + '-input');
+    input.value = fillDisplay[id]; input.disabled = true;
+    document.getElementById(id).querySelector('.check-btn').disabled = true;
+    document.getElementById(id).querySelector('.hint-btn').disabled  = true;
+    input.classList.add('input-correct');
+    document.getElementById(id).classList.add('correct');
+    const fb = document.getElementById(id + '-fb');
+    fb.innerHTML = `<span class="fb-icon ok">💡</span> 答案是 <span class="fb-ans">${fillDisplay[id]}</span>`;
+    fb.classList.add('show');
+    document.getElementById(id + '-exp').classList.add('show');
+  }
+
+  function revealAll() {
+    ['f11','f12','f13','f14','f15'].forEach(id => {
+      if (!document.getElementById(id + '-input').disabled) showHint(id);
+    });
+    const btn = document.getElementById('reveal-all-btn');
+    btn.disabled = true; btn.textContent = '✓ 全部已顯示';
+  }
+
+  // Enter 鍵批改
+  ['f11','f12','f13','f14','f15'].forEach(id => {
+    document.getElementById(id + '-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') checkFill(id);
+    });
+  });
+</script>
+</body>
+</html>

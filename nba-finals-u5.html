@@ -6,51 +6,22 @@
 <title>NBA Finals 實戰特訓｜Ray's English Corner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 <style>
-  :root {
-    --cream:#faf8f2;--cream-d:#ede8d8;--green-dk:#1e4d30;--green-md:#3a7a50;
-    --green-lt:#6db88a;--green-pl:#e2f2e8;--amber:#f5a623;--amber-pl:#fff8ec;
-    --warm:#e07850;--warm-pl:#fdf0ea;--text:#1a2a1a;
-    --text-md:#466046;--text-lt:#7a9a7a;--border:#d5cbb5;--white:#ffffff;
-    --sh:0 4px 20px rgba(30,77,48,.10);--sh-lg:0 12px 48px rgba(30,77,48,.15);
-  }
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text);line-height:1.8}
-
-  /* NAV */
-  nav{position:sticky;top:0;z-index:100;background:rgba(250,248,242,.94);backdrop-filter:blur(14px);border-bottom:1.5px solid var(--border);padding:0 5%;height:58px;display:flex;align-items:center;justify-content:space-between}
-  .nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--green-dk);text-decoration:none}
-  .nav-links{display:flex;list-style:none;align-items:center;gap:24px}
-  .nav-links a{text-decoration:none;color:var(--text-md);font-weight:700;font-size:.88rem;transition:color .2s}
-  .nav-links a:hover{color:var(--green-dk)}
-  .dropdown{position:relative}
-  .dropdown-content{display:none;position:absolute;top:100%;left:0;background:var(--white);border:1px solid var(--border);border-radius:8px;box-shadow:var(--sh);min-width:160px;z-index:10}
-  .dropdown-content a{display:block;padding:10px 16px;font-size:.88rem}
-  .dropdown-content a:hover{background:var(--cream)}
-  .dropdown:hover .dropdown-content{display:block}
-
-  /* HERO */
-  .hero{background:linear-gradient(135deg,var(--green-dk) 0%,var(--green-md) 60%,var(--green-lt) 100%);color:#fff;padding:64px 5% 72px;text-align:center;position:relative;overflow:hidden}
-  .hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1px);background-size:24px 24px;pointer-events:none}
-  .hero-badge{display:inline-block;background:var(--warm);color:#fff;font-size:.74rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:5px 16px;border-radius:999px;margin-bottom:18px}
-  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,4.5vw,3rem);font-weight:900;line-height:1.18;margin-bottom:12px}
-  .hero h1 em{color:var(--amber);font-style:normal}
-  .hero-sub{font-size:1rem;opacity:.82;max-width:520px;margin:0 auto 28px}
-  .hero-chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  /* ===== 本頁專屬樣式 ===== */
+  /* Hero：漸層覆蓋 styles.css 的單色 */
+  .hero{background:linear-gradient(135deg,var(--green-dk) 0%,var(--green-md) 60%,var(--green-lt) 100%)}
+  /* chip 用本頁 .hero-chip（styles.css 的 .chip 要求在 .hero-chips 下，同效但類名不同）*/
   .hero-chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);color:#fff;font-size:.8rem;font-weight:700;padding:6px 16px;border-radius:999px}
 
-  /* MAIN */
   main{max-width:1000px;margin:40px auto;padding:0 20px 80px}
-
   .content-box{background:var(--white);border:1.5px solid var(--border);border-radius:22px;padding:40px;box-shadow:var(--sh);margin-bottom:30px}
   .section-main-title{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--green-dk);margin-bottom:25px;padding-left:10px;border-left:5px solid var(--warm)}
   .teacher-talk{background:var(--amber-pl);border:1.5px dashed var(--amber);border-radius:12px;padding:16px;margin-bottom:25px;font-size:.95rem;color:var(--text-md)}
 
-  /* VIDEO */
   .video-container{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:16px;border:2px solid var(--border);box-shadow:var(--sh);margin-bottom:30px}
   .video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%}
 
-  /* FLIP CARDS */
   .flashcard-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:20px}
   .flip-card{perspective:1000px;height:130px;cursor:pointer}
   .flip-card-inner{position:relative;width:100%;height:100%;text-align:center;transition:transform .4s;transform-style:preserve-3d}
@@ -63,7 +34,6 @@
   .card-back .ch{font-size:1.05rem;font-weight:700;color:var(--warm)}
   .card-back .detail{font-size:.83rem;color:var(--text-md);margin-top:4px}
 
-  /* TIMELINE */
   .timeline-item{border-left:3px solid var(--green-lt);padding-left:20px;margin-bottom:20px;position:relative}
   .timeline-item::before{content:'🏀';position:absolute;left:-11px;top:4px;background:var(--cream);font-size:.9rem}
   .time-btn{background:var(--warm);color:#fff;border:none;border-radius:6px;padding:2px 8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;display:inline-flex;align-items:center;gap:4px;margin-bottom:6px;transition:background .2s}
@@ -76,40 +46,13 @@
   .example-block b{color:var(--warm)}
   .example-block .trans{display:block;font-size:.85rem;color:var(--text-lt);margin-top:4px}
 
-  footer{background:var(--green-dk);color:rgba(255,255,255,.65);text-align:center;padding:36px 5%;font-size:.86rem;line-height:1.9}
-  footer span{color:var(--amber)}
   @media(max-width:768px){.flashcard-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-logo">Ray's English Corner</a>
-  <ul class="nav-links">
-    <li><a href="index.html#about">關於 Ray</a></li>
-    <li><a href="index.html#courses">課程</a></li>
-    <li class="dropdown">
-      <a href="javascript:void(0)">私校專區 ▾</a>
-      <div class="dropdown-content">
-        <a href="nba-finals-u5.html">NBA Finals G1 Video</a>
-        <a href="nba-section-v3.html">NBA Finals G1 NEWS</a>
-        <a href="participle-clauses.html">分詞構句</a>
-      </div>
-    </li>
-    <li><a href="experience.html">教學經歷</a></li>
-    <li class="dropdown">
-      <a href="javascript:void(0)">文法 ▾</a>
-      <div class="dropdown-content">
-        <a href="grammar-u5.html">文法 國二U5</a>
-        <a href="grammar-g2u6.html">文法 國二U6</a>
-        <a href="grammar-u6.html">文法 國一U6</a>
-      </div>
-    </li>
-    <li><a href="practice.html">線上練習</a></li>
-    <li><a href="index.html#contact">聯絡我</a></li>
-  </ul>
-</nav>
+<!-- ★ 導覽列：由 main.js 注入 -->
+<div id="site-nav"></div>
 
 <!-- HERO -->
 <div class="hero">
@@ -232,11 +175,13 @@
   </div>
 </main>
 
-<footer>
-  <div>Ray's <span>English</span> Corner</div>
-  <p>© 2026 Ray's English Corner · 雷康誠老師 · 0958-938-383</p>
-</footer>
+<!-- ★ 頁尾：由 main.js 注入 -->
+<div id="site-footer"></div>
 
+<!-- ★ 全站共用腳本 -->
+<script src="main.js"></script>
+
+<!-- 本頁專屬：YouTube Player API + seekTo -->
 <script>
   var tag=document.createElement('script');
   tag.src="https://www.youtube.com/iframe_api";

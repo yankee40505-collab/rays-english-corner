@@ -6,49 +6,17 @@
 <title>Ray's English Corner｜NBA Finals 教材</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 <style>
-:root{
-  --cream:#faf8f2;--cream-d:#ede8d8;--green-dk:#1e4d30;--green-md:#3a7a50;
-  --green-lt:#6db88a;--green-pl:#e2f2e8;--amber:#f5a623;--amber-pl:#fff8ec;
-  --warm:#e07850;--warm-pl:#fdf0ea;--sky:#4a9ebb;--text:#1a2a1a;
-  --text-md:#466046;--text-lt:#7a9a7a;--border:#d5cbb5;--white:#ffffff;
-  --sh:0 4px 20px rgba(30,77,48,.10);--sh-lg:0 12px 48px rgba(30,77,48,.15);
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text);line-height:1.75;overflow-x:hidden}
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--cream-d)}::-webkit-scrollbar-thumb{background:var(--green-lt);border-radius:99px}
-
-/* NAV */
-nav{position:sticky;top:0;z-index:100;background:rgba(250,248,242,.94);backdrop-filter:blur(14px);border-bottom:1.5px solid var(--border);padding:0 5%;height:58px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--green-dk);text-decoration:none}
-.nav-links{display:flex;list-style:none;align-items:center;gap:24px}
-.nav-links a{text-decoration:none;color:var(--text-md);font-weight:700;font-size:.88rem;transition:color .2s}
-.nav-links a:hover{color:var(--green-dk)}
-.dropdown{position:relative}
-.dropdown-content{display:none;position:absolute;top:100%;left:0;background:var(--white);border:1px solid var(--border);border-radius:8px;box-shadow:var(--sh);min-width:160px;z-index:10}
-.dropdown-content a{display:block;padding:10px 16px;font-size:.88rem}
-.dropdown-content a:hover{background:var(--cream)}
-.dropdown:hover .dropdown-content{display:block}
-
-/* HERO */
-.hero{background:linear-gradient(135deg,var(--green-dk) 0%,var(--green-md) 60%,var(--green-lt) 100%);color:#fff;padding:64px 5% 72px;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1px);background-size:24px 24px;pointer-events:none}
-.hero-badge{display:inline-block;background:var(--warm);color:#fff;font-size:.74rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:5px 16px;border-radius:999px;margin-bottom:18px}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,4.5vw,3rem);font-weight:900;line-height:1.18;margin-bottom:12px}
-.hero h1 em{color:var(--amber);font-style:normal}
-.hero-sub{font-size:1rem;opacity:.82;max-width:520px;margin:0 auto 28px}
-.hero-chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+/* ===== 本頁專屬樣式 ===== */
+/* Hero 漸層覆蓋 */
+.hero{background:linear-gradient(135deg,var(--green-dk) 0%,var(--green-md) 60%,var(--green-lt) 100%)}
 .hero-chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);color:#fff;font-size:.8rem;font-weight:700;padding:6px 16px;border-radius:999px;backdrop-filter:blur(4px)}
 
+/* 頁面各區 padding */
 section{padding:88px 5%}
-.section-tag{font-size:.74rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--warm);margin-bottom:8px}
-.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.5rem);font-weight:700;color:var(--green-dk);line-height:1.25;margin-bottom:14px}
-.section-desc{color:var(--text-md);max-width:560px;font-size:.98rem;line-height:1.8}
-.section-head{margin-bottom:52px}
-.inner{max-width:1100px;margin:0 auto}
 
-/* BAND */
+/* SCORE BAND */
 #nba-hero-band{background:var(--green-dk);padding:20px 5%;position:relative;overflow:hidden}
 #nba-hero-band::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:22px 22px}
 .band-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;position:relative;z-index:1}
@@ -83,6 +51,7 @@ section{padding:88px 5%}
 .passage-body p{margin-bottom:.9em}
 .passage-body p:last-child{margin-bottom:0}
 
+/* Highlight tooltip colors */
 .hl{border-radius:4px;padding:1px 4px;font-weight:800;cursor:help;display:inline;transition:filter .12s}
 .hl:hover{filter:brightness(.88)}
 .hl-past{background:rgba(245,166,35,.30);color:#5a3800}
@@ -108,6 +77,7 @@ section{padding:88px 5%}
 .tt-rule{font-size:.78rem;color:rgba(255,255,255,.75);line-height:1.55;margin-bottom:5px}
 .tt-grade{font-size:.67rem;color:rgba(255,255,255,.42);font-weight:700}
 
+/* Right column */
 .right-col{display:flex;flex-direction:column;gap:20px}
 .gram-section-title{font-size:.74rem;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:var(--warm);margin-bottom:12px}
 .gram-list{display:flex;flex-direction:column;gap:10px}
@@ -136,6 +106,7 @@ section{padding:88px 5%}
 .vp-pos{font-size:.65rem;color:rgba(255,255,255,.4);margin-bottom:2px}
 .vp-zh{font-size:.78rem;color:rgba(255,255,255,.6)}
 
+/* CTA */
 #nba-cta{background:var(--warm-pl);position:relative;overflow:hidden;padding:64px 5%}
 #nba-cta::before{content:'';position:absolute;top:-80px;right:-80px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(224,120,80,.12) 0%,transparent 70%);pointer-events:none}
 .cta-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
@@ -161,33 +132,8 @@ section{padding:88px 5%}
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-logo">Ray's English Corner</a>
-  <ul class="nav-links">
-    <li><a href="index.html#about">關於 Ray</a></li>
-    <li><a href="index.html#courses">課程</a></li>
-    <li class="dropdown">
-      <a href="javascript:void(0)">私校專區 ▾</a>
-      <div class="dropdown-content">
-        <a href="nba-finals-u5.html">NBA Finals G1 Video</a>
-        <a href="nba-section-v3.html">NBA Finals G1 NEWS</a>
-        <a href="participle-clauses.html">分詞構句</a>
-      </div>
-    </li>
-    <li><a href="experience.html">教學經歷</a></li>
-    <li class="dropdown">
-      <a href="javascript:void(0)">文法 ▾</a>
-      <div class="dropdown-content">
-        <a href="grammar-u5.html">文法 國二U5</a>
-        <a href="grammar-g2u6.html">文法 國二U6</a>
-        <a href="grammar-u6.html">文法 國一U6</a>
-      </div>
-    </li>
-    <li><a href="practice.html">線上練習</a></li>
-    <li><a href="index.html#contact">聯絡我</a></li>
-  </ul>
-</nav>
+<!-- ★ 導覽列：由 main.js 注入 -->
+<div id="site-nav"></div>
 
 <!-- HERO -->
 <div class="hero">
@@ -395,6 +341,13 @@ on Friday in San Antonio.</p>
 
 <div id="hl-tooltip"><div class="tt-box"><div class="tt-arrow" id="tt-arrow"></div><div class="tt-cat" id="tt-cat"></div><div class="tt-word" id="tt-word"></div><div class="tt-rule" id="tt-rule"></div><div class="tt-grade" id="tt-grade"></div></div></div>
 
+<!-- ★ 頁尾：由 main.js 注入 -->
+<div id="site-footer"></div>
+
+<!-- ★ 全站共用腳本 -->
+<script src="main.js"></script>
+
+<!-- 本頁專屬：文法展開 + hover tooltip -->
 <script>
 function toggleG(header){
   const item=header.closest('.gram-item');
