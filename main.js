@@ -25,10 +25,11 @@ const NAV_ITEMS = [
   { label: '教學經歷',  href: 'experience.html' },
   {
     label: '文法',
-    children: [
+  children: [
       { label: '文法 國二U5', href: 'grammar-u5.html' },
       { label: '文法 國二U6', href: 'grammar-g2u6.html' },
       { label: '文法 國一U6', href: 'grammar-u6.html' },
+      { label: '文法 國一U5', href: 'grammar-g1-u5.html' },
     ],
   },
   { label: '線上練習',  href: 'practice.html' },
