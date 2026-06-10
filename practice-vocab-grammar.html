@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>字彙與文法練習｜Ray's English Corner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .page-hero{background:var(--green-dk);padding:64px 5% 56px;text-align:center;position:relative;overflow:hidden;}
+  .page-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:24px 24px;}
+  .page-hero .eyebrow{font-size:0.74rem;font-weight:900;letter-spacing:0.15em;text-transform:uppercase;color:var(--green-lt);margin-bottom:10px;}
+  .page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#fff;margin-bottom:14px;}
+  .page-hero p{color:rgba(255,255,255,0.65);max-width:540px;margin:0 auto;font-size:1rem;}
+
+  main{max-width:1100px;margin:0 auto;padding:56px 5% 80px;}
+  .cat-label{font-size:0.78rem;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-lt);margin-bottom:14px;}
+  .cats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px;}
+  .cat-btn{background:var(--white);border:2px solid var(--border);border-radius:50px;padding:9px 22px;font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:800;color:var(--text-md);cursor:pointer;transition:all .18s;}
+  .cat-btn:hover{border-color:var(--green-lt);background:var(--green-pl);color:var(--green-dk);}
+  .cat-btn.active{background:var(--green-dk);border-color:var(--green-dk);color:#fff;}
+  .cat-btn .cnt{display:inline-block;background:rgba(255,255,255,0.2);border-radius:99px;padding:1px 7px;font-size:0.75rem;margin-left:5px;}
+  .cat-btn:not(.active) .cnt{background:var(--cream-d);color:var(--text-lt);}
+
+  .score-bar{display:flex;align-items:center;gap:16px;background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:16px 22px;margin-bottom:28px;box-shadow:var(--sh);}
+  .score-bar .sb-label{font-size:0.82rem;font-weight:800;color:var(--text-lt);}
+  .score-bar .sb-val{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--green-dk);}
+  .score-bar .sb-sep{width:1.5px;height:32px;background:var(--border);}
+  .pb-wrap{flex:1;background:var(--cream-d);border-radius:99px;height:8px;overflow:hidden;}
+  .pb-fill{height:100%;background:linear-gradient(90deg,var(--green-md),var(--green-lt));border-radius:99px;transition:width .4s ease;}
+
+  .q-grid{display:flex;flex-direction:column;gap:20px;}
+  .q-card{background:var(--white);border:1.5px solid var(--border);border-radius:18px;padding:28px;box-shadow:var(--sh);transition:box-shadow .2s;}
+  .q-card:hover{box-shadow:var(--sh-lg);}
+  .q-meta{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+  .q-num{background:var(--green-dk);color:#fff;font-size:0.78rem;font-weight:900;padding:3px 11px;border-radius:99px;}
+  .q-tag{font-size:0.76rem;font-weight:800;padding:3px 10px;border-radius:99px;}
+  .q-tag.tag-vocab{background:var(--sky-pl);color:#1a5a7a;border:1px solid rgba(74,158,187,.25);}
+  .q-tag.tag-grammar{background:var(--amber-pl);color:#a06800;border:1px solid rgba(245,166,35,.25);}
+  .q-text{font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:18px;line-height:1.6;white-space:pre-line;}
+  .q-opts{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+  .q-opt{background:var(--cream);border:2px solid var(--border);border-radius:11px;padding:10px 15px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:700;color:var(--text);transition:all .15s;text-align:left;}
+  .q-opt:hover:not(:disabled){border-color:var(--green-lt);background:var(--green-pl);transform:translateX(2px);}
+  .q-opt.correct{border-color:var(--green-md);background:var(--green-pl);color:var(--green-dk);}
+  .q-opt.wrong{border-color:#e07070;background:#fdf0f0;color:#b84040;}
+  .q-opt:disabled{cursor:default;}
+  .q-exp{margin-top:14px;padding:11px 14px;border-radius:10px;font-size:0.88rem;font-weight:700;line-height:1.65;display:none;}
+  .q-exp.show{display:block;}
+  .q-exp.correct{background:var(--green-pl);color:var(--green-dk);}
+  .q-exp.wrong{background:#fdf0f0;color:#b84040;}
+
+  .result-banner{display:none;background:linear-gradient(135deg,var(--green-dk),var(--green-md));border-radius:20px;padding:36px;text-align:center;color:#fff;margin-bottom:28px;}
+  .result-banner.show{display:block;}
+  .rb-score{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;line-height:1;}
+  .rb-msg{margin:10px 0 20px;font-size:1rem;opacity:.85;line-height:1.7;}
+  .rb-btn{background:#fff;color:var(--green-dk);border:none;border-radius:50px;padding:11px 28px;font-family:'Nunito',sans-serif;font-size:0.92rem;font-weight:900;cursor:pointer;transition:transform .15s;}
+  .rb-btn:hover{transform:translateY(-2px);}
+  .done-cta{text-align:center;margin-top:36px;display:none;}
+  .done-cta.show{display:block;}
+  .submit-all{background:linear-gradient(135deg,var(--green-dk),var(--green-md));color:#fff;border:none;border-radius:50px;padding:14px 40px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;cursor:pointer;box-shadow:0 6px 20px rgba(30,77,48,.25);transition:transform .15s,box-shadow .15s;}
+  .submit-all:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(30,77,48,.3);}
+  @media(max-width:700px){.q-opts{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div id="site-nav"></div>
+
+<div class="page-hero">
+  <div class="eyebrow">Vocabulary &amp; Grammar</div>
+  <h1>字彙與文法練習 ✏️</h1>
+  <p>選一個主題，從頭做到尾，答完馬上看解析。<br>搞懂每一題，才是真的學會！</p>
+</div>
+
+<main>
+  <div class="cat-label">選擇練習主題</div>
+  <div class="cats" id="cats"></div>
+  <div class="score-bar" id="scoreBar">
+    <div>
+      <div class="sb-label">目前得分</div>
+      <div class="sb-val" id="scoreVal">0 / 0</div>
+    </div>
+    <div class="sb-sep"></div>
+    <div style="flex:1;">
+      <div class="sb-label" style="margin-bottom:6px;">答題進度</div>
+      <div class="pb-wrap"><div class="pb-fill" id="pbFill" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div class="result-banner" id="resultBanner">
+    <div class="rb-score" id="rbScore"></div>
+    <div class="rb-msg" id="rbMsg"></div>
+    <button class="rb-btn" onclick="resetQuiz()">🔄 重新練習這個主題</button>
+  </div>
+  <div class="q-grid" id="qGrid"></div>
+  <div class="done-cta" id="doneCta">
+    <p style="color:var(--text-md);margin-bottom:16px;font-weight:700;">所有題目都做完了！</p>
+    <button class="submit-all" onclick="showResult()">查看成績 →</button>
+  </div>
+</main>
+
+<div id="site-footer"></div>
+<script src="main.js"></script>
+
+<script>
+const bank = {
+  '字彙練習（Vocabulary）': [
+    {type:'mc',q:"There are many animals at the ______. You can see lions, elephants, and giraffes there.",opts:["hospital","zoo","factory","supermarket"],ans:1,exp:"zoo（動物園）是飼養各種動物供大眾參觀的地方，符合題意。"},
+    {type:'mc',q:"My father goes to the ______ every morning to buy fresh vegetables and fruit.",opts:["museum","airport","market","stadium"],ans:2,exp:"market（市場）是購買生鮮食材的地方，符合 buy fresh vegetables and fruit 的情境。"},
+    {type:'mc',q:"There are a lot of planes landing（降落）and taking off（起飛）at the ______.",opts:["theater","airport","restaurant","market"],ans:1,exp:"airport（機場）是飛機起降的地方，planes landing and taking off 是關鍵線索。"},
+    {type:'mc',q:"Grandma often goes to the ______ near our place and prays（祈求）for safety（平安）for all our family.",opts:["bookstore","hotel","sight","temple"],ans:3,exp:"temple（廟宇）是人們前往祈求平安的宗教場所，符合 prays for safety 的情境。"},
+    {type:'mc',q:"Students go to the school ______ to borrow books and do research for their projects.",opts:["cafeteria","library","gym","garden"],ans:1,exp:"library（圖書館）是借閱書籍和查找資料的地方，符合 borrow books and do research。"},
+    {type:'mc',q:"The audience clapped and cheered at the end of the show at the ______. It was a wonderful performance.",opts:["airport","temple","theater","market"],ans:2,exp:"theater（劇院/戲院）是欣賞表演的場所，audience（觀眾）和 performance（演出）是關鍵線索。"},
+    {type:'mc',q:"There is a famous ______ in our town. People come from all over to pray and ask for good luck.",opts:["bookstore","hotel","library","temple"],ans:3,exp:"temple（廟宇）是供人祈求、求好運的宗教場所，符合 pray and ask for good luck。"},
+    {type:'mc',q:"The baby keeps ______ in the room. She must be hungry or tired.",opts:["laughing","sleeping","crying","jumping"],ans:2,exp:"crying（哭泣）對應後文「她一定是餓了或累了」的情境，嬰兒哭鬧通常是這兩個原因。"},
+    {type:'mc',q:"Luckily, the driver did not ______; he just hurt his arm in the accident.",opts:["lose his job","lose his life","lose his way","lose his wallet"],ans:1,exp:"lose his life（喪命）與後面的轉折 just hurt his arm（只是手臂受傷）形成對比，呼應 Luckily（幸好）。"},
+    {type:'mc',q:"The children are very ______ today. They keep running and shouting in the house.",opts:["quiet","noisy","tired","sleepy"],ans:1,exp:"noisy（吵鬧的）對應 keep running and shouting（不斷跑跳喊叫），是正確描述。"},
+    {type:'mc',q:"My grandparents always go to the ______ on Sunday mornings. They say it helps them feel peaceful.",opts:["stadium","hotel","temple","cinema"],ans:2,exp:"temple（廟宇）是讓人感到平靜與心靈寄託的宗教場所，符合 feel peaceful 的描述。"},
+    {type:'mc',q:"Planes take off and land at the ______. My family goes there every time we travel abroad.",opts:["station","harbor","airport","mall"],ans:2,exp:"airport（機場）是飛機起降的地方，travel abroad（出國旅遊）必定使用機場。"},
+    {type:'mc',q:"My mother goes to the ______ twice a week to buy fish, vegetables, and tofu.",opts:["museum","market","theater","office"],ans:1,exp:"market（市場）販賣各種生鮮食材，符合 buy fish, vegetables, and tofu 的情境。"},
+    {type:'mc',q:"How come our baby son is ______ in the bedroom? He can't be hungry.",opts:["hiding","falling","crying","changing"],ans:2,exp:"crying（哭泣）對應 He can't be hungry，暗示嬰兒在哭，但說話者認為不是因為肚子餓。"},
+    {type:'mc',q:"We watched a great play at the ______ last Friday night. The actors were amazing.",opts:["airport","zoo","theater","temple"],ans:2,exp:"theater（劇院）是觀看舞台劇的場所，actors（演員）和 play（戲劇）是關鍵線索。"},
+    {type:'mc',q:"Luckily, Greg did not ______; he just broke（摔斷）both his legs.",opts:["hide from everyone","lose his life","fall in love","last forever"],ans:1,exp:"lose his life（喪命）與 just broke both his legs（只是摔斷了雙腿）形成轉折，呼應 Luckily。"},
+    {type:'mc',q:"The school ______ is a great place to sit and read. There are thousands of books inside.",opts:["cafeteria","library","gym","theater"],ans:1,exp:"library（圖書館）存有大量書籍供閱讀，thousands of books 是直接線索。"},
+    {type:'mc',q:"I saw many cute animals like pandas and penguins at the ______ last weekend.",opts:["hospital","zoo","factory","bank"],ans:1,exp:"zoo（動物園）飼養熊貓、企鵝等各種動物，符合題意。"},
+    {type:'mc',q:"The little girl kept ______ when she lost her toy. Her mother tried to cheer her up.",opts:["singing","dancing","crying","reading"],ans:2,exp:"crying（哭泣）對應 lost her toy（失去玩具），情境邏輯一致。cheer her up（讓她開心）也呼應孩子在哭。"},
+    {type:'mc',q:"Fortunately, no one ______ in the fire. Everyone got out of the building safely.",opts:["lost their job","lost their life","lost their way","lost their bag"],ans:1,exp:"lose their life（喪命）配合 Fortunately（幸好）和 everyone got out safely（大家都安全逃出），邏輯完整。"},
+    {type:'mc',q:"We had to wait for two hours at the ______ because our flight was delayed.",opts:["theater","market","airport","temple"],ans:2,exp:"airport（機場）是搭飛機的地方，flight（班機）和 delayed（延誤）是關鍵線索。"},
+    {type:'mc',q:"My grandfather visits the old ______ on the hill every morning. He says praying makes him calm.",opts:["hotel","zoo","temple","stadium"],ans:2,exp:"temple（廟宇）符合 praying（祈禱）和 calm（平靜）的描述，on the hill（山丘上）也是常見廟宇地點。"},
+    {type:'mc',q:"The toddler is ______ because he wants more milk. His face is all red.",opts:["hiding","laughing","crying","sleeping"],ans:2,exp:"crying（哭泣）對應想要更多牛奶卻得不到的情境，face is all red（臉全紅了）也暗示在哭。"},
+    {type:'mc',q:"There were fresh fruits, vegetables, and seafood at the morning ______.",opts:["library","market","theater","museum"],ans:1,exp:"market（市場）販賣水果、蔬菜、海鮮等生鮮食材，符合 fresh fruits, vegetables, and seafood。"},
+    {type:'mc',q:"Luckily, the old man did not ______. He was taken to the hospital in time.",opts:["lose his keys","lose his life","lose his phone","lose his hat"],ans:1,exp:"lose his life（喪命）配合 Luckily（幸好）和 taken to the hospital in time（及時送醫），邏輯完整。"}
+  ],
+  '文法練習（Grammar）': [
+    {type:'mc',q:"______ math, I also need to study science tonight. There are so many tests this week.",opts:["Because of","Besides","Instead of","Thanks to"],ans:1,exp:"Besides（除了…之外還有）表示「額外補充」，我「除了」數學之外「還要」讀自然。Because of / Thanks to 表原因；Instead of 表替換，語意不符。"},
+    {type:'mc',q:"Anna: Who read the line on my phone?\nRick: Mom ______. Be sure to put your phone in a safe place.",opts:["was","is","did","does"],ans:2,exp:"這是一般動詞 read 的過去式問答。誰「做了」這個動作，要用助動詞 did 代替 read。was/is 是 Be 動詞，does 是現在式，均不符。"},
+    {type:'mc',q:"Greg put the money in a safe place, but I ______. Sadly, I lost all my money.",opts:["am not","wasn't","do not","didn't"],ans:1,exp:"前半句用過去式 put，後半句也要用過去式。「我（那時）沒有把錢放安全的地方」→ wasn't 搭配「be 動詞過去否定」。但前後文為一般動詞語境，此處考 be 動詞的過去否定配置。"},
+    {type:'mc',q:"Jack: When did you ______ your wife Lisa?\nBrad: I ______ her in 2012.",opts:["know; knew","knew; know","meet; met","knew; knew"],ans:2,exp:"meet（認識/第一次見面）是此情境最自然的動詞。問句用 did + 原形 meet，回答用過去式 met。know 表「認識」但更偏向「持續了解」的狀態，不是第一次相遇的動作。"},
+    {type:'mc',q:"Lulu: ______ you like the trip to Angkor Wat?\nOwen: It was great.",opts:["Did","How did","Where","How were"],ans:0,exp:"回答 It was great 是對「喜不喜歡」的回應，所以問句是 Did you like...（你喜歡嗎）。How did 後面接動詞原形，How were 後接形容詞，均不符問答邏輯。"},
+    {type:'mc',q:"The Taj Mahal is a famous building in India, ______.",opts:["but not many people travel to India for it","and the story behind it is well known, too","but only King Shah Jahan rests there forever","and it is a quiet place for people around the world"],ans:1,exp:"泰姬瑪哈陵是知名世界遺產，選項 B「它背後的故事也廣為人知」是合理且真實的延伸資訊。其他選項描述有明顯錯誤或邏輯不通。"},
+    {type:'mc',q:"Max loves computer games so much. ______ He plays them for long hours every day.",opts:["You know what?","Good to know them again.","His love for them does not last long.","He is happy to visit one."],ans:0,exp:"You know what?（你知道嗎？）是口語中引起注意、帶出重點的常用句型。後面說他每天玩很久，與「非常愛電動」的前句邏輯一致。選項 C 與前句矛盾。"},
+    {type:'mc',q:"______ English, Kevin also studies Japanese at school. He loves learning languages.",opts:["Because of","Instead of","Besides","Thanks to"],ans:2,exp:"Besides（除了…之外還有）：Kevin「除了」英文「還學」日文。Because of / Thanks to 表原因；Instead of 表取代某件事，語意均不符。"},
+    {type:'mc',q:"Jenny: Who broke the window?\nTim: I'm not sure. It ______ the wind.",opts:["did","was","does","is"],ans:1,exp:"It was the wind.（是風造成的）是用 Be 動詞過去式 was 表達「原因/主體」，而非用一般動詞 did。did 後面需接原形動詞。"},
+    {type:'mc',q:"I put my notebook in my bag last night, but it ______ there this morning. I must have dropped it.",opts:["isn't","wasn't","doesn't","didn't"],ans:1,exp:"這裡描述「今天早上（過去時間點）筆記本不在那裡」，Be 動詞過去否定用 wasn't。wasn't 是 was not 的縮寫，表狀態。"},
+    {type:'mc',q:"Nina: When did you ______ your new neighbor?\nOscar: I ______ her last Saturday morning.",opts:["know; knew","meet; met","saw; see","find; found"],ans:1,exp:"meet（第一次見到）是「認識新鄰居」最自然的動詞。問句 did + 原形 meet，回答用過去式 met。saw; see 時態顛倒；saw 雖是過去式但非本句最佳選擇。"},
+    {type:'mc',q:"Victor: ______ you feel scared during the earthquake?\nWendy: Yes! I was very frightened.",opts:["Were","Are","Did","Do"],ans:2,exp:"feel 是一般動詞，問句用助動詞。回答 I was very frightened 是過去時態，故問句用 Did（一般動詞過去式問句）。Were 是 Be 動詞，接形容詞，此處接一般動詞 feel，故選 Did。"},
+    {type:'mc',q:"The Eiffel Tower is a well-known landmark in France, ______.",opts:["but not many people know what it looks like","and millions of tourists visit it every year","but only artists are allowed to go inside","and it is a quiet place for locals to study"],ans:1,exp:"艾菲爾鐵塔是全球最多遊客造訪的景點之一，選項 B「每年有數百萬遊客前往」是合理且真實的延伸。其他選項描述不符合事實。"},
+    {type:'mc',q:"Sam loves playing basketball so much. ______ He goes to the court every day after school.",opts:["He is so good at it.","No one can stop him.","His love for the sport never ends.","You know what?"],ans:2,exp:"His love for the sport never ends.（他對這項運動的熱愛永不停歇）與前句「非常愛打籃球」及後句「每天放學後去球場」邏輯一致，自然連接。"},
+    {type:'mc',q:"Fiona: Who ate the last piece of cake?\nGary: Your brother ______. I saw him in the kitchen.",opts:["is","was","does","did"],ans:3,exp:"ate 是一般動詞過去式，回答「是誰做了這件事」要用助動詞 did 代替。was 是 Be 動詞，語意為「你哥哥在廚房」而非「你哥哥吃了蛋糕」，意思不同。"},
+    {type:'mc',q:"I kept my money in my wallet, but it ______ full when I checked it later.",opts:["isn't","wasn't","doesn't","didn't"],ans:1,exp:"when I checked it later（後來我查看的時候）是過去時間點。錢包「（那時）不是」滿的 → Be 動詞過去否定 wasn't。"},
+    {type:'mc',q:"Helen: When did you first ______ English?\nIvan: I ______ learning it when I was six years old.",opts:["learn; started","learned; start","start; learned","started; learn"],ans:0,exp:"問句 did + 原形動詞 learn（第一空）。回答中 started 是過去式，started learning 表示「開始學習」，是自然搭配。started + V-ing 或 started + to V 均正確。"},
+    {type:'mc',q:"Mount Fuji is a well-known mountain in Japan, ______.",opts:["but most people have never heard of it","and many hikers try to climb it every year","but only monks are allowed to hike it","and it is far away from all major cities"],ans:1,exp:"富士山是日本最著名的山，每年吸引大量登山客，選項 B 為符合現實的延伸敘述。其他選項描述不符事實。"},
+    {type:'mc',q:"Nick: Who left the door open last night?\nOlive: Your little sister ______. She forgot to close it.",opts:["did","was","does","is"],ans:0,exp:"left 是一般動詞過去式，代替「做了這件事（leave the door open）」用助動詞 did。was 是 Be 動詞，does/is 為現在式，均不符。"},
+    {type:'mc',q:"Lucy: ______ did you feel when you heard the good news?\nMike: I was so happy!",opts:["What","How","Where","Why"],ans:1,exp:"回答是 I was so happy!（我非常開心），表示「感受/狀態」，問感受用 How（你感覺怎麼樣）。What 後接名詞；Where 問地點；Why 問原因，均不符。"},
+    {type:'mc',q:"______ science, Lisa also takes art classes every Saturday. She is a very busy student.",opts:["Thanks to","Besides","Because of","Instead of"],ans:1,exp:"Besides（除了…之外還有）：Lisa「除了」自然科「還上」藝術課。Thanks to / Because of 表原因；Instead of 表取代，均不符句意。"},
+    {type:'mc',q:"Ken: Who called you yesterday?\nMia: My teacher ______. She reminded me about the test.",opts:["is","does","did","was"],ans:2,exp:"called 是一般動詞過去式，代替「打了電話（call）這個動作」要用助動詞 did。was 是 Be 動詞，is/does 為現在式，均不符。"},
+    {type:'mc',q:"I left my keys on the desk, but they ______ there when I came back.",opts:["aren't","weren't","don't","didn't"],ans:1,exp:"when I came back（當我回來的時候）是過去時間點。鑰匙「（那時）不在那裡」→ Be 動詞過去否定 weren't（複數主詞 they）。"},
+    {type:'mc',q:"Ryan: ______ you enjoy the concert last night?\nSophia: It was the best one I've ever been to!",opts:["Were","Are","Do","Did"],ans:3,exp:"enjoy 是一般動詞，last night 是過去時間，問句用 Did（一般動詞過去式問句）。Were 是 Be 動詞；Are/Do 是現在式，均不符。"},
+    {type:'mc',q:"Tina loves reading books so much. ______ She reads at least one book every week.",opts:["Do you know what?","Good to see her again.","His love for books never fades.","Her love for books never fades."],ans:3,exp:"主詞是 Tina（女性，第三人稱），所以用 Her（她的），不能用 His（他的）。Her love for books never fades.（她對書的熱愛永不消退）與前後句邏輯完全一致。"}
+  ]
+};
+
+// ─── Quiz Engine ──────────────────────────────────────────────────────────────
+let currentCat = null;
+let answered = {};
+let correct = 0;
+let total = 0;
+
+function initCats() {
+  const wrap = document.getElementById('cats');
+  wrap.innerHTML = '';
+  Object.keys(bank).forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn';
+    btn.innerHTML = cat + `<span class="cnt">${bank[cat].length}</span>`;
+    btn.onclick = () => loadCat(cat);
+    wrap.appendChild(btn);
+  });
+  loadCat(Object.keys(bank)[0]);
+}
+
+function loadCat(cat) {
+  currentCat = cat;
+  answered = {};
+  correct = 0;
+  total = bank[cat].length;
+
+  document.querySelectorAll('.cat-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.startsWith(cat));
+  });
+  document.getElementById('resultBanner').classList.remove('show');
+  document.getElementById('doneCta').classList.remove('show');
+  updateScore();
+  renderQuestions();
+}
+
+function updateScore() {
+  const done = Object.keys(answered).length;
+  document.getElementById('scoreVal').textContent = `${correct} / ${total}`;
+  document.getElementById('pbFill').style.width = total ? `${(done / total) * 100}%` : '0%';
+}
+
+function renderQuestions() {
+  const grid = document.getElementById('qGrid');
+  grid.innerHTML = '';
+  const qs = bank[currentCat];
+  qs.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = `q${i}`;
+
+    const tagClass = currentCat.includes('字彙') ? 'tag-vocab' : 'tag-grammar';
+    const tagLabel = currentCat.includes('字彙') ? 'Vocabulary' : 'Grammar';
+
+    let optsHTML = '';
+    const letters = ['(A)','(B)','(C)','(D)'];
+    q.opts.forEach((opt, j) => {
+      optsHTML += `<button class="q-opt" onclick="answer(${i},${j})" id="opt${i}_${j}">${letters[j]} ${opt}</button>`;
+    });
+
+    card.innerHTML = `
+      <div class="q-meta">
+        <span class="q-num">${i + 1}</span>
+        <span class="q-tag ${tagClass}">${tagLabel}</span>
+      </div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-opts">${optsHTML}</div>
+      <div class="q-exp" id="exp${i}"></div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function answer(qIdx, optIdx) {
+  if (answered[qIdx] !== undefined) return;
+  const q = bank[currentCat][qIdx];
+  answered[qIdx] = optIdx;
+
+  const isCorrect = optIdx === q.ans;
+  if (isCorrect) correct++;
+
+  // Style options
+  q.opts.forEach((_, j) => {
+    const btn = document.getElementById(`opt${qIdx}_${j}`);
+    btn.disabled = true;
+    if (j === q.ans) btn.classList.add('correct');
+    else if (j === optIdx) btn.classList.add('wrong');
+  });
+
+  // Show explanation
+  const exp = document.getElementById(`exp${qIdx}`);
+  exp.textContent = (isCorrect ? '✅ 答對了！' : '❌ 答錯了。') + '　' + (q.exp || '');
+  exp.className = `q-exp show ${isCorrect ? 'correct' : 'wrong'}`;
+
+  updateScore();
+
+  if (Object.keys(answered).length === total) {
+    document.getElementById('doneCta').classList.add('show');
+  }
+}
+
+function showResult() {
+  const pct = Math.round((correct / total) * 100);
+  let msg = '';
+  if (pct >= 90) msg = '太厲害了！你對這個主題掌握得非常好。';
+  else if (pct >= 70) msg = '不錯喔！再複習一下答錯的題目，你就更強了。';
+  else if (pct >= 50) msg = '有進步空間！建議重新練習一遍。';
+  else msg = '加油！多練幾次，一定會進步的。';
+
+  document.getElementById('rbScore').textContent = `${correct} / ${total}`;
+  document.getElementById('rbMsg').textContent = `正確率 ${pct}%　${msg}`;
+  document.getElementById('resultBanner').classList.add('show');
+  document.getElementById('doneCta').classList.remove('show');
+  document.getElementById('resultBanner').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function resetQuiz() {
+  loadCat(currentCat);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.addEventListener('DOMContentLoaded', initCats);
+</script>
+</body>
+</html>
