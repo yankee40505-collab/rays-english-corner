@@ -136,6 +136,54 @@ section{padding:88px 5%}
 
 @media(max-width:860px){.material-layout{grid-template-columns:1fr}.cta-inner{flex-direction:column}.cta-right{align-items:stretch;width:100%}.cta-btn-main,.cta-btn-sec{justify-content:center}}
 @media(max-width:600px){.band-inner{flex-direction:column;align-items:flex-start;gap:12px}.scorebug{align-self:stretch;justify-content:center}.series-banner{align-self:stretch;justify-content:center}.vocab-grid{grid-template-columns:1fr}}
+
+/* ===== 複習系統 ===== */
+#review-tabs{display:flex;gap:10px;margin-bottom:32px;flex-wrap:wrap}
+.rtab{background:var(--white);border:2px solid var(--border);border-radius:50px;padding:10px 26px;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:800;color:var(--text-lt);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px}
+.rtab:hover{border-color:var(--green-md);color:var(--green-dk)}
+.rtab.active{background:var(--green-dk);border-color:var(--green-dk);color:#fff}
+.rtab-count{font-size:.72rem;padding:2px 9px;border-radius:99px;background:rgba(255,255,255,.2);font-weight:900}
+.rtab:not(.active) .rtab-count{background:var(--border);color:var(--text-lt)}
+
+/* 測驗 */
+.rpanel{}
+.quiz-q{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:24px 28px;margin-bottom:16px;transition:border-color .2s}
+.quiz-qnum{font-size:.68rem;font-weight:900;color:var(--text-lt);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.quiz-qtext{font-size:.97rem;font-weight:700;color:var(--text);line-height:1.65;margin-bottom:16px}
+.quiz-opts{display:flex;flex-direction:column;gap:8px}
+.quiz-opt{background:var(--cream);border:1.5px solid var(--border);border-radius:12px;padding:11px 18px;font-size:.88rem;font-weight:700;color:var(--text-md);cursor:pointer;text-align:left;font-family:'Nunito',sans-serif;transition:all .18s}
+.quiz-opt:hover:not(:disabled){background:var(--green-pl);border-color:var(--green-md);color:var(--green-dk)}
+.quiz-opt.correct{background:#d4f5e2;border-color:#2ecc71;color:#1a6636}
+.quiz-opt.wrong{background:#fde8e8;border-color:#e74c3c;color:#8b1a1a}
+.quiz-opt:disabled{cursor:default}
+.quiz-explain{margin-top:12px;background:var(--green-pl);border-left:3px solid var(--green-md);border-radius:0 12px 12px 0;padding:10px 16px;font-size:.82rem;color:var(--text-md);line-height:1.7;display:none}
+.quiz-explain.show{display:block}
+.quiz-explain strong{color:var(--green-dk)}
+#quiz-score-display{background:linear-gradient(135deg,var(--green-dk) 0%,var(--green-md) 100%);color:#fff;border-radius:24px;padding:36px;text-align:center}
+#quiz-score-display .sc-num{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;line-height:1}
+#quiz-score-display .sc-label{font-size:.9rem;color:rgba(255,255,255,.75);margin-top:6px}
+#quiz-score-display .sc-msg{font-size:1.05rem;font-weight:800;margin-top:14px}
+
+/* 閃卡 */
+#flash-meta{text-align:center;margin-bottom:20px;font-size:.82rem;font-weight:800;color:var(--text-lt);letter-spacing:.08em}
+#flash-stage{perspective:1000px;max-width:540px;margin:0 auto}
+.flashcard{width:100%;height:220px;cursor:pointer;position:relative}
+.fc-inner{width:100%;height:100%;transition:transform .5s ease;transform-style:preserve-3d;position:relative}
+.fc-inner.flipped{transform:rotateY(180deg)}
+.fc-front,.fc-back{position:absolute;inset:0;border-radius:24px;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;text-align:center}
+.fc-front{background:linear-gradient(148deg,var(--green-dk) 0%,var(--green-md) 100%);box-shadow:0 8px 32px rgba(30,77,48,.25)}
+.fc-front .fc-pos{font-size:.68rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:10px}
+.fc-front .fc-word{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:#fff;line-height:1.2}
+.fc-back{background:var(--white);border:2px solid var(--border);transform:rotateY(180deg);box-shadow:0 8px 32px rgba(0,0,0,.08)}
+.fc-back .fc-zh{font-size:1.3rem;font-weight:900;color:var(--green-dk);margin-bottom:8px}
+.fc-back .fc-note{font-size:.8rem;color:var(--text-md);line-height:1.65;max-width:380px}
+.fc-hint{text-align:center;font-size:.75rem;color:var(--text-lt);margin-top:12px;font-weight:700}
+#flash-nav{display:flex;justify-content:center;gap:12px;margin-top:24px;flex-wrap:wrap}
+.fnav-btn{background:var(--white);border:2px solid var(--border);border-radius:50px;padding:10px 28px;font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:800;color:var(--text-md);cursor:pointer;transition:all .2s}
+.fnav-btn:hover{border-color:var(--green-md);color:var(--green-dk)}
+.fnav-btn.primary{background:var(--green-dk);border-color:var(--green-dk);color:#fff}
+.fnav-btn.primary:hover{background:var(--green-md)}
+@media(max-width:600px){.flashcard{height:200px}.fc-front .fc-word{font-size:1.5rem}}
 </style>
 </head>
 <body>
@@ -373,10 +421,53 @@ Anunoby for a winning putback.</p>
         <div class="cta-stat"><div class="n">12</div><div class="l">單字閃卡</div></div>
         <div class="cta-stat"><div class="n">5</div><div class="l">文法考點</div></div>
       </div>
-      <a class="cta-btn-main" href="#">🏀 開啟互動複習系統</a>
+      <a class="cta-btn-main" href="#review-section" onclick="setTimeout(()=>openTab('quiz'),400)">🏀 開啟互動複習系統</a>
       <button class="cta-btn-sec" onclick="window.print()">🖨️ 列印本頁講義</button>
     </div>
   </div>
+</section>
+
+<!-- ====== 互動複習系統 ====== -->
+<section id="review-section" style="background:var(--cream);padding:72px 5%">
+<div class="inner">
+  <div class="section-head">
+    <p class="section-tag">互動複習系統</p>
+    <h2 class="section-title">Quiz &amp; Flashcards<br><span style="font-style:italic;color:var(--warm)">— Game 4 重點複習</span></h2>
+  </div>
+
+  <!-- Tab 切換 -->
+  <div id="review-tabs">
+    <button class="rtab active" id="tab-quiz" onclick="openTab('quiz')">📝 測驗 <span class="rtab-count">8 題</span></button>
+    <button class="rtab" id="tab-flash" onclick="openTab('flash')">🃏 閃卡 <span class="rtab-count">12 張</span></button>
+  </div>
+
+  <!-- ── 測驗區 ── -->
+  <div id="panel-quiz" class="rpanel">
+    <div id="quiz-wrap"></div>
+    <div id="quiz-result" style="display:none">
+      <div id="quiz-score-display"></div>
+      <button class="cta-btn-main" style="margin-top:20px" onclick="resetQuiz()">🔄 再試一次</button>
+    </div>
+  </div>
+
+  <!-- ── 閃卡區 ── -->
+  <div id="panel-flash" class="rpanel" style="display:none">
+    <div id="flash-meta"></div>
+    <div id="flash-stage">
+      <div class="flashcard" id="fc" onclick="flipCard()">
+        <div class="fc-inner" id="fc-inner">
+          <div class="fc-front" id="fc-front"></div>
+          <div class="fc-back"  id="fc-back"></div>
+        </div>
+      </div>
+      <p class="fc-hint" id="fc-hint">點擊卡片翻面查看解說</p>
+    </div>
+    <div id="flash-nav">
+      <button class="fnav-btn" onclick="prevCard()">← 上一張</button>
+      <button class="fnav-btn primary" onclick="nextCard()">下一張 →</button>
+    </div>
+  </div>
+</div>
 </section>
 
 <div id="hl-tooltip"><div class="tt-box"><div class="tt-arrow" id="tt-arrow"></div><div class="tt-cat" id="tt-cat"></div><div class="tt-word" id="tt-word"></div><div class="tt-rule" id="tt-rule"></div><div class="tt-grade" id="tt-grade"></div></div></div>
@@ -441,6 +532,156 @@ document.querySelectorAll('.hl').forEach(el=>{
     hideTimer=setTimeout(()=>tip.classList.remove('show'),120);
   });
 });
+
+/* ===== 複習系統 JS ===== */
+function openTab(tab){
+  document.getElementById('panel-quiz').style.display  = tab==='quiz'  ? '' : 'none';
+  document.getElementById('panel-flash').style.display = tab==='flash' ? '' : 'none';
+  document.getElementById('tab-quiz').classList.toggle('active',  tab==='quiz');
+  document.getElementById('tab-flash').classList.toggle('active', tab==='flash');
+  if(tab==='flash') renderCard();
+}
+
+const QUIZ = [
+  {
+    q: 'The Knicks completed a ______ comeback, the largest in Finals history.',
+    opts: ['29-points','29-point','29 points','29 point'],
+    ans: 1,
+    explain: '複合形容詞：【數字-單數名詞】修飾後面的名詞，中間的名詞<strong>絕不加 s</strong>。✅ a 29-point comeback ❌ a 29-points comeback'
+  },
+  {
+    q: 'This comeback is the ______ in the history of the NBA Finals.',
+    opts: ['large ever','larger ever','largest ever','most large ever'],
+    ans: 2,
+    explain: '<strong>the + 最高級 + ever</strong> = 「有史以來最...的」。large → larger（比較級）→ largest（最高級）。ever 放最高級後面強調「從古至今」。'
+  },
+  {
+    q: 'At halftime, the Spurs ______ by 27 points.',
+    opts: ['trailing','led','trailed','leaded'],
+    ans: 1,
+    explain: '<strong>lead by + 分數</strong> = 領先多少分。lead 的過去式是 <strong>led</strong>（不規則，不是 leaded ❌）。trail by = 落後多少分，兩個為相對應句型。'
+  },
+  {
+    q: 'After the third quarter, New York only ______ by 15 points.',
+    opts: ['trailed','leaded','lead','trails'],
+    ans: 0,
+    explain: '<strong>trail by + 分數</strong> = 「落後多少分」。敘述過去的情況用過去式 trailed（規則動詞加 -ed）。'
+  },
+  {
+    q: 'The Spurs ______ off the gas in the second half and could not stop the Knicks.',
+    opts: ['let','leaded','setted','cutted'],
+    ans: 0,
+    explain: '<strong>let off the gas</strong> = 「鬆懈、降低強度」。let 是<strong>三態同形</strong>不規則動詞（let-let-let），過去式仍寫 let。'
+  },
+  {
+    q: 'Fox ______ the clock when he had the ball with two minutes left.',
+    opts: ['should run','should have run','should runs','should running'],
+    ans: 1,
+    explain: '<strong>should have + 過去分詞</strong> = 「當時應該...（但沒有這樣做）」，表示對過去行為的惋惜或批評。should have run = 應該讓時間流逝（但他沒有）。'
+  },
+  {
+    q: 'The Spurs ______ track of Anunoby, who then scored the winning tip-in.',
+    opts: ['lose','losted','lost','loses'],
+    ans: 2,
+    explain: '<strong>lose track of</strong> = 「失去...的蹤跡、沒有緊盯住」。lose 的過去式是 <strong>lost</strong>（不規則，不是 losted ❌）。'
+  },
+  {
+    q: "It was Anunoby's ______ touch with only 1.2 seconds remaining that won the game.",
+    opts: ['timing','timely','timeful','timed'],
+    ans: 1,
+    explain: '<strong>timely</strong> = 「時機恰到好處的」（形容詞）。time + -ly 變成形容詞（注意：timely / friendly / lively 都是形容詞，不是副詞！）'
+  },
+];
+
+let answered = new Array(QUIZ.length).fill(false);
+
+function renderQuiz(){
+  const wrap = document.getElementById('quiz-wrap');
+  wrap.innerHTML = QUIZ.map((item,i)=>`
+    <div class="quiz-q" id="qq-${i}">
+      <div class="quiz-qnum">Question ${i+1} / ${QUIZ.length}</div>
+      <div class="quiz-qtext">${item.q}</div>
+      <div class="quiz-opts">
+        ${item.opts.map((o,j)=>`<button class="quiz-opt" data-qi="${i}" data-oi="${j}" onclick="pickOpt(this)">${String.fromCharCode(65+j)}. ${o}</button>`).join('')}
+      </div>
+      <div class="quiz-explain" id="exp-${i}">${item.explain}</div>
+    </div>
+  `).join('');
+  answered.fill(false);
+  document.getElementById('quiz-result').style.display='none';
+  wrap.style.display='';
+}
+
+function pickOpt(btn){
+  const qi=+btn.dataset.qi, oi=+btn.dataset.oi;
+  if(answered[qi]) return;
+  answered[qi]=true;
+  document.querySelectorAll(`[data-qi="${qi}"]`).forEach(b=>{
+    b.disabled=true;
+    if(+b.dataset.oi===QUIZ[qi].ans) b.classList.add('correct');
+  });
+  if(oi!==QUIZ[qi].ans) btn.classList.add('wrong');
+  document.getElementById(`exp-${qi}`).classList.add('show');
+  if(answered.every(Boolean)) setTimeout(showResult,700);
+}
+
+function showResult(){
+  let score=0;
+  QUIZ.forEach((_,i)=>{
+    const btns=document.querySelectorAll(`[data-qi="${i}"]`);
+    btns.forEach(b=>{ if(b.classList.contains('correct')&&!b.classList.contains('wrong')) score++; });
+  });
+  const pct=Math.round(score/QUIZ.length*100);
+  const msg=pct===100?'🏆 滿分！你是 NBA 英文冠軍！':pct>=75?'🎉 很棒！繼續加油！':pct>=50?'💪 不錯，再複習一下文法重點！':'📚 建議回去看看文法說明，再試一次！';
+  document.getElementById('quiz-score-display').innerHTML=`
+    <div class="sc-num">${score} / ${QUIZ.length}</div>
+    <div class="sc-label">答對題數（${pct}%）</div>
+    <div class="sc-msg">${msg}</div>`;
+  document.getElementById('quiz-result').style.display='';
+}
+
+function resetQuiz(){
+  renderQuiz();
+  document.getElementById('quiz-result').style.display='none';
+}
+
+const CARDS = [
+  {pos:'n.',   word:'comeback',          zh:'逆轉・翻盤',           note:'a 29-point comeback = 一次 29 分的逆轉。come back（動詞）→ comeback（名詞）。'},
+  {pos:'adj.', word:'stifling',          zh:'令人窒息的',           note:'stifle → stifling（形容詞）。stifling defense = 壓制性的防守。發音：/ˈstaɪflɪŋ/'},
+  {pos:'adj.', word:'timely',            zh:'時機恰到好處的',        note:'time + -ly → 形容詞（非副詞！）。timely tip-in = 時機完美的補籃。'},
+  {pos:'n.',   word:'tip-in',            zh:'補籃得分',             note:'接住籃板球後輕撥入籃。= putback。Anunoby 靠這球以 1.2 秒逆轉勝。'},
+  {pos:'v.',   word:'trail by',          zh:'落後（幾分）',          note:'trail by 15 points = 落後 15 分。反義：lead by = 領先幾分。'},
+  {pos:'phr.', word:'let off the gas',   zh:'鬆懈・降低強度',        note:'比喻「鬆開油門」→ 不再全力以赴。The Spurs let off the gas in the 2nd half.'},
+  {pos:'phr.', word:'lose track of',     zh:'失去追蹤・忽略',        note:'lose track of + 人/物 = 沒有緊盯住。Spurs lost track of Anunoby → 他因此能補籃。'},
+  {pos:'v.',   word:'cut the lead',      zh:'縮短領先差距',          note:'cut = 三態同形（cut-cut-cut）。A 7-1 run cut the lead to 4 points.'},
+  {pos:'phr.', word:'set the stage for', zh:'為⋯鋪路',              note:'set = 三態同形（set-set-set）。The defense set the stage for Anunoby\'s tip-in.'},
+  {pos:'adj.', word:'soaring',           zh:'高飛的・急升的',        note:'soar（高飛）+ -ing → 形容詞。soaring touch = 高躍補籃的動作。'},
+  {pos:'n.',   word:'putback',           zh:'補籃（= tip-in）',     note:'put + back → 把球「放回」籃框。Anunoby\'s winning putback = Anunoby 的致勝補籃。'},
+  {pos:'文法', word:'should have + p.p.',zh:'當時應該⋯（但沒做）',   note:'Fox should have run time off the clock.（但他沒有）→ 對過去行為的惋惜或批評。'},
+];
+
+let cardIdx=0;
+
+function renderCard(){
+  const c=CARDS[cardIdx];
+  document.getElementById('fc-inner').classList.remove('flipped');
+  document.getElementById('fc-front').innerHTML=`<div class="fc-pos">${c.pos}</div><div class="fc-word">${c.word}</div>`;
+  document.getElementById('fc-back').innerHTML=`<div class="fc-zh">${c.zh}</div><div class="fc-note">${c.note}</div>`;
+  document.getElementById('flash-meta').textContent=`${cardIdx+1} / ${CARDS.length}`;
+  document.getElementById('fc-hint').textContent='點擊卡片翻面查看解說';
+}
+
+function flipCard(){
+  const inner=document.getElementById('fc-inner');
+  const flipped=inner.classList.toggle('flipped');
+  document.getElementById('fc-hint').textContent=flipped?'再點一下翻回正面':'點擊卡片翻面查看解說';
+}
+
+function nextCard(){cardIdx=(cardIdx+1)%CARDS.length;renderCard();}
+function prevCard(){cardIdx=(cardIdx-1+CARDS.length)%CARDS.length;renderCard();}
+
+renderQuiz();
+renderCard();
 </script>
 </body>
 </html>
