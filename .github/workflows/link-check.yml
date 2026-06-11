@@ -1,0 +1,34 @@
+name: Weekly Link Check
+
+on:
+  schedule:
+    - cron: '0 2 * * 1'   # 每週一 UTC 02:00（台灣時間週一 10:00）
+  workflow_dispatch:        # 可手動觸發
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >
+            --verbose
+            --no-progress
+            --accept 200,301,302,403,429
+            --exclude 'fonts.googleapis.com'
+            --exclude 'cdn.tailwindcss.com'
+            '*.html'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create issue on failure
+        if: failure()
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: '🔗 壞連結偵測報告'
+          content-filepath: ./lychee/out.md
+          labels: bug, maintenance
