@@ -21,6 +21,7 @@ const NAV_ITEMS = [
       { label: 'NBA Finals G1 NEWS',  href: 'nba-section-v3.html' },
       { label: '分詞構句',            href: 'participle-clauses.html' },
       { label: 'NBA Finals G4 NEWS', href: 'nba-finals-g4.html' },
+      { label: 'NBA Finals G4 HL',   href: 'nba-g4-grammar.html' },
     ],
   },
   { label: '教學經歷',  href: 'experience.html' },
