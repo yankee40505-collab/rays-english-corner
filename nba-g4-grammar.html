@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NBA 轉播英文特訓｜最高級 · 複合形容詞 · 實用片語｜Ray's English Corner</title>
+<meta name="description" content="用真實 NBA 轉播影片學英文！掌握最高級句型、複合形容詞連字號規則與四大實用片語，輕鬆備戰私中入學考。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .hero{background:linear-gradient(135deg,var(--green-dk) 0%,var(--green-md) 60%,var(--green-lt) 100%)}
+  .hero-chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);color:#fff;font-size:.8rem;font-weight:700;padding:6px 16px;border-radius:999px}
+
+  main{max-width:1000px;margin:40px auto;padding:0 20px 80px}
+  .content-box{background:var(--white);border:1.5px solid var(--border);border-radius:22px;padding:40px;box-shadow:var(--sh);margin-bottom:30px}
+  .section-main-title{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--green-dk);margin-bottom:25px;padding-left:10px;border-left:5px solid var(--warm)}
+  .teacher-talk{background:var(--amber-pl);border:1.5px dashed var(--amber);border-radius:12px;padding:16px;margin-bottom:25px;font-size:.95rem;color:var(--text-md)}
+
+  .video-container{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:16px;border:2px solid var(--border);box-shadow:var(--sh);margin-bottom:30px}
+  .video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%}
+
+  /* 文法區塊 */
+  .grammar-section{margin-bottom:35px}
+  .grammar-title{font-size:1.2rem;color:var(--green-dk);border-bottom:2px solid var(--green-lt);padding-bottom:6px;margin-bottom:15px;font-weight:800}
+  .rule-block{background:var(--green-pl);border-left:4px solid var(--green-md);padding:15px;border-radius:0 12px 12px 0;margin:15px 0;font-size:.95rem;color:var(--text-md)}
+  .example-block{background:var(--cream);border-radius:10px;padding:12px 18px;margin:10px 0;font-size:.93rem;color:var(--text);border:1px solid rgba(213,203,181,.4)}
+  .example-block b{color:var(--warm)}
+  .example-block .trans{display:block;font-size:.85rem;color:var(--text-lt);margin-top:4px}
+  .compare-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+  .compare-box{padding:12px;border-radius:10px;font-size:.9rem;text-align:center;font-weight:700}
+  .compare-box.wrong{background:#fdecea;border:1.5px solid #e57373;color:#c0392b}
+  .compare-box.right{background:var(--green-pl);border:1.5px solid var(--green-md);color:var(--green-dk)}
+  .compare-box small{display:block;font-weight:400;font-size:.78rem;margin-top:4px;opacity:.7}
+
+  /* 翻轉卡 */
+  .flashcard-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:20px}
+  .flip-card{perspective:1000px;height:130px;cursor:pointer}
+  .flip-card-inner{position:relative;width:100%;height:100%;text-align:center;transition:transform .4s;transform-style:preserve-3d}
+  .flip-card.flipped .flip-card-inner{transform:rotateY(180deg)}
+  .card-front,.card-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:12px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:15px}
+  .card-front{background:var(--cream);border:1.5px solid var(--border);color:var(--green-dk)}
+  .card-front .word{font-size:1.15rem;font-weight:800}
+  .card-front .hint{font-size:.78rem;color:var(--text-lt);margin-top:5px}
+  .card-back{background:var(--green-pl);border:1.5px solid var(--green-lt);color:var(--green-dk);transform:rotateY(180deg)}
+  .card-back .ch{font-size:1.05rem;font-weight:700;color:var(--warm)}
+  .card-back .detail{font-size:.82rem;color:var(--text-md);margin-top:4px;text-align:center;line-height:1.5}
+
+  /* 片語卡 */
+  .phrase-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:20px}
+  .phrase-card{background:var(--cream);border:1.5px solid var(--border);border-radius:16px;padding:22px 20px}
+  .phrase-en{font-size:1.1rem;font-weight:800;color:var(--warm);margin-bottom:6px}
+  .phrase-ch{font-size:.9rem;font-weight:700;color:var(--green-dk);margin-bottom:8px}
+  .phrase-example{font-size:.85rem;color:var(--text-md);line-height:1.6;border-top:1px solid var(--border);padding-top:8px;margin-top:4px}
+  .phrase-example span{color:var(--warm);font-weight:700}
+
+  @media(max-width:768px){
+    .flashcard-grid,.compare-row,.phrase-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div id="site-nav"></div>
+
+<div class="hero">
+  <div class="hero-badge">🏀 私校進階特訓篇・影片文法</div>
+  <h1>NBA 轉播英文特訓<br><em>文法 × 片語 × 實戰聽力</em></h1>
+  <p class="hero-sub">最高級句型 × 複合形容詞連字號 × 四大實用片語</p>
+  <div class="hero-chips">
+    <div class="hero-chip">私立國中進階</div>
+    <div class="hero-chip">最高級句型</div>
+    <div class="hero-chip">複合形容詞</div>
+    <div class="hero-chip">實用片語</div>
+  </div>
+</div>
+
+<main>
+
+  <!-- 影片 -->
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/eDLaezk3A4E?enablejsapi=1" title="NBA 轉播英文特訓影片" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+
+  <!-- PART A：翻轉單字卡 -->
+  <div class="content-box">
+    <h3 class="section-main-title">PART A：核心單字 × 片語快測（點擊翻面）</h3>
+    <div class="teacher-talk">
+      💡 <b>雷老師說：</b>聽轉播之前，先把這八張卡片過一遍。播報員的語速很快，但用的幾乎全是這些詞——認識了它們，你就能在第一時間抓住意思！
+    </div>
+    <div class="flashcard-grid">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="card-front"><span class="word">largest lead</span><span class="hint">點擊查看賽事釋義 👆</span></div>
+          <div class="card-back"><span class="ch">最大的領先分數</span><span class="detail">播報常說「the largest lead of the game（本場最大領先）」，lead 在此作名詞。</span></div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="card-front"><span class="word">one of the biggest games</span><span class="hint">點擊查看賽事釋義 👆</span></div>
+          <div class="card-back"><span class="ch">最重要的比賽之一</span><span class="detail">one of the + 最高級 + 複數名詞。注意：games 必須用複數！</span></div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="card-front"><span class="word">three-point play</span><span class="hint">點擊查看賽事釋義 👆</span></div>
+          <div class="card-back"><span class="ch">三分打（進球加罰球）</span><span class="detail">複合形容詞：three-point，point 不加 s。three-pointer = 三分球（名詞）。</span></div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="card-front"><span class="word">one and done</span><span class="hint">點擊查看賽事釋義 👆</span></div>
+          <div class="card-back"><span class="ch">大一即選秀</span><span class="detail">形容大學只打一年就進入 NBA 選秀的球員。常放在名詞前作複合形容詞。</span></div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="card-front"><span class="word">off the bench</span><span class="hint">點擊查看賽事釋義 👆</span></div>
+          <div class="card-back"><span class="ch">替補上場</span><span class="detail">Jose Alvarado off the bench with 7 pts in 6 min. bench = 球員板凳，引申替補。</span></div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="card-front"><span class="word">time and time again</span><span class="hint">點擊查看賽事釋義 👆</span></div>
+          <div class="card-back"><span class="ch">一次又一次；屢屢</span><span class="detail">= again and again。delivering time and time again（一次又一次地建功）。</span></div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="card-front"><span class="word">out of bounds</span><span class="hint">點擊查看賽事釋義 👆</span></div>
+          <div class="card-back"><span class="ch">出界；界外</span><span class="detail">he stepped out of bounds（他踩出界了）。out of bounds play = 界外發球戰術。</span></div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="card-front"><span class="word">red hot</span><span class="hint">點擊查看賽事釋義 👆</span></div>
+          <div class="card-back"><span class="ch">手感火熱；狀態絕佳</span><span class="detail">Brunson red hot here in the third quarter. 連續得分、勢不可擋時的生動描述。</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PART B：文法一 -->
+  <div class="content-box">
+    <h3 class="section-main-title">PART B：文法地雷①　最高級與「One of the...」句型</h3>
+    <div class="teacher-talk">
+      🎯 <b>雷老師解說：</b>「最高級」是私中入學必考句型。這場比賽的轉播中，播報員不斷用最高級描述極端狀況，是最好的聽力素材。特別注意 <b>one of the + 最高級 + 複數名詞</b> 這個組合，後面的名詞一定要加 <b>s</b>！
+    </div>
+
+    <div class="grammar-section">
+      <div class="grammar-title">① 轉播中的最高級：largest lead</div>
+      <div class="rule-block">
+        播報員描述比賽中最大的領先：<b>the largest lead of the game</b>（本場比賽最大的領先分數）。<br>
+        <small>large → larger（比較級）→ largest（最高級）</small>
+      </div>
+      <div class="example-block">
+        That was <b>the largest lead</b> of the game for New York.<br>
+        <span class="trans">那是紐約隊本場比賽最大的領先差距。</span>
+      </div>
+    </div>
+
+    <div class="grammar-section">
+      <div class="grammar-title">② One of the + 最高級 + <span style="color:var(--warm)">複數名詞</span></div>
+      <div class="rule-block">
+        句型公式：<b>one of the + 最高級形容詞 + 複數名詞</b><br>
+        意思：「最⋯的⋯之一」——因為有不只一個，所以名詞一定要用<b>複數</b>！
+      </div>
+      <div class="example-block">
+        This is <b>one of the biggest games</b> of his career.<br>
+        <span class="trans">這是他職業生涯中最重大的比賽之一。</span>
+      </div>
+      <div class="example-block">
+        He is <b>one of the strongest one and done guards</b> in recent memory.<br>
+        <span class="trans">他是近年記憶中最強壯的大一棄學後衛之一。</span>
+      </div>
+      <div class="compare-row">
+        <div class="compare-box wrong">
+          ✗ one of the biggest <u>game</u><br>
+          <small>game 是單數，❌ 錯誤</small>
+        </div>
+        <div class="compare-box right">
+          ✓ one of the biggest <u>games</u><br>
+          <small>games 是複數，✅ 正確</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PART C：文法二 -->
+  <div class="content-box">
+    <h3 class="section-main-title">PART C：文法地雷②　複合形容詞與連字號</h3>
+    <div class="teacher-talk">
+      📌 <b>雷老師解說：</b>「數字 + 單數名詞」組成複合形容詞，中間用<b>連字號（-）</b>連接，而且裡面的名詞<b>絕對不加 s</b>！國中英文超常考，轉播台詞裡面充滿了這種組合，現在一起記起來！
+    </div>
+
+    <div class="grammar-section">
+      <div class="grammar-title">① three-point　三分的</div>
+      <div class="rule-block">
+        <b>three-point</b> play = 三分打（進球加罰球得三分的機會）<br>
+        <b>three-pointer</b> = 三分球（名詞，指一顆三分球）<br>
+        ⚠️ 注意：<b>three-point</b> 中的 point 是形容詞角色，後面絕對不加 s！
+      </div>
+      <div class="example-block">
+        He's got a chance for a <b>three-point</b> play.<br>
+        <span class="trans">他有機會完成三分打！</span>
+      </div>
+      <div class="compare-row">
+        <div class="compare-box wrong">
+          ✗ three-<u>points</u> play<br>
+          <small>連字號後面名詞不加 s，❌ 錯誤</small>
+        </div>
+        <div class="compare-box right">
+          ✓ three-<u>point</u> play<br>
+          <small>point 保持單數，✅ 正確</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="grammar-section">
+      <div class="grammar-title">② one and done　大一即選秀</div>
+      <div class="rule-block">
+        <b>one and done</b> 原意「只做一次就結束」，在 NBA 語境中特指只讀一年大學就投入選秀的球員。<br>
+        用在名詞前當複合形容詞：<b>one and done guard</b>（大一棄學後衛）
+      </div>
+      <div class="example-block">
+        He's one of the strongest <b>one and done</b> guards in the league.<br>
+        <span class="trans">他是聯盟中最強壯的大一棄學後衛之一。</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PART D：實用片語 -->
+  <div class="content-box">
+    <h3 class="section-main-title">PART D：轉播四大實用片語</h3>
+    <div class="teacher-talk">
+      🎧 <b>雷老師說：</b>這四個片語不只在體育轉播常見，在日常英文或閱讀測驗也非常實用。記住它們，你的英文聽力和閱讀都會直接升級！
+    </div>
+    <div class="phrase-grid">
+      <div class="phrase-card">
+        <div class="phrase-en">off the bench</div>
+        <div class="phrase-ch">替補上場；從板凳出發</div>
+        <div class="phrase-example">
+          Jose Alvarado <span>off the bench</span> with 7 points in 6 minutes.<br>
+          阿爾瓦拉多替補上場 6 分鐘拿下 7 分。
+        </div>
+      </div>
+      <div class="phrase-card">
+        <div class="phrase-en">time and time again</div>
+        <div class="phrase-ch">一次又一次；屢屢</div>
+        <div class="phrase-example">
+          He's been delivering <span>time and time again</span>.<br>
+          他一次又一次地在關鍵時刻建功。
+        </div>
+      </div>
+      <div class="phrase-card">
+        <div class="phrase-en">out of bounds</div>
+        <div class="phrase-ch">出界；在界外</div>
+        <div class="phrase-example">
+          He stepped <span>out of bounds</span> on that play.<br>
+          他在那個回合踩出了界外線。
+        </div>
+      </div>
+      <div class="phrase-card">
+        <div class="phrase-en">red hot</div>
+        <div class="phrase-ch">手感火熱；狀態絕佳</div>
+        <div class="phrase-example">
+          Brunson is <span>red hot</span> here in the third quarter!<br>
+          Brunson 在第三節手感超火熱！
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 返回 -->
+  <div style="text-align:center;margin-top:10px">
+    <a href="index.html" style="display:inline-block;padding:12px 32px;background:var(--green-dk);color:#fff;border-radius:99px;font-weight:800;text-decoration:none;font-size:.95rem">← 回到首頁</a>
+  </div>
+
+</main>
+
+<script src="main.js"></script>
+</body>
+</html>
