@@ -153,7 +153,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：buy（買）的過去式是？",
     sentence_before: "buy →",
     sentence_after: "",
-    ans: "bought",
+    answer: "bought",
+    display: "bought",
     exp: "buy → bought（買）"
   },
   {
@@ -161,7 +162,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：take（帶；搭乘）的過去式是？",
     sentence_before: "take →",
     sentence_after: "",
-    ans: "took",
+    answer: "took",
+    display: "took",
     exp: "take → took（帶；搭乘）"
   },
   {
@@ -169,7 +171,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：build（建造）的過去式是？",
     sentence_before: "build →",
     sentence_after: "",
-    ans: "built",
+    answer: "built",
+    display: "built",
     exp: "build → built（建造）"
   },
   {
@@ -177,7 +180,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：hide（躲藏）的過去式是？",
     sentence_before: "hide →",
     sentence_after: "",
-    ans: "hid",
+    answer: "hid",
+    display: "hid",
     exp: "hide → hid（躲藏）"
   },
   {
@@ -185,7 +189,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：lose（失去；輸）的過去式是？",
     sentence_before: "lose →",
     sentence_after: "",
-    ans: "lost",
+    answer: "lost",
+    display: "lost",
     exp: "lose → lost（失去；輸）"
   },
   {
@@ -193,7 +198,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：blow（吹）的過去式是？",
     sentence_before: "blow →",
     sentence_after: "",
-    ans: "blew",
+    answer: "blew",
+    display: "blew",
     exp: "blow → blew（吹）"
   },
   {
@@ -201,7 +207,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：make（製造）的過去式是？",
     sentence_before: "make →",
     sentence_after: "",
-    ans: "made",
+    answer: "made",
+    display: "made",
     exp: "make → made（製造）"
   },
   {
@@ -209,7 +216,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：meet（遇見）的過去式是？",
     sentence_before: "meet →",
     sentence_after: "",
-    ans: "met",
+    answer: "met",
+    display: "met",
     exp: "meet → met（遇見）"
   },
   {
@@ -217,7 +225,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：can（可以；能）的過去式是？",
     sentence_before: "can →",
     sentence_after: "",
-    ans: "could",
+    answer: "could",
+    display: "could",
     exp: "can → could（可以；能）"
   },
   {
@@ -225,7 +234,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：come（來）的過去式是？",
     sentence_before: "come →",
     sentence_after: "",
-    ans: "came",
+    answer: "came",
+    display: "came",
     exp: "come → came（來）"
   },
   {
@@ -233,7 +243,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：put（放；置）的過去式是？",
     sentence_before: "put →",
     sentence_after: "",
-    ans: "put",
+    answer: "put",
+    display: "put",
     exp: "put → put（放；置）原形與過去式相同，注意別多加 -ed！"
   },
   {
@@ -241,7 +252,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：draw（畫圖）的過去式是？",
     sentence_before: "draw →",
     sentence_after: "",
-    ans: "drew",
+    answer: "drew",
+    display: "drew",
     exp: "draw → drew（畫圖）"
   },
   {
@@ -249,7 +261,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：read（閱讀）的過去式是？",
     sentence_before: "read →",
     sentence_after: "",
-    ans: "read",
+    answer: "read",
+    display: "read",
     exp: "read → read（閱讀）拼法相同，但過去式發音從 /riːd/ 變成 /rɛd/！"
   },
   {
@@ -257,7 +270,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：drink（喝）的過去式是？",
     sentence_before: "drink →",
     sentence_after: "",
-    ans: "drank",
+    answer: "drank",
+    display: "drank",
     exp: "drink → drank（喝）"
   },
   {
@@ -265,7 +279,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：ride（騎）的過去式是？",
     sentence_before: "ride →",
     sentence_after: "",
-    ans: "rode",
+    answer: "rode",
+    display: "rode",
     exp: "ride → rode（騎）"
   },
   {
@@ -273,7 +288,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：drive（開車）的過去式是？",
     sentence_before: "drive →",
     sentence_after: "",
-    ans: "drove",
+    answer: "drove",
+    display: "drove",
     exp: "drive → drove（開車）"
   },
   {
@@ -281,7 +297,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：run（跑）的過去式是？",
     sentence_before: "run →",
     sentence_after: "",
-    ans: "ran",
+    answer: "ran",
+    display: "ran",
     exp: "run → ran（跑）"
   },
   {
@@ -289,7 +306,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：eat（吃）的過去式是？",
     sentence_before: "eat →",
     sentence_after: "",
-    ans: "ate",
+    answer: "ate",
+    display: "ate",
     exp: "eat → ate（吃）"
   },
   {
@@ -297,7 +315,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：see（看見）的過去式是？",
     sentence_before: "see →",
     sentence_after: "",
-    ans: "saw",
+    answer: "saw",
+    display: "saw",
     exp: "see → saw（看見）"
   },
   {
@@ -305,7 +324,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：fall（掉落）的過去式是？",
     sentence_before: "fall →",
     sentence_after: "",
-    ans: "fell",
+    answer: "fell",
+    display: "fell",
     exp: "fall → fell（掉落）"
   },
   {
@@ -313,7 +333,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：sell（賣）的過去式是？",
     sentence_before: "sell →",
     sentence_after: "",
-    ans: "sold",
+    answer: "sold",
+    display: "sold",
     exp: "sell → sold（賣）"
   },
   {
@@ -321,7 +342,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：fly（飛）的過去式是？",
     sentence_before: "fly →",
     sentence_after: "",
-    ans: "flew",
+    answer: "flew",
+    display: "flew",
     exp: "fly → flew（飛）"
   },
   {
@@ -329,7 +351,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：sleep（睡覺）的過去式是？",
     sentence_before: "sleep →",
     sentence_after: "",
-    ans: "slept",
+    answer: "slept",
+    display: "slept",
     exp: "sleep → slept（睡覺）"
   },
   {
@@ -337,7 +360,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：get（得到）的過去式是？",
     sentence_before: "get →",
     sentence_after: "",
-    ans: "got",
+    answer: "got",
+    display: "got",
     exp: "get → got（得到）"
   },
   {
@@ -345,7 +369,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：teach（教導）的過去式是？",
     sentence_before: "teach →",
     sentence_after: "",
-    ans: "taught",
+    answer: "taught",
+    display: "taught",
     exp: "teach → taught（教導）"
   },
   {
@@ -353,7 +378,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：give（給予）的過去式是？",
     sentence_before: "give →",
     sentence_after: "",
-    ans: "gave",
+    answer: "gave",
+    display: "gave",
     exp: "give → gave（給予）"
   },
   {
@@ -361,7 +387,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：think（認為）的過去式是？",
     sentence_before: "think →",
     sentence_after: "",
-    ans: "thought",
+    answer: "thought",
+    display: "thought",
     exp: "think → thought（認為）"
   },
   {
@@ -369,7 +396,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：go（去）的過去式是？",
     sentence_before: "go →",
     sentence_after: "",
-    ans: "went",
+    answer: "went",
+    display: "went",
     exp: "go → went（去）"
   },
   {
@@ -377,7 +405,9 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：learn（學習）的過去式是？（兩種寫法皆可）",
     sentence_before: "learn →",
     sentence_after: "",
-    ans: "learned",
+    answer: "learned",
+    display: "learned / learnt",
+    altAnswers: ["learnt"],
     exp: "learn → learned 或 learnt 皆正確（學習）"
   },
   {
@@ -385,7 +415,8 @@ window.EXTRA_BANKS['國一下 L6 一般過去式'] = [
     q: "不規則動詞：wake（叫醒）的過去式是？",
     sentence_before: "wake →",
     sentence_after: "",
-    ans: "woke",
+    answer: "woke",
+    display: "woke",
     exp: "wake → woke（叫醒）"
   }
 ];

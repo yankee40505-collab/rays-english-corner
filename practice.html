@@ -319,7 +319,8 @@ function checkFill(qi){
   const inp=document.getElementById(`inp${qi}`);
   const exp=document.getElementById(`exp${qi}`);
   const typed=inp.value.trim().toLowerCase();
-  const isOk=typed===q.answer.toLowerCase();
+  const accepted=[q.answer.toLowerCase()].concat((q.altAnswers||[]).map(a=>a.toLowerCase()));
+  const isOk=accepted.includes(typed);
   answered[qi]=true;scores[qi]=isOk?1:0;
   inp.disabled=true;document.getElementById(`chk${qi}`).disabled=true;document.getElementById(`hnt${qi}`).disabled=true;
   if(isOk){inp.classList.add('inp-correct');exp.textContent='✓ 答對了！'+q.exp;exp.className='q-exp show correct';}
