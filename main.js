@@ -46,6 +46,7 @@ function renderNav() {
   // 目前在哪一頁（用來標記 active）
   const current = location.pathname.split('/').pop() || 'index.html';
 
+  // 桌機版下拉選單
   const linksHtml = NAV_ITEMS.map(item => {
     if (item.children) {
       const sub = item.children.map(c =>
@@ -63,11 +64,45 @@ function renderNav() {
     return `<li><a href="${item.href}"${isActive}>${item.label}</a></li>`;
   }).join('');
 
+  // 手機版平鋪選單（下拉改成分組標題）
+  const mobileLinksHtml = NAV_ITEMS.map(item => {
+    if (item.children) {
+      const sub = item.children.map(c =>
+        `<li class="m-sub"><a href="${c.href}" onclick="closeMobileMenu()">${c.label}</a></li>`
+      ).join('');
+      return `<li class="m-group">${item.label}</li>${sub}`;
+    }
+    const file = item.href.split('#')[0];
+    const isActive = file === current ? ' class="active"' : '';
+    return `<li><a href="${item.href}"${isActive} onclick="closeMobileMenu()">${item.label}</a></li>`;
+  }).join('');
+
   mount.outerHTML = `
     <nav>
       <a href="index.html" class="nav-logo">Ray's <span class="dot">·</span> English Corner</a>
       <ul class="nav-links">${linksHtml}</ul>
-    </nav>`;
+      <button class="nav-burger" id="nav-burger" onclick="toggleMobileMenu()" aria-label="開啟選單">☰</button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <ul class="mobile-links">${mobileLinksHtml}</ul>
+    </div>`;
+}
+
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const burger = document.getElementById('nav-burger');
+  if (!menu) return;
+  const isOpen = menu.classList.toggle('open');
+  if (burger) burger.textContent = isOpen ? '✕' : '☰';
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+
+function closeMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const burger = document.getElementById('nav-burger');
+  if (menu) menu.classList.remove('open');
+  if (burger) burger.textContent = '☰';
+  document.body.style.overflow = '';
 }
 
 /* ---------- 3. 產生並注入頁尾 ---------- */
