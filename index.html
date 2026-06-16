@@ -527,7 +527,37 @@ function openModal(k){ document.getElementById('modalContent').innerHTML=`<h3 cl
 function closeModal(e){ if(e.target===document.getElementById('modal')) closeModalBtn(); }
 function closeModalBtn(){ document.getElementById('modal').classList.remove('open'); document.body.style.overflow=''; }
 
-function submitForm(btn){ btn.textContent='✓ 已送出！我會盡快聯絡您'; btn.style.background='var(--green-md)'; btn.disabled=true; }
+async function submitForm(btn) {
+  const form = btn.closest('.contact-form');
+  const inputs = form.querySelectorAll('input, select, textarea');
+  const data = {};
+  const labels = ['姓名', '聯絡方式', '課程', '學習狀況'];
+  inputs.forEach((el, i) => { data[labels[i] || el.placeholder] = el.value; });
+
+  btn.textContent = '傳送中…';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://formspree.io/f/mpqenrqn', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (res.ok) {
+      btn.textContent = '✓ 已送出！我會盡快聯絡您';
+      btn.style.background = 'var(--green-md)';
+      inputs.forEach(el => el.value = '');
+    } else {
+      btn.textContent = '送出失敗，請直接LINE我';
+      btn.style.background = '#c0392b';
+      btn.disabled = false;
+    }
+  } catch(e) {
+    btn.textContent = '網路錯誤，請直接LINE我';
+    btn.style.background = '#c0392b';
+    btn.disabled = false;
+  }
+}
 </script>
 </body>
 </html>
