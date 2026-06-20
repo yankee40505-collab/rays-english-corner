@@ -1,9 +1,9 @@
-name: Weekly Link Check
+name: Daily Link Check
 
 on:
   schedule:
-    - cron: '0 2 * * 1'   # 每週一 UTC 02:00（台灣時間週一 10:00）
-  workflow_dispatch:        # 可手動觸發
+    - cron: '30 14 * * *'   # 每天 UTC 14:30（台灣時間 22:30）
+  workflow_dispatch:
 
 jobs:
   check-links:
@@ -21,14 +21,19 @@ jobs:
             --exclude 'fonts.googleapis.com'
             --exclude 'cdn.tailwindcss.com'
             '*.html'
-          fail: true
+          fail: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create issue on failure
-        if: failure()
-        uses: peter-evans/create-issue-from-file@v5
+      - name: Send email report
+        if: always()
+        uses: dawidd6/action-send-mail@v3
         with:
-          title: '🔗 壞連結偵測報告'
-          content-filepath: ./lychee/out.md
-          labels: bug, maintenance
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.GMAIL_USERNAME }}
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          subject: "Ray's English Corner — 每日連結檢查報告"
+          to: biglazyseals@gmail.com
+          from: biglazyseals@gmail.com
+          body_path: ./lychee/out.md
