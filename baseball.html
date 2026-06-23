@@ -178,7 +178,7 @@ section { padding: 72px 5%; }
         <div class="mod-icon" style="background:var(--green-pl)">⚾</div>
         <div class="mod-title">球場日常用語</div>
         <div class="mod-desc">牛棚稱讚、休息室閒聊、守備練習溝通、激勵隊友——涵蓋 7 部 MLB 真實 Mic'd Up 影片的精華句型。</div>
-        <span class="mod-tag" style="background:var(--green-pl);color:var(--green-dk)">身體部位圖 · 選擇題 · 對話 · 速查表</span>
+        <span class="mod-tag" style="background:var(--green-pl);color:var(--green-dk)">練習地圖 · 選擇題 · 對話練習 · 用語速查</span>
       </a>
       <a class="mod-card reveal d1" href="#injury-tool">
         <div class="mod-icon" style="background:#fde8e8">🩺</div>
@@ -203,18 +203,52 @@ section { padding: 72px 5%; }
         <div class="tool-header-icon">⚾</div>
         <div class="tool-header-text">
           <h3>球場日常英語練習</h3>
-          <p>身體部位圖 · 情境選擇題 · 雙人對話 · 用語速查</p>
+          <p>練習地圖 · 情境選擇題 · 雙人對話 · 用語速查表</p>
         </div>
       </div>
       <div class="tool-body">
         <div class="tab-row">
-          <button class="tb on" onclick="bsw('bmap',this)">用語分類</button>
+          <button class="tb on" onclick="bsw('foverview',this)">練習地圖</button>
           <button class="tb" onclick="bsw('bquiz',this)">情境選擇題</button>
           <button class="tb" onclick="bsw('brp',this)">對話練習</button>
+          <button class="tb" onclick="bsw('bmap',this)">用語速查表</button>
         </div>
 
-        <!-- 用語分類 -->
-        <div class="bpanel on" id="pb-bmap">
+        <!-- 練習地圖 -->
+        <div class="bpanel on" id="pb-foverview">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:1.5rem">
+            <div class="bpt-card" style="border-left:3px solid var(--green-md);cursor:pointer" onclick="bsw('bmap',this.closest('.tool-body').querySelector('.tb:last-child'))">
+              <div style="font-size:.72rem;font-weight:900;color:var(--text-lt);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Step 1</div>
+              <div class="bpt-en" style="color:var(--green-dk)">用語速查表</div>
+              <div class="bpt-zh">先掌握所有句子的意思與使用時機</div>
+              <div class="bpt-ctx">建議時間：30 分鐘</div>
+            </div>
+            <div class="bpt-card" style="border-left:3px solid var(--amber);cursor:pointer" onclick="fGoTab(1)">
+              <div style="font-size:.72rem;font-weight:900;color:var(--text-lt);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Step 2</div>
+              <div class="bpt-en" style="color:var(--green-dk)">情境選擇題</div>
+              <div class="bpt-zh">測試能否在對的情境選出對的說法</div>
+              <div class="bpt-ctx">建議時間：每次 10 分鐘</div>
+            </div>
+            <div class="bpt-card" style="border-left:3px solid var(--warm);cursor:pointer" onclick="fGoTab(2)">
+              <div style="font-size:.72rem;font-weight:900;color:var(--text-lt);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Step 3</div>
+              <div class="bpt-en" style="color:var(--green-dk)">角色對話練習</div>
+              <div class="bpt-zh">找一位同學輪流扮演不同角色開口說</div>
+              <div class="bpt-ctx">建議時間：每次 15 分鐘</div>
+            </div>
+            <div class="bpt-card" style="border-left:3px solid var(--sky)">
+              <div style="font-size:.72rem;font-weight:900;color:var(--text-lt);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Step 4</div>
+              <div class="bpt-en" style="color:var(--green-dk)">關字幕重看影片</div>
+              <div class="bpt-zh">主動聆聽，用學過的句子自我測試</div>
+              <div class="bpt-ctx">每部影片各看一遍（共 7 部）</div>
+            </div>
+          </div>
+          <div class="teacher-talk" style="margin-bottom:0">
+            <b>來源影片：</b>Adam Wainwright Mic'd Up · Ranger Suárez Mic'd Up · T-Wade Dugout · Paul Skenes Mechanics · Paul Skenes Repertoire · Tanner Banks Spring Training · Jordan Wicks Practice — 共 7 部 MLB 真實影片，30 個精華句型全收錄於用語速查表。
+          </div>
+        </div>
+
+        <!-- 用語速查表 -->
+        <div class="bpanel" id="pb-bmap">
           <div class="bfilter-row">
             <button class="bfb-btn on" onclick="bfp('all',this,'field')">全部</button>
             <button class="bfb-btn" onclick="bfp('bullpen',this,'field')">牛棚</button>
@@ -635,9 +669,14 @@ function bsw(id, btn) {
   var panel = btn.closest('.tool-body');
   panel.querySelectorAll('.tb').forEach(function(b){ b.classList.remove('on'); });
   panel.querySelectorAll('.bpanel').forEach(function(p){ p.classList.remove('on'); });
-  btn.classList.add('on');
-  var prefix = id === 'bmap' || id === 'bquiz' || id === 'brp' ? 'pb-' : 'pb-';
+  if (btn && btn.classList) btn.classList.add('on');
   document.getElementById('pb-' + id).classList.add('on');
+}
+function fGoTab(idx) {
+  var toolBody = document.querySelector('#field-tool .tool-body');
+  if (!toolBody) return;
+  var tabs = toolBody.querySelectorAll('.tb');
+  if (tabs[idx]) bsw(tabs[idx].getAttribute('onclick').match(/'([^']+)'/)[1], tabs[idx]);
 }
 
 function bfp(cat, btn, which) {
