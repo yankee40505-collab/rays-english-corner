@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ray's English Corner｜棒球英語專區</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+section { padding: 72px 5%; }
+.hero { background: linear-gradient(135deg, #0f2d1a 0%, #1e4d30 55%, #3a7a50 100%); }
+
+/* ── 卡片群 ── */
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px; margin-top: 40px;
+}
+.mod-card {
+  background: var(--white); border-radius: var(--r);
+  border: 1.5px solid var(--border);
+  padding: 28px 24px; text-decoration: none; color: inherit;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.mod-card:hover {
+  transform: translateY(-4px); box-shadow: var(--sh-lg);
+  border-color: var(--green-lt);
+}
+.mod-icon {
+  width: 48px; height: 48px; border-radius: 14px;
+  display: grid; place-items: center;
+  font-size: 1.35rem; flex-shrink: 0;
+}
+.mod-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--green-dk); }
+.mod-desc { font-size: 0.86rem; color: var(--text-md); line-height: 1.7; }
+.mod-tag {
+  display: inline-block; font-size: 0.72rem; font-weight: 900;
+  padding: 3px 10px; border-radius: 99px; margin-top: 4px;
+  letter-spacing: 0.05em;
+}
+
+/* ── 練習工具嵌入區 ── */
+.tool-section { background: var(--white); }
+.tool-section:nth-child(odd) { background: var(--cream); }
+.tool-box {
+  background: var(--white); border-radius: var(--r);
+  border: 1.5px solid var(--border); overflow: hidden;
+  box-shadow: var(--sh);
+}
+.tool-header {
+  background: var(--green-dk); padding: 18px 28px;
+  display: flex; align-items: center; gap: 14px;
+}
+.tool-header-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: rgba(255,255,255,0.15);
+  display: grid; place-items: center; font-size: 1.1rem; flex-shrink: 0;
+}
+.tool-header-text h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem; font-weight: 700; color: #fff;
+}
+.tool-header-text p { font-size: 0.78rem; color: rgba(255,255,255,0.6); margin-top: 2px; }
+.tool-body { padding: 28px; }
+
+/* ── 互動練習工具（Tab + 各模組）── */
+*,*::before,*::after{box-sizing:border-box}
+.tab-row{display:flex;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap}
+.tb{padding:8px 16px;border-radius:8px;border:1.5px solid var(--border);background:var(--cream);color:var(--text-md);font-size:.86rem;font-weight:800;cursor:pointer;transition:all .15s;font-family:'Nunito',sans-serif}
+.tb.on{background:var(--green-dk);border-color:var(--green-dk);color:#fff}
+.bpanel{display:none}.bpanel.on{display:block}
+
+/* body map */
+.body-wrap{display:flex;gap:1.5rem;align-items:flex-start;flex-wrap:wrap}
+.bsvg-col{flex:0 0 240px}
+.binfo-col{flex:1;min-width:200px}
+.pz{cursor:pointer;transition:opacity .15s}
+.pz:hover{opacity:.75}
+.detail-card{background:var(--cream);border:1.5px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem;min-height:200px}
+.dc-name{font-size:1rem;font-weight:700;color:var(--green-dk);margin-bottom:2px;font-family:'Playfair Display',serif}
+.dc-en{font-size:.75rem;color:var(--text-lt);margin-bottom:6px}
+.dc-risk{font-size:.72rem;font-weight:900;padding:3px 10px;border-radius:99px;display:inline-block;margin-bottom:12px;letter-spacing:.05em}
+.risk-high{background:#fde8e8;color:#8b1a1a}
+.risk-mid{background:var(--amber-pl);color:#7a4a00}
+.risk-low{background:var(--green-pl);color:var(--green-dk)}
+.pr{margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.pr:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.p-en{font-size:.9rem;font-weight:800;margin-bottom:2px;color:var(--green-dk)}
+.p-zh{font-size:.78rem;color:var(--text-md);margin-bottom:2px}
+.p-tip{font-size:.72rem;color:var(--text-lt);line-height:1.5}
+.bmap-hint{font-size:.86rem;color:var(--text-lt);padding:2.5rem 1rem;text-align:center;line-height:1.9}
+.blegend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.bli{display:flex;align-items:center;gap:5px;font-size:.72rem;color:var(--text-md)}
+.bld{width:10px;height:10px;border-radius:50%}
+.pulse-r{animation:bpulse 2s infinite}
+@keyframes bpulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* quiz */
+.bq-score-row{display:flex;align-items:center;gap:12px;font-size:.86rem;color:var(--text-md);margin-bottom:1rem}
+.bscore-badge{font-size:.86rem;font-weight:900;background:var(--green-pl);color:var(--green-dk);padding:4px 14px;border-radius:99px}
+.bqbox{background:var(--cream);border:1.5px solid var(--border);border-radius:12px;padding:1.4rem;margin-bottom:1rem}
+.bq-scene{font-size:.82rem;color:var(--text-md);background:var(--white);border-radius:8px;padding:10px 14px;margin-bottom:1rem;line-height:1.6;border-left:3px solid var(--green-lt)}
+.bq-text{font-size:.95rem;font-weight:800;color:var(--text);margin-bottom:1rem;font-family:'Nunito',sans-serif}
+.bopts{display:flex;flex-direction:column;gap:8px}
+.bopt{text-align:left;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;background:var(--white);color:var(--text);font-size:.86rem;cursor:pointer;transition:all .1s;font-family:'Nunito',sans-serif;font-weight:700}
+.bopt:hover{border-color:var(--green-lt);background:var(--green-pl)}
+.bopt.ok{background:#e6f5ec;border-color:var(--green-md);color:var(--green-dk)}
+.bopt.no{background:#fde8e8;border-color:#c0392b;color:#7b1a1a}
+.bfb{margin-top:1rem;padding:12px 14px;border-radius:8px;font-size:.82rem;line-height:1.65;display:none;font-family:'Noto Sans TC',sans-serif}
+.bfb.ok{background:#e6f5ec;color:var(--green-dk);border-left:3px solid var(--green-md)}
+.bfb.no{background:#fde8e8;color:#7b1a1a;border-left:3px solid #c0392b}
+.bnxt{margin-top:12px;padding:8px 22px;border-radius:50px;border:none;background:var(--green-dk);color:#fff;font-size:.86rem;font-weight:900;cursor:pointer;display:none;font-family:'Nunito',sans-serif}
+.bnxt:hover{background:var(--green-md)}
+.breset-btn{padding:6px 14px;border-radius:50px;border:1.5px solid var(--border);background:var(--cream);font-size:.78rem;color:var(--text-md);cursor:pointer;font-family:'Nunito',sans-serif;font-weight:800}
+
+/* roleplay */
+.rp-card{background:var(--cream);border:1.5px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:12px}
+.rp-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;flex-wrap:wrap;gap:6px}
+.rp-title{font-size:.95rem;font-weight:800;color:var(--green-dk)}
+.rp-ctx{font-size:.82rem;color:var(--text-md);margin-bottom:10px;line-height:1.6}
+.btag{display:inline-block;font-size:.72rem;padding:3px 10px;border-radius:99px;font-weight:900}
+.bt-r{background:#fde8e8;color:#7b1a1a}
+.bt-a{background:var(--amber-pl);color:#7a4a00}
+.bt-g{background:var(--green-pl);color:var(--green-dk)}
+.bt-p{background:#eef0fd;color:#3a3aaa}
+.bchat{display:flex;flex-direction:column;gap:8px}
+.bbbl{max-width:90%;padding:8px 12px;border-radius:12px;font-size:.82rem;line-height:1.55;font-family:'Noto Sans TC',sans-serif}
+.bbbl-a{align-self:flex-start;background:var(--white);color:var(--text);border:1px solid var(--border)}
+.bbbl-b{align-self:flex-end;background:var(--green-dk);color:#fff}
+.bbbl-lbl{font-size:.68rem;color:var(--text-lt);margin-bottom:2px}
+.bbbl-gap{border:2px dashed var(--green-lt);background:transparent;color:var(--green-md);font-style:italic}
+.brv-btn{margin-top:10px;padding:6px 16px;border-radius:50px;border:1.5px solid var(--border);background:var(--white);font-size:.78rem;color:var(--text-md);cursor:pointer;font-weight:800;font-family:'Nunito',sans-serif}
+.brv-btn:hover{background:var(--green-pl);color:var(--green-dk);border-color:var(--green-lt)}
+.brv-ans{margin-top:8px;padding:10px 14px;background:#e6f5ec;border-radius:8px;font-size:.82rem;color:var(--green-dk);display:none;line-height:1.75;font-family:'Noto Sans TC',sans-serif;border-left:3px solid var(--green-md)}
+
+/* phrase ref */
+.bpt-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-bottom:1rem}
+.bpt-card{background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:.85rem 1rem}
+.bpt-en{font-size:.9rem;font-weight:800;color:var(--green-dk);margin-bottom:3px}
+.bpt-zh{font-size:.78rem;color:var(--text-md);margin-bottom:4px}
+.bpt-ctx{font-size:.72rem;color:var(--text-lt);line-height:1.5}
+.bfilter-row{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap}
+.bfb-btn{padding:5px 14px;border-radius:99px;border:1.5px solid var(--border);background:var(--white);color:var(--text-md);font-size:.78rem;cursor:pointer;font-weight:800;font-family:'Nunito',sans-serif}
+.bfb-btn.on{background:var(--green-dk);border-color:var(--green-dk);color:#fff}
+.bgo-btn{padding:9px 22px;border-radius:50px;border:none;background:var(--amber);color:var(--green-dk);font-size:.86rem;font-weight:900;cursor:pointer;margin-top:8px;font-family:'Nunito',sans-serif;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 16px rgba(245,166,35,.3)}
+.bgo-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,.4)}
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">⚾ Baseball English</div>
+  <h1>棒球英語<em>專區</em></h1>
+  <p class="hero-sub">為旅外選手量身設計——從球場日常用語到傷病溝通，每一句都有真實場景。</p>
+  <div class="hero-chips">
+    <span class="chip">場上溝通</span>
+    <span class="chip">傷病回報</span>
+    <span class="chip">投手專用</span>
+    <span class="chip">情境選擇題</span>
+    <span class="chip">雙人對話練習</span>
+  </div>
+</section>
+
+<!-- MODULE OVERVIEW -->
+<section style="background:var(--white); padding:72px 5%">
+  <div class="inner">
+    <div class="section-head">
+      <p class="section-tag">學習模組</p>
+      <h2 class="section-title">兩大練習主題</h2>
+      <p class="section-desc">從球場日常對話到傷病緊急溝通，選手可以自行複習，也適合課堂搭配使用。</p>
+    </div>
+    <div class="module-grid">
+      <a class="mod-card reveal" href="#field-tool">
+        <div class="mod-icon" style="background:var(--green-pl)">⚾</div>
+        <div class="mod-title">球場日常用語</div>
+        <div class="mod-desc">牛棚稱讚、休息室閒聊、守備練習溝通、激勵隊友——涵蓋 7 部 MLB 真實 Mic'd Up 影片的精華句型。</div>
+        <span class="mod-tag" style="background:var(--green-pl);color:var(--green-dk)">身體部位圖 · 選擇題 · 對話 · 速查表</span>
+      </a>
+      <a class="mod-card reveal d1" href="#injury-tool">
+        <div class="mod-icon" style="background:#fde8e8">🩺</div>
+        <div class="mod-title">傷病英語（投手專用）</div>
+        <div class="mod-desc">投手必備：如何在場上、牛棚、醫療室清楚說明症狀——dead arm、forearm tightness、losing command 全收錄。</div>
+        <span class="mod-tag" style="background:#fde8e8;color:#7b1a1a">互動人體圖 · 9 題情境測驗 · 4 組對話</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ TOOL 1: 球場日常用語 ══════════ -->
+<section class="tool-section" id="field-tool" style="background:var(--cream)">
+  <div class="inner">
+    <div class="section-head reveal">
+      <p class="section-tag">Module 01</p>
+      <h2 class="section-title">球場日常用語</h2>
+      <p class="section-desc">從 MLB 真實影片提煉的句型，按場景分類。點選身體部位圖、做選擇題、或找隊友一起做對話練習。</p>
+    </div>
+    <div class="tool-box reveal">
+      <div class="tool-header">
+        <div class="tool-header-icon">⚾</div>
+        <div class="tool-header-text">
+          <h3>球場日常英語練習</h3>
+          <p>身體部位圖 · 情境選擇題 · 雙人對話 · 用語速查</p>
+        </div>
+      </div>
+      <div class="tool-body">
+        <div class="tab-row">
+          <button class="tb on" onclick="bsw('bmap',this)">用語分類</button>
+          <button class="tb" onclick="bsw('bquiz',this)">情境選擇題</button>
+          <button class="tb" onclick="bsw('brp',this)">對話練習</button>
+        </div>
+
+        <!-- 用語分類 -->
+        <div class="bpanel on" id="pb-bmap">
+          <div class="bfilter-row">
+            <button class="bfb-btn on" onclick="bfp('all',this,'field')">全部</button>
+            <button class="bfb-btn" onclick="bfp('bullpen',this,'field')">牛棚</button>
+            <button class="bfb-btn" onclick="bfp('dugout',this,'field')">休息室</button>
+            <button class="bfb-btn" onclick="bfp('defense',this,'field')">守備</button>
+            <button class="bfb-btn" onclick="bfp('strategy',this,'field')">策略討論</button>
+            <button class="bfb-btn" onclick="bfp('cheer',this,'field')">加油打氣</button>
+          </div>
+          <div class="bpt-wrap" id="field-phrase-grid"></div>
+        </div>
+
+        <!-- 情境選擇題 -->
+        <div class="bpanel" id="pb-bquiz">
+          <div class="bq-score-row">
+            <span>已作答：<strong id="fq-done">0</strong> / 8</span>
+            <span class="bscore-badge">得分：<span id="fq-score">0</span></span>
+            <button class="breset-btn" style="margin-left:auto" onclick="fresetQ()">重新開始</button>
+          </div>
+          <div class="bqbox" id="fqbox">
+            <div class="bq-scene" id="fqscene"></div>
+            <div class="bq-text" id="fqtext"></div>
+            <div class="bopts" id="fqopts"></div>
+            <div class="bfb" id="fqfb"></div>
+            <button class="bnxt" id="fqnxt" onclick="fnextQ()">下一題 →</button>
+          </div>
+        </div>
+
+        <!-- 對話練習 -->
+        <div class="bpanel" id="pb-brp">
+          <p style="font-size:.82rem;color:var(--text-md);margin-bottom:1rem;line-height:1.7">A、B 各選一角色開口練習。空格是本課重點句，試著不看筆記說出來。</p>
+          <div class="rp-card">
+            <div class="rp-top"><div class="rp-title">情境 1：牛棚熱身結束</div><span class="btag bt-r">投手 × 捕手</span></div>
+            <div class="rp-ctx">練投完畢，捕手走過來給投手回饋。</div>
+            <div class="bchat">
+              <div><div class="bbbl-lbl">A（捕手）</div><div class="bbbl bbbl-a">Hey, how you feel today?</div></div>
+              <div style="align-self:flex-end;text-align:right"><div class="bbbl-lbl">B（投手）</div><div class="bbbl bbbl-b">Pretty good. Ready to go.</div></div>
+              <div><div class="bbbl-lbl">A（捕手）</div><div class="bbbl bbbl-a bbbl-gap">＿＿＿＿＿＿＿＿＿. That sinker had nasty depth.</div></div>
+              <div style="align-self:flex-end;text-align:right"><div class="bbbl-lbl">B（投手）</div><div class="bbbl bbbl-b">Thanks man. Appreciate it.</div></div>
+            </div>
+            <button class="brv-btn" onclick="brv(this)">顯示答案</button>
+            <div class="brv-ans">A 的填空：<strong>"Everything really sharp. All the down in the zone."</strong><br>或更簡單：<strong>"That look good, bro."</strong> / <strong>"Nasty. Good stuff."</strong></div>
+          </div>
+          <div class="rp-card">
+            <div class="rp-top"><div class="rp-title">情境 2：內野守備練習雙殺配合</div><span class="btag bt-a">游擊手 × 二壘手</span></div>
+            <div class="rp-ctx">游擊手漂亮地把球傳給二壘，完成雙殺。</div>
+            <div class="bchat">
+              <div><div class="bbbl-lbl">A（游擊手）傳球後</div><div class="bbbl bbbl-a">（傳球）</div></div>
+              <div style="align-self:flex-end;text-align:right"><div class="bbbl-lbl">B（二壘手）接球後</div><div class="bbbl bbbl-b bbbl-gap">＿＿＿＿＿＿＿＿！Easy double play.</div></div>
+              <div><div class="bbbl-lbl">A（游擊手）</div><div class="bbbl bbbl-a">Nice hands, bro.</div></div>
+              <div style="align-self:flex-end;text-align:right"><div class="bbbl-lbl">B（二壘手）</div><div class="bbbl bbbl-b bbbl-gap">Hey, ＿＿＿＿＿＿ out there, everyone!</div></div>
+            </div>
+            <button class="brv-btn" onclick="brv(this)">顯示答案</button>
+            <div class="brv-ans">第一格：<strong>"Good feed!"</strong>（或 "Easy feed!"）<br>第二格：<strong>"nice job"</strong>（完整：Nice job / Good job）</div>
+          </div>
+          <div class="rp-card">
+            <div class="rp-top"><div class="rp-title">情境 3：休息室閒聊</div><span class="btag bt-g">兩位球員</span></div>
+            <div class="rp-ctx">換局休息，一位球員問隊友關於輪值的事。</div>
+            <div class="bchat">
+              <div><div class="bbbl-lbl">A</div><div class="bbbl bbbl-a bbbl-gap">Hey, ＿＿＿＿＿＿＿＿＿＿＿?</div></div>
+              <div style="align-self:flex-end;text-align:right"><div class="bbbl-lbl">B</div><div class="bbbl bbbl-b">Tuesday, against the Cubs.</div></div>
+              <div><div class="bbbl-lbl">A</div><div class="bbbl bbbl-a">Oh nice. Just ＿＿＿＿＿＿＿＿＿ and compete, man.</div></div>
+              <div style="align-self:flex-end;text-align:right"><div class="bbbl-lbl">B</div><div class="bbbl bbbl-b">That's the plan. Appreciate it.</div></div>
+            </div>
+            <button class="brv-btn" onclick="brv(this)">顯示答案</button>
+            <div class="brv-ans">第一格：<strong>"Who's your next start against?"</strong><br>第二格：<strong>"go out there and fight"</strong></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ TOOL 2: 傷病英語（投手專用）══════════ -->
+<section class="tool-section" id="injury-tool" style="background:var(--white)">
+  <div class="inner">
+    <div class="section-head reveal">
+      <p class="section-tag">Module 02</p>
+      <h2 class="section-title">傷病英語<em style="color:var(--warm);font-style:normal">（投手專用）</em></h2>
+      <p class="section-desc">投手最需要、最不能說錯的用語。從身體部位圖開始，點選部位查看該區的症狀說法，再透過選擇題和對話鞏固。</p>
+    </div>
+    <div class="tool-box reveal">
+      <div class="tool-header" style="background:linear-gradient(90deg,#1a0a0a,#4a1010)">
+        <div class="tool-header-icon">🩺</div>
+        <div class="tool-header-text">
+          <h3>投手傷病英語練習</h3>
+          <p>互動人體圖 · 9 題情境測驗 · 4 組對話 · 用語速查</p>
+        </div>
+      </div>
+      <div class="tool-body">
+        <div class="tab-row">
+          <button class="tb on" onclick="bsw('imap',this)">身體部位圖</button>
+          <button class="tb" onclick="bsw('iquiz',this)">情境選擇題</button>
+          <button class="tb" onclick="bsw('irp',this)">對話練習</button>
+          <button class="tb" onclick="bsw('iref',this)">用語速查</button>
+        </div>
+
+        <!-- 身體部位圖 -->
+        <div class="bpanel on" id="pb-imap">
+          <div class="body-wrap">
+            <div class="bsvg-col">
+              <svg viewBox="0 0 240 440" width="240" height="440" xmlns="http://www.w3.org/2000/svg">
+                <g class="pz" onclick="ishow('head')">
+                  <ellipse cx="120" cy="42" rx="32" ry="34" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.5"/>
+                  <ellipse cx="112" cy="35" rx="4.5" ry="5" fill="#633806" opacity=".85"/>
+                  <ellipse cx="128" cy="35" rx="4.5" ry="5" fill="#633806" opacity=".85"/>
+                  <path d="M110 50 Q120 58 130 50" fill="none" stroke="#633806" stroke-width="1.5" stroke-linecap="round"/>
+                  <rect x="108" y="73" width="24" height="15" rx="4" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.2"/>
+                  <text x="120" y="84" text-anchor="middle" font-size="8" fill="#633806" font-family="sans-serif">頭/頸</text>
+                </g>
+                <rect x="98" y="87" width="44" height="64" rx="8" fill="#e8ede8" stroke="#888" stroke-width="1.2"/>
+                <text x="120" y="122" text-anchor="middle" font-size="9" fill="#444" font-family="sans-serif">軀幹</text>
+                <g class="pz" onclick="ishow('shoulder')">
+                  <ellipse cx="78" cy="103" rx="24" ry="16" fill="#fde0e0" stroke="#c0392b" stroke-width="2"/>
+                  <text x="78" y="107" text-anchor="middle" font-size="7.5" fill="#7b1a1a" font-family="sans-serif">肩（投球側）</text>
+                  <circle cx="78" cy="91" r="5" fill="#c0392b" class="pulse-r"/>
+                  <ellipse cx="162" cy="103" rx="24" ry="16" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.5"/>
+                  <text x="162" y="107" text-anchor="middle" font-size="7.5" fill="#633806" font-family="sans-serif">肩（另一側）</text>
+                </g>
+                <rect x="60" y="111" width="19" height="38" rx="5" fill="#ccc" stroke="#888" stroke-width="1"/>
+                <rect x="161" y="111" width="19" height="38" rx="5" fill="#ccc" stroke="#888" stroke-width="1"/>
+                <g class="pz" onclick="ishow('elbow')">
+                  <ellipse cx="53" cy="153" rx="15" ry="12" fill="#fde0e0" stroke="#c0392b" stroke-width="2"/>
+                  <text x="53" y="157" text-anchor="middle" font-size="7.5" fill="#7b1a1a" font-family="sans-serif">肘（投）</text>
+                  <circle cx="53" cy="141" r="4.5" fill="#c0392b" class="pulse-r"/>
+                  <ellipse cx="187" cy="153" rx="15" ry="12" fill="#e8ede8" stroke="#888" stroke-width="1.2"/>
+                  <text x="187" y="157" text-anchor="middle" font-size="7.5" fill="#444" font-family="sans-serif">肘（另）</text>
+                </g>
+                <g class="pz" onclick="ishow('forearm')">
+                  <rect x="48" y="164" width="20" height="30" rx="5" fill="#fde0e0" stroke="#c0392b" stroke-width="1.8"/>
+                  <text x="58" y="183" text-anchor="middle" font-size="7" fill="#7b1a1a" font-family="sans-serif">前臂</text>
+                  <rect x="172" y="164" width="20" height="30" rx="5" fill="#e8ede8" stroke="#888" stroke-width="1.2"/>
+                  <text x="182" y="183" text-anchor="middle" font-size="7" fill="#444" font-family="sans-serif">前臂</text>
+                </g>
+                <g class="pz" onclick="ishow('wrist')">
+                  <rect x="46" y="192" width="28" height="21" rx="6" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.5"/>
+                  <text x="60" y="206" text-anchor="middle" font-size="7.5" fill="#633806" font-family="sans-serif">腕/手</text>
+                  <rect x="166" y="192" width="28" height="21" rx="6" fill="#e8ede8" stroke="#888" stroke-width="1.2"/>
+                  <text x="180" y="206" text-anchor="middle" font-size="7.5" fill="#444" font-family="sans-serif">腕/手</text>
+                </g>
+                <g class="pz" onclick="ishow('core')">
+                  <rect x="98" y="152" width="44" height="52" rx="8" fill="#d4f0e4" stroke="#1e7a50" stroke-width="1.5"/>
+                  <text x="120" y="180" text-anchor="middle" font-size="8" fill="#0d3d28" font-family="sans-serif">腰/背/腹</text>
+                </g>
+                <g class="pz" onclick="ishow('leg')">
+                  <rect x="98" y="207" width="18" height="60" rx="7" fill="#e8ede8" stroke="#888" stroke-width="1.2"/>
+                  <text x="107" y="241" text-anchor="middle" font-size="7" fill="#444" font-family="sans-serif">大腿</text>
+                  <rect x="124" y="207" width="18" height="60" rx="7" fill="#e8ede8" stroke="#888" stroke-width="1.2"/>
+                  <text x="133" y="241" text-anchor="middle" font-size="7" fill="#444" font-family="sans-serif">大腿</text>
+                </g>
+                <g class="pz" onclick="ishow('knee')">
+                  <ellipse cx="107" cy="275" rx="13" ry="10" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.5"/>
+                  <text x="107" y="279" text-anchor="middle" font-size="7" fill="#633806" font-family="sans-serif">膝</text>
+                  <ellipse cx="133" cy="275" rx="13" ry="10" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.5"/>
+                  <text x="133" y="279" text-anchor="middle" font-size="7" fill="#633806" font-family="sans-serif">膝</text>
+                </g>
+                <rect x="101" y="284" width="13" height="52" rx="5" fill="#ccc" stroke="#888" stroke-width="1"/>
+                <rect x="126" y="284" width="13" height="52" rx="5" fill="#ccc" stroke="#888" stroke-width="1"/>
+                <g class="pz" onclick="ishow('ankle')">
+                  <rect x="96" y="336" width="22" height="17" rx="5" fill="#e8ede8" stroke="#888" stroke-width="1.2"/>
+                  <text x="107" y="348" text-anchor="middle" font-size="7" fill="#444" font-family="sans-serif">踝/腳</text>
+                  <rect x="122" y="336" width="22" height="17" rx="5" fill="#e8ede8" stroke="#888" stroke-width="1.2"/>
+                  <text x="133" y="348" text-anchor="middle" font-size="7" fill="#444" font-family="sans-serif">踝/腳</text>
+                </g>
+                <rect x="96" y="352" width="22" height="11" rx="4" fill="#aaa" stroke="#666" stroke-width="1"/>
+                <rect x="122" y="352" width="22" height="11" rx="4" fill="#aaa" stroke="#666" stroke-width="1"/>
+                <text x="120" y="393" text-anchor="middle" font-size="10" fill="#7a9a7a" font-family="sans-serif">點選部位查看用語</text>
+              </svg>
+              <div class="blegend">
+                <div class="bli"><div class="bld" style="background:#c0392b"></div>最高風險</div>
+                <div class="bli"><div class="bld" style="background:#BA7517"></div>常見傷區</div>
+                <div class="bli"><div class="bld" style="background:#1e7a50"></div>核心區</div>
+                <div class="bli"><div class="bld" style="background:#888"></div>相對低風險</div>
+              </div>
+            </div>
+            <div class="binfo-col">
+              <div class="detail-card" id="idc"><div class="bmap-hint">← 點選左側人體的任一部位<br>查看投手在該區域最需要的傷病英語用語</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 情境選擇題 -->
+        <div class="bpanel" id="pb-iquiz">
+          <div class="bq-score-row">
+            <span>已作答：<strong id="iq-done">0</strong> / 9</span>
+            <span class="bscore-badge">得分：<span id="iq-score">0</span></span>
+            <button class="breset-btn" style="margin-left:auto" onclick="iresetQ()">重新開始</button>
+          </div>
+          <div class="bqbox" id="iqbox">
+            <div class="bq-scene" id="iqscene"></div>
+            <div class="bq-text" id="iqtext"></div>
+            <div class="bopts" id="iqopts"></div>
+            <div class="bfb" id="iqfb"></div>
+            <button class="bnxt" id="iqnxt" onclick="inextQ()">下一題 →</button>
+          </div>
+        </div>
+
+        <!-- 對話練習 -->
+        <div class="bpanel" id="pb-irp">
+          <p style="font-size:.82rem;color:var(--text-md);margin-bottom:1rem;line-height:1.7">A、B 各選一角色，照對話開口練習。空格是重點句，先不看筆記試著說出來。</p>
+          <div class="rp-card">
+            <div class="rp-top"><div class="rp-title">情境 1：投球中途，捕手發現你表情不對</div><span class="btag bt-r">投手 × 捕手</span></div>
+            <div class="rp-ctx">第四局，你投完一球後捏了捏手肘，捕手走上丘來。</div>
+            <div class="bchat">
+              <div><div class="bbbl-lbl">A（捕手）</div><div class="bbbl bbbl-a">Hey, you alright? You grabbed your elbow.</div></div>
+              <div style="align-self:flex-end;text-align:right"><div class="bbbl-lbl">B（投手）</div><div class="bbbl bbbl-b bbbl-gap">I feel ＿＿＿＿＿＿ on the inside of my elbow. Started a few pitches ago.</div></div>
+              <div><div class="bbbl-lbl">A（捕手）</div><div class="bbbl bbbl-a">Sharp or dull?</div></div>
+              <div style="align-self:flex-end;text-align:right"><div class="bbbl-lbl">B（投手）</div><div class="bbbl bbbl-b bbbl-gap">＿＿＿＿＿＿. Especially when I release.</div></div>
+              <div><div class="bbbl-lbl">A（捕手）</div><div class="bbbl bbbl-a">I'm calling time. We need the trainer.</div></div>
+            </div>
+            <button class="brv-btn" onclick="brv(this)">顯示答案</button>
+            <div class="brv-ans">第一格：<strong>"a pinch"</strong> 或 <strong>"some tightness"</strong> 或 <strong>"a sharp pain"</strong><br>第二格：<strong>"It's sharp"</strong> 或 <strong>"More sharp than dull"</strong><br><br>重點：不要說 "I'm fine" 硬撐。捕手問 "sharp or dull?" 要能立刻分辨回答。</div>
+          </div>
+          <div class="rp-card">
+            <div class="rp-top"><div class="rp-title">情境 2：牛棚熱身前發現 dead arm</div><span class="btag bt-a">投手 × 防護員</span></div>
+            <div class="rp-ctx">賽前牛棚練投，你感覺手臂比平常重，前臂有些緊繃。</div>
+            <div class="bchat">
+              <div><div class="bbbl-lbl">A（投手）</div><div class="bbbl bbbl-a bbbl-gap">My arm feels ＿＿＿＿＿＿ today. And there's some ＿＿＿＿＿＿ in my forearm.</div></div>
+              <div style="align-self:flex-end;text-align:right"><div class="bbbl-lbl">B（防護員）</div><div class="bbbl bbbl-b">How many days since your last start?</div></div>
+              <div><div class="bbbl-lbl">A（投手）</div><div class="bbbl bbbl-a">Four days.</div></div>
+              <div style="align-self:flex-end;text-align:right"><div class="bbbl-lbl">B（防護員）</div><div class="bbbl bbbl-b">Let me check your range of motion.</div></div>
+              <div><div class="bbbl-lbl">A（投手）</div><div class="bbbl bbbl-a bbbl-gap">It's a little ＿＿＿＿＿＿ when I rotate internally.</div></div>
+            </div>
+            <button class="brv-btn" onclick="brv(this)">顯示答案</button>
+            <div class="brv-ans">第一格：<strong>"dead"</strong> 或 <strong>"heavy"</strong>（dead arm = 手臂沉重疲勞感，投手常用術語）<br>第二格：<strong>"tightness"</strong> 或 <strong>"soreness"</strong><br>第三格：<strong>"tight"</strong> 或 <strong>"stiff"</strong></div>
+          </div>
+          <div class="rp-card">
+            <div class="rp-top"><div class="rp-title">情境 3：賽後主動回報教練</div><span class="btag bt-g">投手 × 投手教練</span></div>
+            <div class="rp-ctx">你投了六局，最後幾球控球變差。比賽結束後主動去找投手教練。</div>
+            <div class="bchat">
+              <div><div class="bbbl-lbl">A（投手）</div><div class="bbbl bbbl-a bbbl-gap">Hey coach, I just wanted to ＿＿＿＿＿＿. My shoulder got tight around the fifth. I think that's why I was ＿＿＿＿＿＿ toward the end.</div></div>
+              <div style="align-self:flex-end;text-align:right"><div class="bbbl-lbl">B（教練）</div><div class="bbbl bbbl-b">Thanks for telling me. Any sharp pain?</div></div>
+              <div><div class="bbbl-lbl">A（投手）</div><div class="bbbl bbbl-a bbbl-gap">＿＿＿＿＿＿. Just tightness.</div></div>
+              <div style="align-self:flex-end;text-align:right"><div class="bbbl-lbl">B（教練）</div><div class="bbbl bbbl-b">Good call. Let's get you with the trainer tomorrow.</div></div>
+            </div>
+            <button class="brv-btn" onclick="brv(this)">顯示答案</button>
+            <div class="brv-ans">第一格：<strong>"give you a heads up"</strong>（主動通報的開場白）<br>第二格：<strong>"losing command"</strong>（控球變差，投手專業說法）<br>第三格：<strong>"No sharp pain"</strong> 或 <strong>"Nothing too serious"</strong></div>
+          </div>
+          <div class="rp-card">
+            <div class="rp-top"><div class="rp-title">情境 4：在醫療室向隊醫描述肩膀症狀</div><span class="btag bt-p">投手 × 隊醫</span></div>
+            <div class="rp-ctx">被轉介去見隊醫，隊醫請你說明肩膀的具體症狀。</div>
+            <div class="bchat">
+              <div><div class="bbbl-lbl">A（隊醫）</div><div class="bbbl bbbl-a">When does it hurt?</div></div>
+              <div style="align-self:flex-end;text-align:right"><div class="bbbl-lbl">B（投手）</div><div class="bbbl bbbl-b bbbl-gap">Mostly at the ＿＿＿＿＿＿ — right when I release the ball.</div></div>
+              <div><div class="bbbl-lbl">A（隊醫）</div><div class="bbbl bbbl-a">Any numbness or tingling down the arm?</div></div>
+              <div style="align-self:flex-end;text-align:right"><div class="bbbl-lbl">B（投手）</div><div class="bbbl bbbl-b bbbl-gap">＿＿＿＿＿＿. Just pain at the shoulder.</div></div>
+            </div>
+            <button class="brv-btn" onclick="brv(this)">顯示答案</button>
+            <div class="brv-ans">第一格：<strong>"end of my motion"</strong>（完整：at the end of my motion = 動作末端）<br>第二格：<strong>"No numbness"</strong>（否認神經症狀）<br><br>重點：隊醫問 "numbness or tingling?" 是在篩查神經壓迫，一定要誠實回答。</div>
+          </div>
+        </div>
+
+        <!-- 用語速查 -->
+        <div class="bpanel" id="pb-iref">
+          <div class="bfilter-row">
+            <button class="bfb-btn on" onclick="bfp('all',this,'injury')">全部</button>
+            <button class="bfb-btn" onclick="bfp('pitcher',this,'injury')">投手專用</button>
+            <button class="bfb-btn" onclick="bfp('pain',this,'injury')">描述疼痛</button>
+            <button class="bfb-btn" onclick="bfp('report',this,'injury')">主動回報</button>
+            <button class="bfb-btn" onclick="bfp('respond',this,'injury')">回應問題</button>
+          </div>
+          <div class="bpt-wrap" id="injury-phrase-grid"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEACHER NOTE -->
+<section style="background:var(--cream);padding:56px 5%">
+  <div class="inner" style="max-width:680px">
+    <div class="teacher-talk reveal">
+      <b>老師說：</b>這個專區的用語全部來自 MLB 真實影片與投手醫療情境，不是課本英文。建議的練習順序是：先點身體部位圖把用語唸出來 → 做情境選擇題測試直覺 → 找一位同學做雙人對話填空，試著不看筆記開口說。最後一步最重要——只有真的開口，到了美國才會自然說出來。
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+<script src="main.js"></script>
+<script>
+/* ════════════════ 資料 ════════════════ */
+var FIELD_PHRASES = [
+  {e:"How you feel?",z:"你今天感覺怎樣？",ctx:"牛棚練投前關心隊友",cat:"bullpen"},
+  {e:"You're ready to go, huh?",z:"準備好上場了吧？",ctx:"牛棚練投結束的稱讚",cat:"bullpen"},
+  {e:"That look good, bro.",z:"看起來很不錯，兄弟",ctx:"最簡單直接的投球稱讚",cat:"bullpen"},
+  {e:"Everything really sharp.",z:"球路非常犀利",ctx:"具體稱讚隊友球質",cat:"bullpen"},
+  {e:"All the down in the zone.",z:"球都有壓低在好球帶",ctx:"稱讚控球位置極佳",cat:"bullpen"},
+  {e:"Nasty. Good stuff, man.",z:"太犀利了，投得好！",ctx:"對投手最高的讚美",cat:"bullpen"},
+  {e:"Good depth.",z:"下墜幅度很好",ctx:"稱讚變化球的垂直幅度",cat:"bullpen"},
+  {e:"That was big time.",z:"那真是太關鍵了！",ctx:"休息室稱讚關鍵表現",cat:"dugout"},
+  {e:"I got a hot mic...",z:"我身上有麥克風喔",ctx:"開玩笑破冰的流行語",cat:"dugout"},
+  {e:"Same pitch, boy.",z:"同樣球路啊，兄弟",ctx:"討論對方配球時",cat:"dugout"},
+  {e:"How are we doing?",z:"大家過得如何？",ctx:"在球場遇到隊友時的招呼",cat:"dugout"},
+  {e:"Appreciate you, buddy.",z:"謝啦，老兄",ctx:"比 Thank you 更口語道地",cat:"dugout"},
+  {e:"Good feed. / Easy feed.",z:"傳得好，好接",ctx:"雙殺配合的守備稱讚",cat:"defense"},
+  {e:"Make a play.",z:"守下來吧",ctx:"鼓勵守備員抓出局數",cat:"defense"},
+  {e:"Stay loose.",z:"保持放鬆",ctx:"提醒隊友場上不要緊繃",cat:"defense"},
+  {e:"Nice hands. / What a ball.",z:"接得漂亮 / 傳得好",ctx:"傳接球練習時的稱讚",cat:"defense"},
+  {e:"What's your go-to pitch?",z:"你的招牌球路是什麼？",ctx:"開啟棒球話題的好問句",cat:"strategy"},
+  {e:"Attack the zone.",z:"攻擊好球帶",ctx:"最常聽到的投球策略",cat:"strategy"},
+  {e:"If you don't have one pitch, use the other ones.",z:"沒這個球路就換別的",ctx:"討論場上應變",cat:"strategy"},
+  {e:"Let's get through this first inning.",z:"先穩穩度過第一局",ctx:"開局不穩時安定情緒",cat:"strategy"},
+  {e:"Who's your next start against?",z:"你下一場對手是誰？",ctx:"休息室問投手輪值",cat:"strategy"},
+  {e:"Fall in love with the process, not the result.",z:"愛上過程，不只看結果",ctx:"激勵用的座右銘",cat:"cheer"},
+  {e:"Go out there and fight and compete.",z:"上場去奮戰、去競爭",ctx:"上場前的熱血喊話",cat:"cheer"},
+  {e:"Just got to go out there and execute.",z:"只要上場把投球執行好",ctx:"強調專注執行",cat:"cheer"},
+  {e:"Nice job, boys. / Good job, everybody.",z:"大家做得好！",ctx:"練習結束或換局退場",cat:"cheer"},
+  {e:"Have a great one.",z:"祝你比賽順利",ctx:"上場前的道別祝福",cat:"cheer"},
+];
+
+var INJURY_PHRASES = [
+  {e:"Dead arm",z:"手臂疲勞感（沉重、無彈性）",ctx:"投手專用，正常疲勞但需回報",cat:"pitcher"},
+  {e:"Forearm tightness",z:"前臂緊繃感",ctx:"投手必回報的症狀之一",cat:"pitcher"},
+  {e:"Losing command",z:"控球變差",ctx:"投手說明場上狀況的專業說法",cat:"pitcher"},
+  {e:"At the release point",z:"在釋球點",ctx:"說明投球動作中疼痛位置",cat:"pitcher"},
+  {e:"I'm losing external rotation.",z:"我的外旋角度變小了。",ctx:"肩膀活動度受限時告訴防護員",cat:"pitcher"},
+  {e:"I can't push off the rubber.",z:"我沒辦法正常蹬地。",ctx:"腳踝傷況影響出力機制",cat:"pitcher"},
+  {e:"I feel a pinch on the inside of my elbow.",z:"手肘內側有夾到的感覺。",ctx:"UCL 最典型症狀，立刻說",cat:"pitcher"},
+  {e:"I feel a sharp pain.",z:"我感到刺痛。",ctx:"急性受傷，最緊急",cat:"pain"},
+  {e:"There's a dull ache.",z:"有悶悶的痛感。",ctx:"慢性或輕度傷況",cat:"pain"},
+  {e:"It's sore / stiff.",z:"很痠 / 很僵硬。",ctx:"日常疲勞回報",cat:"pain"},
+  {e:"I heard a pop.",z:"我聽到喀一聲。",ctx:"韌帶損傷，立刻說",cat:"pain"},
+  {e:"It comes and goes.",z:"時好時壞。",ctx:"間歇性疼痛",cat:"pain"},
+  {e:"Only when I throw.",z:"只有在投球時才痛。",ctx:"說明觸發條件給隊醫",cat:"pain"},
+  {e:"I just wanted to give you a heads up.",z:"我想先讓你知道一下。",ctx:"主動通報傷況的開場白",cat:"report"},
+  {e:"I need to come out.",z:"我需要退場。",ctx:"無法繼續時告知教練",cat:"report"},
+  {e:"Can I get the trainer?",z:"可以叫防護員來嗎？",ctx:"場上請求協助的第一句",cat:"report"},
+  {e:"It started around the fifth inning.",z:"大概從第五局開始的。",ctx:"說明症狀出現時間點",cat:"report"},
+  {e:"It's about a five or six.",z:"大概是五到六分。",ctx:"回答疼痛指數",cat:"respond"},
+  {e:"Right there. That's the spot.",z:"就是那邊，正中痛點。",ctx:"被按到痛點時的回應",cat:"respond"},
+  {e:"No numbness. Just soreness.",z:"沒有麻。只是痠痛。",ctx:"否認神經症狀",cat:"respond"},
+  {e:"Nothing sharp, just tight.",z:"沒有刺痛，只是緊繃。",ctx:"區分嚴重程度",cat:"respond"},
+  {e:"I can push through it.",z:"我可以撐過去。",ctx:"輕傷時讓教練評估",cat:"respond"},
+  {e:"I don't think I should continue.",z:"我覺得不應該繼續。",ctx:"嚴重傷況必須退場時",cat:"respond"},
+];
+
+var BODY_DATA = {
+  head:{name:"頭部 / 頸部",en:"Head & Neck",risk:"low",rl:"相對低風險",c:"#854F0B",p:[
+    {e:"My neck is stiff.",z:"我的脖子很僵硬。",t:"投球動作後頸部緊繃"},
+    {e:"I got hit in the head. I need to be checked.",z:"我頭被打到，需要立刻檢查。",t:"被反彈球擊中時立刻說"},
+    {e:"I feel dizzy.",z:"我感到頭暈。",t:"中暑或疑似腦震盪"},
+    {e:"I have a headache after the impact.",z:"撞擊後開始頭痛。",t:"腦震盪的重要症狀"}
+  ]},
+  shoulder:{name:"肩膀（投球側）",en:"Pitching Shoulder / Rotator Cuff",risk:"high",rl:"最高風險",c:"#8b1a1a",p:[
+    {e:"My shoulder is sore after pitching.",z:"投完球肩膀很痠。",t:"投球後正常疲勞的說法"},
+    {e:"I feel tightness when I rotate.",z:"旋轉的時候感覺很緊。",t:"旋轉肌群問題的早期症狀"},
+    {e:"It hurts at the end of my throwing motion.",z:"投球動作的末端會痛。",t:"釋球點附近的疼痛"},
+    {e:"I'm losing external rotation.",z:"我的外旋角度變小了。",t:"關節活動度受限"}
+  ]},
+  elbow:{name:"手肘（投球側）",en:"Pitching Elbow / UCL",risk:"high",rl:"最高風險",c:"#8b1a1a",p:[
+    {e:"I feel a pinch on the inside of my elbow.",z:"手肘內側有夾到的感覺。",t:"UCL 最典型症狀，立刻回報"},
+    {e:"I heard a pop in my elbow.",z:"我手肘聽到喀一聲。",t:"可能是 UCL 撕裂，最緊急"},
+    {e:"Sharp pain when I release.",z:"釋球的時候有刺痛。",t:"投球動作中出現疼痛"},
+    {e:"My elbow feels loose.",z:"手肘感覺鬆鬆的。",t:"關節不穩定的描述"}
+  ]},
+  forearm:{name:"前臂",en:"Forearm & Flexor Muscles",risk:"high",rl:"最高風險",c:"#8b1a1a",p:[
+    {e:"I have forearm tightness.",z:"我前臂很緊繃。",t:"投手最需要立刻回報的症狀"},
+    {e:"My forearm feels pumped up.",z:"前臂感覺像充氣一樣脹。",t:"過度使用後的腫脹感"},
+    {e:"I can't fully extend my arm.",z:"我沒辦法把手臂完全伸直。",t:"肘關節或前臂問題"},
+    {e:"Tightness from my elbow down to my wrist.",z:"緊繃感從手肘延伸到手腕。",t:"說明症狀範圍"}
+  ]},
+  wrist:{name:"手腕 / 手",en:"Wrist & Hand",risk:"mid",rl:"常見傷區",c:"#7a4a00",p:[
+    {e:"My wrist is sore when I snap it.",z:"手腕甩出去的時候會痛。",t:"變化球釋球動作引發疼痛"},
+    {e:"I jammed my finger on a comebacker.",z:"反彈球打到我手指撞傷了。",t:"防守時手指受傷"},
+    {e:"I can't grip the ball properly.",z:"我沒辦法正常握球。",t:"說明功能性影響"},
+    {e:"My index finger is numb.",z:"食指有麻感。",t:"神經壓迫相關，立刻回報"}
+  ]},
+  core:{name:"腰部 / 背部 / 腹部",en:"Core, Back & Obliques",risk:"mid",rl:"常見傷區",c:"#0d3d28",p:[
+    {e:"My lower back is tight after pitching.",z:"投完球下背很緊。",t:"投球出力後常見疲勞"},
+    {e:"I pulled my oblique on that pitch.",z:"那球讓我腹斜肌拉傷了。",t:"全力投球後急性拉傷"},
+    {e:"It hurts when I rotate my trunk.",z:"旋轉軀幹的時候會痛。",t:"投球旋轉動作受限"},
+    {e:"I have back spasms.",z:"我背部肌肉痙攣。",t:"突然無法正常活動"}
+  ]},
+  leg:{name:"大腿 / 鼠蹊",en:"Legs & Groin",risk:"low",rl:"相對低風險",c:"#3a3a3a",p:[
+    {e:"My lead leg is sore from landing.",z:"踏步的腳因為落地過多很痠。",t:"踏步腳承重過大"},
+    {e:"I pulled my groin on my follow-through.",z:"跟進動作時鼠蹊部拉傷了。",t:"投球完成動作急性拉傷"},
+    {e:"I can't field my position properly.",z:"沒辦法正常守備。",t:"說明下肢影響守備功能"}
+  ]},
+  knee:{name:"膝蓋",en:"Knee",risk:"mid",rl:"常見傷區",c:"#7a4a00",p:[
+    {e:"My landing knee is sore.",z:"踏步那側的膝蓋很痠。",t:"踏步腳膝蓋承受衝擊"},
+    {e:"My knee swelled up after the game.",z:"比賽後膝蓋腫起來了。",t:"比賽後才發現腫脹"},
+    {e:"I heard a pop in my knee.",z:"膝蓋聽到喀一聲。",t:"韌帶損傷，需立刻退場"},
+    {e:"It locks up when I bend it.",z:"彎曲的時候會卡住。",t:"半月板相關症狀"}
+  ]},
+  ankle:{name:"腳踝 / 腳",en:"Ankle & Foot",risk:"low",rl:"相對低風險",c:"#3a3a3a",p:[
+    {e:"I rolled my ankle on the mound.",z:"在投手丘上扭到腳踝了。",t:"投手丘地形不平導致扭傷"},
+    {e:"I can't push off the rubber properly.",z:"沒辦法正常用後腳蹬地。",t:"說明傷況影響出力機制"},
+    {e:"My foot is cramping.",z:"腳在抽筋。",t:"比賽中突然腳抽筋"}
+  ]}
+};
+
+var FIELD_QS = [
+  {scene:"牛棚裡，你剛接完隊友的幾球，感覺球質很好，想稱讚控球壓低。",text:"哪句最適合？",opts:["That look big time.","All the down in the zone.","Make a play!","Fall in love with it."],ans:1,ex:"「All the down in the zone」是稱讚投手把球壓低、落在好球帶下緣的專業說法。"},
+  {scene:"換局退場，守備練習結束，你想鼓勵全隊。",text:"最適合的說法是？",opts:["Stay loose.","Nice job, boys!","Good depth.","Attack the zone."],ans:1,ex:"「Nice job, boys!」是換局或練習結束後用來肯定全體的集體用語。"},
+  {scene:"賽前在牛棚，你想告訴捕手你今天先練速球的控球。",text:"你會說？",opts:["I work on all fastball command at first.","Let your body organize itself.","What's your go-to pitch?","It's go time baby."],ans:0,ex:"「I work on all fastball command at first」是說明熱身計畫的句型，自然告知捕手暖身順序。"},
+  {scene:"雙殺配合練習，游擊手把球傳得又準又好接。",text:"二壘手應該說？",opts:["Good depth!","Good feed!","Stay loose!","Nasty!"],ans:1,ex:"「Good feed」是針對傳球的稱讚，特別用在雙殺配合中短游擊的拋球。"},
+  {scene:"投手開局第一局掉了幾分，捕手走到丘上想讓他冷靜。",text:"捕手可以說？",opts:["Fall in love with the process.","Let's get through this first inning.","Who's your next start against?","Have a great one."],ans:1,ex:"「Let's get through this first inning」把焦點縮小到眼前這一局，是非常實用的穩定情緒說法。"},
+  {scene:"隊友今天某個球路一直投不好，教練要鼓勵他調整策略。",text:"最貼切的說法是？",opts:["Go out there and fight.","Attack the zone.","If you don't have one pitch, use the other ones.","Let your body organize itself."],ans:2,ex:"這句直接點出「某個球路不靈就換另一個」的實戰應變邏輯。"},
+  {scene:"休息室裡，你發現隊友好像很緊張，身體有點僵。",text:"你會說？",opts:["Make a play!","Stay loose.","Same pitch, boy.","Be careful what you say, big dog."],ans:1,ex:"「Stay loose」是提醒隊友放鬆身體、不要繃太緊的常用語。"},
+  {scene:"你想問投手隊友下次先發的對手是誰，自然地開起話題。",text:"最自然的問法是？",opts:["What's your go-to pitch?","How you feel?","Who's your next start against?","You're ready to go, huh?"],ans:2,ex:"「Who's your next start against?」是休息室問投手輪值安排最自然的用語。"}
+];
+
+var INJURY_QS = [
+  {scene:"你投第五局時，感覺手肘內側有夾痛感。捕手問你 'You alright?'，你決定誠實說。",text:"你應該說什麼？",opts:["I'm fine, let's go.","I feel a pinch on the inside of my elbow.","My elbow is nasty tight.","Dead arm, bro."],ans:1,ex:"「I feel a pinch on the inside of my elbow」精確點出位置和感覺，是 UCL 症狀最重要的描述。說 'I'm fine' 硬撐是最危險的選擇。"},
+  {scene:"防護員在賽前問你手臂狀況，你感覺今天手臂很疲勞沉重，像常見的投後疲感。",text:"描述這種手臂疲勞感最道地的說法是？",opts:["My arm feels nasty.","I have dead arm today.","My arm is big time sore.","I feel a pop in my arm."],ans:1,ex:"「Dead arm」是投手專用術語，代表手臂疲勞沉重、沒有彈性感，是正常但要回報的狀態。"},
+  {scene:"投球時，你在釋球的瞬間肩膀有刺痛。防護員問你：'Is it sharp or dull?'",text:"你怎麼回答？",opts:["It's very nasty.","Sharp. Especially at the release point.","I don't know, maybe five.","It's fine, just tight."],ans:1,ex:"「Sharp」是關鍵字。補上「at the release point」讓位置更明確，是描述投手肩膀傷況最有效的說法。"},
+  {scene:"投完比賽，你最後幾局的控球明顯下滑。你去主動向投手教練說明。",text:"描述「控球變差」最專業的投手說法是？",opts:["I was losing command toward the end.","My zone was nasty.","I felt dead in the zone.","My pitching was bad."],ans:0,ex:"「Losing command」是投手說「控球出問題」最專業的說法，教練聽到會聯想到可能與疲勞或傷況有關。"},
+  {scene:"你前臂從昨天開始一直很緊繃，今天想在晨間訓練前主動去找防護員說。",text:"最合適的開場白是？",opts:["Hey, I just wanted to give you a heads up — I've had forearm tightness since yesterday.","My forearm is nasty, bro.","I feel some tightness. Maybe.","I'm fine but my forearm hurts."],ans:0,ex:"「I just wanted to give you a heads up」是主動通報的標準開場白。「forearm tightness」是投手最需要立刻處理的症狀之一。"},
+  {scene:"隊醫問你：'Any numbness or tingling down the arm?' 你沒有這些症狀。",text:"你怎麼回答？",opts:["No numbness. Just soreness at the shoulder.","I feel nasty numb.","Yes, all the way down.","I don't understand."],ans:0,ex:"隊醫在篩查神經壓迫症狀。「No numbness」清楚否認，補上「just soreness at the shoulder」讓診斷更精確。"},
+  {scene:"你在比賽中突然感覺手肘內側「喀」一聲，然後馬上痛了起來。",text:"你應該立刻說什麼？",opts:["I heard a pop in my elbow. I need to come out.","My elbow is sore, I can push through it.","Let me keep going.","It's okay, just give me a second."],ans:0,ex:"「I heard a pop」是韌帶損傷最典型的描述，任何情況都要立刻說。後面加「I need to come out」讓教練立刻知道你需要退場。"},
+  {scene:"防護員問你：'When does it hurt? All the time or only when you throw?' 你只有在投球時才痛。",text:"你怎麼回答？",opts:["It comes and goes. Only when I throw.","All the time, even when I sleep.","It's constant.","I don't feel it right now."],ans:0,ex:"「It comes and goes. Only when I throw.」說明疼痛是間歇性且觸發條件是投球，給防護員和隊醫非常重要的診斷資訊。"},
+  {scene:"你投了六局，最後一局肩膀越來越緊。賽後你想讓教練知道，但不確定是傷還是正常疲勞。",text:"怎麼說最恰當？",opts:["My shoulder got tight around the sixth. Nothing sharp, but I wanted to let you know.","I'm fine, don't worry about it.","My shoulder is dead nasty.","I think I'm injured."],ans:0,ex:"這句說明出現時間、澄清嚴重程度（nothing sharp）、主動通報。不確定是否受傷時，誠實但不誇大是最好的做法。"}
+];
+
+/* ════════════════ 工具函式 ════════════════ */
+function bsw(id, btn) {
+  var panel = btn.closest('.tool-body');
+  panel.querySelectorAll('.tb').forEach(function(b){ b.classList.remove('on'); });
+  panel.querySelectorAll('.bpanel').forEach(function(p){ p.classList.remove('on'); });
+  btn.classList.add('on');
+  var prefix = id === 'bmap' || id === 'bquiz' || id === 'brp' ? 'pb-' : 'pb-';
+  document.getElementById('pb-' + id).classList.add('on');
+}
+
+function bfp(cat, btn, which) {
+  var container = btn.closest('.bpanel');
+  container.querySelectorAll('.bfb-btn').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  var gridId = which === 'field' ? 'field-phrase-grid' : 'injury-phrase-grid';
+  var data = which === 'field' ? FIELD_PHRASES : INJURY_PHRASES;
+  renderPhrases(gridId, cat === 'all' ? data : data.filter(function(r){ return r.cat === cat; }));
+}
+
+function renderPhrases(gridId, data) {
+  document.getElementById(gridId).innerHTML = data.map(function(r){
+    return '<div class="bpt-card"><div class="bpt-en">' + r.e + '</div><div class="bpt-zh">' + r.z + '</div><div class="bpt-ctx">' + r.ctx + '</div></div>';
+  }).join('');
+}
+
+function brv(btn) {
+  var a = btn.nextElementSibling;
+  if (a.style.display === 'block') { a.style.display = 'none'; btn.textContent = '顯示答案'; }
+  else { a.style.display = 'block'; btn.textContent = '隱藏答案'; }
+}
+
+function ishow(id) {
+  var d = BODY_DATA[id];
+  var rCls = d.risk === 'high' ? 'risk-high' : d.risk === 'mid' ? 'risk-mid' : 'risk-low';
+  var html = '<div class="dc-name">' + d.name + '</div>' +
+    '<div class="dc-en">' + d.en + '</div>' +
+    '<span class="dc-risk ' + rCls + '">' + d.rl + '</span>';
+  d.p.forEach(function(p){
+    html += '<div class="pr"><div class="p-en" style="color:' + d.c + '">' + p.e + '</div><div class="p-zh">' + p.z + '</div><div class="p-tip">' + p.t + '</div></div>';
+  });
+  document.getElementById('idc').innerHTML = html;
+}
+
+/* ── Field 選擇題 ── */
+var fqi = 0, fsc = 0, fan = 0;
+function floadQ() {
+  if (fqi >= FIELD_QS.length) {
+    document.getElementById('fqbox').innerHTML = '<div style="text-align:center;padding:2rem"><div style="font-size:2rem;font-weight:900;color:var(--green-dk);margin-bottom:8px">' + fsc + ' / ' + FIELD_QS.length + '</div><div style="font-size:.86rem;color:var(--text-md);margin-bottom:1.5rem">' + (fsc >= 7 ? '太強了！你已經準備好在場上開口了。' : fsc >= 5 ? '不錯的基礎，再複習一遍用語表會更穩。' : '建議先看用語分類，熟悉各場景的說法再來挑戰！') + '</div><button class="bnxt" style="display:inline-block" onclick="fresetQ()">重新挑戰</button></div>';
+    return;
+  }
+  var q = FIELD_QS[fqi];
+  document.getElementById('fqscene').textContent = '⚾ ' + q.scene;
+  document.getElementById('fqtext').textContent = q.text;
+  document.getElementById('fqfb').style.display = 'none';
+  document.getElementById('fqnxt').style.display = 'none';
+  document.getElementById('fqopts').innerHTML = q.opts.map(function(o,i){ return '<button class="bopt" onclick="fansQ(' + i + ')">' + o + '</button>'; }).join('');
+}
+function fansQ(i) {
+  var q = FIELD_QS[fqi];
+  document.querySelectorAll('#fqopts .bopt').forEach(function(b){ b.style.pointerEvents = 'none'; });
+  document.querySelectorAll('#fqopts .bopt')[q.ans].classList.add('ok');
+  var fb = document.getElementById('fqfb');
+  if (i === q.ans) { fsc++; document.querySelectorAll('#fqopts .bopt')[i].classList.add('ok'); fb.className = 'bfb ok'; fb.innerHTML = '✓ 正確！' + q.ex; }
+  else { document.querySelectorAll('#fqopts .bopt')[i].classList.add('no'); fb.className = 'bfb no'; fb.innerHTML = '✗ 再想想。' + q.ex; }
+  fan++; document.getElementById('fq-done').textContent = fan; document.getElementById('fq-score').textContent = fsc;
+  fb.style.display = 'block'; document.getElementById('fqnxt').style.display = 'inline-block';
+}
+function fnextQ() { fqi++; floadQ(); }
+function fresetQ() { fqi = 0; fsc = 0; fan = 0; document.getElementById('fq-done').textContent = 0; document.getElementById('fq-score').textContent = 0; document.getElementById('fqbox').innerHTML = '<div class="bq-scene" id="fqscene"></div><div class="bq-text" id="fqtext"></div><div class="bopts" id="fqopts"></div><div class="bfb" id="fqfb"></div><button class="bnxt" id="fqnxt" onclick="fnextQ()">下一題 →</button>'; floadQ(); }
+
+/* ── Injury 選擇題 ── */
+var iqi = 0, isc = 0, ian = 0;
+function iloadQ() {
+  if (iqi >= INJURY_QS.length) {
+    document.getElementById('iqbox').innerHTML = '<div style="text-align:center;padding:2rem"><div style="font-size:2rem;font-weight:900;color:var(--green-dk);margin-bottom:8px">' + isc + ' / ' + INJURY_QS.length + '</div><div style="font-size:.86rem;color:var(--text-md);margin-bottom:1.5rem">' + (isc >= 8 ? '非常好！你已經能在場上清楚說明傷況了。' : isc >= 6 ? '基礎穩固，多複習手肘和肩膀的用語。' : '建議先看身體部位圖，熟悉投手重點部位的說法。') + '</div><button class="bnxt" style="display:inline-block" onclick="iresetQ()">重新挑戰</button></div>';
+    return;
+  }
+  var q = INJURY_QS[iqi];
+  document.getElementById('iqscene').textContent = '⚾ ' + q.scene;
+  document.getElementById('iqtext').textContent = q.text;
+  document.getElementById('iqfb').style.display = 'none';
+  document.getElementById('iqnxt').style.display = 'none';
+  document.getElementById('iqopts').innerHTML = q.opts.map(function(o,i){ return '<button class="bopt" onclick="iansQ(' + i + ')">' + o + '</button>'; }).join('');
+}
+function iansQ(i) {
+  var q = INJURY_QS[iqi];
+  document.querySelectorAll('#iqopts .bopt').forEach(function(b){ b.style.pointerEvents = 'none'; });
+  document.querySelectorAll('#iqopts .bopt')[q.ans].classList.add('ok');
+  var fb = document.getElementById('iqfb');
+  if (i === q.ans) { isc++; document.querySelectorAll('#iqopts .bopt')[i].classList.add('ok'); fb.className = 'bfb ok'; fb.innerHTML = '✓ 正確！' + q.ex; }
+  else { document.querySelectorAll('#iqopts .bopt')[i].classList.add('no'); fb.className = 'bfb no'; fb.innerHTML = '✗ 再想想。' + q.ex; }
+  ian++; document.getElementById('iq-done').textContent = ian; document.getElementById('iq-score').textContent = isc;
+  fb.style.display = 'block'; document.getElementById('iqnxt').style.display = 'inline-block';
+}
+function inextQ() { iqi++; iloadQ(); }
+function iresetQ() { iqi = 0; isc = 0; ian = 0; document.getElementById('iq-done').textContent = 0; document.getElementById('iq-score').textContent = 0; document.getElementById('iqbox').innerHTML = '<div class="bq-scene" id="iqscene"></div><div class="bq-text" id="iqtext"></div><div class="bopts" id="iqopts"></div><div class="bfb" id="iqfb"></div><button class="bnxt" id="iqnxt" onclick="inextQ()">下一題 →</button>'; iloadQ(); }
+
+/* ── 初始化 ── */
+renderPhrases('field-phrase-grid', FIELD_PHRASES);
+renderPhrases('injury-phrase-grid', INJURY_PHRASES);
+floadQ();
+iloadQ();
+</script>
+</body>
+</html>

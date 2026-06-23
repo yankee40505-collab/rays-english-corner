@@ -35,6 +35,14 @@ const NAV_ITEMS = [
     ],
   },
   { label: '線上練習',  href: 'practice.html' },
+  {
+    label: '⚾ 棒球英語',
+    children: [
+      { label: '球場日常用語',       href: 'baseball.html#field-tool' },
+      { label: '傷病英語（投手專用）', href: 'baseball.html#injury-tool' },
+      { label: '棒球專區首頁',       href: 'baseball.html' },
+    ],
+  },
   { label: '聯絡我',    href: 'index.html#contact' },
 ];
 
