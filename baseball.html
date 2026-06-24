@@ -74,8 +74,8 @@ section { padding: 72px 5%; }
 
 /* body map */
 .body-wrap{display:flex;gap:1.5rem;align-items:flex-start;flex-wrap:wrap}
-.bsvg-col{flex:0 0 240px}
-.binfo-col{flex:1;min-width:200px}
+.bsvg-col{flex:0 0 300px}
+.binfo-col{flex:1;min-width:220px}
 .pz{cursor:pointer;transition:opacity .15s}
 .pz:hover{opacity:.75}
 .detail-card{background:var(--cream);border:1.5px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem;min-height:200px}
@@ -670,11 +670,12 @@ var BODY_DATA = {
     {e:"There's some tightness on my glove side.",z:"手套那側有些緊繃。",t:"輕度疲勞的說法"},
     {e:"It's just general fatigue, nothing sharp.",z:"只是一般疲勞，沒有刺痛。",t:"區分嚴重程度"}
   ]},
+
   torso:{name:"胸部 / 上背部",en:"Chest & Upper Back",risk:"mid",rl:"常見傷區",c:"#7a4a00",p:[
     {e:"My chest is tight when I breathe deeply.",z:"深呼吸的時候胸口很緊。",t:"投球出力後呼吸肌緊繃，需回報"},
     {e:"I feel tightness across my upper back.",z:"上背整片感覺很緊繃。",t:"大量投球後斜方肌、菱形肌疲勞"},
     {e:"I think I may have strained an intercostal muscle.",z:"我覺得可能是肋間肌拉傷。",t:"全力投球後肋骨周圍出現疼痛時"},
-    {e:"It hurts when I take a deep breath.",z:"深呼吸的時候會痛。",t:"肋間肌或肋骨相關傷況，需立刻說}"}
+    {e:"It hurts when I take a deep breath.",z:"深呼吸的時候會痛。",t:"肋間肌或肋骨相關傷況，需立刻說"}
   ]},
   head:{name:"頭部 / 頸部",en:"Head & Neck",risk:"low",rl:"相對低風險",c:"#854F0B",p:[
     {e:"My neck is stiff.",z:"我的脖子很僵硬。",t:"投球動作後頸部緊繃"},
@@ -791,6 +792,9 @@ function brv(btn) {
 
 function ishow(id) {
   var d = BODY_DATA[id];
+  if (!d) { console.error('BODY_DATA missing key:', id); return; }
+  var el = document.getElementById('idc');
+  if (!el) { console.error('idc element not found'); return; }
   var rCls = d.risk === 'high' ? 'risk-high' : d.risk === 'mid' ? 'risk-mid' : 'risk-low';
   var html = '<div class="dc-name">' + d.name + '</div>' +
     '<div class="dc-en">' + d.en + '</div>' +
@@ -798,7 +802,8 @@ function ishow(id) {
   d.p.forEach(function(p){
     html += '<div class="pr"><div class="p-en" style="color:' + d.c + '">' + p.e + '</div><div class="p-zh">' + p.z + '</div><div class="p-tip">' + p.t + '</div></div>';
   });
-  document.getElementById('idc').innerHTML = html;
+  el.innerHTML = html;
+  el.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
 
 /* ── Field 選擇題 ── */
