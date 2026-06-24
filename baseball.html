@@ -354,10 +354,10 @@ svg:has(.pz:hover) .hl-zone { opacity: 0; }
         <div class="bpanel on" id="pb-imap">
           <div class="body-wrap">
             <div class="bsvg-col" style="flex:0 0 300px">
-              <div style="position:relative;width:300px;user-select:none">
-                <img src="images/pitcher-phillies.png" alt="費城人投手插畫" style="width:300px;display:block;border-radius:10px">
+              <div style="position:relative;width:300px;display:inline-block;user-select:none">
+                <img id="pitcher-img" src="images/pitcher-phillies.png" alt="費城人投手插畫" style="width:300px;height:auto;display:block;border-radius:10px">
                 <!-- 透明熱點 SVG 疊層，座標按圖片 700px 寬比例縮放至 300px (×0.4286) -->
-                <svg viewBox="0 0 700 1077" width="300" height="462" style="position:absolute;top:0;left:0;cursor:pointer">
+                <svg viewBox="0 0 700 1077" width="300" height="462" style="position:absolute;top:0;left:0;width:100%;height:100%;cursor:pointer">
                   <!-- 頭部 -->
                   <ellipse class="pz hot-high" cx="350" cy="108" rx="112" ry="97" fill="transparent" stroke="transparent" onclick="ishow('head')" data-label="頭/頸"/>
                   <!-- 胸/軀幹 -->
@@ -669,13 +669,7 @@ var BODY_DATA = {
     {e:"It doesn't affect my balance or delivery.",z:"不影響我的平衡或投球動作。",t:"說明不影響功能"},
     {e:"There's some tightness on my glove side.",z:"手套那側有些緊繃。",t:"輕度疲勞的說法"},
     {e:"It's just general fatigue, nothing sharp.",z:"只是一般疲勞，沒有刺痛。",t:"區分嚴重程度"}
-  ]},
-  "shoulder-r":{name:"手套側手臂",en:"Glove-Side Arm",risk:"low",rl:"相對低風險",c:"#3a3a3a",p:[
-    {e:"My glove arm is a little sore.",z:"手套側手臂有點痠。",t:"非投球側輕度不適"},
-    {e:"It doesn't affect my balance or delivery.",z:"不影響我的平衡或投球動作。",t:"說明不影響功能"},
-    {e:"There's some tightness on my glove side.",z:"手套那側有些緊繃。",t:"輕度疲勞的說法"},
-    {e:"It's just general fatigue, nothing sharp.",z:"只是一般疲勞，沒有刺痛。",t:"區分嚴重程度"}
-  ]},
+  ]
   torso:{name:"胸部 / 上背部",en:"Chest & Upper Back",risk:"mid",rl:"常見傷區",c:"#7a4a00",p:[
     {e:"My chest is tight when I breathe deeply.",z:"深呼吸的時候胸口很緊。",t:"投球出力後呼吸肌緊繃，需回報"},
     {e:"I feel tightness across my upper back.",z:"上背整片感覺很緊繃。",t:"大量投球後斜方肌、菱形肌疲勞"},
