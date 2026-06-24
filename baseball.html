@@ -400,56 +400,60 @@ svg:has(.pz:hover) .hl-zone { opacity: 0; }
                   <ellipse class="hl-zone" cx="490" cy="880" rx="70" ry="65" fill="#BA7517" opacity="0"/>
                   <ellipse class="hl-zone" cx="340" cy="1020" rx="140" ry="55" fill="#3B6D11" opacity="0"/>
 
-                  <!-- 部位標籤：底色膠囊，對準圖片實際部位 -->
+                  <!-- 部位標籤：依校正座標精確定位 -->
+                  <!-- head -->
+                  <rect x="289" y="184" width="164" height="44" rx="22" fill="#1a1a1a" opacity=".92" pointer-events="none"/>
+                  <text x="371" y="214" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">頭／頸</text>
 
-                  <!-- 頭/頸：頭部正上方 -->
-                  <rect x="218" y="22" width="184" height="46" rx="23" fill="#1a1a1a" opacity=".88" pointer-events="none"/>
-                  <text x="310" y="54" text-anchor="middle" font-size="28" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">頭／頸</text>
+                  <!-- wrist -->
+                  <rect x="397" y="555" width="184" height="44" rx="22" fill="#854F0B" opacity=".92" pointer-events="none"/>
+                  <text x="489" y="585" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">手腕／手</text>
 
-                  <!-- 手腕/手：握球手右上角，不與頭撞 -->
-                  <rect x="460" y="22" width="196" height="46" rx="23" fill="#854F0B" opacity=".92" pointer-events="none"/>
-                  <text x="558" y="54" text-anchor="middle" font-size="26" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">手腕／手</text>
+                  <!-- forearm -->
+                  <rect x="486" y="481" width="160" height="44" rx="22" fill="#A32D2D" opacity=".92" pointer-events="none"/>
+                  <text x="566" y="511" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">前臂 ⚡</text>
 
-                  <!-- 前臂：右側中上 -->
-                  <rect x="474" y="220" width="164" height="44" rx="22" fill="#A32D2D" opacity=".92" pointer-events="none"/>
-                  <text x="556" y="250" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">前臂 ⚡</text>
+                  <!-- shoulder -->
+                  <rect x="143" y="264" width="208" height="44" rx="22" fill="#A32D2D" opacity=".92" pointer-events="none"/>
+                  <text x="247" y="294" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">投球肩 ⚡</text>
 
-                  <!-- 投球肩：右肩正上 -->
-                  <rect x="456" y="136" width="220" height="46" rx="23" fill="#A32D2D" opacity=".92" pointer-events="none"/>
-                  <text x="566" y="168" text-anchor="middle" font-size="26" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">投球肩 ⚡</text>
+                  <!-- elbow -->
+                  <rect x="530" y="456" width="160" height="44" rx="22" fill="#A32D2D" opacity=".92" pointer-events="none"/>
+                  <text x="610" y="486" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">手肘 ⚡</text>
 
-                  <!-- 手肘：右手肘位置 -->
-                  <rect x="476" y="440" width="180" height="46" rx="23" fill="#A32D2D" opacity=".92" pointer-events="none"/>
-                  <text x="566" y="472" text-anchor="middle" font-size="26" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">手肘 ⚡</text>
+                  <!-- shoulder-r -->
+                  <rect x="325" y="490" width="160" height="44" rx="22" fill="#1a1a1a" opacity=".92" pointer-events="none"/>
+                  <text x="405" y="520" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">手套側</text>
 
-                  <!-- 手套側：左側中段 -->
-                  <rect x="36" y="500" width="184" height="44" rx="22" fill="#1a1a1a" opacity=".82" pointer-events="none"/>
-                  <text x="128" y="531" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">手套側</text>
+                  <!-- torso -->
+                  <rect x="295" y="354" width="152" height="44" rx="22" fill="#854F0B" opacity=".92" pointer-events="none"/>
+                  <text x="371" y="384" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">胸／背</text>
 
-                  <!-- 腰/腹：腰帶正下 -->
-                  <rect x="200" y="668" width="184" height="44" rx="22" fill="#854F0B" opacity=".92" pointer-events="none"/>
-                  <text x="292" y="698" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">腰／腹</text>
+                  <!-- core -->
+                  <rect x="250" y="504" width="152" height="44" rx="22" fill="#854F0B" opacity=".92" pointer-events="none"/>
+                  <text x="326" y="534" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">腰／腹</text>
 
-                  <!-- 大腿L：左大腿 -->
-                  <rect x="48" y="800" width="148" height="44" rx="22" fill="#1a1a1a" opacity=".82" pointer-events="none"/>
-                  <text x="122" y="830" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">大腿</text>
+                  <!-- leg-l -->
+                  <rect x="390" y="655" width="185" height="44" rx="22" fill="#1a1a1a" opacity=".92" pointer-events="none"/>
+                  <text x="482" y="685" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">大腿（右）</text>
 
-                  <!-- 大腿R：右大腿 -->
-                  <rect x="386" y="740" width="148" height="44" rx="22" fill="#1a1a1a" opacity=".82" pointer-events="none"/>
-                  <text x="460" y="770" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">大腿</text>
+                  <!-- leg-r -->
+                  <rect x="220" y="710" width="185" height="44" rx="22" fill="#1a1a1a" opacity=".92" pointer-events="none"/>
+                  <text x="312" y="740" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">大腿（左）</text>
 
-                  <!-- 膝L：左膝 -->
-                  <rect x="36" y="930" width="148" height="44" rx="22" fill="#854F0B" opacity=".92" pointer-events="none"/>
-                  <text x="110" y="960" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">膝蓋</text>
+                  <!-- knee-l -->
+                  <rect x="395" y="727" width="185" height="44" rx="22" fill="#854F0B" opacity=".92" pointer-events="none"/>
+                  <text x="487" y="757" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">膝蓋（右）</text>
 
-                  <!-- 膝R：右膝 -->
-                  <rect x="420" y="888" width="148" height="44" rx="22" fill="#854F0B" opacity=".92" pointer-events="none"/>
-                  <text x="494" y="918" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">膝蓋</text>
+                  <!-- knee-r -->
+                  <rect x="168" y="816" width="185" height="44" rx="22" fill="#854F0B" opacity=".92" pointer-events="none"/>
+                  <text x="260" y="846" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">膝蓋（左）</text>
 
-                  <!-- 踝/腳：腳部中央下 -->
-                  <rect x="232" y="1026" width="184" height="44" rx="22" fill="#1a1a1a" opacity=".82" pointer-events="none"/>
-                  <text x="324" y="1056" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">踝／腳</text>
-                </svg>
+                  <!-- ankle -->
+                  <rect x="418" y="943" width="160" height="44" rx="22" fill="#1a1a1a" opacity=".92" pointer-events="none"/>
+                  <text x="498" y="973" text-anchor="middle" font-size="25" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">踝／腳</text>
+
+                                  </svg>
               </div>
               <p style="font-size:.72rem;color:var(--text-lt);margin-top:8px;text-align:center">點選部位查看投手傷病用語</p>
               <div class="blegend">
