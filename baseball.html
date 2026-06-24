@@ -76,8 +76,9 @@ section { padding: 72px 5%; }
 .body-wrap{display:flex;gap:1.5rem;align-items:flex-start;flex-wrap:wrap}
 .bsvg-col{flex:0 0 300px}
 .binfo-col{flex:1;min-width:220px}
-.pz{cursor:pointer;transition:opacity .15s;pointer-events:all}
-.pz:hover{opacity:.75}
+.pz-label{cursor:pointer}
+.pz-label:hover rect{opacity:.7}
+.pz-label:active rect{opacity:.55}
 .detail-card{background:var(--cream);border:1.5px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem;min-height:200px}
 .dc-name{font-size:1rem;font-weight:700;color:var(--green-dk);margin-bottom:2px;font-family:'Playfair Display',serif}
 .dc-en{font-size:.75rem;color:var(--text-lt);margin-bottom:6px}
@@ -96,10 +97,6 @@ section { padding: 72px 5%; }
 .bld{width:10px;height:10px;border-radius:50%}
 .pulse-r{animation:bpulse 2s infinite}
 @keyframes bpulse{0%,100%{opacity:1}50%{opacity:.4}}
-.pz{cursor:pointer}
-.hl-zone{pointer-events:none}
-.pz:hover ~ .hl-zone, .hl-zone:hover { opacity: 0.18 !important; }
-svg:has(.pz:hover) .hl-zone { opacity: 0; }
 
 
 /* quiz */
@@ -357,145 +354,129 @@ svg:has(.pz:hover) .hl-zone { opacity: 0; }
             <div class="bsvg-col" style="flex:0 0 300px">
               <div style="position:relative;width:300px;display:inline-block;user-select:none">
                 <img id="pitcher-img" src="images/pitcher-phillies.png" alt="費城人投手插畫" style="width:300px;height:auto;display:block;border-radius:10px">
-                <!-- 透明熱點 SVG 疊層，座標按圖片 700px 寬比例縮放至 300px (×0.4286) -->
-                <svg viewBox="0 0 700 1077" width="300" height="462" style="position:absolute;top:0;left:0;width:100%;height:100%;cursor:pointer">
-                  <!-- 頭部 -->
-                  <ellipse class="pz hot-high" cx="350" cy="108" rx="112" ry="97" fill="transparent" stroke="transparent" onclick="ishow('head')" data-label="頭/頸"/>
-                  <!-- 胸/軀幹 -->
-                  <ellipse class="pz hot-mid" cx="308" cy="340" rx="140" ry="120" fill="transparent" stroke="transparent" onclick="ishow('torso')" data-label="胸/上背"/>
-                  <!-- 投球肩+上臂（右側，握球手） -->
-                  <ellipse class="pz hot-high" cx="540" cy="200" rx="90" ry="110" fill="transparent" stroke="transparent" onclick="ishow('shoulder')" data-label="投球肩⚡"/>
-                  <!-- 右手肘 -->
-                  <ellipse class="pz hot-high" cx="590" cy="340" rx="65" ry="70" fill="transparent" stroke="transparent" onclick="ishow('elbow')" data-label="手肘⚡"/>
-                  <!-- 右前臂 -->
-                  <ellipse class="pz hot-high" cx="610" cy="230" rx="55" ry="75" fill="transparent" stroke="transparent" onclick="ishow('forearm')" data-label="前臂⚡"/>
-                  <!-- 右手/握球 -->
-                  <ellipse class="pz hot-mid" cx="520" cy="80" rx="70" ry="65" fill="transparent" stroke="transparent" onclick="ishow('wrist')" data-label="手腕/手"/>
-                  <!-- 手套側（左手） -->
-                  <ellipse class="pz hot-low" cx="280" cy="560" rx="100" ry="110" fill="transparent" stroke="transparent" onclick="ishow('shoulder-r')" data-label="手套側"/>
-                  <!-- 腰/腹/臀 -->
-                  <ellipse class="pz hot-mid" cx="330" cy="680" rx="130" ry="100" fill="transparent" stroke="transparent" onclick="ishow('core')" data-label="腰/背/腹"/>
-                  <!-- 右大腿（跨步前腳） -->
-                  <ellipse class="pz hot-low" cx="220" cy="820" rx="100" ry="120" fill="transparent" stroke="transparent" onclick="ishow('leg')" data-label="大腿/鼠蹊"/>
-                  <!-- 左大腿（後腳） -->
-                  <ellipse class="pz hot-low" cx="460" cy="780" rx="90" ry="110" fill="transparent" stroke="transparent" onclick="ishow('leg')" data-label="大腿/鼠蹊"/>
-                  <!-- 右膝 -->
-                  <ellipse class="pz hot-mid" cx="195" cy="920" rx="75" ry="65" fill="transparent" stroke="transparent" onclick="ishow('knee')" data-label="膝蓋"/>
-                  <!-- 左膝 -->
-                  <ellipse class="pz hot-mid" cx="490" cy="880" rx="70" ry="65" fill="transparent" stroke="transparent" onclick="ishow('knee')" data-label="膝蓋"/>
-                  <!-- 踝/腳 -->
-                  <ellipse class="pz hot-low" cx="340" cy="1020" rx="140" ry="55" fill="transparent" stroke="transparent" onclick="ishow('ankle')" data-label="踝/腳"/>
-
-                  <!-- hover 高亮層（半透明填色，hover 才顯示） -->
-                  <ellipse class="hl-zone" cx="350" cy="108" rx="112" ry="97" fill="#E24B4A" opacity="0"/>
-                  <ellipse class="hl-zone" cx="308" cy="340" rx="140" ry="120" fill="#BA7517" opacity="0"/>
-                  <ellipse class="hl-zone" cx="540" cy="200" rx="90" ry="110" fill="#E24B4A" opacity="0"/>
-                  <ellipse class="hl-zone" cx="590" cy="340" rx="65" ry="70" fill="#E24B4A" opacity="0"/>
-                  <ellipse class="hl-zone" cx="610" cy="230" rx="55" ry="75" fill="#E24B4A" opacity="0"/>
-                  <ellipse class="hl-zone" cx="520" cy="80" rx="70" ry="65" fill="#BA7517" opacity="0"/>
-                  <ellipse class="hl-zone" cx="280" cy="560" rx="100" ry="110" fill="#3B6D11" opacity="0"/>
-                  <ellipse class="hl-zone" cx="330" cy="680" rx="130" ry="100" fill="#BA7517" opacity="0"/>
-                  <ellipse class="hl-zone" cx="220" cy="820" rx="100" ry="120" fill="#3B6D11" opacity="0"/>
-                  <ellipse class="hl-zone" cx="460" cy="780" rx="90" ry="110" fill="#3B6D11" opacity="0"/>
-                  <ellipse class="hl-zone" cx="195" cy="920" rx="75" ry="65" fill="#BA7517" opacity="0"/>
-                  <ellipse class="hl-zone" cx="490" cy="880" rx="70" ry="65" fill="#BA7517" opacity="0"/>
-                  <ellipse class="hl-zone" cx="340" cy="1020" rx="140" ry="55" fill="#3B6D11" opacity="0"/>
-
-                                                      <!-- 引線標籤：圓點在部位，線拉到邊緣，標籤不擋人物 -->
+                <!-- 文字標籤 SVG 疊層，座標按圖片 700px 寬比例縮放至 300px (×0.4286) -->
+                <svg viewBox="0 0 700 1077" width="300" height="462" style="position:absolute;top:0;left:0;width:100%;height:100%">
+                  <!-- 引線標籤：圓點在部位，線拉到邊緣；點選標籤文字查看用語 -->
                   <!-- head -->
+                  <g class="pz-label" onclick="ishow('head')">
                   <circle cx="371" cy="228" r="7" fill="#222" opacity=".9" pointer-events="none"/>
                   <circle cx="371" cy="228" r="3" fill="#fff" opacity=".95" pointer-events="none"/>
                   <line x1="371" y1="228" x2="371" y2="52" stroke="#222" stroke-width="1.5" opacity=".8" pointer-events="none"/>
-                  <rect x="287" y="8" width="168" height="40" rx="20" fill="#222" opacity=".93" pointer-events="none"/>
-                  <text x="371" y="36" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">頭／頸</text>
+                  <rect x="287" y="8" width="168" height="40" rx="20" fill="#222" opacity=".93"/>
+                  <text x="371" y="36" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700">頭／頸</text>
+                  </g>
 
                   <!-- shoulder -->
+                  <g class="pz-label" onclick="ishow('shoulder')">
                   <circle cx="247" cy="308" r="7" fill="#A32D2D" opacity=".9" pointer-events="none"/>
                   <circle cx="247" cy="308" r="3" fill="#fff" opacity=".95" pointer-events="none"/>
                   <polyline points="247,308 188,308 188,310 180,310" fill="none" stroke="#A32D2D" stroke-width="1.5" opacity=".8" pointer-events="none"/>
-                  <rect x="12" y="290" width="168" height="40" rx="20" fill="#A32D2D" opacity=".93" pointer-events="none"/>
-                  <text x="96" y="318" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">投球肩 ⚡</text>
+                  <rect x="12" y="290" width="168" height="40" rx="20" fill="#A32D2D" opacity=".93"/>
+                  <text x="96" y="318" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700">投球肩 ⚡</text>
+                  </g>
 
                   <!-- torso -->
+                  <g class="pz-label" onclick="ishow('torso')">
                   <circle cx="371" cy="398" r="7" fill="#854F0B" opacity=".9" pointer-events="none"/>
                   <circle cx="371" cy="398" r="3" fill="#fff" opacity=".95" pointer-events="none"/>
                   <polyline points="371,398 188,398 188,380 180,380" fill="none" stroke="#854F0B" stroke-width="1.5" opacity=".8" pointer-events="none"/>
-                  <rect x="12" y="360" width="168" height="40" rx="20" fill="#854F0B" opacity=".93" pointer-events="none"/>
-                  <text x="96" y="388" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">胸／背</text>
+                  <rect x="12" y="360" width="168" height="40" rx="20" fill="#854F0B" opacity=".93"/>
+                  <text x="96" y="388" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700">胸／背</text>
+                  </g>
 
                   <!-- shoulder-r -->
+                  <g class="pz-label" onclick="ishow('shoulder-r')">
                   <circle cx="405" cy="534" r="7" fill="#222" opacity=".9" pointer-events="none"/>
                   <circle cx="405" cy="534" r="3" fill="#fff" opacity=".95" pointer-events="none"/>
                   <polyline points="405,534 188,534 188,450 180,450" fill="none" stroke="#222" stroke-width="1.5" opacity=".8" pointer-events="none"/>
-                  <rect x="12" y="430" width="168" height="40" rx="20" fill="#222" opacity=".93" pointer-events="none"/>
-                  <text x="96" y="458" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">手套側</text>
+                  <rect x="12" y="430" width="168" height="40" rx="20" fill="#222" opacity=".93"/>
+                  <text x="96" y="458" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700">手套側</text>
+                  </g>
 
                   <!-- core -->
+                  <g class="pz-label" onclick="ishow('core')">
                   <circle cx="326" cy="548" r="7" fill="#854F0B" opacity=".9" pointer-events="none"/>
                   <circle cx="326" cy="548" r="3" fill="#fff" opacity=".95" pointer-events="none"/>
                   <polyline points="326,548 188,548 188,520 180,520" fill="none" stroke="#854F0B" stroke-width="1.5" opacity=".8" pointer-events="none"/>
-                  <rect x="12" y="500" width="168" height="40" rx="20" fill="#854F0B" opacity=".93" pointer-events="none"/>
-                  <text x="96" y="528" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">腰／腹</text>
+                  <rect x="12" y="500" width="168" height="40" rx="20" fill="#854F0B" opacity=".93"/>
+                  <text x="96" y="528" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700">腰／腹</text>
+                  </g>
 
                   <!-- leg-r -->
+                  <g class="pz-label" onclick="ishow('leg')">
                   <circle cx="312" cy="754" r="7" fill="#222" opacity=".9" pointer-events="none"/>
                   <circle cx="312" cy="754" r="3" fill="#fff" opacity=".95" pointer-events="none"/>
                   <polyline points="312,754 188,754 188,610 180,610" fill="none" stroke="#222" stroke-width="1.5" opacity=".8" pointer-events="none"/>
-                  <rect x="12" y="590" width="168" height="40" rx="20" fill="#222" opacity=".93" pointer-events="none"/>
-                  <text x="96" y="618" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">大腿（左）</text>
+                  <rect x="12" y="590" width="168" height="40" rx="20" fill="#222" opacity=".93"/>
+                  <text x="96" y="618" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700">大腿（左）</text>
+                  </g>
 
                   <!-- knee-r -->
+                  <g class="pz-label" onclick="ishow('knee')">
                   <circle cx="260" cy="860" r="7" fill="#854F0B" opacity=".9" pointer-events="none"/>
                   <circle cx="260" cy="860" r="3" fill="#fff" opacity=".95" pointer-events="none"/>
                   <polyline points="260,860 188,860 188,680 180,680" fill="none" stroke="#854F0B" stroke-width="1.5" opacity=".8" pointer-events="none"/>
-                  <rect x="12" y="660" width="168" height="40" rx="20" fill="#854F0B" opacity=".93" pointer-events="none"/>
-                  <text x="96" y="688" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">膝蓋（左）</text>
+                  <rect x="12" y="660" width="168" height="40" rx="20" fill="#854F0B" opacity=".93"/>
+                  <text x="96" y="688" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700">膝蓋（左）</text>
+                  </g>
 
                   <!-- forearm -->
+                  <g class="pz-label" onclick="ishow('forearm')">
                   <circle cx="566" cy="525" r="7" fill="#A32D2D" opacity=".9" pointer-events="none"/>
                   <circle cx="566" cy="525" r="3" fill="#fff" opacity=".95" pointer-events="none"/>
                   <polyline points="566,525 512,525 512,340 688,340" fill="none" stroke="#A32D2D" stroke-width="1.5" opacity=".8" pointer-events="none"/>
-                  <rect x="520" y="320" width="168" height="40" rx="20" fill="#A32D2D" opacity=".93" pointer-events="none"/>
-                  <text x="604" y="348" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">前臂 ⚡</text>
+                  <rect x="520" y="320" width="168" height="40" rx="20" fill="#A32D2D" opacity=".93"/>
+                  <text x="604" y="348" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700">前臂 ⚡</text>
+                  </g>
 
                   <!-- elbow -->
+                  <g class="pz-label" onclick="ishow('elbow')">
                   <circle cx="610" cy="500" r="7" fill="#A32D2D" opacity=".9" pointer-events="none"/>
                   <circle cx="610" cy="500" r="3" fill="#fff" opacity=".95" pointer-events="none"/>
                   <polyline points="610,500 512,500 512,400 688,400" fill="none" stroke="#A32D2D" stroke-width="1.5" opacity=".8" pointer-events="none"/>
-                  <rect x="520" y="380" width="168" height="40" rx="20" fill="#A32D2D" opacity=".93" pointer-events="none"/>
-                  <text x="604" y="408" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">手肘 ⚡</text>
+                  <rect x="520" y="380" width="168" height="40" rx="20" fill="#A32D2D" opacity=".93"/>
+                  <text x="604" y="408" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700">手肘 ⚡</text>
+                  </g>
 
                   <!-- wrist -->
+                  <g class="pz-label" onclick="ishow('wrist')">
                   <circle cx="489" cy="599" r="7" fill="#854F0B" opacity=".9" pointer-events="none"/>
                   <circle cx="489" cy="599" r="3" fill="#fff" opacity=".95" pointer-events="none"/>
                   <polyline points="489,599 512,599 512,470 688,470" fill="none" stroke="#854F0B" stroke-width="1.5" opacity=".8" pointer-events="none"/>
-                  <rect x="520" y="450" width="168" height="40" rx="20" fill="#854F0B" opacity=".93" pointer-events="none"/>
-                  <text x="604" y="478" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">手腕／手</text>
+                  <rect x="520" y="450" width="168" height="40" rx="20" fill="#854F0B" opacity=".93"/>
+                  <text x="604" y="478" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700">手腕／手</text>
+                  </g>
 
                   <!-- leg-l -->
+                  <g class="pz-label" onclick="ishow('leg')">
                   <circle cx="482" cy="699" r="7" fill="#222" opacity=".9" pointer-events="none"/>
                   <circle cx="482" cy="699" r="3" fill="#fff" opacity=".95" pointer-events="none"/>
                   <polyline points="482,699 512,699 512,590 688,590" fill="none" stroke="#222" stroke-width="1.5" opacity=".8" pointer-events="none"/>
-                  <rect x="520" y="570" width="168" height="40" rx="20" fill="#222" opacity=".93" pointer-events="none"/>
-                  <text x="604" y="598" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">大腿（右）</text>
+                  <rect x="520" y="570" width="168" height="40" rx="20" fill="#222" opacity=".93"/>
+                  <text x="604" y="598" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700">大腿（右）</text>
+                  </g>
 
                   <!-- knee-l -->
+                  <g class="pz-label" onclick="ishow('knee')">
                   <circle cx="487" cy="771" r="7" fill="#854F0B" opacity=".9" pointer-events="none"/>
                   <circle cx="487" cy="771" r="3" fill="#fff" opacity=".95" pointer-events="none"/>
                   <polyline points="487,771 512,771 512,660 688,660" fill="none" stroke="#854F0B" stroke-width="1.5" opacity=".8" pointer-events="none"/>
-                  <rect x="520" y="640" width="168" height="40" rx="20" fill="#854F0B" opacity=".93" pointer-events="none"/>
-                  <text x="604" y="668" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">膝蓋（右）</text>
+                  <rect x="520" y="640" width="168" height="40" rx="20" fill="#854F0B" opacity=".93"/>
+                  <text x="604" y="668" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700">膝蓋（右）</text>
+                  </g>
 
                   <!-- ankle -->
+                  <g class="pz-label" onclick="ishow('ankle')">
                   <circle cx="498" cy="987" r="7" fill="#222" opacity=".9" pointer-events="none"/>
                   <circle cx="498" cy="987" r="3" fill="#fff" opacity=".95" pointer-events="none"/>
                   <polyline points="498,987 512,987 512,750 688,750" fill="none" stroke="#222" stroke-width="1.5" opacity=".8" pointer-events="none"/>
-                  <rect x="520" y="730" width="168" height="40" rx="20" fill="#222" opacity=".93" pointer-events="none"/>
-                  <text x="604" y="758" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700" pointer-events="none">踝／腳</text>
+                  <rect x="520" y="730" width="168" height="40" rx="20" fill="#222" opacity=".93"/>
+                  <text x="604" y="758" text-anchor="middle" font-size="22" fill="#ffffff" font-family="sans-serif" font-weight="700">踝／腳</text>
+                  </g>
 
                                   </svg>
               </div>
-              <p style="font-size:.72rem;color:var(--text-lt);margin-top:8px;text-align:center">點選部位查看投手傷病用語</p>
+              <p style="font-size:.72rem;color:var(--text-lt);margin-top:8px;text-align:center">點選文字標籤查看投手傷病用語</p>
               <div class="blegend">
                 <div class="bli"><div class="bld" style="background:#E24B4A"></div>最高風險</div>
                 <div class="bli"><div class="bld" style="background:#BA7517"></div>常見傷區</div>
@@ -503,7 +484,7 @@ svg:has(.pz:hover) .hl-zone { opacity: 0; }
               </div>
             </div>
             <div class="binfo-col">
-              <div class="detail-card" id="idc"><div class="bmap-hint">← 點選左側人物的任一部位<br>查看投手在該區域最需要的傷病英語用語</div></div>
+              <div class="detail-card" id="idc"><div class="bmap-hint">← 點選左側標籤文字<br>查看投手在該區域最需要的傷病英語用語</div></div>
             </div>
           </div>
         </div>
