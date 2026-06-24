@@ -359,8 +359,11 @@ section { padding: 72px 5%; }
                   <rect x="108" y="73" width="24" height="15" rx="4" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.2"/>
                   <text x="120" y="84" text-anchor="middle" font-size="8" fill="#633806" font-family="sans-serif">頭/頸</text>
                 </g>
-                <rect x="98" y="87" width="44" height="64" rx="8" fill="#e8ede8" stroke="#888" stroke-width="1.2"/>
-                <text x="120" y="122" text-anchor="middle" font-size="9" fill="#444" font-family="sans-serif">軀幹</text>
+                <g class="pz" onclick="ishow('torso')">
+                  <rect x="98" y="87" width="44" height="64" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.5"/>
+                  <text x="120" y="118" text-anchor="middle" font-size="8" fill="#633806" font-family="sans-serif">胸/上背</text>
+                  <text x="120" y="130" text-anchor="middle" font-size="7" fill="#854F0B" font-family="sans-serif">（點我）</text>
+                </g>
                 <g class="pz" onclick="ishow('shoulder')">
                   <ellipse cx="78" cy="103" rx="24" ry="16" fill="#fde0e0" stroke="#c0392b" stroke-width="2"/>
                   <text x="78" y="107" text-anchor="middle" font-size="7.5" fill="#7b1a1a" font-family="sans-serif">肩（投球側）</text>
@@ -587,6 +590,12 @@ var INJURY_PHRASES = [
 ];
 
 var BODY_DATA = {
+  torso:{name:"胸部 / 上背部",en:"Chest & Upper Back",risk:"mid",rl:"常見傷區",c:"#7a4a00",p:[
+    {e:"My chest is tight when I breathe deeply.",z:"深呼吸的時候胸口很緊。",t:"投球出力後呼吸肌緊繃，需回報"},
+    {e:"I feel tightness across my upper back.",z:"上背整片感覺很緊繃。",t:"大量投球後斜方肌、菱形肌疲勞"},
+    {e:"I think I may have strained an intercostal muscle.",z:"我覺得可能是肋間肌拉傷。",t:"全力投球後肋骨周圍出現疼痛時"},
+    {e:"It hurts when I take a deep breath.",z:"深呼吸的時候會痛。",t:"肋間肌或肋骨相關傷況，需立刻說}"}
+  ]},
   head:{name:"頭部 / 頸部",en:"Head & Neck",risk:"low",rl:"相對低風險",c:"#854F0B",p:[
     {e:"My neck is stiff.",z:"我的脖子很僵硬。",t:"投球動作後頸部緊繃"},
     {e:"I got hit in the head. I need to be checked.",z:"我頭被打到，需要立刻檢查。",t:"被反彈球擊中時立刻說"},
