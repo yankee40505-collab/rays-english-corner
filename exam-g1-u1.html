@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>會考隨堂做 · 第一冊 Unit 1｜Ray's English Corner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .page-hero{background:var(--green-dk);padding:64px 5% 56px;text-align:center;position:relative;overflow:hidden;}
+  .page-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:24px 24px;}
+  .page-hero .eyebrow{font-size:0.74rem;font-weight:900;letter-spacing:0.15em;text-transform:uppercase;color:var(--green-lt);margin-bottom:10px;}
+  .page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#fff;margin-bottom:14px;}
+  .page-hero p{color:rgba(255,255,255,0.65);max-width:560px;margin:0 auto;font-size:1rem;line-height:1.7;}
+
+  main{max-width:1100px;margin:0 auto;padding:56px 5% 80px;}
+  .back-btn { display: inline-flex; margin-bottom: 28px; text-decoration: none; color: var(--green-md); font-weight: 800; font-size: 0.95rem; transition: color .2s; }
+  .back-btn:hover { color: var(--green-dk); }
+
+  .cat-label{font-size:0.78rem;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-lt);margin-bottom:14px;}
+  .cats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px;}
+  .cat-btn{background:var(--white);border:2px solid var(--border);border-radius:50px;padding:9px 22px;font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:800;color:var(--text-md);cursor:pointer;transition:all .18s;}
+  .cat-btn:hover{border-color:var(--green-lt);background:var(--green-pl);color:var(--green-dk);}
+  .cat-btn.active{background:var(--green-dk);border-color:var(--green-dk);color:#fff;}
+  .cat-btn .cnt{display:inline-block;background:rgba(255,255,255,0.2);border-radius:99px;padding:1px 7px;font-size:0.75rem;margin-left:5px;}
+  .cat-btn:not(.active) .cnt{background:var(--cream-d);color:var(--text-lt);}
+
+  .score-bar{display:flex;align-items:center;gap:16px;background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:16px 22px;margin-bottom:28px;box-shadow:var(--sh);}
+  .score-bar .sb-label{font-size:0.82rem;font-weight:800;color:var(--text-lt);}
+  .score-bar .sb-val{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--green-dk);}
+  .score-bar .sb-sep{width:1.5px;height:32px;background:var(--border);}
+  .pb-wrap{flex:1;background:var(--cream-d);border-radius:99px;height:8px;overflow:hidden;}
+  .pb-fill{height:100%;background:linear-gradient(90deg,var(--green-md),var(--green-lt));border-radius:99px;transition:width .4s ease;}
+
+  .q-grid{display:flex;flex-direction:column;gap:20px;}
+  .q-card{background:var(--white);border:1.5px solid var(--border);border-radius:18px;padding:28px;box-shadow:var(--sh);transition:box-shadow .2s;}
+  .q-card:hover{box-shadow:var(--sh-lg);}
+  .q-meta{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+  .q-num{background:var(--green-dk);color:#fff;font-size:0.78rem;font-weight:900;padding:3px 11px;border-radius:99px;}
+  .q-tag{font-size:0.76rem;font-weight:800;padding:3px 10px;border-radius:99px;background:var(--amber-pl);color:#a06800;border:1px solid rgba(245,166,35,.25);}
+  .q-src{font-size:0.74rem;font-weight:700;color:var(--text-lt);}
+  .q-text{font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:18px;line-height:1.65;white-space:pre-line;}
+  .q-opts{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+  .q-opt{background:var(--cream);border:2px solid var(--border);border-radius:11px;padding:10px 15px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:700;color:var(--text);transition:all .15s;text-align:left;}
+  .q-opt:hover:not(:disabled){border-color:var(--green-lt);background:var(--green-pl);transform:translateX(2px);}
+  .q-opt.correct{border-color:var(--green-md);background:var(--green-pl);color:var(--green-dk);}
+  .q-opt.wrong{border-color:#e07070;background:#fdf0f0;color:#b84040;}
+  .q-opt:disabled{cursor:default;}
+  .q-exp{margin-top:14px;padding:11px 14px;border-radius:10px;font-size:0.88rem;font-weight:700;line-height:1.65;display:none;}
+  .q-exp.show{display:block;}
+  .q-exp.correct{background:var(--green-pl);color:var(--green-dk);}
+  .q-exp.wrong{background:#fdf0f0;color:#b84040;}
+
+  .result-banner{display:none;background:linear-gradient(135deg,var(--green-dk),var(--green-md));border-radius:20px;padding:36px;text-align:center;color:#fff;margin-bottom:28px;}
+  .result-banner.show{display:block;}
+  .rb-score{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;line-height:1;}
+  .rb-msg{margin:10px 0 20px;font-size:1rem;opacity:.85;line-height:1.7;}
+  .rb-btn{background:#fff;color:var(--green-dk);border:none;border-radius:50px;padding:11px 28px;font-family:'Nunito',sans-serif;font-size:0.92rem;font-weight:900;cursor:pointer;transition:transform .15s;}
+  .rb-btn:hover{transform:translateY(-2px);}
+  .done-cta{text-align:center;margin-top:36px;display:none;}
+  .done-cta.show{display:block;}
+  .submit-all{background:linear-gradient(135deg,var(--green-dk),var(--green-md));color:#fff;border:none;border-radius:50px;padding:14px 40px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;cursor:pointer;box-shadow:0 6px 20px rgba(30,77,48,.25);transition:transform .15s,box-shadow .15s;}
+  .submit-all:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(30,77,48,.3);}
+  @media(max-width:700px){.q-opts{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div id="site-nav"></div>
+
+<div class="page-hero">
+  <div class="eyebrow">會考專區 · Exam Prep</div>
+  <h1>會考隨堂做 📝</h1>
+  <p>第一冊 Unit 1（第 1～3 課）· 21 題實戰題型，涵蓋單字辨義、一字多義、人稱代名詞、指示詞、冠詞、be 動詞、疑問詞、可數 / 不可數名詞。<br>選一個主題，作答後立即看解析！</p>
+</div>
+
+<main>
+  <a href="grammar-g1-u1.html" class="back-btn">← 回去看文法筆記</a>
+
+  <div class="cat-label">選擇練習主題</div>
+  <div class="cats" id="cats"></div>
+  <div class="score-bar" id="scoreBar">
+    <div>
+      <div class="sb-label">目前得分</div>
+      <div class="sb-val" id="scoreVal">0 / 0</div>
+    </div>
+    <div class="sb-sep"></div>
+    <div style="flex:1;">
+      <div class="sb-label" style="margin-bottom:6px;">答題進度</div>
+      <div class="pb-wrap"><div class="pb-fill" id="pbFill" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div class="result-banner" id="resultBanner">
+    <div class="rb-score" id="rbScore"></div>
+    <div class="rb-msg" id="rbMsg"></div>
+    <button class="rb-btn" onclick="resetQuiz()">🔄 重新練習這個主題</button>
+  </div>
+  <div class="q-grid" id="qGrid"></div>
+  <div class="done-cta" id="doneCta">
+    <p style="color:var(--text-md);margin-bottom:16px;font-weight:700;">所有題目都做完了！</p>
+    <button class="submit-all" onclick="showResult()">查看成績 →</button>
+  </div>
+</main>
+
+<div id="site-footer"></div>
+<script src="main.js"></script>
+
+<script>
+const bank = {
+  '字彙選擇（Vocabulary）': [
+    {q:"Kevin and I are ______. Our mothers are sisters.",opts:["parents","brothers","cousins","sisters"],ans:2,exp:"雙方母親是姐妹，所以 Kevin 和「我」是表（堂）兄弟姐妹 → cousins。"},
+    {q:"Many baseball players think \u201Cseven\u201D is a lucky ______.",opts:["number","picture","name","card"],ans:0,exp:"seven 是數字，符合「幸運數字」→ number。"},
+    {q:"Alex ______ a band to play at his father's birthday party.",opts:["colored","booked","fined","named"],ans:1,exp:"book 當動詞表示「預訂」，這裡引申為「請、預約」樂團表演 → booked。"},
+    {q:"Of all my students, Ray is my ______ because he always helps people in need.",opts:["son","favorite","family","member"],ans:1,exp:"favorite（最喜愛的人、事、物）符合「因為他總是幫助需要的人」的語境。"},
+    {q:"______ the coming of the big exam, everyone in my class is studying very hard and hopes to enter a good senior high school.",opts:["About","In","From","With"],ans:3,exp:"with 表「隨著；和…同時」，with the coming of...＝隨著…的到來。"}
+  ],
+  '一字多義判斷（see/watch/read/look at/say/tell）': [
+    {q:"Jessie: Didn't you ______ me? Why didn't you say hello?\nJerry: Sorry, I was having fun feeding the cute little animals.",opts:["see","watch","read","look at"],ans:0,exp:"「看見」用 see，指感官自然功能、非刻意；Jerry 沒有「看見」Jessie，而不是沒有「看著」她。"},
+    {q:"______ me, Jerry! Listen very carefully and remember each word of mine.",opts:["See.","Look at.","Read.","Study."],ans:1,exp:"「看著」用 look at，強調刻意、有特定目標地看著對方。"},
+    {q:"The sign ______, \u201CNo feeding.\u201D Jerry, please don't feed the monkeys.",opts:["says","speaks","tells","talks"],ans:0,exp:"招牌上的「文字內容」用 say 來表達，The sign says…＝告示牌上寫著…。"},
+    {q:"I am not ______ a joke, Jerry. Rules are rules!",opts:["saying","speaking","telling","talking"],ans:2,exp:"「說笑話／故事」用 tell，tell a joke 是固定搭配。"}
+  ],
+  '人稱代名詞 & 冠詞 & 指示詞': [
+    {q:"Bertha is looking for ______ little brother, Timmy. Did you see ______?",opts:["she; he","her; he","she; his","her; him"],ans:3,exp:"第一格在名詞 little brother 前須用所有格 her；第二格是 see 的受詞須用受格 him。"},
+    {q:"______ best friend, Lucia, is going on a trip to New Zealand.",opts:["Gary and Lucy","We and they","Tom's and Ann's","Mr. and Mrs. White's"],ans:3,exp:"friend 是單數（Lucia 是同一位朋友），須用「共同所有」的所有格形式（只在最後一個名詞加's），Mr. and Mrs. White's 符合。"},
+    {q:"Iris: Dad, this is my classmate, Angel.\nAngel: ______, sir.",opts:["Nice to meet you.","What's up?","See you.","How's everything?"],ans:0,exp:"這是初次見面的招呼語，正確用法是 Nice to meet you.（很高興認識你）。"},
+    {q:"Jenny: Your coat looks comfortable.\nMia: It's more than that. If you wear a coat like ______, you won't feel cold in winter.",opts:["me","I","one","this"],ans:2,exp:"one 用來代替前面提過的同類單數可數名詞（a coat），避免重複，且不指特定的一件。"},
+    {q:"Owen: I need ______ pen. Can I use ______ one in your pocket? Jane: Sure. Here you go.",opts:["a; the","the; a","a; a","the; the"],ans:0,exp:"第一格泛指任何一枝筆，用不定冠詞 a；第二格指「你口袋裡那一枝」，是特定的，用定冠詞 the。"},
+    {q:"Your shoes look really cool. Where did you buy ______?",opts:["it","that","ones","them"],ans:3,exp:"shoes 是複數名詞，代稱要用複數受格代名詞 them。"}
+  ],
+  'be 動詞 · 疑問詞 · 形容詞': [
+    {q:"Daniel is riding his ______. It's a gift from his grandpa for his eleventh birthday.",opts:["a new bicycle","bicycle is new","new bicycle","that new bicycle"],ans:2,exp:"his（所有格）後面直接加「形容詞＋名詞」即可：his new bicycle；所有格不能再和 a 或 that 等限定詞連用。"},
+    {q:"Jason: Is your mother a housewife?\nIvy: ______ She works in a hospital.",opts:["Yes, she is.","No, she isn't.","Yes, it is.","No, you're not."],ans:1,exp:"她在醫院工作，代表她不是家庭主婦，所以要用否定簡答 No, she isn't.。"},
+    {q:"Ken: ______ is Stephen? John: He is 190 cm.",opts:["How old","What","Who","How tall"],ans:3,exp:"回答是身高（190 cm），所以問句要用 How tall（多高）。"}
+  ],
+  '可數 / 不可數名詞': [
+    {q:"My sister only has some ______ for breakfast. She doesn't like to eat much.",opts:["sandwich","orange juice","hamburger","egg"],ans:1,exp:"some 後面若接可數名詞需用複數，但 sandwich／hamburger／egg 都是單數形，只有 orange juice 是不可數名詞，可直接搭配 some。"},
+    {q:"For most people, the United States ______ still the strongest country in the world.",opts:["is","are","do","does"],ans:0,exp:"the United States 是國名，雖然字面上是複數形，但視為單一國家，須用單數動詞 is。"},
+    {q:"Ms. Liu: How are you doing today, class? Class: ______ fine. Thank you, Ms. Liu.",opts:["We are","It is","She is","You are"],ans:0,exp:"class 指「全體成員」時視為複數，回答時用 we（我們大家）來代表全班學生。"}
+  ]
+};
+
+// ─── Quiz Engine ──────────────────────────────────────────────────────────────
+let currentCat = null;
+let answered = {};
+let correct = 0;
+let total = 0;
+
+function initCats() {
+  const wrap = document.getElementById('cats');
+  wrap.innerHTML = '';
+  Object.keys(bank).forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn';
+    btn.innerHTML = cat + `<span class="cnt">${bank[cat].length}</span>`;
+    btn.onclick = () => loadCat(cat);
+    wrap.appendChild(btn);
+  });
+  loadCat(Object.keys(bank)[0]);
+}
+
+function loadCat(cat) {
+  currentCat = cat;
+  answered = {};
+  correct = 0;
+  total = bank[cat].length;
+
+  document.querySelectorAll('.cat-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.startsWith(cat));
+  });
+  document.getElementById('resultBanner').classList.remove('show');
+  document.getElementById('doneCta').classList.remove('show');
+  updateScore();
+  renderQuestions();
+}
+
+function updateScore() {
+  const done = Object.keys(answered).length;
+  document.getElementById('scoreVal').textContent = `${correct} / ${total}`;
+  document.getElementById('pbFill').style.width = total ? `${(done / total) * 100}%` : '0%';
+}
+
+function renderQuestions() {
+  const grid = document.getElementById('qGrid');
+  grid.innerHTML = '';
+  const qs = bank[currentCat];
+  qs.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = `q${i}`;
+
+    let optsHTML = '';
+    const letters = ['(A)','(B)','(C)','(D)'];
+    q.opts.forEach((opt, j) => {
+      optsHTML += `<button class="q-opt" onclick="answer(${i},${j})" id="opt${i}_${j}">${letters[j]} ${opt}</button>`;
+    });
+
+    card.innerHTML = `
+      <div class="q-meta">
+        <span class="q-num">${i + 1}</span>
+        <span class="q-tag">${currentCat.split('（')[0].split(' ')[0]}</span>
+      </div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-opts">${optsHTML}</div>
+      <div class="q-exp" id="exp${i}"></div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function answer(qIdx, optIdx) {
+  if (answered[qIdx] !== undefined) return;
+  const q = bank[currentCat][qIdx];
+  answered[qIdx] = optIdx;
+
+  const isCorrect = optIdx === q.ans;
+  if (isCorrect) correct++;
+
+  q.opts.forEach((_, j) => {
+    const btn = document.getElementById(`opt${qIdx}_${j}`);
+    btn.disabled = true;
+    if (j === q.ans) btn.classList.add('correct');
+    else if (j === optIdx) btn.classList.add('wrong');
+  });
+
+  const exp = document.getElementById(`exp${qIdx}`);
+  exp.textContent = (isCorrect ? '✅ 答對了！' : '❌ 答錯了。') + '　' + (q.exp || '');
+  exp.className = `q-exp show ${isCorrect ? 'correct' : 'wrong'}`;
+
+  updateScore();
+
+  if (Object.keys(answered).length === total) {
+    document.getElementById('doneCta').classList.add('show');
+  }
+}
+
+function showResult() {
+  const pct = Math.round((correct / total) * 100);
+  let msg = '';
+  if (pct >= 90) msg = '太厲害了！這個主題你掌握得非常好。';
+  else if (pct >= 70) msg = '不錯喔！再複習一下答錯的題目，你就更強了。';
+  else if (pct >= 50) msg = '有進步空間！建議回去看文法筆記，再練一次。';
+  else msg = '加油！先回去看文法筆記，弄懂陷阱後再挑戰一次。';
+
+  document.getElementById('rbScore').textContent = `${correct} / ${total}`;
+  document.getElementById('rbMsg').textContent = `正確率 ${pct}%　${msg}`;
+  document.getElementById('resultBanner').classList.add('show');
+  document.getElementById('doneCta').classList.remove('show');
+  document.getElementById('resultBanner').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function resetQuiz() {
+  loadCat(currentCat);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.addEventListener('DOMContentLoaded', initCats);
+</script>
+</body>
+</html>

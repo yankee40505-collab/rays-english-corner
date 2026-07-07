@@ -32,6 +32,14 @@ const NAV_ITEMS = [
       { label: '文法 國二U6', href: 'grammar-g2u6.html' },
       { label: '文法 國一U6', href: 'grammar-u6.html' },
       { label: '文法 國一U5', href: 'grammar-g1-u5.html' },
+      { label: '文法 國一U1', href: 'grammar-g1-u1.html' },
+    ],
+  },
+  {
+    label: '會考專區',
+    children: [
+      { label: 'U1 文法筆記（第1~3課）', href: 'grammar-g1-u1.html' },
+      { label: 'U1 會考隨堂做', href: 'exam-g1-u1.html' },
     ],
   },
   { label: '線上練習',  href: 'practice.html' },

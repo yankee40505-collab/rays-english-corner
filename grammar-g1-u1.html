@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>核心文法突破 · 第一冊 Unit 1｜Ray's English Corner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ===== 本頁專屬樣式 ===== */
+  .wrap { max-width: 960px; margin: 0 auto; padding: 48px 5% 80px; }
+
+  /* WORD GRID */
+  .word-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  @media(max-width:640px){ .word-grid { grid-template-columns: 1fr; } }
+  .word-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 16px 18px; box-shadow: var(--sh); transition: border-color .2s; }
+  .word-card:hover { border-color: var(--green-lt); }
+  .word-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px dashed var(--border); }
+  .word-eng { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--green-dk); cursor: pointer; transition: opacity .2s; }
+  .word-eng:hover { opacity: .7; }
+  .word-eng::after { content: '🔊'; font-size: .8rem; margin-left: 6px; vertical-align: middle; }
+  .word-pos { font-size: .72rem; font-weight: 700; color: var(--text-lt); margin-left: 4px; }
+  .word-ch { font-size: .88rem; font-weight: 700; color: var(--warm); font-family: 'Noto Sans TC', sans-serif; }
+  .word-tip { font-size: .85rem; color: var(--text-md); font-family: 'Noto Sans TC', sans-serif; line-height: 1.65; }
+  .word-tip b { font-family: 'Nunito', sans-serif; color: var(--green-dk); }
+
+  /* RULE BLOCK */
+  .intro-desc { font-size: .93rem; font-family: 'Noto Sans TC', sans-serif; color: var(--text-md); line-height: 1.75; margin-bottom: 14px; }
+  .intro-desc b { font-family: 'Nunito', sans-serif; color: var(--green-dk); }
+  .rule-block { background: var(--green-pl); border-left: 4px solid var(--green-md); padding: 13px 16px; border-radius: 0 10px 10px 0; margin: 12px 0; font-size: .9rem; color: var(--text-md); font-family: 'Noto Sans TC', sans-serif; line-height: 1.75; }
+  .rule-block b { font-family: 'Nunito', sans-serif; color: var(--green-dk); }
+  .rule-block ul { padding-left: 18px; margin-top: 6px; }
+  .rule-block li { margin-bottom: 5px; }
+
+  /* TRAP CARD */
+  .g-trap { background: var(--warm-pl); border-left: 4px solid var(--warm); padding: 14px 16px; border-radius: 0 10px 10px 0; margin: 14px 0; font-family: 'Noto Sans TC', sans-serif; font-size: .9rem; line-height: 1.75; }
+  .g-trap h5 { font-size: .92rem; color: #9a4020; margin-bottom: 8px; font-weight: 800; font-family: 'Nunito', sans-serif; }
+  .g-trap ul { padding-left: 18px; }
+  .g-trap li { margin-bottom: 6px; color: var(--text-md); }
+  .g-trap b { font-family: 'Nunito', sans-serif; color: var(--green-dk); }
+  .g-trap .ok { color: var(--green-md); font-weight: 900; }
+  .g-trap .ng { color: #c0392b; font-weight: 900; }
+
+  /* GENERIC DATA TABLE */
+  .cmp-table, .pat-table, .prep-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: .86rem; border-radius: var(--r); overflow: hidden; box-shadow: var(--sh); }
+  .cmp-table th, .pat-table th, .prep-table th { background: var(--green-dk); color: #fff; padding: 9px 14px; text-align: left; font-size: .79rem; font-weight: 800; }
+  .cmp-table td, .pat-table td, .prep-table td { padding: 9px 14px; border-bottom: 1px solid var(--cream-d); vertical-align: top; font-family: 'Noto Sans TC', sans-serif; line-height: 1.65; }
+  .cmp-table tr:last-child td, .pat-table tr:last-child td, .prep-table tr:last-child td { border-bottom: none; }
+  .cmp-table tr:nth-child(even) td, .pat-table tr:nth-child(even) td, .prep-table tr:nth-child(even) td { background: var(--cream); }
+  .cmp-table .key, .pat-table .label, .prep-table .prep { font-weight: 800; color: var(--green-dk); font-family: 'Nunito', sans-serif; }
+  .cmp-table .ok { color: var(--green-md); font-weight: 800; font-family: 'Nunito', sans-serif; }
+  .cmp-table .ng { color: #c0392b; font-weight: 800; text-decoration: line-through; font-family: 'Nunito', sans-serif; }
+  .pat-table .struct { font-family: 'Nunito', sans-serif; font-weight: 700; color: var(--text); font-size: .84rem; }
+  .pat-table .ex { color: var(--text-lt); font-size: .82rem; }
+
+  /* VOCAB LIST (compact reference, non-starred words) */
+  .vocab-list-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 20px; box-shadow: var(--sh); }
+  .vocab-list-title { font-family: 'Nunito', sans-serif; font-weight: 900; color: var(--green-dk); font-size: .85rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
+  .vocab-list { display: flex; flex-wrap: wrap; gap: 8px 10px; font-family: 'Noto Sans TC', sans-serif; font-size: .87rem; line-height: 1.6; }
+  .vocab-list span { white-space: nowrap; }
+  .vocab-list span b { font-family: 'Nunito', sans-serif; color: var(--green-dk); font-weight: 800; }
+  .vocab-list span::after { content: '｜'; color: var(--border); margin-left: 8px; }
+  .vocab-list span:last-child::after { content: ''; }
+
+  /* PHRASE / TITLE CARDS */
+  .phrase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+  @media(max-width:560px){ .phrase-grid { grid-template-columns: 1fr; } }
+  .phrase-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 14px 18px; box-shadow: var(--sh); transition: border-color .2s; }
+  .phrase-card:hover { border-color: var(--green-lt); }
+  .phrase-card .pc-en { font-family: 'Playfair Display', serif; font-size: .98rem; font-weight: 700; color: var(--green-dk); margin-bottom: 3px; }
+  .phrase-card .pc-zh { font-family: 'Noto Sans TC', sans-serif; font-size: .85rem; color: var(--text); font-weight: 700; }
+
+  /* TRAP SUMMARY */
+  .trap-summary { background: var(--green-dk); color: var(--white); border-radius: 16px; padding: 32px 36px; margin-top: 48px; box-shadow: var(--sh-lg); }
+  .trap-summary h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 18px; }
+  .trap-list { display: flex; flex-direction: column; gap: 10px; }
+  .trap-chip { background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.2); border-radius: 10px; padding: 11px 16px; font-size: .88rem; font-family: 'Noto Sans TC', sans-serif; line-height: 1.65; }
+  .trap-chip strong { font-family: 'Nunito', sans-serif; color: var(--amber); }
+
+  /* NEXT STEP CTA */
+  .exam-cta { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; background: var(--amber-pl); border: 2px dashed var(--amber); border-radius: var(--r); padding: 20px 26px; margin-top: 20px; }
+  .exam-cta p { font-family: 'Noto Sans TC', sans-serif; font-size: .93rem; color: #7a4a00; font-weight: 700; line-height: 1.6; }
+  .exam-cta a { background: var(--amber); color: #fff; text-decoration: none; padding: 11px 26px; border-radius: 50px; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: .88rem; white-space: nowrap; transition: transform .15s; }
+  .exam-cta a:hover { transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<!-- ★ 導覽列：由 main.js 注入 -->
+<div id="site-nav"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">📖 第一冊（I）Unit 1 · 第 1～3 課</div>
+  <h1>核心文法突破<br><em>招呼用語、人稱代名詞與 be 動詞</em></h1>
+  <p>國一上學期入門單元 × 名詞、代名詞、指示詞、冠詞、be 動詞、疑問詞、形容詞全掃描</p>
+  <div class="hero-chips">
+    <div class="chip">人稱代名詞的格</div>
+    <div class="chip">this / that / these / those</div>
+    <div class="chip">a / an / the</div>
+    <div class="chip">be 動詞現在式</div>
+    <div class="chip">⚠️ 一字多義陷阱</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <a href="index.html#grammar" class="back-btn">← 返回首頁文法筆記</a>
+
+  <!-- ══ PART A 單字 ══ -->
+  <div class="sec-label reveal">
+    <div class="sl-icon">📝</div>
+    <h2><small>Part A · Vocabulary</small>重點單字整理</h2>
+  </div>
+  <div class="teacher-talk reveal">
+    📢 <b>白話說明：</b>這個單元的單字圍繞著「人物、學校用品、顏色」三大主題，特別要注意<b>一字多義</b>的單字（如 family、school、class、book、color），會考很愛考它們的「延伸用法」而不是課本的字面意思！
+  </div>
+
+  <div class="word-grid reveal">
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">family<span class="word-pos">(n.)</span></span><span class="word-ch">家庭；家人</span></div>
+      <div class="word-tip">💡 表「家庭」是單數可數名詞，複數 families；表「家人」是集合名詞，通常視為<b>複數</b>：Amy: How's your family? Julia: <b>They're</b> fine.</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">cook<span class="word-pos">(n./v.)</span></span><span class="word-ch">廚師；烹煮</span></div>
+      <div class="word-tip">💡 名詞是「廚師」這個人；🚨 <b>cooker</b>（鍋具）才是器具，cooker 不是廚師！</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">school<span class="word-pos">(n.)</span></span><span class="word-ch">學校；（魚）群</span></div>
+      <div class="word-tip">💡 <b>at school</b>＝在學校（強調位置）；<b>in school</b>＝就學中（強調狀態）；a school of fish＝一群魚</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">class<span class="word-pos">(n.)</span></span><span class="word-ch">班級；課程；等級</span></div>
+      <div class="word-tip">💡 指班級組成份子時視為<b>複數</b>：Our class <b>are</b> having fun.；片語：cut class（翹課）、in class（上課中）</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">book<span class="word-pos">(n./v.)</span></span><span class="word-ch">書；預訂</span></div>
+      <div class="word-tip">💡 當動詞是「預訂」：Let's <b>book</b> the hotel room before we fly to New York.</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">color<span class="word-pos">(n./v.)</span></span><span class="word-ch">顏色；著色</span></div>
+      <div class="word-tip">💡 watercolor＝水彩；當動詞是「著色」：The boy is <b>coloring</b> the picture.</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">blue<span class="word-pos">(adj./n.)</span></span><span class="word-ch">藍色（的）；憂鬱的</span></div>
+      <div class="word-tip">💡 除了顏色，也可以表示「心情低落」：I don't look that <b>blue</b> in blue.（穿藍色衣服看起來不那麼憂鬱）</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">green<span class="word-pos">(adj./n.)</span></span><span class="word-ch">綠色（的）；環保的；未成熟的</span></div>
+      <div class="word-tip">💡 三種意思都很常考：In fact, I was very <b>green</b> when I started running my business.（無經驗）／We try to be <b>green</b>.（環保）</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">name<span class="word-pos">(n./v.)</span></span><span class="word-ch">名字；命名</span></div>
+      <div class="word-tip">💡 They <b>name</b> the building Happy House.（把…命名為…）；片語 call sb names＝取笑某人</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">door<span class="word-pos">(n.)</span></span><span class="word-ch">門</span></div>
+      <div class="word-tip">💡 <b>on the door</b>＝門上（貼著）；<b>at the door</b>＝在門口</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">bed<span class="word-pos">(n.)</span></span><span class="word-ch">床</span></div>
+      <div class="word-tip">💡 <b>in bed</b>＝躺在床上休息（狀態）；<b>on the bed</b>＝在床的表面（位置）</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">sign<span class="word-pos">(n./v.)</span></span><span class="word-ch">號誌；簽名；登記</span></div>
+      <div class="word-tip">💡 片語 <b>sign up</b>＝報名參加；當動詞常考「簽名 / 登記」</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">turn<span class="word-pos">(n./v.)</span></span><span class="word-ch">輪到的機會；轉；變得</span></div>
+      <div class="word-tip">💡 It will <b>turn</b> cold in two days.（變得）；片語 turn right / left（轉彎）、take turns（輪流）、make a U turn（迴轉）</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">hurry<span class="word-pos">(v./n.)</span></span><span class="word-ch">匆忙；趕快</span></div>
+      <div class="word-tip">💡 片語 <b>in a hurry</b>＝匆忙地；Hurry up!＝趕快！</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">fine<span class="word-pos">(adj./v./n.)</span></span><span class="word-ch">好的；罰款</span></div>
+      <div class="word-tip">💡 The police <b>fined</b> David NT$2,700 for running the red light.（動詞：罰款）</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">tall<span class="word-pos">(adj.)</span></span><span class="word-ch">（人、樹、建築物）高的</span></div>
+      <div class="word-tip">💡 <b>tall</b>：總長度的高，用於人、動植物、建築物；<b>high</b>：從地面算起的高度，用於無生命物體，如 high mountains</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">close<span class="word-pos">(adj./adv./v.)</span></span><span class="word-ch">靠近的；關</span></div>
+      <div class="word-tip">💡 形容詞/副詞唸 [klos]；動詞/名詞唸 [kloz]。片語：close friend（密友）、get / be close to（親近）</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">see<span class="word-pos">(v.)</span></span><span class="word-ch">看見；知道</span></div>
+      <div class="word-tip">💡 指感官自然功能，<b>非刻意</b>、不可用進行式；I see.＝我知道了。</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">read<span class="word-pos">(v.)</span></span><span class="word-ch">閱讀；念</span></div>
+      <div class="word-tip">💡 指閱讀文字或符號；三態同形 read-read-read，發音變化 [riːd]→[rɛd]→[rɛd]</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">watch<span class="word-pos">(v./n.)</span></span><span class="word-ch">觀看；手錶</span></div>
+      <div class="word-tip">💡 指觀賞或看守：Mr. Lin will <b>watch</b> my house when I am watching the soccer game.</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">look<span class="word-pos">(v./n.)</span></span><span class="word-ch">看；看起來；外表</span></div>
+      <div class="word-tip">💡 <b>look at</b>：刻意地看、有特定目標；片語 look after（照顧）、look up（查閱）、look for（找尋）、look out（小心）</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">dear<span class="word-pos">(adj.)</span></span><span class="word-ch">親愛的；昂貴的</span></div>
+      <div class="word-tip">💡 書信抬頭稱呼語＋名字：<b>Dear Sir</b>；片語 a dear John letter＝分手信</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">sorry<span class="word-pos">(adj.)</span></span><span class="word-ch">抱歉的；遺憾的</span></div>
+      <div class="word-tip">💡 四種常考搭配：be sorry to V／be sorry about sth／be sorry for sb／be sorry that 子句</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">maybe<span class="word-pos">(adv.)</span></span><span class="word-ch">或許</span></div>
+      <div class="word-tip">💡 放句首：<b>Maybe</b> we can go hiking.；對照 may be（某人／某事可能是…）＝分開寫的動詞片語</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">sure<span class="word-pos">(adv./adj.)</span></span><span class="word-ch">當然；確定的</span></div>
+      <div class="word-tip">💡 片語：be sure to V／be sure of N・V-ing／be sure that 子句／be sure of・about sb（信任…）</div>
+    </div>
+    <div class="word-card">
+      <div class="word-head"><span class="word-eng" onclick="speak(this)">with<span class="word-pos">(prep.)</span></span><span class="word-ch">跟…一起；用；隨著</span></div>
+      <div class="word-tip">💡 比較：in（用、以，方式/語言/材料）vs by（方法）vs with（用工具/器具；隨著、和…同時）</div>
+    </div>
+  </div>
+
+  <div class="vocab-list-card reveal">
+    <div class="vocab-list-title">家人 & 親屬</div>
+    <div class="vocab-list">
+      <span><b>father</b> 爸爸</span><span><b>mother</b> 媽媽</span><span><b>parent(s)</b> 父（母）親；家長</span><span><b>daughter</b> 女兒</span><span><b>son</b> 兒子</span><span><b>grandfather / grandpa</b> 爺爺；外公</span><span><b>grandmother / grandma</b> 奶奶；外婆</span><span><b>brother</b> 兄；弟</span><span><b>sister</b> 姐；妹</span><span><b>uncle</b> 姨丈；叔叔；伯父；舅舅</span><span><b>aunt</b> 阿姨；姑姑；伯母；舅媽</span><span><b>cousin</b> 表（堂）兄弟姐妹</span><span><b>husband</b> 丈夫</span><span><b>wife</b> 妻子（複數 wives）</span>
+    </div>
+  </div>
+  <div class="vocab-list-card reveal">
+    <div class="vocab-list-title">職業</div>
+    <div class="vocab-list">
+      <span><b>teacher</b> 老師</span><span><b>student</b> 學生</span><span><b>singer</b> 歌手</span><span><b>writer</b> 作家</span><span><b>office worker</b> 上班族</span><span><b>police officer</b>（= policeman/policewoman）警察</span><span><b>doctor</b> 醫生</span><span><b>nurse</b> 護理師</span><span><b>housewife</b> 家庭主婦（複數 housewives）</span>
+    </div>
+  </div>
+  <div class="vocab-list-card reveal">
+    <div class="vocab-list-title">人物</div>
+    <div class="vocab-list">
+      <span><b>man</b> 男人（複數 men）</span><span><b>woman</b> 女人（複數 women）</span><span><b>boy</b> 男孩</span><span><b>girl</b> 女孩</span><span><b>baby</b> 嬰兒（複數 babies）</span><span><b>person</b> 人（複數 persons/people）</span><span><b>people</b> 人；民族</span>
+    </div>
+  </div>
+  <div class="vocab-list-card reveal">
+    <div class="vocab-list-title">學校用品 & 顏色</div>
+    <div class="vocab-list">
+      <span><b>classroom</b> 教室</span><span><b>pencil box / case</b> 鉛筆盒</span><span><b>eraser</b> 橡皮擦</span><span><b>ruler</b> 尺</span><span><b>marker</b> 彩色筆</span><span><b>pen</b> 筆</span><span><b>comic book</b> 漫畫書</span><span><b>notebook</b> 筆記本；筆電</span><span><b>number</b> 數字；號碼</span><span><b>classmate</b> 同班同學</span><span><b>friend</b> 朋友</span><span><b>black</b> 黑色</span><span><b>red</b> 紅色</span><span><b>white</b> 白色</span><span><b>yellow</b> 黃色</span><span><b>purple</b> 紫色</span><span><b>brown</b> 咖啡色</span><span><b>orange</b> 橘色</span><span><b>pink</b> 粉紅色</span><span><b>gray / grey</b> 灰色</span>
+    </div>
+  </div>
+  <div class="vocab-list-card reveal">
+    <div class="vocab-list-title">其他名詞</div>
+    <div class="vocab-list">
+      <span><b>table</b> 桌子</span><span><b>wall</b> 牆壁</span><span><b>clock</b> 時鐘（around the clock＝不分晝夜）</span><span><b>sofa</b> 沙發</span><span><b>desk</b> 書桌</span><span><b>chair</b> 椅子</span><span><b>card</b> 卡片（play cards＝打牌）</span><span><b>picture</b> 照片；圖片</span><span><b>doll</b> 洋娃娃</span><span><b>umbrella</b> 雨傘</span><span><b>each other</b> 彼此（兩者）</span><span><b>guy</b> 傢伙</span><span><b>rule</b> 規則；統治</span><span><b>thanks</b> 感謝</span><span><b>welcome</b> 歡迎；受歡迎的</span><span><b>talk</b> 說話；聊天</span>
+    </div>
+  </div>
+  <div class="vocab-list-card reveal">
+    <div class="vocab-list-title">動詞 & 形容詞</div>
+    <div class="vocab-list">
+      <span><b>open</b> 打開</span><span><b>say</b>（say-said-said）說</span><span><b>use</b> 使用</span><span><b>wait</b>（wait for）等待</span><span><b>wake</b>（wake-woke-woken）醒來</span><span><b>fight</b>（fight-fought-fought）打架</span><span><b>check</b> 檢查（check in／check out）</span><span><b>wash</b> 洗</span><span><b>follow</b> 跟隨；遵守</span><span><b>draw</b>（draw-drew-drawn）描繪</span><span><b>go</b>（go-went-gone）去</span><span><b>have</b>（have-had-had）有</span><span><b>run</b>（run-ran-run）跑</span><span><b>good / bad</b> 好的／壞的（be good at／be bad at）</span><span><b>happy / sad</b> 高興的／傷心的</span><span><b>big / small</b> 大的／小的</span><span><b>thin</b> 薄的；瘦的</span><span><b>special</b> 特別的</span><span><b>old / young</b> 老的／年輕的</span><span><b>handsome / beautiful</b> 英俊的／美麗的</span><span><b>fat</b> 胖的</span><span><b>favorite</b> 最喜愛的（人事物）</span><span><b>hungry</b>（be hungry for）餓的；渴求的</span><span><b>careful</b>（be careful of/about）小心的</span><span><b>quiet</b> 安靜的</span><span><b>safe</b> 安全的</span><span><b>very / too / really / right / now / again</b> 非常／也，太／真的／就／現在／再次</span><span><b>please</b> 請；拜託</span>
+    </div>
+  </div>
+
+  <div class="g-trap reveal">
+    <h5>🚨 一字多義判斷：see／look at／watch／read／say／tell</h5>
+    <ul>
+      <li><b>看見</b>：<b>see</b>（非刻意）－ Didn't you <b>see</b> me?</li>
+      <li><b>看著</b>：<b>look at</b>（刻意、有目標）－ <b>Look at</b> me! Listen carefully.</li>
+      <li><b>觀看／看守</b>：<b>watch</b>－ watch the soccer game / watch my house</li>
+      <li><b>閱讀文字或符號</b>：<b>read</b>－ My grandma can't <b>read</b> letters.</li>
+      <li><b>說（內容）</b>：<b>say</b>－ The sign <b>says</b>, "No feeding."</li>
+      <li><b>說（笑話／故事）</b>：<b>tell</b>－ I am not <b>telling</b> a joke.</li>
+    </ul>
+  </div>
+
+  <!-- ══ PART B-1 招呼用語 & 稱呼 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">1️⃣</div>
+    <h2><small>Part B · Grammar</small>招呼用語 & 稱呼</h2>
+  </div>
+  <div class="intro-desc reveal">英文姓名的寫法：先寫「名」（first name）再寫「姓」（last name）。例：<b>Peter Parker</b>；<b>Jeremy Lin</b>。許多英美人士都有 <b>middle name</b>，通常與宗教或家族傳統有關，且大多以縮寫方式呈現，例如 George <b>W.</b> Bush。</div>
+
+  <table class="pat-table reveal">
+    <thead><tr><th>對象</th><th>尊稱</th><th>例句</th></tr></thead>
+    <tbody>
+      <tr><td class="label">男性</td><td class="struct">Mr. ＋（名）＋姓<br>sir（單獨使用，句中不大寫）</td><td class="ex">Mr. (Josh) Smith<br>I'm sorry, sir.</td></tr>
+      <tr><td class="label">女性</td><td class="struct">Miss ＋（名）＋姓（未婚）<br>Mrs. ＋夫姓（已婚）<br>Ms. ＋（名）＋姓（已/未婚皆可）<br>ma'am / madam（單獨使用）</td><td class="ex">Miss (Linda) Wang<br>Mrs. Peterson<br>Ms. (Alice) Fox<br>Thank you, ma'am.</td></tr>
+    </tbody>
+  </table>
+
+  <table class="pat-table reveal">
+    <thead><tr><th>情境</th><th>對話</th><th>說明</th></tr></thead>
+    <tbody>
+      <tr><td class="label">初次見面</td><td class="struct">A: Nice to meet you. B: Nice to meet you, too.<br>A: How do you do? B: How do you do?</td><td class="ex">＝很高興認識你 / 幸會幸會</td></tr>
+      <tr><td class="label">日常打招呼</td><td class="struct">A: Hi, Jennifer. B: Hello, Andy.</td><td class="ex">依時段：Good morning / afternoon / evening / night</td></tr>
+      <tr><td class="label">問候（正式）</td><td class="struct">How are you (doing)? / How's everything?</td><td class="ex">B: Great. / I'm fine, thank you. How about you?</td></tr>
+      <tr><td class="label">問候（不正式）</td><td class="struct">How's it going? / What's up?</td><td class="ex">B: Not bad. / Never better.</td></tr>
+      <tr><td class="label">再次見面</td><td class="struct">A: Nice to see you again. B: Good to see you, too.</td><td class="ex">＝很高興又見到你</td></tr>
+      <tr><td class="label">道別</td><td class="struct">Good-bye. / Bye. / See you.<br>So long.</td><td class="ex">So long ＝ 長時間不會再見面</td></tr>
+    </tbody>
+  </table>
+
+  <div class="g-trap reveal">
+    <h5>🔤 拆字猜字樂：字首・字根・字尾</h5>
+    <ul>
+      <li><b>字首（prefix）</b>：置於字根前面，改變字義，常表「方向」或「數量」。例：<b>un</b>happy（不開心的）</li>
+      <li><b>字根（root）</b>：單字的基本部分，為單字根本意義。例：happi<b>ness</b> 的字根是 happy</li>
+      <li><b>字尾（suffix）</b>：置於字根後面，大部分用來改變單字詞性。例：success<b>ful</b>（成功的，名詞變形容詞）、u<b>se</b>ful（有用的）</li>
+    </ul>
+  </div>
+
+  <!-- ══ PART B-2 人稱代名詞的格 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">2️⃣</div>
+    <h2><small>Part B · Grammar</small>人稱代名詞的格</h2>
+  </div>
+  <div class="rule-block reveal">
+    人稱代名詞須隨著在句中所扮演的角色（主詞／受詞／限定詞）不同而使用不同的格：<b>主格</b>、<b>受格</b>、<b>所有格</b>。
+  </div>
+
+  <table class="cmp-table reveal">
+    <thead><tr><th></th><th>第一人稱單/複</th><th>第二人稱單/複</th><th>第三人稱單/複</th></tr></thead>
+    <tbody>
+      <tr><td class="key">主格</td><td>I / we</td><td>you / you</td><td>he,she,it / they</td></tr>
+      <tr><td class="key">受格</td><td>me / us</td><td>you / you</td><td>him,her,it / them</td></tr>
+      <tr><td class="key">所有格</td><td>my / our</td><td>your / your</td><td>his,her,its / their</td></tr>
+    </tbody>
+  </table>
+
+  <table class="pat-table reveal">
+    <thead><tr><th>用法</th><th>說明</th><th>例句</th></tr></thead>
+    <tbody>
+      <tr><td class="label">主格</td><td class="struct">為句子的主詞</td><td class="ex">We all like the videos on Netflix.</td></tr>
+      <tr><td class="label">受格</td><td class="struct">為及物動詞或介系詞的受詞</td><td class="ex">Don't worry about <b>them</b>.</td></tr>
+      <tr><td class="label">所有格</td><td class="struct">表「某人的」，須置於名詞前，<b>不可單獨使用</b></td><td class="ex">This is not <b>my</b> notebook.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="g-trap reveal">
+    <h5>💡 名詞所有格："s" 的用法</h5>
+    <ul>
+      <li>N → N's：Dr. Wang's daughter is a doctor, too.</li>
+      <li>Ns → Ns'：My sister goes to a <b>girls'</b> high school.</li>
+      <li>A and B's（共同所有）：Joe and Patricia's new house is big and pretty.</li>
+      <li>A's and B's（個別所有）：Ben's and David's moms are both engineers.</li>
+      <li>基本用在「有生命」的名詞上，但例外：表時間的名詞（today's newspaper）；the earth / the world 或地名（the world's tallest man）</li>
+    </ul>
+  </div>
+
+  <div class="g-trap reveal">
+    <h5>⚠️ 順序陷阱：多個人稱代名詞主格同時出現</h5>
+    <ul>
+      <li>「單數」同時出現：順序為第<b>二→三→一</b>人稱。例：<b>You, he, and I</b> are all interested in learning AI.</li>
+      <li>「複數」同時出現：順序為第<b>一→二→三</b>人稱。例：<b>We, you and they</b> are going to Jason's birthday party tonight.</li>
+      <li>限定詞（a/an、the、this、that、these、those、many、some）<b>不可</b>與所有格連用：❌ This is my a car.</li>
+    </ul>
+  </div>
+
+  <!-- ══ PART B-3 指示詞 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">3️⃣</div>
+    <h2><small>Part B · Grammar</small>指示詞（this / that；these / those）</h2>
+  </div>
+  <table class="cmp-table reveal">
+    <thead><tr><th></th><th>近（距離說話者近）</th><th>遠（距離說話者遠）</th></tr></thead>
+    <tbody>
+      <tr><td class="key">單數</td><td>this</td><td>that</td></tr>
+      <tr><td class="key">複數</td><td>these</td><td>those</td></tr>
+    </tbody>
+  </table>
+  <div class="g-trap reveal">
+    <h5>💡 三個重要觀念</h5>
+    <ul>
+      <li><b>that is → that's</b> 可縮寫；但 this is／these are／those are <b>不可</b>縮寫。</li>
+      <li>回答 this/that 開頭的問句，答句一律用 <b>it</b>：A: Is that right? B: Yes, <b>it</b> is.（不可以說 Yes, that is.）</li>
+      <li>this / that 也可以用來代替<b>前面提過的整件事</b>：My sister used my computer without asking me first. <b>This</b> really makes me angry.</li>
+    </ul>
+  </div>
+
+  <!-- ══ PART B-4 冠詞 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">4️⃣</div>
+    <h2><small>Part B · Grammar</small>冠詞（a / an / the）</h2>
+  </div>
+  <table class="pat-table reveal">
+    <thead><tr><th>冠詞</th><th>使用規則</th><th>例句</th></tr></thead>
+    <tbody>
+      <tr><td class="label">a</td><td class="struct">＋子音開頭單字（含 u 發 /ju/ 音）</td><td class="ex">a bell、a book、a uniform、a university</td></tr>
+      <tr><td class="label">an</td><td class="struct">＋母音開頭單字（含 h 不發音）</td><td class="ex">an egg、an eraser、an umbrella、an hour</td></tr>
+      <tr><td class="label">the</td><td class="struct">特定單數/複數名詞、特定專有名詞（山脈、河流等無可取代者）</td><td class="ex">the Alps、the River Thames、the tigers、the man at the door</td></tr>
+    </tbody>
+  </table>
+  <div class="g-trap reveal">
+    <h5>💡 單數可數名詞若不加冠詞，常另有慣用意義</h5>
+    <ul>
+      <li><b>at work</b>（上班中）、<b>at table</b>（在吃飯）、<b>in hospital</b>（住院）、<b>at play</b>（在玩樂）、<b>in class</b>（上課中）</li>
+      <li>例：You should listen to the doctor and stay <b>in bed</b>.（你應該聽醫生的話臥床休養。）</li>
+    </ul>
+  </div>
+
+  <!-- ══ PART B-5 be動詞現在式 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">5️⃣</div>
+    <h2><small>Part B · Grammar</small>be 動詞現在式</h2>
+  </div>
+  <div class="rule-block reveal">be 動詞現在式共有三種形態：<b>am／are／is</b>，且須與主詞的人稱、數一致。</div>
+  <table class="cmp-table reveal">
+    <thead><tr><th></th><th>第一人稱</th><th>第二人稱</th><th>第三人稱 / 其他名詞</th></tr></thead>
+    <tbody>
+      <tr><td class="key">單數</td><td>I am</td><td>you are</td><td>he/she/it/this/that <b>is</b>；單數名詞 <b>is</b></td></tr>
+      <tr><td class="key">複數</td><td>we are</td><td>you are</td><td>they/these/those <b>are</b>；複數名詞 <b>are</b></td></tr>
+    </tbody>
+  </table>
+  <table class="pat-table reveal">
+    <thead><tr><th>句型</th><th>結構</th><th>例句</th></tr></thead>
+    <tbody>
+      <tr><td class="label">肯定句</td><td class="struct">主詞＋be動詞＋…</td><td class="ex">Our English teacher <b>is</b> from Canada.</td></tr>
+      <tr><td class="label">否定句</td><td class="struct">主詞＋be動詞＋not＋…</td><td class="ex">Sorry, but you<b>'re not</b> my type.</td></tr>
+      <tr><td class="label">Yes/No 疑問句</td><td class="struct">Be動詞＋主詞…?</td><td class="ex">A: Are these your glasses? B: Yes, they are. / No, they aren't.</td></tr>
+    </tbody>
+  </table>
+  <div class="g-trap reveal">
+    <h5>⚠️ be 動詞三個常考細節</h5>
+    <ul>
+      <li>is not → isn't；are not → aren't；但 <b>am not 不可以縮寫</b>。</li>
+      <li>簡答句主詞須以人稱代名詞表示；肯定簡答時主詞與 be 動詞<b>不可縮寫</b>：Yes, I am.（不可寫成 Yes, I'm.）</li>
+      <li>否定疑問句回答方式與肯定疑問句相同，根據事實回答：A: Aren't you Mr. and Mrs. Chang's children? B: Yes, we are. / No, we aren't.</li>
+    </ul>
+  </div>
+
+  <!-- ══ PART B-6 疑問詞 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">6️⃣</div>
+    <h2><small>Part B · Grammar</small>疑問詞</h2>
+  </div>
+  <table class="pat-table reveal">
+    <thead><tr><th>類型</th><th>疑問詞</th><th>用法重點</th></tr></thead>
+    <tbody>
+      <tr><td class="label">疑問代名詞</td><td class="struct">who（主格）/ whose（所有格）/ who,whom（受格）</td><td class="ex">問「人」</td></tr>
+      <tr><td class="label">疑問代名詞</td><td class="struct">which（主/受格皆同形）</td><td class="ex">在限定範圍內選擇</td></tr>
+      <tr><td class="label">疑問代名詞</td><td class="struct">what（主/受格皆同形）</td><td class="ex">開放式選擇，不限主題範圍</td></tr>
+      <tr><td class="label">疑問副詞</td><td class="struct">when / where / why / how</td><td class="ex">何時 / 何地 / 為何 / 多久・如何</td></tr>
+    </tbody>
+  </table>
+  <div class="g-trap reveal">
+    <h5>💡 what 與 which 的差別</h5>
+    <ul>
+      <li><b>What</b> sport do you like to play? → 只要符合主題範圍都可以回答</li>
+      <li><b>Which</b> sport do you like to play, tennis or basketball? → 限定在問句中提到的兩種選項</li>
+    </ul>
+  </div>
+  <div class="g-trap reveal">
+    <h5>💡 how 的延伸用法 & why 的替代問法</h5>
+    <ul>
+      <li><b>how old</b>（幾歲）、<b>how tall</b>（多高）、<b>how long</b>（多長／多久）、<b>how often</b>（多常）、<b>how far</b>（多遠）</li>
+      <li>問原因除了 why，也可用 <b>how come</b>，但 how come 問句用<b>直述句句構（不倒裝）</b>：How come <b>there is</b> no chicken in my chicken sandwich?（❌ How come is there…）</li>
+      <li><b>what for</b> 表示用途、目的：I really like the bag with my mom. But <b>what for</b>?</li>
+    </ul>
+  </div>
+  <div class="g-trap reveal">
+    <h5>💡 問「你是誰」的三種狀況</h5>
+    <ul>
+      <li><b>Who are you?</b>（面對面）</li>
+      <li><b>Who is this?</b>（電話中）</li>
+      <li><b>Who is it?</b>（敲門）</li>
+    </ul>
+  </div>
+
+  <!-- ══ PART B-7 形容詞的用法 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">7️⃣</div>
+    <h2><small>Part B · Grammar</small>形容詞的用法</h2>
+  </div>
+  <div class="rule-block reveal">形容詞只有一個作用，就是修飾名詞（N），方式有兩種：</div>
+  <table class="pat-table reveal">
+    <thead><tr><th>用法</th><th>結構</th><th>例句</th></tr></thead>
+    <tbody>
+      <tr><td class="label">形容詞＋名詞</td><td class="struct">直接放在名詞前修飾</td><td class="ex">I am a <b>helpful</b> person.</td></tr>
+      <tr><td class="label">作為補語</td><td class="struct">補充說明主詞的狀況</td><td class="ex">I feel <b>excited</b> to help the old woman.</td></tr>
+    </tbody>
+  </table>
+  <div class="g-trap reveal">
+    <h5>💡 What/How about + 名詞？＝ Why not + 原形動詞…？</h5>
+    <ul>
+      <li><b>What about</b> reading the book about SEL with me?</li>
+      <li>＝ <b>Why not</b> read the book about SEL with me?（跟我一起讀這本書如何？）</li>
+    </ul>
+  </div>
+
+  <!-- ══ PART B-8 可數不可數名詞 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">8️⃣</div>
+    <h2><small>Part B · Grammar</small>普通名詞（可數、不可數）的用法</h2>
+  </div>
+  <div class="rule-block reveal">
+    普通名詞依性質可分為<b>可數名詞（C）</b>與<b>不可數名詞（U）</b>：
+    <ul>
+      <li>可數名詞：單數名詞（a box）、複數名詞（two boxes）、單複數同形的雙胞胎名詞（fish, deer, sheep, Taiwanese）</li>
+      <li>不可數名詞：物質／抽象／專有名詞（air, health, June）、須加量詞才能數（a bottle of milk, a cup of coffee）</li>
+    </ul>
+  </div>
+  <table class="pat-table reveal">
+    <thead><tr><th>限定詞搭配</th><th>結構</th><th>範例</th></tr></thead>
+    <tbody>
+      <tr><td class="label">單數可數</td><td class="struct">a/an/one、the/this/that、所有格/every/each ＋ 單數名詞</td><td class="ex">a book、the boy、each student</td></tr>
+      <tr><td class="label">複數可數</td><td class="struct">the/these/those、所有格 ＋ 複數名詞（也可單獨使用）</td><td class="ex">these books、my parents</td></tr>
+    </tbody>
+  </table>
+  <table class="cmp-table reveal">
+    <thead><tr><th>複數變化規則</th><th>單字範例</th></tr></thead>
+    <tbody>
+      <tr><td class="key">直接加 -s</td><td>month → months；present → presents</td></tr>
+      <tr><td class="key">s/z/x/sh/ch/o ＋ -es</td><td>watch → watches；tomato → tomatoes</td></tr>
+      <tr><td class="key">子音＋y → 去y加ies</td><td>city → cities；fry → fries</td></tr>
+      <tr><td class="key">f/fe → 去f/fe加ves</td><td>knife → knives；wife → wives</td></tr>
+      <tr><td class="key">單複數同形</td><td>fish → fish；deer → deer；sheep → sheep；Taiwanese → Taiwanese</td></tr>
+      <tr><td class="key">不規則變化</td><td>man → men；woman → women；child → children；foot → feet；mouse → mice；tooth → teeth；ox → oxen；goose → geese</td></tr>
+    </tbody>
+  </table>
+  <div class="g-trap reveal">
+    <h5>🚨 fish 的四種用法（超容易混淆）</h5>
+    <ul>
+      <li>表示「魚肉」→ <b>不可數</b>：The girl is eating <b>fish</b>.</li>
+      <li>表示「魚」這種生物，單數時 → <b>可數</b>：There is a <b>fish</b> swimming in the river.</li>
+      <li>可數名詞，單複數同形 → There are several <b>fish</b> swimming in the river.</li>
+      <li>表示「魚的種類」時，複數形是 <b>fishes</b> → There are four <b>fishes</b> in the river.</li>
+    </ul>
+  </div>
+  <div class="g-trap reveal">
+    <h5>💡 其他必記規則</h5>
+    <ul>
+      <li>不可數名詞視為<b>單數</b>，須搭配單數動詞：<b>Health</b> is more important than anything else.</li>
+      <li><b>family</b> 和 <b>class</b> 指「由成員組成的團體」時視為單數；指「全體成員」時視為複數：I come from a big <b>family</b>, and most of my <b>family live</b> in Taipei.</li>
+    </ul>
+  </div>
+
+  <!-- ══ PART B-9 祈使語氣 ══ -->
+  <div class="sec-label reveal" style="margin-top:52px;">
+    <div class="sl-icon">9️⃣</div>
+    <h2><small>Part B · Grammar</small>祈使語氣</h2>
+  </div>
+  <div class="rule-block reveal">用來請求、命令、建議或禁止對方（you 你／你們）做某個動作。寫法：① 主詞 you 省略　② 以原形動詞為首　③ 可加上 please 表示禮貌。</div>
+  <table class="pat-table reveal">
+    <thead><tr><th>類型</th><th>句型</th><th>例句</th></tr></thead>
+    <tbody>
+      <tr><td class="label">一般動詞肯定句</td><td class="struct">原形動詞…(, please)／(Please) 原形動詞…</td><td class="ex"><b>Open</b> the door for me, please.<br>Please <b>sign</b> your name here.</td></tr>
+      <tr><td class="label">一般動詞否定句</td><td class="struct">Don't 原形動詞…, please／Please don't 原形動詞…</td><td class="ex"><b>Don't do</b> that again, please.<br>Jack, please <b>don't laugh</b> at others.</td></tr>
+      <tr><td class="label">be 動詞肯定句</td><td class="struct">Be＋形容詞／名詞</td><td class="ex">Please <b>be</b> a green person, Jack.</td></tr>
+      <tr><td class="label">be 動詞否定句</td><td class="struct">Don't be＋形容詞／名詞</td><td class="ex"><b>Don't be</b> so angry with him.</td></tr>
+      <tr><td class="label">Let's 句型</td><td class="struct">Let's＋原形動詞…／Let's not＋原形動詞…</td><td class="ex">Let's <b>be</b> kind to old people.<br>Let's not make our parents worried.</td></tr>
+    </tbody>
+  </table>
+  <div class="g-trap reveal">
+    <h5>💡 Let's 和 Let us 意思不同！</h5>
+    <ul>
+      <li><b>Let's</b>＝ Let us 的縮寫，但意義並不相同：Let's 是「邀請」對方與自己（我們）一起去做某動作。</li>
+      <li><b>Let us</b> 則是「請求」對方允許「讓我們」去做某動作；us 也可換成別的受詞：<b>Let</b> the past <b>stay</b> in the past.（過去的事就讓它留在過去。）</li>
+    </ul>
+  </div>
+
+  <!-- ══ 總整理 ══ -->
+  <div class="trap-summary reveal">
+    <h2>🚨 Unit 1 必考陷阱總整理</h2>
+    <div class="trap-list">
+      <div class="trap-chip"><strong>陷阱①</strong> family 表「家人」、class 表「全體成員」時都視為<b>複數</b>；表團體本身時才是單數。</div>
+      <div class="trap-chip"><strong>陷阱②</strong> 一字多義動詞：see（非刻意看見）／look at（刻意看）／watch（觀賞或看守）／read（閱讀文字）／say（說內容）／tell（說故事、笑話）不可混用。</div>
+      <div class="trap-chip"><strong>陷阱③</strong> 限定詞（a/an/the/this/that/these/those/所有格/many/some）<b>不可</b>與所有格連用，如 my a car（❌）。</div>
+      <div class="trap-chip"><strong>陷阱④</strong> 回答 this/that 開頭的問句一律用 <b>it</b> 回答，不能用 that/this 當簡答主詞。</div>
+      <div class="trap-chip"><strong>陷阱⑤</strong> am not 不可縮寫；肯定簡答句主詞與 be 動詞不可縮寫（Yes, I am. 不可寫 Yes, I'm.）。</div>
+      <div class="trap-chip"><strong>陷阱⑥</strong> how come 問句用<b>直述句</b>結構，不倒裝；what for 表用途、目的。</div>
+      <div class="trap-chip"><strong>陷阱⑦</strong> fish 依語境有四種數用法：肉（不可數）／單數魚（可數）／複數同形／魚的種類（fishes）。</div>
+      <div class="trap-chip"><strong>陷阱⑧</strong> 祈使句主詞 you 一定省略，一律以原形動詞開頭；Let's ≠ Let us，意思不同。</div>
+    </div>
+  </div>
+
+  <div class="exam-cta reveal">
+    <p>📝 學完文法筆記後，直接去「會考專區」用 21 題實戰題檢查自己掌握了多少！</p>
+    <a href="exam-g1-u1.html">前往會考隨堂做 →</a>
+  </div>
+
+</div><!-- /.wrap -->
+
+<!-- ★ 頁尾：由 main.js 注入 -->
+<div id="site-footer"></div>
+
+<!-- ★ 全站共用腳本 -->
+<script src="main.js"></script>
+<script>
+function speak(el) {
+  const text = el.childNodes[0].textContent.trim();
+  if ('speechSynthesis' in window) {
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US'; u.rate = 0.85;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+  }
+}
+</script>
+</body>
+</html>
