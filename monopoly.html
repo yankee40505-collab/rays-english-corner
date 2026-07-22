@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D 互動大富翁 - 英語角落專屬教具</title>
+    <title>知識地產王｜課堂互動遊戲 - 英語角落專屬教具</title>
     <style>
         /* 基礎設定與變數 */
         :root {
@@ -13,6 +13,8 @@
             --bg-light: #F9FAFB;
             --text-main: #1F2937;
             --text-muted: #4B5563;
+            --warn-bg: #FFFBEB;
+            --warn-border: #FDE68A;
         }
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { margin: 0; padding: 0; color: var(--text-main); background-color: var(--bg-light); line-height: 1.6; }
@@ -25,47 +27,88 @@
         /* 1. 主視覺區 (Hero Section) */
         .hero {
             text-align: center;
-            padding: 80px 20px 60px;
+            padding: 60px 20px 60px;
             background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%);
             border-bottom: 1px solid #C7D2FE;
         }
-        .hero h1 { font-size: 2.8rem; color: var(--primary); margin-bottom: 15px; font-weight: 800; }
-        .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 30px; }
+        .hero-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            padding: 6px 18px;
+            border-radius: 50px;
+            margin-bottom: 18px;
+        }
+        .hero h1 { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; font-weight: 800; }
+        .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 680px; margin: 0 auto 30px; }
         .btn-cta {
             display: inline-block;
             background-color: var(--accent);
             color: white;
             padding: 15px 35px;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: bold;
             border-radius: 50px;
             box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
             transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
         }
         .btn-cta:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(245, 158, 11, 0.6);
         }
-        /* 影片/GIF 佔位區塊 */
+        .hero-note { margin-top: 14px; font-size: 0.9rem; color: var(--text-muted); }
         .hero-visual {
             margin-top: 40px;
-            background-color: #374151;
-            height: 400px;
             border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
         }
+        .hero-visual img { display: block; width: 100%; height: auto; }
+
+        /* 開場痛點 */
+        .intro { padding: 60px 0; background: white; }
+        .intro .container { max-width: 760px; }
+        .intro p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 16px; }
+        .intro p.lead { font-size: 1.2rem; color: var(--text-main); font-weight: 600; }
+
+        /* 買前確認（系統需求） */
+        .req { padding: 50px 0; background: var(--bg-light); }
+        .req-box {
+            max-width: 760px; margin: 0 auto;
+            background: var(--warn-bg); border: 1px solid var(--warn-border);
+            border-radius: 12px; padding: 30px 35px;
+        }
+        .req-box h3 { color: #92400E; font-size: 1.2rem; margin-bottom: 6px; }
+        .req-box > p { color: #78350F; margin-bottom: 16px; font-size: 0.95rem; }
+        .req-list { list-style: none; padding: 0; margin: 0; }
+        .req-list li { margin-bottom: 12px; padding-left: 28px; position: relative; color: #78350F; font-size: 0.95rem; }
+        .req-list li::before { content: "☑"; position: absolute; left: 0; font-weight: bold; }
+        .req-list b { color: #92400E; }
+        .req-foot { margin-top: 16px; font-size: 0.9rem; color: #78350F; }
+
+        /* 三分鐘開始 */
+        .steps { padding: 70px 0; background: white; }
+        .section-title { text-align: center; font-size: 2rem; margin-bottom: 15px; }
+        .section-sub { text-align: center; color: var(--text-muted); max-width: 600px; margin: 0 auto 45px; }
+        .step-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; counter-reset: step; }
+        .step-card { text-align: center; padding: 10px; }
+        .step-num {
+            width: 40px; height: 40px; border-radius: 50%; background: var(--primary);
+            color: white; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; margin: 0 auto 12px; font-size: 1.1rem;
+        }
+        .step-card p { color: var(--text-muted); font-size: 0.95rem; margin: 0; }
+        .steps-note { text-align: center; margin-top: 30px; color: var(--text-muted); font-size: 0.95rem; }
 
         /* 2. 功能特色區 (Features) */
-        .features { padding: 80px 0; background-color: white; }
-        .section-title { text-align: center; font-size: 2rem; margin-bottom: 50px; }
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .features { padding: 70px 0; background-color: var(--bg-light); }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
         .feature-card {
-            background: var(--bg-light);
+            background: white;
             padding: 30px;
             border-radius: 12px;
             text-align: center;
@@ -73,27 +116,60 @@
             transition: transform 0.3s;
         }
         .feature-card:hover { transform: translateY(-5px); }
-        .feature-icon { font-size: 3rem; margin-bottom: 15px; }
-        .feature-card h3 { font-size: 1.3rem; margin-bottom: 10px; }
-        .feature-card p { color: var(--text-muted); font-size: 0.95rem; }
+        .feature-icon { font-size: 2.6rem; margin-bottom: 15px; }
+        .feature-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .feature-card p { color: var(--text-muted); font-size: 0.92rem; }
+
+        /* 適合場合 */
+        .occasions { padding: 60px 0; background: white; text-align: center; }
+        .tag-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; max-width: 700px; margin: 0 auto; }
+        .occ-tag {
+            background: #EEF2FF; color: var(--primary); font-weight: 600;
+            padding: 10px 20px; border-radius: 50px; font-size: 0.95rem;
+        }
+
+        /* 購買後包含 */
+        .included { padding: 70px 0; background: var(--bg-light); }
+        .included-list {
+            list-style: none; padding: 0; max-width: 640px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+        }
+        .included-list li {
+            background: white; border: 1px solid #E5E7EB; border-radius: 10px;
+            padding: 14px 16px; font-size: 0.95rem;
+        }
+        .included-list li::before { content: "✅ "; }
+
+        /* 隱私 */
+        .privacy { padding: 50px 0; background: white; text-align: center; }
+        .privacy .container { max-width: 700px; }
+        .privacy p { color: var(--text-muted); font-size: 0.98rem; }
 
         /* 3. 定價區 (Pricing) */
         .pricing { padding: 80px 0; background-color: #EEF2FF; text-align: center; }
         .price-card {
             background: white;
-            max-width: 400px;
+            max-width: 420px;
             margin: 0 auto;
             padding: 40px;
             border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             border: 2px solid var(--primary);
+            position: relative;
         }
-        .price-title { font-size: 1.5rem; color: var(--text-muted); font-weight: bold; }
-        .price-amount { font-size: 3.5rem; color: var(--primary); font-weight: 900; margin: 15px 0; }
+        .price-ribbon {
+            position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+            background: var(--accent); color: white; font-size: 0.8rem; font-weight: bold;
+            padding: 5px 16px; border-radius: 50px; white-space: nowrap;
+        }
+        .price-title { font-size: 1.4rem; color: var(--text-muted); font-weight: bold; margin-top: 8px; }
+        .price-amount { font-size: 3.2rem; color: var(--primary); font-weight: 900; margin: 15px 0 5px; }
         .price-amount span { font-size: 1rem; color: var(--text-muted); font-weight: normal; }
-        .price-features { list-style: none; padding: 0; margin: 30px 0; text-align: left; }
-        .price-features li { margin-bottom: 12px; font-size: 1.05rem; }
+        .price-sub { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; }
+        .price-features { list-style: none; padding: 0; margin: 25px 0; text-align: left; }
+        .price-features li { margin-bottom: 12px; font-size: 1rem; }
         .price-features li::before { content: "✅"; margin-right: 10px; }
+        .price-legal { margin-top: 18px; font-size: 0.82rem; color: var(--text-muted); text-align: left; }
 
         /* 4. 常見問題 (FAQ) */
         .faq { padding: 80px 0; background-color: white; }
@@ -103,6 +179,7 @@
 
         /* Footer */
         footer { text-align: center; padding: 30px; background-color: #1F2937; color: #9CA3AF; }
+        footer a { color: #D1D5DB; }
     </style>
 </head>
 <body>
@@ -110,57 +187,165 @@
     <!-- 1. 英雄主視覺區 -->
     <header class="hero">
         <div class="container">
-            <h1>告別無聊 PPT！全班嗨翻的 3D 互動大富翁</h1>
-            <p>專為老師打造的終極複習神器。一鍵匯入你的 Excel 題庫，搭配震撼的 GSAP 視覺特效，讓學生每天都期待你的英文課。</p>
-            <!-- 綠界金流的假連結，未來可替換 -->
-            <a href="#pricing" class="btn-cta">取得 115 學年度授權</a>
+            <div class="hero-badge">🌱 早鳥價・限量 50 組</div>
+            <h1>複習課別再唱獨角戲，讓全班搶著舉手</h1>
+            <p>「知識地產王」把複習變成一場地產競賽：答對題目才能擲骰前進、購買城市、興建房屋、收取過路費，最後把房子升級成世界知名地標。就算不是自己這隊在答題，其他人也在盯著搶答機會——沒有人會放空，注意力不會斷。</p>
+            <a href="https://yankee86.gumroad.com/l/emfffw" target="_blank" rel="noopener" class="btn-cta">取得 115 學年度創始教師早鳥授權</a>
+            <div class="hero-note">US$19 ／單一老師單一裝置授權・授權至 2027 年 7 月 31 日</div>
 
             <div class="hero-visual">
-                <p>🎬 [ 這裡放一段 15 秒的 GIF：展示學生搶答後，巴黎鐵塔旋轉砸在地圖上的特效 ]</p>
+                <img src="https://public-files.gumroad.com/zvij3acs7yep2z6izz0rqwxwycsl" alt="知識地產王遊戲畫面">
             </div>
         </div>
     </header>
 
+    <!-- 開場痛點 -->
+    <section class="intro">
+        <div class="container">
+            <p class="lead">複習課，不用再一個人唱獨角戲。</p>
+            <p>講義發下去學生沒精神，搶答工具玩兩三次也膩了——這大概是每個老師都熟悉的複習課現場。機會卡、命運卡與知識對決，讓落後的隊伍隨時有機會逆轉。這不只是一款問答工具，而是一場結合知識、運氣與團隊策略的課堂冒險。</p>
+        </div>
+    </section>
+
+    <!-- 買前先確認 -->
+    <section class="req">
+        <div class="container">
+            <div class="req-box">
+                <h3>⚠️ 買之前，先花 30 秒確認你的教室能用</h3>
+                <p>這是一款在老師電腦上執行、全程離線的遊戲，學生用手機連線一起玩。因為不經過雲端，請先確認三件事，避免買了卻跑不起來：</p>
+                <ul class="req-list">
+                    <li><b>作業系統：</b>支援 Windows 10/11（如果是 Mac，請先來訊確認）</li>
+                    <li><b>同一個 Wi-Fi：</b>老師電腦與學生裝置必須連到同一個 Wi-Fi 區域網路</li>
+                    <li><b>沒有阻擋裝置互連：</b>部分學校網路預設開啟「裝置隔離（client isolation）」，會讓手機連不到老師電腦。若不確定，可先用兩支手機測試能否互相連線，或詢問學校資訊組</li>
+                </ul>
+                <p class="req-foot">只要這三點沒問題，就算教室完全沒有網際網路，遊戲一樣能跑。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 三分鐘開始 -->
+    <section class="steps">
+        <div class="container">
+            <h2 class="section-title">三分鐘開始一場課堂競賽</h2>
+            <p class="section-sub">學生不必申請帳號，也不必安裝 App。</p>
+            <div class="step-grid">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <p>老師開啟遊戲並選擇題庫</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <p>將老師端畫面投影到教室螢幕</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <p>學生手機連上相同 Wi-Fi，掃描 QR Code、輸入暱稱即可加入</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">4</div>
+                    <p>選擇隊伍角色，開始地產競賽</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- 2. 功能特色區 -->
     <section class="features" id="features">
         <div class="container">
-            <h2 class="section-title">為什麼這套系統能省下你 90% 備課時間？</h2>
+            <h2 class="section-title">遊戲特色</h2>
             <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎲</div>
+                    <h3>知識決定前進機會</h3>
+                    <p>學生答對題目後才能擲骰前進；答錯時，其他隊伍可以搶答並奪走移動機會。讓答錯的學生也想搶回主動權，全班的專注不會斷線。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <h3>完整的地產經營玩法</h3>
+                    <p>購買城市、興建房屋、收取過路費，把房屋升級成世界地標。遊戲結束時依現金與地產價值計算最終排名，把複習得分包裝成看得到、摸得著的經營成果。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">❓</div>
+                    <h3>機會卡與命運卡</h3>
+                    <p>內含 40+ 種隨機事件（獎金、交換土地、改變位置，甚至臨時改變下一題規則），讓每一場遊戲都有不同結果，同一份題庫重複玩也不膩。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚔️</div>
+                    <h3>知識對決</h3>
+                    <p>踩到別隊土地時，可以選擇付過路費，或向地主發起知識單挑。挑戰成功免付，失敗則付雙倍。把複習題變成同儕之間的正面對抗，連平常安靜的學生都會想贏。</p>
+                </div>
                 <div class="feature-card">
                     <div class="feature-icon">📊</div>
                     <h3>Excel 題庫一鍵匯入</h3>
-                    <p>不需要學習複雜的後台。只要把你的單字、文法題目填進標準 Excel 範例檔中，拖曳上傳，1 秒鐘立刻開局。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">✨</div>
-                    <h3>滿滿的果汁感特效</h3>
-                    <p>結合精緻的 3D 地標圖片與 GSAP 動畫，抽卡牌的懸疑感、扣錢時的螢幕震動，營造出媲美現代手遊的強烈打擊感。</p>
+                    <p>用 Excel 編輯題目、選項、答案與作答時間，拖進遊戲即完成匯入。手邊現成的單字表、考卷題目，不必逐題重打，備一次課就能用。</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">💾</div>
-                    <h3>自動存檔與無縫接軌</h3>
-                    <p>一堂課 40 分鐘玩不完？沒關係！系統會在背景自動暫存進度。下週上課只要打開同一個網頁，上傳新單元的題庫，立刻繼續上週的版圖爭奪戰。</p>
+                    <h3>課程進度儲存</h3>
+                    <p>一節課玩不完，可保存所有隊伍的金錢、位置、角色、土地、房屋與地標。同一份設定可以跨班、跨週重複用，備一次課能撐很多堂。</p>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- 適合場合 -->
+    <section class="occasions">
+        <div class="container">
+            <h2 class="section-title">適合使用的場合</h2>
+            <div class="tag-wrap">
+                <span class="occ-tag">單元複習</span>
+                <span class="occ-tag">考前總整理</span>
+                <span class="occ-tag">英文單字與文法練習</span>
+                <span class="occ-tag">各科目 / 跨領域題庫</span>
+                <span class="occ-tag">班級活動與營隊競賽</span>
+                <span class="occ-tag">分組合作與獎勵時間</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 購買後包含 -->
+    <section class="included">
+        <div class="container">
+            <h2 class="section-title">購買後包含</h2>
+            <ul class="included-list">
+                <li>知識地產王遊戲程式（Windows 版）</li>
+                <li>世界城市地產地圖</li>
+                <li>30 款隊伍動物棋子</li>
+                <li>機會卡與命運卡系統（40+ 事件）</li>
+                <li>Excel 題庫匯入工具</li>
+                <li>示範題庫與 Excel 範本</li>
+                <li>中文快速使用指南</li>
+                <li>115 學年度授權（含期間內 v1.x 版本更新）</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 隱私與離線 -->
+    <section class="privacy">
+        <div class="container">
+            <h2 class="section-title">隱私與離線</h2>
+            <p>遊戲在老師的電腦上執行，學生的暱稱與作答資料不會上傳到任何外部雲端。遊戲畫面、音效、動畫與題庫全部可離線使用，適合網路不穩定的教室環境。</p>
         </div>
     </section>
 
     <!-- 3. 定價區 -->
     <section class="pricing" id="pricing">
         <div class="container">
-            <h2 class="section-title">極簡方案，把時間留給教學</h2>
+            <h2 class="section-title">115 學年度創始教師早鳥授權</h2>
             <div class="price-card">
-                <div class="price-title">經典世界版 (個人教師授權)</div>
-                <div class="price-amount">NT$ 990<span> / 115學年度</span></div>
+                <div class="price-ribbon">限量 50 組</div>
+                <div class="price-title">知識地產王（Windows 版）</div>
+                <div class="price-amount">US$ 19<span> ／ 115學年度</span></div>
+                <div class="price-sub">授權期限至 2027 年 7 月 31 日</div>
                 <ul class="price-features">
-                    <li>完整 28 格世界地標地圖</li>
-                    <li>30 隻精美動物角色自由選</li>
-                    <li>無限次 Excel 題庫匯入</li>
-                    <li>中英雙語介面一鍵切換</li>
-                    <li>免費更新年度優化功能</li>
+                    <li>單一老師、單一裝置使用授權</li>
+                    <li>授權期間內完整版本使用權</li>
+                    <li>免費取得後續 v1.x 功能更新與問題修正</li>
+                    <li>創始教師續購優惠：下學年折抵 US$10</li>
+                    <li>購買後 Gumroad 自動寄送專屬授權金鑰</li>
                 </ul>
-                <!-- 未來這裡替換成綠界/藍新的結帳連結 -->
-                <a href="#" class="btn-cta" style="width: 100%; display: block; box-sizing: border-box;">立即刷卡 / 超商繳費</a>
+                <a href="https://yankee86.gumroad.com/l/emfffw" target="_blank" rel="noopener" class="btn-cta" style="width: 100%; display: block; box-sizing: border-box;">前往 Gumroad 購買</a>
+                <p class="price-legal">本商品採單次購買，不會自動扣款。授權到期後如需繼續使用，須另行續購下一學年度授權。不得轉售、公開分享、重新上傳或破解授權機制。學校 / 教研團隊需多位老師共用，請洽購團體或校園授權版本。</p>
             </div>
         </div>
     </section>
@@ -170,22 +355,31 @@
         <div class="container">
             <h2 class="section-title">老師們常見的疑問</h2>
             <div class="faq-item">
-                <div class="faq-q">Q: 學生需要自己準備平板或手機才能玩嗎？</div>
-                <div class="faq-a">A: 完全不需要！這套系統設計為「大螢幕同樂模式」。老師只要用電腦投影到白板或電視，學生在台下分組舉手搶答即可，極度好控班。</div>
+                <div class="faq-q">Q: 我用 Mac 電腦可以玩嗎？</div>
+                <div class="faq-a">A: 目前遊戲程式支援 Windows 10/11。如果你是 Mac 使用者，購買前請先來訊確認可行方案。</div>
             </div>
             <div class="faq-item">
-                <div class="faq-q">Q: 我的學校沒有網路，可以離線玩嗎？</div>
-                <div class="faq-a">A: 為了驗證學年授權與確保最佳體驗，開啟遊戲時需要連線。但載入完成後，遊戲運算全都在瀏覽器內進行，即使上課中途網路稍微不穩也不會中斷。</div>
+                <div class="faq-q">Q: 學生一定要有網路才能玩嗎？</div>
+                <div class="faq-a">A: 不用連到網際網路，但老師電腦與學生手機必須連在「同一個」Wi-Fi 區域網路，讓手機能掃描 QR Code 加入遊戲。教室完全沒有對外網路也能正常運作。</div>
             </div>
             <div class="faq-item">
-                <div class="faq-q">Q: 購買後可以用在幾台電腦上？</div>
-                <div class="faq-a">A: 一組序號限定一位老師使用。您可以在家裡備課時開啟，也可以到不同班級的電腦登入上課（系統支援單一裝置登入防護）。</div>
+                <div class="faq-q">Q: 學生手機連不上老師電腦怎麼辦？</div>
+                <div class="faq-a">A: 最常見原因是學校網路開啟了「裝置隔離（client isolation）」，會阻擋同 Wi-Fi 裝置互連。可以先用兩支手機測試能否互相連線，或詢問學校資訊組是否能為該 Wi-Fi 關閉裝置隔離。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Q: 購買後可以用在幾台電腦、給幾位老師用？</div>
+                <div class="faq-a">A: 本商品為單一老師、單一裝置使用授權，不得轉售、公開分享或提供給未購買的第三方。若學校或教研團隊需要多位老師共同使用，請洽購團體或校園授權版本。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Q: 授權到期後會自動扣款續約嗎？</div>
+                <div class="faq-a">A: 不會，本商品採單次購買。授權期限至 2027 年 7 月 31 日，到期後如需繼續使用須另行續購，創始教師續購當時售價可折抵 US$10。</div>
             </div>
         </div>
     </section>
 
     <footer>
         <p>© 2026 英語角落 English Corner x 大懶豹. All rights reserved.</p>
+        <p><a href="index.html">回英語角落首頁</a></p>
     </footer>
 
 </body>
