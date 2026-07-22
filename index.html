@@ -76,6 +76,22 @@
     transition: transform .2s, background .2s, color .2s;
   }
   .btn-s:hover { background: var(--green-dk); color: #fff; transform: translateY(-3px); }
+  .btn-shop {
+    position: relative;
+    background: linear-gradient(135deg, var(--warm) 0%, var(--amber) 100%);
+    color: #fff; padding: 13px 34px; border-radius: 50px;
+    font-weight: 900; font-size: 0.93rem; text-decoration: none;
+    box-shadow: 0 6px 20px rgba(224,120,80,0.45);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-shop:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(224,120,80,0.55); }
+  .btn-shop::after {
+    content: "限量 50 組";
+    position: absolute; top: -11px; right: -10px;
+    background: #DC2626; color: #fff; font-size: 0.62rem; font-weight: 900;
+    padding: 3px 9px; border-radius: 99px; box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    white-space: nowrap;
+  }
   .hero-badges {
     display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
     margin-top: 46px;
@@ -263,7 +279,7 @@
     <div class="hero-btns">
       <a href="#courses" class="btn-p">看看有什麼課程 →</a>
       <a href="practice.html" class="btn-s">先來練習看看</a>
-      <a href="monopoly.html" class="btn-s">🎲 教具：知識地產王</a>
+      <a href="monopoly.html" class="btn-shop">🎲 教具開賣：知識地產王</a>
     </div>
     <div class="hero-badges">
       <div class="badge"><span class="b-icon">📚</span><span class="b-num">4+</span> 年教學經驗</div>
