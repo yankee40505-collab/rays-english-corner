@@ -68,6 +68,16 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
         }
         .hero-visual img { display: block; width: 100%; height: auto; }
+        .hero-video { margin: 36px auto 0; max-width: 300px; }
+        .hero-video video {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 18px;
+            background: #000;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25);
+        }
+        .hero-video-note { margin-top: 10px; font-size: 0.88rem; color: var(--text-muted); }
 
         /* 開場痛點 */
         .intro { padding: 60px 0; background: white; }
@@ -246,6 +256,22 @@
             <p>「知識地產王」把複習變成一場地產競賽：答對題目才能擲骰前進、購買城市、興建房屋、收取過路費，最後把房子升級成世界知名地標。就算不是自己這隊在答題，其他人也在盯著搶答機會——沒有人會放空，注意力不會斷。</p>
             <a href="https://p.ecpay.com.tw/7A01573" target="_blank" rel="noopener" class="btn-cta">取得 115 學年度創始教師早鳥授權</a>
             <div class="hero-note">NT$620（早鳥價）／單一老師單一裝置授權・授權至 2027 年 7 月 31 日</div>
+
+            <!-- 60 秒課堂實況短片 -->
+            <div class="hero-video">
+                <video
+                    src="media/monopoly-reels.mp4"
+                    poster="media/monopoly-reels-poster.jpg"
+                    controls
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata">
+                    你的瀏覽器不支援影片播放，<a href="media/monopoly-reels.mp4">請點此下載觀看</a>。
+                </video>
+                <div class="hero-video-note">▶️ 60 秒看課堂實況（點右下角喇叭開聲音）</div>
+            </div>
 
             <div class="hero-visual">
                 <img src="https://public-files.gumroad.com/zvij3acs7yep2z6izz0rqwxwycsl" alt="知識地產王遊戲畫面">
