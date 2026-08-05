@@ -61,6 +61,15 @@
             box-shadow: 0 6px 20px rgba(245, 158, 11, 0.6);
         }
         .hero-note { margin-top: 14px; font-size: 0.9rem; color: var(--text-muted); }
+        /* Windows / Mac 雙按鈕 */
+        .cta-pair { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+        .cta-pair .btn-cta { display: inline-block; min-width: 200px; }
+        .btn-cta.btn-mac {
+            background-color: var(--primary);
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+        }
+        .btn-cta.btn-mac:hover { box-shadow: 0 6px 20px rgba(79, 70, 229, 0.6); }
+        .btn-os-sub { display: block; font-size: 0.78rem; font-weight: 600; opacity: 0.85; margin-top: 2px; }
         .hero-visual {
             margin-top: 40px;
             border-radius: 12px;
@@ -236,10 +245,17 @@
 
       <div style="margin-top: 12px; font-size: 13px; color: #fbbf24; font-weight: bold;">🎁 現在買就送「出題指引懶人包」</div>
 
-      <!-- 綠界付款按鈕 -->
-      <a href="https://p.ecpay.com.tw/7A01573" style="display: inline-block; background-color: #10b981; color: #ffffff; text-decoration: none; font-size: 18px; font-weight: bold; padding: 14px 36px; border-radius: 8px; margin-top: 15px; transition: all 0.2s ease; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);">
-        👉 立即取得 115 學年度專屬授權
-      </a>
+      <!-- 綠界付款按鈕（Windows / Mac 各一） -->
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 15px;">
+        <a href="https://p.ecpay.com.tw/7A01573" style="display: inline-block; background-color: #10b981; color: #ffffff; text-decoration: none; font-size: 17px; font-weight: bold; padding: 14px 28px; border-radius: 8px; transition: all 0.2s ease; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4); min-width: 210px;">
+          🪟 Windows 版・立即取得
+          <span style="display: block; font-size: 12px; font-weight: normal; opacity: 0.9; margin-top: 2px;">115 學年度專屬授權</span>
+        </a>
+        <a href="https://p.ecpay.com.tw/0B02135" style="display: inline-block; background-color: #6366f1; color: #ffffff; text-decoration: none; font-size: 17px; font-weight: bold; padding: 14px 28px; border-radius: 8px; transition: all 0.2s ease; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4); min-width: 210px;">
+          🍎 Mac 版・立即取得
+          <span style="display: block; font-size: 12px; font-weight: normal; opacity: 0.9; margin-top: 2px;">115 學年度專屬授權</span>
+        </a>
+      </div>
       <p style="font-size: 12px; color: #64748b; margin-top: 10px; margin-bottom: 0;">* 付款後系統將於 3 分鐘內自動發送開通序號至您的信箱</p>
     </div>
 
@@ -254,7 +270,10 @@
             <h1>複習課別再唱獨角戲，讓全班搶著舉手</h1>
             <p style="font-size: 0.95rem; color: var(--primary); font-weight: 700; margin-bottom: 4px;">👨‍🏫 由補習班英文老師親自開發・第一線教學現場實測</p>
             <p>「知識地產王」把複習變成一場地產競賽：答對題目才能擲骰前進、購買城市、興建房屋、收取過路費，最後把房子升級成世界知名地標。就算不是自己這隊在答題，其他人也在盯著搶答機會——沒有人會放空，注意力不會斷。</p>
-            <a href="https://p.ecpay.com.tw/7A01573" target="_blank" rel="noopener" class="btn-cta">取得 115 學年度創始教師早鳥授權</a>
+            <div class="cta-pair">
+                <a href="https://p.ecpay.com.tw/7A01573" target="_blank" rel="noopener" class="btn-cta">🪟 Windows 版<span class="btn-os-sub">創始教師早鳥授權</span></a>
+                <a href="https://p.ecpay.com.tw/0B02135" target="_blank" rel="noopener" class="btn-cta btn-mac">🍎 Mac 版<span class="btn-os-sub">創始教師早鳥授權</span></a>
+            </div>
             <div class="hero-note">NT$620（早鳥價）／單一老師單一裝置授權・授權至 2027 年 7 月 31 日</div>
 
             <!-- 60 秒課堂實況短片 -->
@@ -430,7 +449,10 @@
                     <li>創始教師續購優惠：下學年折抵 US$10</li>
                     <li>購買後自動寄送專屬授權金鑰</li>
                 </ul>
-                <a href="https://p.ecpay.com.tw/7A01573" target="_blank" rel="noopener" class="btn-cta" style="width: 100%; display: block; box-sizing: border-box;">立即購買</a>
+                <div class="cta-pair">
+                    <a href="https://p.ecpay.com.tw/7A01573" target="_blank" rel="noopener" class="btn-cta" style="flex: 1; min-width: 140px; padding: 15px 20px;">🪟 Windows 版</a>
+                    <a href="https://p.ecpay.com.tw/0B02135" target="_blank" rel="noopener" class="btn-cta btn-mac" style="flex: 1; min-width: 140px; padding: 15px 20px;">🍎 Mac 版</a>
+                </div>
                 <p class="price-legal">本商品採單次購買，不會自動扣款。授權到期後如需繼續使用，須另行續購下一學年度授權。不得轉售、公開分享、重新上傳或破解授權機制。學校 / 教研團隊需多位老師共用，請洽購團體或校園授權版本。</p>
             </div>
         </div>
