@@ -181,6 +181,13 @@
         }
         .giving-record h3 { color: #991B1B; font-size: 1.05rem; margin-bottom: 10px; }
         .giving-record p { font-size: 0.93rem; margin: 0; color: #7F1D1D; }
+        .giving-list { list-style: none; padding: 0; margin: 0 0 20px; }
+        .giving-list li {
+            background: white; border: 1px solid #FECACA; border-radius: 10px;
+            padding: 13px 18px; margin-bottom: 10px; color: #7F1D1D; font-size: 0.98rem;
+        }
+        .giving-list li::before { content: "❤️ "; }
+        .giving-list b { color: #991B1B; }
 
         /* 3. 定價區 (Pricing) */
         .pricing { padding: 80px 0; background-color: #EEF2FF; text-align: center; }
@@ -455,13 +462,18 @@
         <div class="container">
             <div class="giving-badge">❤️ 教育與慈善並行</div>
             <h2>你買的不只是一套課堂教具</h2>
-            <p>每售出一套「地產知識王」，我會將<strong>售價的 10%</strong> 捐給<strong>國際紅十字會</strong>，用於全球人道救援工作。</p>
+            <p>每售出一套「地產知識王」，我會將<strong>售價的 10%</strong> 捐出。而且，<strong>捐給誰由你決定</strong>：</p>
+            <ul class="giving-list">
+                <li><b>國際紅十字會</b>　—　用於全球人道救援工作</li>
+                <li><b>台灣偏鄉教育慈善組織</b>　—　用於改善台灣孩子的學習資源</li>
+            </ul>
+            <p>你可以在結帳時的留言欄註明希望的捐款方向，或是在收到授權金鑰的信件後直接回信告訴我。<strong>若沒有特別註明，我會把這筆捐款平均分成兩半，兩邊各捐一半。</strong></p>
             <p>這不是一句好聽的行銷話術，所以我讓它可以被檢驗：<strong>每一次捐款之後，我都會在這個頁面公開銷售筆數與捐款收據</strong>。（不會揭露任何買家的個人資料。）</p>
             <p>我始終相信，一堂讓孩子搶著舉手的課，跟一份送到受災地區的援助，本質上是同一件事——都是在為這個世界創造一個好一點的未來。謝謝每一位選擇這套教具的老師，你的每一筆支持，都同時投給了教室裡的孩子，和遠方需要幫助的人。</p>
 
             <div class="giving-record">
                 <h3>📋 捐款紀錄</h3>
-                <p>尚未有捐款紀錄。首次捐出後，這裡會列出捐款日期、金額、對應的銷售筆數，並附上收據。</p>
+                <p>尚未有捐款紀錄。首次捐出後，這裡會列出捐款日期、捐款對象、金額與對應的銷售筆數，並附上收據。</p>
             </div>
         </div>
     </section>
