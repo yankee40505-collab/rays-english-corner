@@ -239,16 +239,81 @@
   .form-submit { background: linear-gradient(135deg,var(--warm) 0%,var(--amber) 100%); color: #fff; border: none; border-radius: 50px; padding: 13px 34px; font-size: 0.93rem; font-weight: 900; cursor: pointer; box-shadow: 0 6px 20px rgba(224,120,80,0.3); align-self: flex-start; margin-top: 4px; font-family: 'Nunito', sans-serif; transition: transform .15s, box-shadow .15s; }
   .form-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(224,120,80,0.38); }
 
+  /* TEACHING MATERIALS */
+  .materials-marquee {
+    background: var(--green-dk); color: #fff; overflow: hidden;
+    border-bottom: 1px solid rgba(255,255,255,.14);
+  }
+  .materials-marquee-track {
+    display: flex; width: max-content; padding: 9px 0;
+    animation: materials-scroll 24s linear infinite;
+  }
+  .materials-marquee:hover .materials-marquee-track { animation-play-state: paused; }
+  .materials-marquee-group { display: flex; align-items: center; flex-shrink: 0; }
+  .materials-marquee a, .materials-marquee span {
+    color: #fff; text-decoration: none; white-space: nowrap;
+    font-size: .84rem; font-weight: 900; letter-spacing: .035em;
+    padding: 0 28px;
+  }
+  .materials-marquee a:hover { color: var(--amber); }
+  .materials-marquee .marquee-sep { color: var(--amber); padding: 0; }
+  @keyframes materials-scroll { to { transform: translateX(-50%); } }
+
+  #materials { background: linear-gradient(180deg, var(--amber-pl) 0%, var(--cream) 100%); }
+  .materials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .material-card {
+    display: flex; flex-direction: column; min-height: 300px;
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 24px; padding: 28px; text-decoration: none;
+    box-shadow: var(--sh); position: relative; overflow: hidden;
+    transition: transform .22s, box-shadow .22s, border-color .22s;
+  }
+  .material-card::before {
+    content: ''; position: absolute; inset: 0 0 auto; height: 5px;
+    background: linear-gradient(90deg, var(--green-md), var(--amber));
+  }
+  a.material-card:hover { transform: translateY(-7px); box-shadow: var(--sh-lg); border-color: var(--green-lt); }
+  .material-card.pending { background: rgba(255,255,255,.62); border-style: dashed; }
+  .material-icon {
+    width: 64px; height: 64px; border-radius: 18px; display: grid; place-items: center;
+    background: var(--green-pl); font-size: 2rem; margin-bottom: 22px;
+  }
+  .material-cover {
+    width: calc(100% + 56px); height: 150px; margin: -28px -28px 22px;
+    object-fit: cover; object-position: center; border-bottom: 1px solid var(--border);
+  }
+  .material-card:nth-child(2) .material-icon { background: var(--warm-pl); }
+  .material-card:nth-child(3) .material-icon { background: var(--sky-pl); }
+  .material-status {
+    align-self: flex-start; padding: 4px 11px; border-radius: 999px;
+    background: var(--amber-pl); color: #956000; font-size: .7rem; font-weight: 900;
+    letter-spacing: .08em; margin-bottom: 10px;
+  }
+  .material-title { color: var(--green-dk); font-family: 'Playfair Display', serif; font-size: 1.32rem; font-weight: 900; margin-bottom: 9px; }
+  .material-desc { color: var(--text-md); font-size: .9rem; line-height: 1.75; margin-bottom: 22px; }
+  .material-action { color: var(--warm); font-size: .86rem; font-weight: 900; margin-top: auto; }
+  .material-note {
+    margin-top: 24px; padding: 13px 16px; border-radius: 12px;
+    background: rgba(255,255,255,.72); color: var(--text-md); font-size: .85rem;
+    border: 1px dashed var(--border); text-align: center;
+  }
+
   /* RESPONSIVE */
   @media (max-width: 960px) {
     .about-grid, .contact-grid { grid-template-columns: 1fr; }
     .courses-grid { grid-template-columns: 1fr 1fr; }
     .grammar-grid { grid-template-columns: repeat(2,1fr); }
+    .materials-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 560px) {
     .courses-grid { grid-template-columns: 1fr; }
     .grammar-grid { grid-template-columns: 1fr; }
+    .materials-grid { grid-template-columns: 1fr; }
     .hero-badges { flex-direction: column; align-items: center; }
+    .materials-marquee a, .materials-marquee span { padding: 0 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .materials-marquee-track { animation: none; }
   }
 </style>
 </head>
@@ -256,6 +321,24 @@
 
 <!-- ★ 導覽列：由 main.js 注入 -->
 <div id="site-nav"></div>
+
+<!-- 教材消息跑馬燈 -->
+<div class="materials-marquee" role="region" aria-label="教材最新消息">
+  <div class="materials-marquee-track">
+    <div class="materials-marquee-group">
+      <a href="#materials">📚 全新教材專區上線</a><span class="marquee-sep">✦</span>
+      <a href="monopoly.html">🎲 地產知識王：把複習變成競賽</a><span class="marquee-sep">✦</span>
+      <span>⚔️ 三國遊戲即將上線</span><span class="marquee-sep">✦</span>
+      <a href="materials/The_King_LeBron_James_English_Lesson.pptx" download>🏀 免費下載 LeBron James 英文課 PPT</a><span class="marquee-sep">✦</span>
+    </div>
+    <div class="materials-marquee-group" aria-hidden="true">
+      <a href="#materials" tabindex="-1">📚 全新教材專區上線</a><span class="marquee-sep">✦</span>
+      <a href="monopoly.html" tabindex="-1">🎲 地產知識王：把複習變成競賽</a><span class="marquee-sep">✦</span>
+      <span>⚔️ 三國遊戲即將上線</span><span class="marquee-sep">✦</span>
+      <a href="materials/The_King_LeBron_James_English_Lesson.pptx" download tabindex="-1">🏀 免費下載 LeBron James 英文課 PPT</a><span class="marquee-sep">✦</span>
+    </div>
+  </div>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -287,6 +370,43 @@
       <div class="badge"><span class="b-icon">🏫</span>國小 → 大學全年齡</div>
       <div class="badge"><span class="b-icon">✍️</span>出題老師資歷</div>
     </div>
+  </div>
+</section>
+
+<!-- TEACHING MATERIALS -->
+<section id="materials">
+  <div class="inner">
+    <div class="section-head reveal">
+      <div class="section-tag">Ray's Teaching Lab</div>
+      <h2 class="section-title">教材專區</h2>
+      <p class="section-desc">遊戲化教具、課堂活動與主題簡報，讓學生不只記住英文，也真正享受學習過程。</p>
+    </div>
+    <div class="materials-grid">
+      <a class="material-card reveal" href="monopoly.html">
+        <div class="material-icon">🎲</div>
+        <div class="material-status">CLASSROOM GAME</div>
+        <h3 class="material-title">地產知識王</h3>
+        <p class="material-desc">答題、擲骰、買地與蓋房，把全班複習課變成一場刺激的地產競賽。</p>
+        <span class="material-action">查看遊戲介紹 →</span>
+      </a>
+
+      <article class="material-card pending reveal d1" aria-label="三國遊戲，檔案待補">
+        <img class="material-cover" src="materials/wei-wu-road.png" alt="三國英文 RPG《魏武之路》遊戲畫面">
+        <div class="material-status">COMING SOON</div>
+        <h3 class="material-title">魏武之路｜三國英文 RPG</h3>
+        <p class="material-desc">跟著曹操展開英文戰役。遊戲專區與封面已完成，補上正確遊戲檔案或網址後即可開放。</p>
+        <span class="material-action">檔案待補</span>
+      </article>
+
+      <a class="material-card reveal d2" href="materials/The_King_LeBron_James_English_Lesson.pptx" download>
+        <div class="material-icon">🏀</div>
+        <div class="material-status">POWERPOINT</div>
+        <h3 class="material-title">The King: LeBron James</h3>
+        <p class="material-desc">以 LeBron James 為主題的英文課堂簡報，結合籃球故事、單字與教學活動。</p>
+        <span class="material-action">下載 PPT（約 27 MB）↓</span>
+      </a>
+    </div>
+    <p class="material-note">三國遊戲目前未在 repository 或指定附件中找到；收到正確檔案後即可把卡片改為可點擊。</p>
   </div>
 </section>
 
