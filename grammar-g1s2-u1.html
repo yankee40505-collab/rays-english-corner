@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="翰林國一下 Unit 1 單字、現在簡單式、第三人稱單數、外觀描述、身高與職業問句白話整理。">
+<title>核心文法突破 · 國一下 U1｜Ray's English Corner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .wrap{max-width:960px;margin:0 auto;padding:48px 5% 86px;}
+  .quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:8px;}
+  .quick-card{background:var(--white);border:1.5px solid var(--border);border-radius:14px;padding:16px;box-shadow:var(--sh);}
+  .quick-card .q-icon{font-size:1.25rem;margin-bottom:7px;}
+  .quick-card b{display:block;color:var(--green-dk);font-family:'Playfair Display',serif;font-size:.96rem;margin-bottom:3px;}
+  .quick-card span{font-family:'Noto Sans TC',sans-serif;color:var(--text-md);font-size:.78rem;line-height:1.55;}
+  .teacher-talk{margin-top:18px;}
+
+  .table-wrap{overflow-x:auto;border-radius:var(--r);box-shadow:var(--sh);margin-bottom:22px;}
+  .vocab-table{width:100%;border-collapse:collapse;background:var(--white);min-width:700px;}
+  .vocab-table th{background:var(--green-dk);color:var(--white);padding:11px 14px;text-align:left;font-size:.8rem;letter-spacing:.04em;}
+  .vocab-table td{padding:10px 14px;border-bottom:1px solid var(--cream-d);vertical-align:top;font-size:.86rem;}
+  .vocab-table tr:last-child td{border-bottom:none;}
+  .vocab-table tbody tr:hover td{background:var(--green-pl);}
+  .vocab-table .no{color:var(--text-lt);font-weight:800;width:42px;}
+  .vocab-table .word{font-family:'Playfair Display',serif;color:var(--green-dk);font-weight:700;font-size:.98rem;cursor:pointer;white-space:nowrap;}
+  .vocab-table .word::after{content:'🔊';font-size:.67rem;margin-left:5px;}
+  .vocab-table .pos{font-size:.7rem;color:var(--text-lt);font-weight:800;margin-left:4px;white-space:nowrap;}
+  .vocab-table .zh{font-family:'Noto Sans TC',sans-serif;color:var(--text);font-weight:700;white-space:nowrap;}
+  .vocab-table .note{font-family:'Noto Sans TC',sans-serif;color:var(--text-md);line-height:1.65;}
+  .vocab-table .note strong{font-family:'Nunito',sans-serif;color:var(--green-dk);}
+  .group-title{display:flex;align-items:center;gap:8px;color:var(--green-dk);font-weight:900;margin:24px 0 10px;font-size:.92rem;}
+  .group-title::before{content:'';width:6px;height:18px;border-radius:99px;background:var(--amber);}
+
+  .rule-block{background:var(--green-pl);border-left:4px solid var(--green-md);border-radius:0 10px 10px 0;padding:13px 16px;margin:12px 0;font-family:'Noto Sans TC',sans-serif;color:var(--text-md);font-size:.9rem;line-height:1.75;}
+  .rule-block b,.rule-block strong{font-family:'Nunito',sans-serif;color:var(--green-dk);}
+  .formula{background:var(--green-dk);color:var(--white);border-radius:11px;padding:12px 16px;margin:12px 0;font-family:'Nunito',sans-serif;font-weight:800;text-align:center;line-height:1.65;}
+  .formula em{color:var(--amber);font-style:normal;}
+  .cmp-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.86rem;border-radius:12px;overflow:hidden;box-shadow:var(--sh);}
+  .cmp-table th{background:var(--green-dk);color:var(--white);padding:9px 13px;text-align:left;font-size:.78rem;}
+  .cmp-table td{padding:10px 13px;border-bottom:1px solid var(--cream-d);font-family:'Noto Sans TC',sans-serif;vertical-align:top;line-height:1.65;}
+  .cmp-table tr:nth-child(even) td{background:var(--cream);}
+  .cmp-table tr:last-child td{border-bottom:none;}
+  .cmp-table .key{font-family:'Nunito',sans-serif;font-weight:900;color:var(--green-dk);white-space:nowrap;}
+  .cmp-table .en{font-family:'Nunito',sans-serif;font-weight:800;color:var(--text);}
+  .ok{color:var(--green-md);font-weight:900;}.ng{color:#bd4338;font-weight:900;text-decoration:line-through;}
+  .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+  .mini-card{border:1.5px solid var(--border);border-radius:11px;padding:12px 14px;background:var(--cream);font-family:'Noto Sans TC',sans-serif;font-size:.86rem;line-height:1.65;}
+  .mini-card b{display:block;color:var(--green-dk);font-family:'Nunito',sans-serif;margin-bottom:3px;}
+  .body-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}
+  .body-chip{background:var(--cream);border:1px solid var(--border);border-radius:9px;padding:9px 10px;text-align:center;font-size:.82rem;font-family:'Noto Sans TC',sans-serif;}
+  .body-chip b{font-family:'Nunito',sans-serif;color:var(--green-dk);display:block;font-size:.88rem;}
+
+  .phrase-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .phrase-card{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:14px 17px;box-shadow:var(--sh);}
+  .phrase-card .pc-en{display:inline-block;font-family:'Playfair Display',serif;color:var(--green-dk);font-weight:700;cursor:pointer;margin-bottom:2px;}
+  .phrase-card .pc-en::after{content:'🔊';font-size:.67rem;margin-left:5px;}
+  .phrase-card .pc-zh{font-family:'Noto Sans TC',sans-serif;font-size:.84rem;font-weight:700;color:var(--text);}
+  .phrase-card .pc-tip{font-family:'Noto Sans TC',sans-serif;font-size:.78rem;color:var(--text-md);margin-top:4px;line-height:1.55;}
+
+  .summary-card{background:var(--green-dk);color:var(--white);border-radius:18px;padding:32px 36px;box-shadow:var(--sh-lg);}
+  .summary-card h2{font-family:'Playfair Display',serif;text-align:center;margin-bottom:18px;font-size:1.4rem;}
+  .summary-list{display:grid;gap:9px;max-width:740px;margin:0 auto;}
+  .summary-item{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:10px 14px;font-family:'Noto Sans TC',sans-serif;font-size:.88rem;line-height:1.65;}
+  .summary-item strong{font-family:'Nunito',sans-serif;color:var(--amber);}
+
+  @media(max-width:760px){.quick-grid,.body-grid{grid-template-columns:1fr 1fr}.phrase-grid{grid-template-columns:1fr}}
+  @media(max-width:560px){.quick-grid,.mini-grid{grid-template-columns:1fr}.g-card-head{padding:16px 18px}.g-card-body{padding:18px}.summary-card{padding:26px 20px}.wrap{padding-top:38px}.hero h1 br{display:none}}
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+
+<header class="hero">
+  <div class="hero-badge">📖 翰林國一下 Unit 1</div>
+  <h1>What Do You Do<br><em>in Your Free Time?</em></h1>
+  <p>現在簡單式、第三人稱單數、外觀與身高問法，一次整理成真正看得懂的規則。</p>
+  <div class="hero-chips">
+    <div class="chip">Simple Present</div>
+    <div class="chip">V-s / V-es</div>
+    <div class="chip">Appearance 外觀</div>
+    <div class="chip">How tall / Who</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <a class="back-btn" href="grammar.html#g1">← 回國一課程列表</a>
+
+  <div class="sec-label reveal" style="margin-top:0;">
+    <div class="sl-icon">🧭</div>
+    <h2><small>Start Here</small>先看懂這課在學什麼</h2>
+  </div>
+  <div class="quick-grid reveal">
+    <div class="quick-card"><div class="q-icon">🏀</div><b>休閒習慣</b><span>用現在簡單式說平常做什麼。</span></div>
+    <div class="quick-card"><div class="q-icon">👤</div><b>第三人稱單數</b><span>he / she / it 的動詞要變化。</span></div>
+    <div class="quick-card"><div class="q-icon">👀</div><b>描述外觀</b><span>分清楚 is / are 與 have / has。</span></div>
+    <div class="quick-card"><div class="q-icon">📏</div><b>問身高與職業</b><span>How tall...? 與 What does... do?</span></div>
+  </div>
+  <div class="teacher-talk reveal">👨‍🏫 <strong>老師白話：</strong>現在簡單式不是「現在這一秒正在做」，而是「<b>平常、固定、經常如此</b>」。解題先看主詞：I / you / we / they 用原形；he / she / it 才處理 V-s。</div>
+
+  <div class="sec-label reveal">
+    <div class="sl-icon">📝</div>
+    <h2><small>Part A · Vocabulary</small>46 個字詞白話整理</h2>
+  </div>
+
+  <div class="group-title reveal">人物、身體與運動名詞</div>
+  <div class="table-wrap reveal">
+    <table class="vocab-table">
+      <thead><tr><th>#</th><th>單字</th><th>中文</th><th>白話說明／常見搭配</th></tr></thead>
+      <tbody>
+        <tr><td class="no">1</td><td><span class="word" data-speak="sport">sport</span><span class="pos">n.</span></td><td class="zh">運動</td><td class="note"><strong>play sports</strong> 做球類／競技運動；exercise 偏向為健康而運動。</td></tr>
+        <tr><td class="no">2</td><td><span class="word" data-speak="team">team</span><span class="pos">n.</span></td><td class="zh">隊；組</td><td class="note">加入某隊說 <strong>on the... team</strong>；teamwork 是團隊合作。</td></tr>
+        <tr><td class="no">3</td><td><span class="word" data-speak="eye">eye</span><span class="pos">n.</span></td><td class="zh">眼睛</td><td class="note">通常用複數 eyes；一隻眼睛前用 <strong>an eye</strong>。</td></tr>
+        <tr><td class="no">4</td><td><span class="word" data-speak="hair">hair</span><span class="pos">n.</span></td><td class="zh">頭髮</td><td class="note">泛指整頭頭髮時不可數，不加 a、不加 -s：long hair。</td></tr>
+        <tr><td class="no">5</td><td><span class="word" data-speak="hundred">hundred</span><span class="pos">n.</span></td><td class="zh">百</td><td class="note">數字＋<strong>hundred</strong> 不加 s；沒有確切數字才說 hundreds of。</td></tr>
+        <tr><td class="no">6</td><td><span class="word" data-speak="centimeter">centimeter</span><span class="pos">n.</span></td><td class="zh">公分</td><td class="note">兩公分以上用 centimeters；縮寫 <strong>cm</strong> 不加 s。</td></tr>
+        <tr><td class="no">7</td><td><span class="word" data-speak="guitar">guitar</span><span class="pos">n.</span></td><td class="zh">吉他</td><td class="note">樂器前加 the：<strong>play the guitar</strong>。</td></tr>
+        <tr><td class="no">8</td><td><span class="word" data-speak="piano">piano</span><span class="pos">n.</span></td><td class="zh">鋼琴</td><td class="note"><strong>play the piano</strong>；球類前不加 the。</td></tr>
+        <tr><td class="no">9</td><td><span class="word" data-speak="nose">nose</span><span class="pos">n.</span></td><td class="zh">鼻子</td><td class="note">一個人的鼻子通常用單數：a small nose。</td></tr>
+        <tr><td class="no">10</td><td><span class="word" data-speak="leg">leg</span><span class="pos">n.</span></td><td class="zh">腿；桌腳</td><td class="note">人的兩條腿通常用 legs；桌腳也可說 the legs of a table。</td></tr>
+        <tr><td class="no">11</td><td><span class="word" data-speak="ear">ear</span><span class="pos">n.</span></td><td class="zh">耳朵</td><td class="note">通常用複數 ears；<strong>an ear for music</strong> 表示音感好。</td></tr>
+        <tr><td class="no">12</td><td><span class="word" data-speak="mouth">mouth</span><span class="pos">n.</span></td><td class="zh">嘴巴</td><td class="note">複數直接加 -s：mouths；have a big mouth 也可指多嘴。</td></tr>
+        <tr><td class="no">13</td><td><span class="word" data-speak="lip">lip</span><span class="pos">n.</span></td><td class="zh">嘴唇</td><td class="note">上下唇通常一起說 lips。</td></tr>
+        <tr><td class="no">14</td><td><span class="word" data-speak="arm">arm</span><span class="pos">n.</span></td><td class="zh">手臂</td><td class="note">兩隻手臂用 arms；strong arms 是強壯的手臂。</td></tr>
+        <tr><td class="no">15</td><td><span class="word" data-speak="height">height</span><span class="pos">n.</span></td><td class="zh">身高；高度</td><td class="note">形容詞是 high；問人的身高通常用 <strong>How tall...?</strong></td></tr>
+        <tr><td class="no">16</td><td><span class="word" data-speak="player">player</span><span class="pos">n.</span></td><td class="zh">選手；播放器</td><td class="note">basketball player 是籃球員；CD player 是播放器。</td></tr>
+        <tr><td class="no">17</td><td><span class="word" data-speak="the United States of America">the USA</span><span class="pos">n.</span></td><td class="zh">美國</td><td class="note">全名 the United States of America；縮寫字母分開念。</td></tr>
+        <tr><td class="no">18</td><td><span class="word" data-speak="body">body</span><span class="pos">n.</span></td><td class="zh">身體</td><td class="note">複數是 <strong>bodies</strong>（子音＋y → ies）。</td></tr>
+        <tr><td class="no">19</td><td><span class="word" data-speak="three pointer">three-pointer</span><span class="pos">n.</span></td><td class="zh">三分球</td><td class="note">投進三分球：make / hit a three-pointer。</td></tr>
+        <tr><td class="no">20</td><td><span class="word" data-speak="hard work">hard work</span><span class="pos">n.</span></td><td class="zh">勤奮努力</td><td class="note">work 在這裡不可數；hard 是「努力地」，不是 hardly。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="group-title reveal">動作與休閒活動</div>
+  <div class="table-wrap reveal">
+    <table class="vocab-table">
+      <thead><tr><th>#</th><th>單字</th><th>中文</th><th>白話說明／常見搭配</th></tr></thead>
+      <tbody>
+        <tr><td class="no">21</td><td><span class="word" data-speak="like">like</span><span class="pos">v. / prep.</span></td><td class="zh">喜歡；像</td><td class="note">動詞 like 後接名詞／人；介系詞 like 表示「像」。</td></tr>
+        <tr><td class="no">22</td><td><span class="word" data-speak="practice">practice</span><span class="pos">v. / n.</span></td><td class="zh">練習</td><td class="note"><strong>practice + N / V-ing</strong>；Practice makes perfect.</td></tr>
+        <tr><td class="no">23</td><td><span class="word" data-speak="swim">swim</span><span class="pos">v.</span></td><td class="zh">游泳</td><td class="note">現在分詞要重複 m：<strong>swimming</strong>；go swimming 去游泳。</td></tr>
+        <tr><td class="no">24</td><td><span class="word" data-speak="join">join</span><span class="pos">v.</span></td><td class="zh">參加；加入</td><td class="note">join + 團體／人；join the team 加入球隊。</td></tr>
+        <tr><td class="no">25</td><td><span class="word" data-speak="know">know</span><span class="pos">v.</span></td><td class="zh">知道；認識</td><td class="note">屬於狀態動詞，通常不說 <span class="ng">am knowing</span>。</td></tr>
+        <tr><td class="no">26</td><td><span class="word" data-speak="paint">paint</span><span class="pos">v. / n.</span></td><td class="zh">畫圖；油漆；顏料</td><td class="note">paint a picture 畫圖；paint 當顏料時常是不可數名詞。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="group-title reveal">形容詞、數量字與實用片語</div>
+  <div class="table-wrap reveal">
+    <table class="vocab-table">
+      <thead><tr><th>#</th><th>單字</th><th>中文</th><th>白話說明／常見搭配</th></tr></thead>
+      <tbody>
+        <tr><td class="no">27</td><td><span class="word" data-speak="much">much</span><span class="pos">det. / pron. / adv.</span></td><td class="zh">多；非常</td><td class="note">much + 不可數名詞，常見於疑問／否定；very much 放在動作後。</td></tr>
+        <tr><td class="no">28</td><td><span class="word" data-speak="every">every</span><span class="pos">det.</span></td><td class="zh">每一</td><td class="note">後接單數名詞：every day；every two days 表示每兩天。</td></tr>
+        <tr><td class="no">29</td><td><span class="word" data-speak="large">large</span><span class="pos">adj.</span></td><td class="zh">大的</td><td class="note">比 big 稍正式；尺寸可用 small / medium / large。</td></tr>
+        <tr><td class="no">30</td><td><span class="word" data-speak="thick">thick</span><span class="pos">adj.</span></td><td class="zh">厚的；粗的</td><td class="note">thick books 厚書、thick legs 粗腿；厚外套通常說 heavy coat。</td></tr>
+        <tr><td class="no">31</td><td><span class="word" data-speak="strong">strong</span><span class="pos">adj.</span></td><td class="zh">強壯的；強烈的</td><td class="note">strong arms 強壯手臂；strong tea 濃茶；反義字 weak。</td></tr>
+        <tr><td class="no">32</td><td><span class="word" data-speak="different">different</span><span class="pos">adj.</span></td><td class="zh">不同的</td><td class="note"><strong>be different from</strong> 與……不同；the same as 與……相同。</td></tr>
+        <tr><td class="no">33</td><td><span class="word" data-speak="top">top</span><span class="pos">adj. / n.</span></td><td class="zh">頂尖的；頂端</td><td class="note">a top player 頂尖選手；the top of the mountain 山頂。</td></tr>
+        <tr><td class="no">34</td><td><span class="word" data-speak="born">born</span><span class="pos">adj.</span></td><td class="zh">出生的；天生的</td><td class="note">固定搭配 <strong>be born</strong>：She was born in Taiwan.</td></tr>
+        <tr><td class="no">35</td><td><span class="word" data-speak="perfect">perfect</span><span class="pos">adj.</span></td><td class="zh">完美的</td><td class="note">Practice makes perfect. 熟能生巧。</td></tr>
+        <tr><td class="no">36</td><td><span class="word" data-speak="then">then</span><span class="pos">adv.</span></td><td class="zh">那麼；然後；當時</td><td class="note">依上下文判斷：先後順序的「然後」或回應中的「那麼」。</td></tr>
+        <tr><td class="no">37</td><td><span class="word" data-speak="fly a kite">fly a kite</span><span class="pos">phr.</span></td><td class="zh">放風箏</td><td class="note">fly 的第三人稱單數是 <strong>flies</strong>。</td></tr>
+        <tr><td class="no">38</td><td><span class="word" data-speak="make a cake">make a cake</span><span class="pos">phr.</span></td><td class="zh">做蛋糕</td><td class="note">make 是製作；bake 是烘烤。a piece of cake 也可指很簡單的事。</td></tr>
+        <tr><td class="no">39</td><td><span class="word" data-speak="put one's all into">put one's all into</span><span class="pos">phr.</span></td><td class="zh">全力投入</td><td class="note">into 後接名詞或 V-ing：put your all into practicing。</td></tr>
+        <tr><td class="no">40</td><td><span class="word" data-speak="into">into</span><span class="pos">prep.</span></td><td class="zh">到……裡面；投入</td><td class="note">表示移動進入或投入某件事，後接名詞／V-ing。</td></tr>
+        <tr><td class="no">41</td><td><span class="word" data-speak="a lot of">a lot of</span><span class="pos">phr.</span></td><td class="zh">很多的</td><td class="note">可接複數可數或不可數名詞：a lot of books / food。</td></tr>
+        <tr><td class="no">42</td><td><span class="word" data-speak="stand out">stand out</span><span class="pos">phr.</span></td><td class="zh">突出；顯眼</td><td class="note">stand out from... 從……之中脫穎而出。</td></tr>
+        <tr><td class="no">43</td><td><span class="word" data-speak="on the other hand">on the other hand</span><span class="pos">phr.</span></td><td class="zh">另一方面</td><td class="note">用來轉到對比觀點；可與 on the one hand 配對。</td></tr>
+        <tr><td class="no">44</td><td><span class="word" data-speak="make up for">make up for</span><span class="pos">phr.</span></td><td class="zh">彌補</td><td class="note">make up for lost time 彌補失去的時間。</td></tr>
+        <tr><td class="no">45</td><td><span class="word" data-speak="both">both</span><span class="pos">det. / pron.</span></td><td class="zh">兩者都</td><td class="note">both + 複數名詞；both of us / them；They both like sports.</td></tr>
+        <tr><td class="no">46</td><td><span class="word" data-speak="You can say that again">You can say that again!</span><span class="pos">sent.</span></td><td class="zh">一點也沒錯！</td><td class="note">口語表示「非常同意」，不是叫對方真的再說一次。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-label reveal">
+    <div class="sl-icon">🧩</div>
+    <h2><small>Part B · Grammar</small>7 個文法重點，白話拆開看</h2>
+  </div>
+
+  <article class="g-card reveal open" id="gc1">
+    <div class="g-card-head" onclick="toggleCard('gc1')"><div class="gh-num">01</div><div class="gh-title">現在簡單式：I / you / we / they<div class="gh-sub">肯定、否定、Yes / No 與 Wh- 問句</div></div><div class="gh-arrow">⌄</div></div>
+    <div class="g-card-body">
+      <div class="formula">I / You / We / They ＋ <em>原形動詞</em> ＋ 時間.</div>
+      <table class="cmp-table">
+        <tr><th>句型</th><th>公式</th><th>例句</th></tr>
+        <tr><td class="key">肯定</td><td class="en">主詞 + V</td><td class="en">We practice basketball after school.</td></tr>
+        <tr><td class="key">否定</td><td class="en">主詞 + don't + V</td><td class="en">They don't watch TV on weekdays.</td></tr>
+        <tr><td class="key">Yes / No</td><td class="en">Do + 主詞 + V...?</td><td class="en">Do you play sports? — Yes, I do.</td></tr>
+        <tr><td class="key">Wh-</td><td class="en">Wh- + do + 主詞 + V...?</td><td class="en">What do you do on weekends?</td></tr>
+      </table>
+      <div class="warn-box"><strong>核心規則：</strong>句子一旦出現 <b>do / don't</b>，後面的動詞一定保持原形。be 動詞和一般動詞也不能在同一個簡單式述語裡亂疊。</div>
+      <div class="mini-grid">
+        <div class="mini-card"><b class="ok">✅ Do you swim?</b>一般動詞問句用 do。</div>
+        <div class="mini-card"><b class="ng">❌ Are you swim?</b>are 不能拿來幫一般動詞造問句。</div>
+      </div>
+      <div class="rule-block"><b>短答後的詳答：</b>No, they don't. They <b>play</b> computer games. 詳答沒有 not，就不要再放 do。</div>
+    </div>
+  </article>
+
+  <article class="g-card reveal open" id="gc2">
+    <div class="g-card-head" onclick="toggleCard('gc2')"><div class="gh-num">02</div><div class="gh-title">第三人稱單數：動詞加 -s / -es<div class="gh-sub">he / she / it / 單數人名與名詞</div></div><div class="gh-arrow">⌄</div></div>
+    <div class="g-card-body">
+      <div class="teacher-talk">除了 I 和 you 以外，只有「一個人／一件事」的主詞，通常就是第三人稱單數：he、she、it、Lulu、my brother、the dog。</div>
+      <table class="cmp-table">
+        <tr><th>字尾規則</th><th>例子</th></tr>
+        <tr><td class="key">通常直接 + s</td><td class="en">like → likes　listen → listens　paint → paints</td></tr>
+        <tr><td class="key">s / sh / ch / x / o + es</td><td class="en">watch → watches　wash → washes　go → goes　do → does</td></tr>
+        <tr><td class="key">子音 + y → ies</td><td class="en">study → studies　fly → flies　hurry → hurries</td></tr>
+        <tr><td class="key">母音 + y 直接 + s</td><td class="en">play → plays　say → says</td></tr>
+      </table>
+      <div class="formula">He / She / It ＋ <em>V-s / V-es</em>...</div>
+      <div class="formula"><em>Does / Doesn't</em> ＋ he / she / it ＋ 原形 V...?</div>
+      <div class="warn-box"><strong>助動詞搶走 s：</strong>Does she <b>play</b> the piano? 不能說 <span class="ng">Does she plays</span>。does 已經帶了第三人稱訊號，主要動詞回原形。</div>
+      <div class="rule-block"><b>短答：</b>Yes, he does. / No, she doesn't. 若接詳答：She doesn't swim.（有 n't 才保留 does）或 She plays tennis.（沒有 not 就不用 does）</div>
+    </div>
+  </article>
+
+  <article class="g-card reveal" id="gc3">
+    <div class="g-card-head" onclick="toggleCard('gc3')"><div class="gh-num">03</div><div class="gh-title">描述外觀：is / are 還是 have / has？<div class="gh-sub">Her eyes are big.＝She has big eyes.</div></div><div class="gh-arrow">⌄</div></div>
+    <div class="g-card-body">
+      <div class="body-grid">
+        <div class="body-chip"><b>face / nose / mouth</b>通常單數</div>
+        <div class="body-chip"><b>eyes / ears / lips</b>通常複數</div>
+        <div class="body-chip"><b>arms / hands / legs</b>通常複數</div>
+        <div class="body-chip"><b>hair</b>泛指時不可數</div>
+      </div>
+      <table class="cmp-table">
+        <tr><th>想法</th><th>句型</th><th>例句</th></tr>
+        <tr><td class="key">器官當主詞</td><td class="en">所有格 + 器官 + be + 形容詞</td><td class="en">Her mouth is small.<br>Her eyes are big.</td></tr>
+        <tr><td class="key">人當主詞</td><td class="en">人 + have / has + (a/an) + 形容詞 + 器官</td><td class="en">She has a small mouth.<br>She has big eyes.</td></tr>
+      </table>
+      <div class="warn-box"><strong>冠詞判斷：</strong>單數可數器官要 a / an：has <b>a</b> small nose；複數器官與不可數 hair 不加：has big eyes / long hair。</div>
+      <div class="mini-grid">
+        <div class="mini-card"><b>單數／不可數</b>Her face <strong>is</strong> round.<br>Her hair <strong>is</strong> long.</div>
+        <div class="mini-card"><b>複數</b>Her legs <strong>are</strong> strong.<br>Her eyes <strong>are</strong> large.</div>
+      </div>
+      <div class="rule-block"><b>常見形容詞：</b>big / large ↔ small；long ↔ short；thick ↔ thin；strong ↔ weak；fat ↔ thin。</div>
+    </div>
+  </article>
+
+  <article class="g-card reveal" id="gc4">
+    <div class="g-card-head" onclick="toggleCard('gc4')"><div class="gh-num">04</div><div class="gh-title">How tall：問身高與英文數字<div class="gh-sub">hundred 不加 s，centimeters 要看數量</div></div><div class="gh-arrow">⌄</div></div>
+    <div class="g-card-body">
+      <div class="formula"><em>How tall</em> ＋ be 動詞 ＋ 主詞?</div>
+      <div class="formula">主詞 ＋ be 動詞 ＋ 數字 ＋ <em>centimeter(s)</em>（tall）.</div>
+      <div class="mini-grid">
+        <div class="mini-card"><b>100</b>one hundred<br>數字後的 hundred 不加 s。</div>
+        <div class="mini-card"><b>185</b>one hundred (and) eighty-five<br>百位與後面可加 and。</div>
+      </div>
+      <div class="ex-box"><div class="en">How tall is Zac? — He is one hundred and eighty-five centimeters tall.</div><div class="zh">Zac 多高？——他身高一百八十五公分。</div></div>
+      <div class="warn-box"><strong>三個陷阱：</strong>① two <span class="ng">hundreds</span> → two hundred；② 185 <span class="ng">centimeter</span> → 185 centimeters；③ 縮寫 cm 永遠不加 s。</div>
+    </div>
+  </article>
+
+  <article class="g-card reveal" id="gc5">
+    <div class="g-card-head" onclick="toggleCard('gc5')"><div class="gh-num">05</div><div class="gh-title">狀態動詞：句尾有 now 也不一定用進行式<div class="gh-sub">like / love / know / have（擁有）</div></div><div class="gh-arrow">⌄</div></div>
+    <div class="g-card-body">
+      <div class="teacher-talk">有些動詞在說「內心狀態」或「擁有」，不是看得到的進行動作。即使有 now，也通常用現在簡單式。</div>
+      <table class="cmp-table">
+        <tr><th>意思</th><th>自然用法</th><th>不自然用法</th></tr>
+        <tr><td class="key">喜歡</td><td class="en">He likes his new team now.</td><td class="ng">He is liking...</td></tr>
+        <tr><td class="key">知道</td><td class="en">I know the answer now.</td><td class="ng">I am knowing...</td></tr>
+        <tr><td class="key">擁有</td><td class="en">She has a guitar now.</td><td class="ng">She is having a guitar.</td></tr>
+      </table>
+      <div class="rule-block"><b>have 的例外：</b>have＝「擁有」時不用進行式；have＝「吃／進行」時可以：They <b>are having</b> lunch now.</div>
+      <div class="warn-box"><strong>時間副詞不是唯一線索：</strong>看到 now 不要直接選 be + V-ing，先看動詞是不是狀態動詞。</div>
+    </div>
+  </article>
+
+  <article class="g-card reveal" id="gc6">
+    <div class="g-card-head" onclick="toggleCard('gc6')"><div class="gh-num">06</div><div class="gh-title">What does... do?：問職業或平常做什麼<div class="gh-sub">要靠句尾的時間／地點判斷</div></div><div class="gh-arrow">⌄</div></div>
+    <div class="g-card-body">
+      <div class="formula"><em>What do / does</em> ＋ 主詞 ＋ do?</div>
+      <table class="cmp-table">
+        <tr><th>問法</th><th>真正意思</th><th>回答</th></tr>
+        <tr><td class="en">What does your mother do?</td><td>沒有時間／地點，通常問職業</td><td class="en">She's a writer.</td></tr>
+        <tr><td class="en">What does your mother do on weekends?</td><td>有時間，問週末做什麼</td><td class="en">She paints pictures.</td></tr>
+      </table>
+      <div class="rule-block"><b>另一種職業問法：</b>What's your mother's job? 注意所有格 mother's。</div>
+      <div class="warn-box"><strong>不是進行式：</strong><span class="ng">What is your father doing?</span> 問的是「此刻正在做什麼」，不是固定職業。</div>
+    </div>
+  </article>
+
+  <article class="g-card reveal" id="gc7">
+    <div class="g-card-head" onclick="toggleCard('gc7')"><div class="gh-num">07</div><div class="gh-title">Who 當主詞：後面直接接 V-s<div class="gh-sub">不知道是誰時，先當第三人稱單數</div></div><div class="gh-arrow">⌄</div></div>
+    <div class="g-card-body">
+      <div class="formula"><em>Who ＋ V-s / V-es</em> ＋ 其他?</div>
+      <div class="teacher-talk">Who 本身就是問句的主詞，所以不要再加 do / does。因為不知道答案是一人還是多人，傳統考試通常先把 Who 當第三人稱單數。</div>
+      <div class="mini-grid">
+        <div class="mini-card"><b class="ok">✅ Who swims on Saturdays?</b>Who 後直接用 swims。</div>
+        <div class="mini-card"><b class="ng">❌ Who does swim on Saturdays?</b>一般問句不加 does。</div>
+      </div>
+      <table class="cmp-table">
+        <tr><th>回答方式</th><th>例句</th></tr>
+        <tr><td class="key">簡答</td><td class="en">My brother does. / Amy and Tina do.</td></tr>
+        <tr><td class="key">詳答</td><td class="en">My brother swims on Saturdays.<br>Amy and Tina swim on Saturdays.</td></tr>
+      </table>
+    </div>
+  </article>
+
+  <div class="sec-label reveal">
+    <div class="sl-icon">💬</div>
+    <h2><small>Part C · Phrases</small>片語與易混用法</h2>
+  </div>
+  <div class="phrase-grid reveal">
+    <div class="phrase-card"><div class="pc-en" data-speak="play sports">play + 球類／運動</div><div class="pc-zh">從事球類運動</div><div class="pc-tip">play basketball / baseball；球類前不加 the。</div></div>
+    <div class="phrase-card"><div class="pc-en" data-speak="play the guitar">play the + 樂器</div><div class="pc-zh">演奏樂器</div><div class="pc-tip">play the guitar / piano；樂器前要有 the。</div></div>
+    <div class="phrase-card"><div class="pc-en" data-speak="fly a kite">fly a kite</div><div class="pc-zh">放風箏</div><div class="pc-tip">第三人稱單數：My son flies a kite.</div></div>
+    <div class="phrase-card"><div class="pc-en" data-speak="make a cake">make / bake a cake</div><div class="pc-zh">做／烤蛋糕</div><div class="pc-tip">make 強調製作；bake 強調放進烤箱烘烤。</div></div>
+    <div class="phrase-card"><div class="pc-en" data-speak="put one's all into">put one's all into</div><div class="pc-zh">全力投入</div><div class="pc-tip">into 後面接名詞或 V-ing。</div></div>
+    <div class="phrase-card"><div class="pc-en" data-speak="stand out">stand out</div><div class="pc-zh">突出；脫穎而出</div><div class="pc-tip">stand out from the other players。</div></div>
+    <div class="phrase-card"><div class="pc-en" data-speak="make up for">make up for</div><div class="pc-zh">彌補</div><div class="pc-tip">make up for lost time 彌補失去的時間。</div></div>
+    <div class="phrase-card"><div class="pc-en" data-speak="on the other hand">on the other hand</div><div class="pc-zh">另一方面</div><div class="pc-tip">引出和前面不同或相反的觀點。</div></div>
+    <div class="phrase-card"><div class="pc-en" data-speak="both of them">both / both of</div><div class="pc-zh">兩者都</div><div class="pc-tip">both players；both of them；They both swim.</div></div>
+    <div class="phrase-card"><div class="pc-en" data-speak="You can say that again">You can say that again!</div><div class="pc-zh">一點也沒錯！</div><div class="pc-tip">口語用來強烈同意對方。</div></div>
+  </div>
+
+  <div class="sec-label reveal">
+    <div class="sl-icon">🎯</div>
+    <h2><small>Part D · Review</small>考前 8 句快速收尾</h2>
+  </div>
+  <div class="summary-card reveal">
+    <h2>📌 題目一來，先檢查這 8 件事</h2>
+    <div class="summary-list">
+      <div class="summary-item"><strong>1. 習慣：</strong>平常、每天、每週做的事，用現在簡單式。</div>
+      <div class="summary-item"><strong>2. 主詞：</strong>I / you / we / they＋原形；he / she / it＋V-s。</div>
+      <div class="summary-item"><strong>3. 助動詞：</strong>do / does / don't / doesn't 後面一律接原形動詞。</div>
+      <div class="summary-item"><strong>4. 外觀：</strong>器官＋is / are＋形容詞；人＋have / has＋形容詞＋器官。</div>
+      <div class="summary-item"><strong>5. hair：</strong>泛指頭髮時不可數，不加 a，也不加 -s。</div>
+      <div class="summary-item"><strong>6. 身高：</strong>How tall is...?；數字＋hundred 不加 s，centimeters 要加 s。</div>
+      <div class="summary-item"><strong>7. 狀態動詞：</strong>like / love / know / have（擁有）即使有 now，通常仍用簡單式。</div>
+      <div class="summary-item"><strong>8. Who 主詞問句：</strong>Who 後直接用 V-s，不再加 do / does。</div>
+    </div>
+  </div>
+</main>
+
+<div id="site-footer"></div>
+<script src="main.js"></script>
+</body>
+</html>
