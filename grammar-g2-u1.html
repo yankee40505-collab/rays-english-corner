@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="翰林國二上 Unit 1 天氣單字、How/What 天氣問句、rain/snow 用法與授與動詞白話整理。">
+<title>核心文法突破 · 國二上 U1｜Ray's English Corner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .wrap{max-width:960px;margin:0 auto;padding:48px 5% 86px;}
+  .quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:8px;}
+  .quick-card{background:var(--white);border:1.5px solid var(--border);border-radius:14px;padding:16px;box-shadow:var(--sh);}
+  .quick-card .q-icon{font-size:1.25rem;margin-bottom:7px;}
+  .quick-card b{display:block;color:var(--green-dk);font-family:'Playfair Display',serif;font-size:.96rem;margin-bottom:3px;}
+  .quick-card span{font-family:'Noto Sans TC',sans-serif;color:var(--text-md);font-size:.78rem;line-height:1.55;}
+
+  .teacher-talk{margin-top:18px;}
+  .table-wrap{overflow-x:auto;border-radius:var(--r);box-shadow:var(--sh);margin-bottom:22px;}
+  .vocab-table{width:100%;border-collapse:collapse;background:var(--white);min-width:700px;}
+  .vocab-table th{background:var(--green-dk);color:var(--white);padding:11px 14px;text-align:left;font-size:.8rem;letter-spacing:.04em;}
+  .vocab-table td{padding:10px 14px;border-bottom:1px solid var(--cream-d);vertical-align:top;font-size:.86rem;}
+  .vocab-table tr:last-child td{border-bottom:none;}
+  .vocab-table tbody tr:hover td{background:var(--green-pl);}
+  .vocab-table .no{color:var(--text-lt);font-weight:800;width:42px;}
+  .vocab-table .word{font-family:'Playfair Display',serif;color:var(--green-dk);font-weight:700;font-size:.98rem;cursor:pointer;white-space:nowrap;}
+  .vocab-table .word::after{content:'🔊';font-size:.67rem;margin-left:5px;}
+  .vocab-table .pos{font-size:.7rem;color:var(--text-lt);font-weight:800;margin-left:4px;white-space:nowrap;}
+  .vocab-table .zh{font-family:'Noto Sans TC',sans-serif;color:var(--text);font-weight:700;white-space:nowrap;}
+  .vocab-table .note{font-family:'Noto Sans TC',sans-serif;color:var(--text-md);line-height:1.65;}
+  .vocab-table .note strong{font-family:'Nunito',sans-serif;color:var(--green-dk);}
+  .group-title{display:flex;align-items:center;gap:8px;color:var(--green-dk);font-weight:900;margin:24px 0 10px;font-size:.92rem;}
+  .group-title::before{content:'';width:6px;height:18px;border-radius:99px;background:var(--amber);}
+
+  .rule-block{background:var(--green-pl);border-left:4px solid var(--green-md);border-radius:0 10px 10px 0;padding:13px 16px;margin:12px 0;font-family:'Noto Sans TC',sans-serif;color:var(--text-md);font-size:.9rem;line-height:1.75;}
+  .rule-block b,.rule-block strong{font-family:'Nunito',sans-serif;color:var(--green-dk);}
+  .formula{background:var(--green-dk);color:var(--white);border-radius:11px;padding:12px 16px;margin:12px 0;font-family:'Nunito',sans-serif;font-weight:800;text-align:center;line-height:1.65;}
+  .formula em{color:var(--amber);font-style:normal;}
+  .cmp-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.86rem;border-radius:12px;overflow:hidden;box-shadow:var(--sh);}
+  .cmp-table th{background:var(--green-dk);color:var(--white);padding:9px 13px;text-align:left;font-size:.78rem;}
+  .cmp-table td{padding:10px 13px;border-bottom:1px solid var(--cream-d);font-family:'Noto Sans TC',sans-serif;vertical-align:top;line-height:1.65;}
+  .cmp-table tr:nth-child(even) td{background:var(--cream);}
+  .cmp-table tr:last-child td{border-bottom:none;}
+  .cmp-table .key{font-family:'Nunito',sans-serif;font-weight:900;color:var(--green-dk);white-space:nowrap;}
+  .cmp-table .en{font-family:'Nunito',sans-serif;font-weight:800;color:var(--text);}
+  .ok{color:var(--green-md);font-weight:900;}.ng{color:#bd4338;font-weight:900;text-decoration:line-through;}
+  .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+  .mini-card{border:1.5px solid var(--border);border-radius:11px;padding:12px 14px;background:var(--cream);font-family:'Noto Sans TC',sans-serif;font-size:.86rem;line-height:1.65;}
+  .mini-card b{display:block;color:var(--green-dk);font-family:'Nunito',sans-serif;margin-bottom:3px;}
+
+  .phrase-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .phrase-card{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:14px 17px;box-shadow:var(--sh);}
+  .phrase-card .pc-en{display:inline-block;font-family:'Playfair Display',serif;color:var(--green-dk);font-weight:700;cursor:pointer;margin-bottom:2px;}
+  .phrase-card .pc-en::after{content:'🔊';font-size:.67rem;margin-left:5px;}
+  .phrase-card .pc-zh{font-family:'Noto Sans TC',sans-serif;font-size:.84rem;font-weight:700;color:var(--text);}
+  .phrase-card .pc-tip{font-family:'Noto Sans TC',sans-serif;font-size:.78rem;color:var(--text-md);margin-top:4px;line-height:1.55;}
+
+  .summary-card{background:var(--green-dk);color:var(--white);border-radius:18px;padding:32px 36px;box-shadow:var(--sh-lg);}
+  .summary-card h2{font-family:'Playfair Display',serif;text-align:center;margin-bottom:18px;font-size:1.4rem;}
+  .summary-list{display:grid;gap:9px;max-width:720px;margin:0 auto;}
+  .summary-item{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:10px 14px;font-family:'Noto Sans TC',sans-serif;font-size:.88rem;line-height:1.65;}
+  .summary-item strong{font-family:'Nunito',sans-serif;color:var(--amber);}
+
+  @media(max-width:760px){.quick-grid{grid-template-columns:1fr 1fr}.phrase-grid{grid-template-columns:1fr}}
+  @media(max-width:560px){.quick-grid,.mini-grid{grid-template-columns:1fr}.g-card-head{padding:16px 18px}.g-card-body{padding:18px}.summary-card{padding:26px 20px}.wrap{padding-top:38px}.hero h1 br{display:none}}
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+
+<header class="hero">
+  <div class="hero-badge">📖 翰林國二上 Unit 1</div>
+  <h1>How Was the Weather<br><em>in Australia?</em></h1>
+  <p>天氣怎麼問、rain / snow 怎麼用，再把借入借出與授與動詞一次弄懂。</p>
+  <div class="hero-chips">
+    <div class="chip">Weather 天氣</div>
+    <div class="chip">How / What 問句</div>
+    <div class="chip">rain / snow</div>
+    <div class="chip">borrow / lend</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <a class="back-btn" href="grammar.html#g2">← 回國二課程列表</a>
+
+  <div class="sec-label reveal" style="margin-top:0;">
+    <div class="sl-icon">🧭</div>
+    <h2><small>Start Here</small>先看懂這課在學什麼</h2>
+  </div>
+  <div class="quick-grid reveal">
+    <div class="quick-card"><div class="q-icon">☀️</div><b>天氣形容詞</b><span>sunny、rainy 前面要有 be 動詞。</span></div>
+    <div class="quick-card"><div class="q-icon">❓</div><b>兩種天氣問法</b><span>How is...? 與 What is... like?</span></div>
+    <div class="quick-card"><div class="q-icon">🌧️</div><b>rain / snow</b><span>可當動詞，也可當不可數名詞。</span></div>
+    <div class="quick-card"><div class="q-icon">🎁</div><b>給、寄、借</b><span>人和物的順序，決定用 to 還是 for。</span></div>
+  </div>
+  <div class="teacher-talk reveal">👨‍🏫 <strong>老師白話：</strong>這課最重要的不是死背句子，而是先判斷你要用的是「<b>形容詞</b>」、「<b>動詞</b>」還是「<b>名詞</b>」。詞性判對，be 動詞、助動詞和數量詞自然就不會放錯。</div>
+
+  <div class="sec-label reveal">
+    <div class="sl-icon">📝</div>
+    <h2><small>Part A · Vocabulary</small>41 個單字白話整理</h2>
+  </div>
+
+  <div class="group-title reveal">名詞與課文主題字</div>
+  <div class="table-wrap reveal">
+    <table class="vocab-table">
+      <thead><tr><th>#</th><th>單字</th><th>中文</th><th>白話說明／常見搭配</th></tr></thead>
+      <tbody>
+        <tr><td class="no">1</td><td><span class="word" data-speak="summer vacation">summer vacation</span><span class="pos">n.</span></td><td class="zh">暑假</td><td class="note">美式常說 <strong>summer vacation</strong>；英式也常說 summer holiday。</td></tr>
+        <tr><td class="no">2</td><td><span class="word" data-speak="weather">weather</span><span class="pos">n.</span></td><td class="zh">天氣</td><td class="note">不可數名詞。說「天氣」通常用 <strong>the weather</strong>。</td></tr>
+        <tr><td class="no">3</td><td><span class="word" data-speak="Taiwan">Taiwan</span><span class="pos">n.</span></td><td class="zh">臺灣</td><td class="note">國名與地名要大寫；<strong>in Taiwan</strong> 表示「在臺灣」。</td></tr>
+        <tr><td class="no">4</td><td><span class="word" data-speak="fun">fun</span><span class="pos">n. / adj.</span></td><td class="zh">樂趣；有趣的</td><td class="note">名詞通常不可數：<strong>have fun / a lot of fun</strong>，不說 a fun。</td></tr>
+        <tr><td class="no">5</td><td><span class="word" data-speak="postcard">postcard</span><span class="pos">n.</span></td><td class="zh">明信片</td><td class="note">由 post（郵政）＋ card（卡片）組成；<strong>send a postcard to...</strong>。</td></tr>
+        <tr><td class="no">6</td><td><span class="word" data-speak="glove">glove</span><span class="pos">n.</span></td><td class="zh">手套</td><td class="note">一雙手套是 <strong>a pair of gloves</strong>。</td></tr>
+        <tr><td class="no">7</td><td><span class="word" data-speak="jacket">jacket</span><span class="pos">n.</span></td><td class="zh">夾克；外套</td><td class="note"><strong>a heavy jacket</strong> 是厚重的外套。</td></tr>
+        <tr><td class="no">8</td><td><span class="word" data-speak="season">season</span><span class="pos">n.</span></td><td class="zh">季節；旺季</td><td class="note"><strong>in season</strong> 可指蔬果當季，也可指旅遊旺季。</td></tr>
+        <tr><td class="no">9</td><td><span class="word" data-speak="spring">spring</span><span class="pos">n.</span></td><td class="zh">春天</td><td class="note">一般季節前用 <strong>in</strong>：in spring。</td></tr>
+        <tr><td class="no">10</td><td><span class="word" data-speak="cloud">cloud</span><span class="pos">n.</span></td><td class="zh">雲</td><td class="note">形容詞是 <strong>cloudy</strong>（多雲的）。</td></tr>
+        <tr><td class="no">11</td><td><span class="word" data-speak="sun">sun</span><span class="pos">n.</span></td><td class="zh">太陽</td><td class="note">獨一無二的太陽前通常加 <strong>the</strong>：the sun。</td></tr>
+        <tr><td class="no">12</td><td><span class="word" data-speak="autumn">autumn</span><span class="pos">n.</span></td><td class="zh">秋天</td><td class="note">美式也常說 <strong>fall</strong>；in autumn / in fall。</td></tr>
+        <tr><td class="no">13</td><td><span class="word" data-speak="wind">wind</span><span class="pos">n.</span></td><td class="zh">風</td><td class="note">可說 <strong>a light wind</strong>（微風）、strong winds（強風）。</td></tr>
+        <tr><td class="no">14</td><td><span class="word" data-speak="winter">winter</span><span class="pos">n.</span></td><td class="zh">冬天</td><td class="note">一般說 in winter；但 <strong>last winter</strong> 前面不加 in。</td></tr>
+        <tr><td class="no">15</td><td><span class="word" data-speak="road">Rd.</span><span class="pos">abbr.</span></td><td class="zh">路</td><td class="note"><strong>Rd.</strong> 是 Road 的地址縮寫，放在路名後。</td></tr>
+        <tr><td class="no">16</td><td><span class="word" data-speak="R O C">ROC</span><span class="pos">abbr.</span></td><td class="zh">中華民國</td><td class="note"><strong>Republic of China</strong> 的縮寫，三個字母分開念。</td></tr>
+        <tr><td class="no">17</td><td><span class="word" data-speak="snowboard">snowboard</span><span class="pos">n.</span></td><td class="zh">滑雪板</td><td class="note">也可當動詞，snowboarding 是單板滑雪運動。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="group-title reveal">動詞：最常考過去式與介系詞</div>
+  <div class="table-wrap reveal">
+    <table class="vocab-table">
+      <thead><tr><th>#</th><th>單字</th><th>中文</th><th>白話說明／常見搭配</th></tr></thead>
+      <tbody>
+        <tr><td class="no">18</td><td><span class="word" data-speak="snow">snow</span><span class="pos">v. / n.</span></td><td class="zh">下雪；雪</td><td class="note">動詞時主詞用 <strong>it</strong>：It snowed. 名詞時是不可數名詞。</td></tr>
+        <tr><td class="no">19</td><td><span class="word" data-speak="send">send</span><span class="pos">v.</span></td><td class="zh">寄；送</td><td class="note">過去式 <strong>sent</strong>；send 人 物＝send 物 to 人。</td></tr>
+        <tr><td class="no">20</td><td><span class="word" data-speak="borrow">borrow</span><span class="pos">v.</span></td><td class="zh">借入</td><td class="note">東西借進自己這邊：<strong>borrow 物 from 人</strong>。</td></tr>
+        <tr><td class="no">21</td><td><span class="word" data-speak="lend">lend</span><span class="pos">v.</span></td><td class="zh">借出</td><td class="note">把東西借給別人：<strong>lend 人 物 / lend 物 to 人</strong>；過去式 lent。</td></tr>
+        <tr><td class="no">22</td><td><span class="word" data-speak="give">give</span><span class="pos">v.</span></td><td class="zh">給予</td><td class="note">give 人 物＝give 物 <strong>to</strong> 人；過去式 gave。</td></tr>
+        <tr><td class="no">23</td><td><span class="word" data-speak="hate">hate</span><span class="pos">v.</span></td><td class="zh">討厭</td><td class="note">後面可接名詞、to V 或 V-ing：hate rainy days。</td></tr>
+        <tr><td class="no">24</td><td><span class="word" data-speak="speak">speak</span><span class="pos">v.</span></td><td class="zh">講話；說某語言</td><td class="note">過去式 <strong>spoke</strong>；speak English、speak to / with 人。</td></tr>
+        <tr><td class="no">25</td><td><span class="word" data-speak="mean">mean</span><span class="pos">v.</span></td><td class="zh">意指；意思是</td><td class="note">過去式 <strong>meant</strong>；What do you mean?＝你是什麼意思？</td></tr>
+        <tr><td class="no">26</td><td><span class="word" data-speak="order">order</span><span class="pos">v. / n.</span></td><td class="zh">點餐；訂購；訂單</td><td class="note"><strong>order a meal</strong>；名詞可說 place an order、take one's order。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="group-title reveal">形容詞、副詞與片語</div>
+  <div class="table-wrap reveal">
+    <table class="vocab-table">
+      <thead><tr><th>#</th><th>單字</th><th>中文</th><th>白話說明／常見搭配</th></tr></thead>
+      <tbody>
+        <tr><td class="no">27</td><td><span class="word" data-speak="kind">kind</span><span class="pos">adj. / n.</span></td><td class="zh">親切的；種類</td><td class="note"><strong>That's kind of you.</strong>（你人真好）；a kind of / different kinds of。</td></tr>
+        <tr><td class="no">28</td><td><span class="word" data-speak="lovely">lovely</span><span class="pos">adj.</span></td><td class="zh">可愛的；美好的</td><td class="note">可修飾人或物，比 cute 稍正式：a lovely day。</td></tr>
+        <tr><td class="no">29</td><td><span class="word" data-speak="heavy">heavy</span><span class="pos">adj.</span></td><td class="zh">厚重的；大量的</td><td class="note">常見：<strong>heavy rain / snow / traffic</strong>，不能逐字翻成「重的雨」。</td></tr>
+        <tr><td class="no">30</td><td><span class="word" data-speak="sunny">sunny</span><span class="pos">adj.</span></td><td class="zh">晴朗的</td><td class="note">名詞 sun → 形容詞 sunny；It is sunny.</td></tr>
+        <tr><td class="no">31</td><td><span class="word" data-speak="snowy">snowy</span><span class="pos">adj.</span></td><td class="zh">下雪的；多雪的</td><td class="note">描述天氣狀態：a snowy day / It was snowy.</td></tr>
+        <tr><td class="no">32</td><td><span class="word" data-speak="rainy">rainy</span><span class="pos">adj.</span></td><td class="zh">下雨的；多雨的</td><td class="note">rain 是名詞／動詞；rainy 是形容詞，前面要有 be 動詞。</td></tr>
+        <tr><td class="no">33</td><td><span class="word" data-speak="cloudy">cloudy</span><span class="pos">adj.</span></td><td class="zh">多雲的</td><td class="note">cloud → cloudy；可與 cool 用 and 並列。</td></tr>
+        <tr><td class="no">34</td><td><span class="word" data-speak="windy">windy</span><span class="pos">adj.</span></td><td class="zh">風大的</td><td class="note">wind → windy；It is often windy here.</td></tr>
+        <tr><td class="no">35</td><td><span class="word" data-speak="cool">cool</span><span class="pos">adj.</span></td><td class="zh">涼爽的；很酷的</td><td class="note">描述氣溫時是「涼爽」，比 cold 暖一些。</td></tr>
+        <tr><td class="no">36</td><td><span class="word" data-speak="mad">mad</span><span class="pos">adj.</span></td><td class="zh">生氣的</td><td class="note"><strong>be mad at 人</strong>＝對某人生氣；口語常用。</td></tr>
+        <tr><td class="no">37</td><td><span class="word" data-speak="another">another</span><span class="pos">adj. / pron.</span></td><td class="zh">另一個</td><td class="note">another＋單數名詞；也可說 <strong>another ten minutes</strong>（再十分鐘）。</td></tr>
+        <tr><td class="no">38</td><td><span class="word" data-speak="strange">strange</span><span class="pos">adj.</span></td><td class="zh">奇怪的；陌生的</td><td class="note"><strong>be strange to 人</strong>＝對某人來說很陌生；stranger＝陌生人。</td></tr>
+        <tr><td class="no">39</td><td><span class="word" data-speak="soon">soon</span><span class="pos">adv.</span></td><td class="zh">很快；不久</td><td class="note">soon 說「時間快到」；fast 說「速度快」。常見問法：How soon...?</td></tr>
+        <tr><td class="no">40</td><td><span class="word" data-speak="anyway">anyway</span><span class="pos">adv.</span></td><td class="zh">無論如何；不管怎樣</td><td class="note">常用來轉回主題或結束話題：Anyway, see you soon.</td></tr>
+        <tr><td class="no">41</td><td><span class="word" data-speak="in fact">in fact</span><span class="pos">phr.</span></td><td class="zh">事實上</td><td class="note">補充真正情況，常放句首並加逗號：<strong>In fact, ...</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-label reveal">
+    <div class="sl-icon">🧩</div>
+    <h2><small>Part B · Grammar</small>6 個文法重點，白話拆開看</h2>
+  </div>
+
+  <article class="g-card reveal open" id="gc1">
+    <div class="g-card-head" onclick="toggleCard('gc1')"><div class="gh-num">01</div><div class="gh-title">天氣形容詞：前面要有 be 動詞<div class="gh-sub">sunny / rainy / cloudy / windy...</div></div><div class="gh-arrow">⌄</div></div>
+    <div class="g-card-body">
+      <div class="teacher-talk">形容詞只是在「形容天氣」，自己不能當動詞。句子中要靠 <b>is / was</b> 把主詞和形容詞接起來。</div>
+      <div class="formula">It ＋ <em>is / was</em> ＋ 天氣形容詞（＋ and ＋形容詞）.</div>
+      <div class="mini-grid">
+        <div class="mini-card"><b>現在</b>It <strong>is</strong> cool and cloudy today.<br>今天涼爽而且多雲。</div>
+        <div class="mini-card"><b>過去</b>It <strong>was</strong> hot and sunny yesterday.<br>昨天炎熱而且晴朗。</div>
+      </div>
+      <div class="warn-box"><strong>注意：</strong>一次放兩個形容詞時用 and 連接。✅ It is cold <b>and</b> snowy.　❌ It is cold snowy.</div>
+      <div class="rule-block"><b>Yes / No 問句：</b>把 be 動詞移到句首。<br><span class="en">Was it rainy last night?</span> → Yes, it was. / No, it wasn't. It was cloudy.</div>
+    </div>
+  </article>
+
+  <article class="g-card reveal" id="gc2">
+    <div class="g-card-head" onclick="toggleCard('gc2')"><div class="gh-num">02</div><div class="gh-title">How 與 What：兩種天氣問法<div class="gh-sub">How was...? / What was... like?</div></div><div class="gh-arrow">⌄</div></div>
+    <div class="g-card-body">
+      <table class="cmp-table">
+        <tr><th>問法</th><th>句型</th><th>例句</th></tr>
+        <tr><td class="key">How</td><td class="en">How + be + the weather + 地方／時間?</td><td><span class="en">How was the weather there?</span><br>那裡的天氣如何？</td></tr>
+        <tr><td class="key">What</td><td class="en">What + be + the weather + like + 地方／時間?</td><td><span class="en">What is the weather like in Taipei?</span><br>臺北的天氣如何？</td></tr>
+      </table>
+      <div class="warn-box"><strong>最大陷阱：</strong>用 What 問時一定要有 <b>like</b>；用 How 問時不能再放 like。</div>
+      <div class="mini-grid">
+        <div class="mini-card"><b class="ok">✅ How is the weather?</b>How 後面直接接 be 動詞。</div>
+        <div class="mini-card"><b class="ok">✅ What's the weather like?</b>What 問法的 like 放在後面。</div>
+      </div>
+      <div class="rule-block"><b>回答方式：</b>用 It 代替 the weather。<br><span class="en">It is warm today. / It was cold yesterday.</span></div>
+      <table class="cmp-table">
+        <tr><th>like 的身分</th><th>意思與用法</th></tr>
+        <tr><td class="key">動詞 like</td><td>「喜歡」：否定或疑問要用 do / does / did。<br><span class="en">He doesn't like rainy days.</span></td></tr>
+        <tr><td class="key">介系詞 like</td><td>「像」：前面常有 be 或 look。<br><span class="en">That cloud looks like a rabbit.</span></td></tr>
+      </table>
+    </div>
+  </article>
+
+  <article class="g-card reveal" id="gc3">
+    <div class="g-card-head" onclick="toggleCard('gc3')"><div class="gh-num">03</div><div class="gh-title">季節前面的 in：有些時候要拿掉<div class="gh-sub">in summer，但 this summer</div></div><div class="gh-arrow">⌄</div></div>
+    <div class="g-card-body">
+      <table class="cmp-table">
+        <tr><th>情況</th><th>正確用法</th><th>白話判斷</th></tr>
+        <tr><td class="key">泛指季節</td><td class="en">in spring / summer / autumn / fall / winter</td><td>沒有指定哪一年，就用 in。</td></tr>
+        <tr><td class="key">有 this / last</td><td class="en">this summer / last winter</td><td>前面已有「今年／去年」的意思，不再加 in。</td></tr>
+      </table>
+      <div class="mini-grid">
+        <div class="mini-card"><b class="ok">✅ It rains a lot in summer.</b>夏天常下很多雨。</div>
+        <div class="mini-card"><b class="ok">✅ It snowed last winter.</b>去年冬天下過雪。</div>
+      </div>
+      <div class="warn-box"><strong>常見錯誤：</strong><span class="ng">in last winter</span>。看到 this / last＋季節，直接把 in 拿掉。</div>
+    </div>
+  </article>
+
+  <article class="g-card reveal open" id="gc4">
+    <div class="g-card-head" onclick="toggleCard('gc4')"><div class="gh-num">04</div><div class="gh-title">rain / snow 當動詞：主詞只用 it<div class="gh-sub">現在、過去、進行式都能變</div></div><div class="gh-arrow">⌄</div></div>
+    <div class="g-card-body">
+      <div class="formula">It ＋ <em>rains / rained / is raining</em> ＋（a lot）＋地方／時間.</div>
+      <div class="formula">It ＋ <em>snows / snowed / is snowing</em> ＋（a lot）＋地方／時間.</div>
+      <table class="cmp-table">
+        <tr><th>句型</th><th>rain 範例</th><th>snow 範例</th></tr>
+        <tr><td class="key">肯定</td><td class="en">It rains a lot here.</td><td class="en">It snowed yesterday.</td></tr>
+        <tr><td class="key">否定</td><td class="en">It doesn't rain much here.</td><td class="en">It didn't snow last night.</td></tr>
+        <tr><td class="key">疑問</td><td class="en">Does it rain a lot here?</td><td class="en">Did it snow last night?</td></tr>
+      </table>
+      <div class="rule-block"><b>為什麼用 does / did？</b>因為這裡的 rain / snow 是一般動詞。現在式第三人稱 it 用 does；過去式用 did，後面的 rain / snow 都回原形。</div>
+      <div class="warn-box"><strong>數量副詞：</strong>肯定句常用 <b>a lot</b>；否定或疑問常用 <b>much / very much</b>。它們放在動詞後面修飾「下得多不多」。</div>
+    </div>
+  </article>
+
+  <article class="g-card reveal" id="gc5">
+    <div class="g-card-head" onclick="toggleCard('gc5')"><div class="gh-num">05</div><div class="gh-title">rain / snow 當名詞：前面要有數量詞<div class="gh-sub">have / there be + a lot of rain</div></div><div class="gh-arrow">⌄</div></div>
+    <div class="g-card-body">
+      <div class="teacher-talk">當 rain / snow 表示「雨／雪」這種東西時，是<b>不可數名詞</b>。前面可以用 a lot of / lots of；不能加 -s 來表示很多。</div>
+      <div class="formula">We / They ＋ <em>have / had</em> ＋ a lot of / lots of ＋ rain / snow.</div>
+      <div class="formula">There ＋ <em>is / was</em> ＋ a lot of / lots of ＋ rain / snow.</div>
+      <div class="mini-grid">
+        <div class="mini-card"><b>have 句型</b>We have lots of rain in summer.<br>我們夏天雨量很多。</div>
+        <div class="mini-card"><b>there be 句型</b>There was a lot of snow last winter.<br>去年冬天雪量很多。</div>
+      </div>
+      <div class="warn-box"><strong>問句／否定：</strong>Do you have much rain here? / There wasn't much snow. 日常肯定句通常用 a lot of / lots of，比 much 自然。</div>
+      <div class="rule-block"><b>一秒判斷：</b>rain / snow 前面若有 a lot of、lots of、much，後面就是<b>名詞</b>；若前面直接是 it，通常就是<b>動詞</b>。</div>
+    </div>
+  </article>
+
+  <article class="g-card reveal" id="gc6">
+    <div class="g-card-head" onclick="toggleCard('gc6')"><div class="gh-num">06</div><div class="gh-title">給、寄、借：人與物怎麼排<div class="gh-sub">to 是方向；for 是「替某人」</div></div><div class="gh-arrow">⌄</div></div>
+    <div class="g-card-body">
+      <table class="cmp-table">
+        <tr><th>動詞</th><th>人放前面</th><th>物放前面</th></tr>
+        <tr><td class="key">give</td><td class="en">give me a gift</td><td class="en">give a gift <strong>to</strong> me</td></tr>
+        <tr><td class="key">send</td><td class="en">send me a postcard</td><td class="en">send a postcard <strong>to</strong> me</td></tr>
+        <tr><td class="key">lend</td><td class="en">lend me your gloves</td><td class="en">lend your gloves <strong>to</strong> me</td></tr>
+        <tr><td class="key">buy</td><td class="en">buy me a jacket</td><td class="en">buy a jacket <strong>for</strong> me</td></tr>
+        <tr><td class="key">make</td><td class="en">make me some tea</td><td class="en">make some tea <strong>for</strong> me</td></tr>
+      </table>
+      <div class="rule-block"><b>記憶法：</b>give / send / lend 的東西會「移動到某人那裡」，所以用 <b>to</b>；buy / make 是「替某人做事」，所以用 <b>for</b>。</div>
+      <table class="cmp-table">
+        <tr><th>字</th><th>視角</th><th>例句</th></tr>
+        <tr><td class="key">borrow</td><td>從別人那裡借進來</td><td class="en">I borrowed a snowboard <strong>from</strong> my aunt.</td></tr>
+        <tr><td class="key">lend</td><td>把自己的東西借出去</td><td class="en">My aunt lent a snowboard <strong>to</strong> me.</td></tr>
+      </table>
+      <div class="warn-box"><strong>不能混用：</strong><span class="ng">borrow me a pen</span>。要說 <b>lend me a pen</b>，或 <b>let me borrow a pen</b>。</div>
+    </div>
+  </article>
+
+  <div class="sec-label reveal">
+    <div class="sl-icon">💬</div>
+    <h2><small>Part C · Phrases</small>片語與實用句型</h2>
+  </div>
+  <div class="phrase-grid reveal">
+    <div class="phrase-card"><div class="pc-en" data-speak="write to someone">write to 人</div><div class="pc-zh">寫信給某人</div><div class="pc-tip">write a letter to Grandma；若是「替奶奶寫」才用 for。</div></div>
+    <div class="phrase-card"><div class="pc-en" data-speak="buy something for someone">buy 物 for 人</div><div class="pc-zh">買某物給某人</div><div class="pc-tip">buy a jacket for me＝買一件夾克給我。</div></div>
+    <div class="phrase-card"><div class="pc-en" data-speak="send something to someone">send 物 to 人</div><div class="pc-zh">寄／送某物給某人</div><div class="pc-tip">也可把人放前面：send me a postcard。</div></div>
+    <div class="phrase-card"><div class="pc-en" data-speak="make something for someone">make 物 for 人</div><div class="pc-zh">為某人製作某物</div><div class="pc-tip">make dinner for us＝替我們做晚餐。</div></div>
+    <div class="phrase-card"><div class="pc-en" data-speak="another time">another time</div><div class="pc-zh">另一次；改天</div><div class="pc-tip">another 後面接單數名詞 time。</div></div>
+    <div class="phrase-card"><div class="pc-en" data-speak="coming right up">coming right up</div><div class="pc-zh">馬上來</div><div class="pc-tip">餐廳接到點餐後常用：Your order is coming right up.</div></div>
+    <div class="phrase-card"><div class="pc-en" data-speak="under the weather">under the weather</div><div class="pc-zh">身體不舒服</div><div class="pc-tip">這是慣用語，不是真的「在天氣下面」。</div></div>
+    <div class="phrase-card"><div class="pc-en" data-speak="on cloud nine">on cloud nine</div><div class="pc-zh">高興極了</div><div class="pc-tip">形容非常開心、像飄在雲端。</div></div>
+    <div class="phrase-card"><div class="pc-en" data-speak="in fact">in fact</div><div class="pc-zh">事實上</div><div class="pc-tip">用來補充真正情況，句首後面通常加逗號。</div></div>
+    <div class="phrase-card"><div class="pc-en" data-speak="have a good time">have a good time</div><div class="pc-zh">玩得開心</div><div class="pc-tip">也可說 have fun；兩者都很常用。</div></div>
+  </div>
+
+  <div class="sec-label reveal">
+    <div class="sl-icon">🎯</div>
+    <h2><small>Part D · Review</small>考前 7 句快速收尾</h2>
+  </div>
+  <div class="summary-card reveal">
+    <h2>📌 看到題目，先套這 7 個骨架</h2>
+    <div class="summary-list">
+      <div class="summary-item"><strong>1. 天氣形容詞：</strong>It is / was + sunny, rainy, cloudy...</div>
+      <div class="summary-item"><strong>2. How 問天氣：</strong>How is / was the weather + 地方／時間?</div>
+      <div class="summary-item"><strong>3. What 問天氣：</strong>What is / was the weather like + 地方／時間?</div>
+      <div class="summary-item"><strong>4. rain / snow 動詞：</strong>It rains / rained；疑問用 Does / Did it...?</div>
+      <div class="summary-item"><strong>5. rain / snow 名詞：</strong>have / there be + a lot of rain / snow。</div>
+      <div class="summary-item"><strong>6. 借入借出：</strong>borrow 物 from 人；lend 人 物＝lend 物 to 人。</div>
+      <div class="summary-item"><strong>7. 人與物：</strong>give / send / lend 用 to；buy / make 用 for。</div>
+    </div>
+  </div>
+</main>
+
+<div id="site-footer"></div>
+<script src="main.js"></script>
+</body>
+</html>
