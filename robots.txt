@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yankee40505-collab.github.io/rays-english-corner/sitemap.xml
