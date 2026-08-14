@@ -37,7 +37,7 @@ body{ margin:0; background:#05070a; color:var(--t1); font-family:var(--sans);
 /* ══════════ 共用：舞台框 ══════════ */
 .frame{ position:relative; border:2px solid var(--golddim); border-radius:3px;
   overflow:hidden; background:#05070a; line-height:0; }
-.frame canvas{ display:block; width:100%; height:auto; image-rendering:pixelated; image-rendering:crisp-edges; }
+.frame > canvas{ display:block; width:100%; height:auto; image-rendering:pixelated; image-rendering:crisp-edges; }
 
 .hide{ display:none !important; }
 
@@ -208,6 +208,16 @@ body{ margin:0; background:#05070a; color:var(--t1); font-family:var(--sans);
 .d-next{ text-align:right; font-family:var(--mono); font-size:9px; color:var(--gold); margin-top:1px; }
 .d-next.blink{ animation:bl 1s steps(2,end) infinite; }
 @keyframes bl{ 50%{opacity:.25} }
+
+@media (max-width:520px){
+  .dbox{ left:6px; right:6px; bottom:6px; padding:5px 7px 6px; }
+  .d-row{ gap:6px; }
+  .d-face{ width:24px; height:24px; }
+  .d-name{ font-size:10.5px; line-height:1.2; }
+  .d-text{ font-size:12.5px; line-height:1.35; min-height:1.35em; }
+  .d-zh{ font-size:9.5px; line-height:1.3; }
+  .d-next{ font-size:8px; }
+}
 
 /* 內容面板（學堂／考場等） */
 .ov{ position:fixed; inset:0; z-index:100; background:rgba(4,6,9,.86); backdrop-filter:blur(3px);
