@@ -1,0 +1,106 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>魏武之路 · HD-2D 城鎮走動原型</title>
+<style>
+ *{box-sizing:border-box;margin:0;padding:0}
+ :root{--gold:#e8cf86;--goldd:#8a6d2a}
+ body{background:#0a0806;color:#e8e2d2;font-family:"Songti TC","Noto Serif TC",Georgia,serif;
+   min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:14px 10px 30px}
+ h1{font-size:18px;letter-spacing:.2em;margin-bottom:3px;
+   background:linear-gradient(180deg,#f7e6b4,#d8b24a 60%,#8a6d2a);-webkit-background-clip:text;background-clip:text;color:transparent}
+ .cap{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.14em;color:#8a7c5c;margin-bottom:12px}
+ .stage{position:relative;width:min(960px,100%);aspect-ratio:16/9;overflow:hidden;border:2px solid var(--goldd);
+   border-radius:6px;background:#05060a;box-shadow:0 14px 44px rgba(0,0,0,.6),inset 0 0 0 1px #000;user-select:none}
+ .sky{position:absolute;inset:0;background:linear-gradient(180deg,#aebdc9,#cdae82 70%,#b8975f);z-index:0}
+ .loc{position:absolute;inset:0;z-index:1;opacity:0;transition:opacity .5s ease}
+ .loc.on{opacity:1}
+ .loc img{position:absolute;height:118%;top:-9%;left:50%;transform:translateX(-50%) translateX(var(--pan,0px));filter:saturate(1.03) contrast(1.02)}
+ .grade{position:absolute;inset:0;z-index:2;pointer-events:none;
+   background:radial-gradient(120% 90% at 50% 42%,transparent 55%,rgba(6,4,3,.5) 100%),
+   linear-gradient(180deg,rgba(8,6,4,.28),transparent 24%,transparent 70%,rgba(8,6,4,.62))}
+ .shadow{position:absolute;z-index:3;width:104px;height:22px;border-radius:50%;
+   background:radial-gradient(closest-side,rgba(0,0,0,.6),transparent);filter:blur(2px);pointer-events:none}
+ .player{position:absolute;z-index:4;bottom:5%;left:50%;height:66%;transform-origin:bottom center;pointer-events:none;
+   filter:drop-shadow(0 8px 12px rgba(0,0,0,.5))}
+ .player img{height:100%;display:block}
+ .locname{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:6;
+   font-size:20px;letter-spacing:.18em;color:var(--gold);text-shadow:0 2px 6px #000,0 0 14px rgba(0,0,0,.6);padding:2px 18px;white-space:nowrap}
+ .locname small{display:block;text-align:center;font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.3em;color:#cbb98e}
+ .prompt{position:absolute;z-index:6;bottom:18%;font-size:13px;letter-spacing:.08em;color:#fff;
+   background:rgba(10,8,6,.7);border:1px solid var(--goldd);border-radius:20px;padding:4px 13px;opacity:0;transition:opacity .25s;pointer-events:none;white-space:nowrap}
+ .prompt.show{opacity:1}.prompt.left{left:16px}.prompt.right{right:16px}
+ .enterp{position:absolute;z-index:7;left:50%;bottom:26%;transform:translateX(-50%);font-size:14px;color:#0a0806;
+   background:linear-gradient(180deg,#f2dc9a,#c9a227);border-radius:22px;padding:6px 18px;letter-spacing:.1em;opacity:0;transition:opacity .25s;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+ .enterp.show{opacity:1}
+ .tag{position:absolute;z-index:8;top:10px;right:10px;font-family:ui-monospace,monospace;font-size:9px;letter-spacing:.16em;color:#f2dc9a;background:rgba(120,31,24,.8);border:1px solid #c9a227;border-radius:4px;padding:3px 8px}
+ .panel{position:absolute;inset:0;z-index:20;background:rgba(4,3,2,.78);backdrop-filter:blur(2px);display:none;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:20px}
+ .panel.on{display:flex}
+ .panel h2{font-size:24px;letter-spacing:.16em;color:var(--gold);margin-bottom:8px}
+ .panel p{font-size:14px;color:#cbbf9f;max-width:36ch;line-height:1.8;margin-bottom:16px}
+ .btn{font-family:inherit;font-size:14px;letter-spacing:.1em;color:#0a0806;cursor:pointer;background:linear-gradient(180deg,#f2dc9a,#c9a227);border:none;border-radius:22px;padding:8px 22px}
+ .ctrls{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;justify-content:center}
+ .ctrls button{font-family:inherit;font-size:15px;color:#e8e2d2;background:#1b140c;border:1px solid var(--goldd);border-radius:8px;padding:9px 20px;cursor:pointer;letter-spacing:.12em;min-width:64px}
+ .ctrls button:active{background:#2a2011}
+ .hint{font-family:ui-monospace,monospace;font-size:11px;color:#8a7c5c;margin-top:10px;text-align:center;line-height:1.7}
+</style></head><body>
+ <h1>魏 武 之 路　·　城 鎮 走 動 原 型</h1>
+ <div class="cap">HD-2D PROTOTYPE　·　主角:曹操（去背立繪）　·　左右走動穿梭地點</div>
+ <div class="stage" id="stage" tabindex="0">
+   <div class="sky" id="sky"></div>
+   <div class="loc" data-k="inn"><img src="images/bg-inn.png"></div>
+   <div class="loc" data-k="academy"><img src="images/bg-academy.png"></div>
+   <div class="loc" data-k="training"><img src="images/bg-training.png"></div>
+   <div class="grade"></div>
+   <div class="shadow" id="shadow"></div>
+   <div class="player" id="player"><img src="images/player-caocao.png"></div>
+   <div class="locname" id="locname"></div>
+   <div class="prompt left" id="pL"></div><div class="prompt right" id="pR"></div>
+   <div class="enterp" id="enterp"></div>
+   <div class="tag">PROTOTYPE</div>
+   <div class="panel" id="panel"><h2 id="ptitle"></h2><p id="pbody"></p><button class="btn" id="pclose">離開,回到街上</button></div>
+ </div>
+ <div class="ctrls"><button id="bL">◀ 走</button><button id="bE">進入 / 前往</button><button id="bR">走 ▶</button></div>
+ <div class="hint">鍵盤 ◀ ▶ 或 A / D 走動　·　Enter / 空白鍵 進入建築或前往鄰近地點<br>（點一下畫面先取得鍵盤焦點）</div>
+<script>
+const LOCS=[
+ {k:"training",cn:"練兵場",en:"TRAINING GROUND",enter:{t:"練兵場 · Training",b:"這裡會接遊戲原本的「練兵」關卡:三國情境練文法,答對得經驗,答錯不扣。之後戰鬥系統也從這裡開。"}},
+ {k:"inn",cn:"陳留 · 街心",en:"CHENLIU STREET",enter:{t:"客棧 · Inn",b:"街心的客棧。之後會放 NPC 對話、任務接取、隊伍補給。你現在站的這條街就是城鎮主場景。"}},
+ {k:"academy",cn:"軍師學堂",en:"ACADEMY",enter:{t:"學堂 · Academy",b:"荀彧的講堂,接遊戲原本的「上課」流程:一頁一重點,看完作答。"}},
+];
+let li=1,px=0.5,dir=1,moving=false,t=0;
+const stage=document.getElementById("stage"),player=document.getElementById("player"),shadow=document.getElementById("shadow");
+const locname=document.getElementById("locname"),pL=document.getElementById("pL"),pR=document.getElementById("pR");
+const enterp=document.getElementById("enterp"),sky=document.getElementById("sky");
+const panel=document.getElementById("panel"),ptitle=document.getElementById("ptitle"),pbody=document.getElementById("pbody");
+function showLoc(){document.querySelectorAll(".loc").forEach(e=>e.classList.toggle("on",e.dataset.k===LOCS[li].k));
+ locname.innerHTML=LOCS[li].cn+"<small>"+LOCS[li].en+"</small>";}
+function frame(){t+=1;const W=stage.clientWidth;const xpx=W*(0.18+px*0.64);
+ const bob=moving?Math.sin(t*0.32)*0.018:0;player.style.left=xpx+"px";
+ player.style.transform="translateX(-50%) scaleX("+dir+") scale("+(1+bob)+")";
+ const pr=player.getBoundingClientRect(),sr=stage.getBoundingClientRect();
+ shadow.style.left=(pr.left-sr.left+pr.width/2-52)+"px";shadow.style.top=(pr.bottom-sr.top-14)+"px";
+ shadow.style.opacity=moving?0.5:0.62;
+ const pan=(px-0.5)*70;document.querySelectorAll(".loc img").forEach(im=>im.style.setProperty("--pan",(-pan)+"px"));
+ sky.style.transform="translateX("+(-pan*0.35)+"px)";
+ const nearL=px<0.14,nearR=px>0.86;
+ pL.classList.toggle("show",nearL&&li>0);if(nearL&&li>0)pL.textContent="◀ 前往 "+LOCS[li-1].cn;
+ pR.classList.toggle("show",nearR&&li<LOCS.length-1);if(nearR&&li<LOCS.length-1)pR.textContent="前往 "+LOCS[li+1].cn+" ▶";
+ const mid=px>0.36&&px<0.64;enterp.classList.toggle("show",mid);if(mid)enterp.textContent="⏎ 進入 "+LOCS[li].enter.t.split(" ")[0];
+ requestAnimationFrame(frame);}
+frame();showLoc();
+function move(d){dir=d;moving=true;px+=d*0.012;
+ if(px>1){if(li<LOCS.length-1){li++;px=0.06;showLoc();}else px=1;}
+ if(px<0){if(li>0){li--;px=0.94;showLoc();}else px=0;}}
+function act(){if(panel.classList.contains("on")){panel.classList.remove("on");return;}
+ if(px<0.14&&li>0){li--;px=0.9;showLoc();return;}
+ if(px>0.86&&li<LOCS.length-1){li++;px=0.1;showLoc();return;}
+ if(px>0.30&&px<0.70){const e=LOCS[li].enter;ptitle.textContent=e.t;pbody.textContent=e.b;panel.classList.add("on");}}
+const keys={};
+addEventListener("keydown",e=>{if(["ArrowLeft","ArrowRight","a","d","A","D"].includes(e.key))keys[e.key.toLowerCase().replace("arrow","")]=1;
+ if(e.key==="Enter"||e.key===" "){e.preventDefault();act();}});
+addEventListener("keyup",e=>{keys[e.key.toLowerCase().replace("arrow","")]=0;});
+setInterval(()=>{if(keys.left||keys.a)move(-1);else if(keys.right||keys.d)move(1);else moving=false;},16);
+document.getElementById("bL").onclick=()=>move(-1);document.getElementById("bR").onclick=()=>move(1);
+document.getElementById("bE").onclick=act;document.getElementById("pclose").onclick=()=>panel.classList.remove("on");
+stage.focus();stage.onclick=()=>stage.focus();
+</script></body></html>
