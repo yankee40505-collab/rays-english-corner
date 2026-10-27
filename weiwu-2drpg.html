@@ -422,13 +422,13 @@ body{ margin:0; background:#05070a; color:var(--t1); font-family:var(--sans);
         <h1 class="t-name">魏武之路</h1>
         <div class="t-rule"></div>
         <div class="t-en">Cao Cao's English Campaign</div>
-        <div class="t-tag">Chapter 1 · Chenliu</div>
+        <div class="t-tag">Chapters 1–3 · 城鎮基礎篇</div>
       </div>
       <div class="t-spacer"></div>
       <div class="press-any fade" id="t-press">Press Any Key</div>
       <div class="t-menu fade hide" id="t-menu"></div>
     </div>
-    <div class="t-ver">Ver. 0.1</div>
+    <div class="t-ver">Ver. 0.3</div>
   </div>
 
   <!-- ════ 遊戲本體 ════ -->
@@ -503,7 +503,7 @@ body{ margin:0; background:#05070a; color:var(--t1); font-family:var(--sans);
       <button class="tb act" data-k="act">E</button>
     </div>
 
-    <p class="foot">魏武之路　·　Ver. 0.1　·　Chapter 1：陳留</p>
+    <p class="foot">魏武之路　·　Ver. 0.3　·　Chapters 1–3：陳留・兗州・許都<br>英語教學改編劇情・城鎮生活與基礎英文練習。</p>
   </div>
 
   <!-- 選單層（存檔／設定／暫停），覆蓋標題與遊戲兩者 -->
@@ -529,7 +529,7 @@ body{ margin:0; background:#05070a; color:var(--t1); font-family:var(--sans);
    魏武之路 v0.1  —  PART A：基礎（地圖 / 人物繪製）
    ════════════════════════════════════════════════════════════ */
 
-const VERSION = "0.1";
+const VERSION = "0.3";
 const TS = 32, MW = 25, MH = 18;
 
 const TOWN_MAP = [
@@ -575,6 +575,8 @@ const ACAD_MAP = [
 ];
 
 const SCENES = {
+  yanzhou: {map:TOWN_MAP.map((row,i)=> i===6||i===9?row.replaceAll("T","g"):row),solid:"#TABCD",bg:null,label:"Yanzhou",cn:"兗州"},
+  xuchang: {map:TOWN_MAP.map((row,i)=>i===6?row.replaceAll("T","g"):row),solid:"#TABCD",bg:null,label:"Xuchang",cn:"許都"},
   town:    { map:TOWN_MAP, solid:"#TABCD", bg:null, label:"Chenliu",  cn:"陳留" },
   academy: { map:ACAD_MAP, solid:"v#WSK",  bg:null, label:"Academy",  cn:"軍師學堂" }
 };
@@ -874,10 +876,12 @@ const ROSTER = [
   { id:"xunyu",     cn:"荀彧",   en:"XUN YU",     pal:"xunyu",     always:true, note:"軍師・軍師學堂" },
   { id:"xiahoudun", cn:"夏侯惇", en:"XIAHOU DUN", pal:"xiahoudun", note:"Army +300" },
   { id:"xuchu",     cn:"許褚",   en:"XU CHU",     pal:"xuchu",     ally:"g1", note:"練兵場・尚未入隊" },
-  { id:"dianwei",   cn:"典韋",   en:"DIAN WEI",   pal:"dianwei",   note:"Chapter 2 開放" },
-  { id:"guojia",    cn:"郭嘉",   en:"GUO JIA",    pal:"guojia",    note:"Chapter 2 開放" }
+  { id:"dianwei",   cn:"典韋",   en:"DIAN WEI",   pal:"dianwei",   note:"兗州巡城招募・Army +400" },
+  { id:"guojia",    cn:"郭嘉",   en:"GUO JIA",    pal:"guojia",    note:"兗州軍營招募・Gold +50" }
 ];
 </script>
+
+<script src="weiwu-chapters.js"></script>
 
 <script>
 "use strict";
@@ -997,7 +1001,7 @@ const NEW_STATE = {
   completedQuests:[],
   examScores:[], examBest:null, examPassed:false,
   unlockedCities:["chenliu"],
-  gateOpen:false, chapterDone:false
+  gateOpen:false, chapterDone:false, chapter:1, campaigns:{}
 };
 
 let S = null;          // 執行期狀態
@@ -1025,6 +1029,7 @@ function fmtDate(iso){
 const hasDun = () => S && S.recruited.indexOf("xiahoudun") >= 0;
 function questState(){
   if (!S) return 0;
+  if (campaign()) return campaignQuest();
   if (!S.metXunYu)    return 0;
   if (!S.lessons.g1)  return 1;
   if (!hasDun())      return 2;
@@ -1040,8 +1045,9 @@ function makeSaveData(slot){
     gameVersion: VERSION,
     saveSlot: slot,
     playerName: "Cao Cao",
-    chapter: 1,
-    chapterName: "陳留起兵",
+    chapter: S.chapter,
+    chapterName: campaign() ? campaign().cn : "陳留起兵",
+    campaigns: JSON.parse(JSON.stringify(S.campaigns)),
     currentLocation: SCENES[scene].label,
     locationCn: SCENES[scene].cn,
     scene: scene,
@@ -1054,7 +1060,7 @@ function makeSaveData(slot){
     examScores: S.examScores.slice(),
     examBest: S.examBest, examPassed: S.examPassed,
     unlockedCities: S.unlockedCities.slice(),
-    currentMainQuest: { id: QUESTS[q].id, title: QUESTS[q].t, desc: QUESTS[q].d },
+    currentMainQuest: { id: currentQuests()[q].id, title: currentQuests()[q].t, desc: currentQuests()[q].d },
     pronounSkillLevel: S.lessons.g1 ? 1 : 0,
     metXunYu: S.metXunYu, gateOpen: S.gateOpen, chapterDone: S.chapterDone,
     playTime: Math.floor(playTime),
@@ -1079,8 +1085,10 @@ function applySaveData(d){
   S.unlockedCities = d.unlockedCities || ["chenliu"];
   S.gateOpen = !!d.gateOpen;
   S.chapterDone = !!d.chapterDone;
+  S.chapter = CAMPAIGNS[d.chapter] ? Number(d.chapter) : 1;
+  S.campaigns = d.campaigns && typeof d.campaigns === "object" && !Array.isArray(d.campaigns) ? d.campaigns : {};
   playTime = d.playTime || 0;
-  scene = (d.scene === "academy") ? "academy" : "town";
+  scene = (d.scene === "academy") ? "academy" : chapterCity();
   return { x: d.playerX ?? 12, y: d.playerY ?? 15, dir: d.playerDir || "down" };
 }
 
@@ -1704,7 +1712,7 @@ function loadFromSlot(n){
   enterGameShell();
   placeP(pos.x, pos.y, pos.dir);
   if (!walkable(P.tx, P.ty)) placeP(scene === "academy" ? 12 : 12, scene === "academy" ? 14 : 15, "up");
-  if (hasDun() && scene === "town") FOLLOW.active = true;
+  if (hasDun() && isTownScene()) FOLLOW.active = true;
   syncHUD();
   $("#h-slot").textContent = n;
   APP = "game";
@@ -1716,7 +1724,10 @@ function enterGameShell(){
   show("#game", true);
   show("#opening", false);
   APP = "game";
-  if (!SCENES.town.bg){ SCENES.town.bg = buildTown(); SCENES.academy.bg = buildAcademy(); }
+  if (!SCENES.town.bg){
+    SCENES.town.bg = buildTown(); SCENES.yanzhou.bg=buildTown("yanzhou");
+    SCENES.xuchang.bg=buildTown("xuchang"); SCENES.academy.bg = buildAcademy();
+  }
   paintFace($("#hudface"), "caocao", 1.05);
   lastQuest = questState();
   initAudio();
@@ -1732,11 +1743,12 @@ function openPause(){
   SFX.confirm();
   const q = questState();
   pushMenu({
-    host:"layer", title:"暫停　MENU", sub:"Chapter 1 · " + SCENES[scene].cn,
+    host:"layer", title:"暫停　MENU", sub:"Chapter " + S.chapter + " · " + SCENES[scene].cn,
     items:[
       { label:"RESUME",          sub:"回到遊戲", on: closeMenus },
       { label:"SAVE GAME",       sub:"儲存目前進度", on: () => openSlotMenu("save") },
       { label:"LOAD GAME",       sub:"讀取存檔", disabled: !anySave(), on: () => openSlotMenu("load") },
+      { label:"CHAPTERS",        sub:"章節選擇・保留目前進度", on:openChapterTravel },
       { label:"QUESTS",          sub:"主線任務進度", on: openQuestLog },
       { label:"GENERALS",        sub:"隊伍與武將", on: () => { closeMenus(); openParty(); } },
       { label:"ARTWORK",         sub:"角色素材・匯入自己的圖", on: openArtwork },
@@ -1754,6 +1766,7 @@ function openPause(){
 }
 
 function openQuestLog(){
+  if(campaign()) return openCampaignLog();
   const q = questState();
   const done = [
     { t:"Complete Academy",   d:"修完人稱代名詞（Lesson 1）", ok: !!S.lessons.g1 },
@@ -1762,8 +1775,8 @@ function openQuestLog(){
   ];
   const msg =
     '<div style="font-family:var(--mono);font-size:9.5px;letter-spacing:.26em;color:var(--gold)">MAIN QUEST</div>' +
-    '<div style="font-family:var(--serif);font-size:20px;font-weight:700;letter-spacing:.1em;color:var(--goldhi);margin:2px 0 1px">' + QUESTS[q].t + '</div>' +
-    '<div style="font-family:var(--serif);font-style:italic;font-size:13px;color:#a9b7c5;margin-bottom:10px">' + QUESTS[q].d + '</div>' +
+    '<div style="font-family:var(--serif);font-size:20px;font-weight:700;letter-spacing:.1em;color:var(--goldhi);margin:2px 0 1px">' + currentQuests()[q].t + '</div>' +
+    '<div style="font-family:var(--serif);font-style:italic;font-size:13px;color:#a9b7c5;margin-bottom:10px">' + currentQuests()[q].d + '</div>' +
     done.map(r => '<div style="display:flex;gap:9px;align-items:baseline;font-size:13.5px;margin-bottom:5px">' +
       '<span style="font-family:var(--mono);color:' + (r.ok ? "var(--jade)" : "#5f6874") + '">' + (r.ok ? "✓" : "○") + '</span>' +
       '<span style="color:' + (r.ok ? "var(--cream)" : "#8a95a3") + '"><b style="font-weight:400;letter-spacing:.06em">' + r.t + '</b>' +
@@ -1838,14 +1851,14 @@ function syncHUD(){
 }
 function syncQuest(){
   const q = questState(), box = $("#quest");
-  $("#q-k").textContent = q === 5 ? "Chapter Clear" : "Main Quest";
-  $("#q-t").textContent = QUESTS[q].t;
-  $("#q-d").textContent = QUESTS[q].d;
-  box.classList.toggle("done", q === 5);
+  $("#q-k").textContent = chapterComplete() ? "Chapter Clear" : "Chapter " + S.chapter + " · Main Quest";
+  $("#q-t").textContent = currentQuests()[q].t;
+  $("#q-d").textContent = currentQuests()[q].d;
+  box.classList.toggle("done", chapterComplete());
   if (lastQuest !== -1 && lastQuest !== q){
     box.classList.remove("pop"); void box.offsetWidth; box.classList.add("pop");
-    if (S.completedQuests.indexOf(QUESTS[lastQuest].id) < 0) S.completedQuests.push(QUESTS[lastQuest].id);
-    if (q < 5) toast("📜 MAIN QUEST 更新");
+    if (S.completedQuests.indexOf(currentQuests()[lastQuest].id) < 0) S.completedQuests.push(currentQuests()[lastQuest].id);
+    if (!chapterComplete()) toast("📜 MAIN QUEST 更新");
     autoSave();                       /* 主線推進 → 自動存檔 */
   }
   lastQuest = q;
@@ -1853,16 +1866,21 @@ function syncQuest(){
 
 function questTarget(){
   const q = questState();
+  if(campaign()){
+    if(scene === "academy") return {x:12,y:q===0?15:5};
+    return currentQuests()[q].target;
+  }
   if (scene === "academy") return q === 1 ? { x:12, y:5 } : { x:12, y:15 };
   if (q === 0) return { x:16, y:5 };
   if (q === 1) return { x:4,  y:4 };
   if (q === 2) return { x:8,  y:10 };
   if (q === 3) return { x:4,  y:13 };
-  if (q === 4) return { x:12, y:17 };
+  if (q === 4 || q === 5) return { x:12, y:17 };
   return null;
 }
 
 function activeNpcs(){
+  if(campaign()) return campaignNpcs();
   const q = questState();
   if (scene === "academy") return [{ id:"xunyu", cn:"荀彧", en:"Xun Yu", pal:"xunyu", x:12, y:5, dir:"down" }];
   const list = [];
@@ -1872,6 +1890,10 @@ function activeNpcs(){
   return list;
 }
 function npcHasQuest(id){
+  if(campaign()){
+    const tgt=currentQuests()[questState()].target;
+    return campaignNpcs().some(n=>n.id===id&&tgt&&n.x===tgt.x&&n.y===tgt.y);
+  }
   const q = questState();
   return (id === "xunyu" && (q === 0 || q === 1)) || (id === "xiahoudun" && q === 2);
 }
@@ -1886,13 +1908,13 @@ function noise(g, x, y, n, colors){
   }
 }
 
-function buildTown(){
+function buildTown(key="town"){
   const c = document.createElement("canvas"); c.width = MW*TS; c.height = MH*TS;
-  const g = c.getContext("2d"); const M = TOWN_MAP;
+  const g = c.getContext("2d"); const M = SCENES[key].map;
   for (let r = 0; r < MH; r++) for (let col = 0; col < MW; col++){
     const ch = M[r][col], x = col*TS, y = r*TS;
     if (ch === "g" || ch === "T"){
-      g.fillStyle = "#38512f"; g.fillRect(x,y,TS,TS);
+      g.fillStyle = key === "yanzhou" ? "#314950" : key === "xuchang" ? "#51482f" : "#38512f"; g.fillRect(x,y,TS,TS);
       noise(g, x, y, 7, ["#435f38","#2f4629","#4b6a3e"]);
     } else if (ch === "r"){
       g.fillStyle = "#6f6653"; g.fillRect(x,y,TS,TS);
@@ -1916,7 +1938,7 @@ function buildTown(){
     g.fillStyle = "#3a6031"; g.fillRect(x+7,y+9,18,7); g.fillRect(x+11,y+4,10,6);
     g.fillStyle = "#1f3a1c"; g.fillRect(x+4,y+17,24,3);
   }
-  BUILDINGS.forEach(b => {
+  BUILDINGS.map(b=>key==="xuchang" && b.key==="recruit"?{...b,cn:"告示館",en:"NOTICE HALL"}:b).forEach(b => {
     const x = b.x*TS, y = b.y*TS, w = b.w*TS, h = b.h*TS;
     g.fillStyle = "rgba(0,0,0,.35)"; g.fillRect(x+4, y+h-6, w, 8);
     g.fillStyle = "#c9bda1"; g.fillRect(x, y+TS, w, h-TS);
@@ -1958,6 +1980,11 @@ function buildTown(){
   g.fillStyle = "#1a1410"; g.fillRect(gx-8, gy-8, TS*3+16, 9);
   g.font = "700 13px " + F_SERIF; g.fillStyle = "#efd485"; g.textBaseline = "middle";
   g.fillText("城門", gx+TS*1.5-13, gy-14);
+  g.fillStyle="rgba(5,9,14,.88)"; g.fillRect(310,8,180,38);
+  g.strokeStyle="#7a6320";g.strokeRect(310,8,180,38);
+  g.font="700 15px "+F_SERIF;g.fillStyle="#efd485";
+  g.fillText(SCENES[key].cn+" · 城鎮",323,25);
+  g.font="9px "+F_MONO;g.fillStyle="#9aa8b8";g.fillText("BASIC PRACTICE",323,39);
   return c;
 }
 
@@ -2067,7 +2094,7 @@ function draw(){
 
   const npcs = activeNpcs();
   const actors = npcs.map(n => ({ kind:"npc", n, x:n.x*TS+TS/2, y:n.y*TS+TS, dir:n.dir, key:n.id, anim:0 }));
-  if (FOLLOW.active && scene === "town") actors.push({ kind:"f", x:FOLLOW.x, y:FOLLOW.y, dir:FOLLOW.dir, key:"xiahoudun", anim:FOLLOW.anim });
+  if (FOLLOW.active && isTownScene()) actors.push({ kind:"f", x:FOLLOW.x, y:FOLLOW.y, dir:FOLLOW.dir, key:"xiahoudun", anim:FOLLOW.anim });
   actors.push({ kind:"p", x:P.x, y:P.y, dir:P.dir, key:"caocao", anim:P.anim });
   actors.sort((a,b) => a.y - b.y);
 
@@ -2187,9 +2214,9 @@ function interact(){
   if (it.type === "exit") return exitAcademy();
   if (it.type === "door"){
     if (it.key === "academy")  return enterAcademy();
-    if (it.key === "recruit")  return openParty();
-    if (it.key === "exam")     return openExamIntro();
-    if (it.key === "training") return openTraining();
+    if (it.key === "recruit")  return campaign() ? openCampaignRecruit() : openParty();
+    if (it.key === "exam")     return campaign() ? openCampaignExam() : openExamIntro();
+    if (it.key === "training") return campaign() ? openCampaignTraining() : openTraining();
   }
 }
 function enterAcademy(){
@@ -2207,7 +2234,7 @@ function enterAcademy(){
 function exitAcademy(){
   if (scene !== "academy" || MODE !== "world") return;
   transition(() => {
-    scene = "town"; placeP(4, 5, "down");
+    scene = chapterCity(); placeP(4, 5, "down");
     if (hasDun()) FOLLOW.active = true;
     markDirty(); autoSave(); syncQuest();
   });
@@ -2323,11 +2350,11 @@ function quizBlock(host, items, onDone){
 function openAcademyMenu(){
   const html =
     '<p style="margin:0 0 13px;color:var(--t2);font-size:13px">荀彧的講堂。<b style="color:var(--goldhi)">這裡是正式英文教學</b>，一頁一個重點，看完再作答。</p>' +
-    '<div class="menu">' + LESSONS.map((l, idx) => {
+    '<div class="menu">' + availableLessons().map((l, idx) => {
       const done = !!S.lessons[l.id];
       const cls = done ? "done" : (l.tier === "main" ? "main" : "");
       return '<button class="mitem ' + cls + '" type="button" data-lesson="' + l.id + '">' +
-        '<div><div class="mt">' + l.cn + '</div><div class="me">Lesson ' + (idx+1) + ' · ' + l.en + '</div>' +
+        '<div><div class="mt">' + l.cn + '</div><div class="me">Lesson ' + (LESSONS.indexOf(l)+1) + ' · ' + l.en + '</div>' +
         '<div class="md">' + l.desc + '</div></div>' +
         '<span class="mb">' + (done ? "✓ 已修完" : l.tag) + '</span></button>';
     }).join("") + '</div>';
@@ -2335,7 +2362,8 @@ function openAcademyMenu(){
 }
 
 function openLesson(id){
-  const L = LESSONS.find(l => l.id === id);
+  const L = availableLessons().find(l => l.id === id);
+  if(!L) return;
   let page = 0;
   const total = L.pages.length + 1;
   function render(){
@@ -2362,8 +2390,10 @@ function openLesson(id){
 }
 
 function finishLesson(L, c, n){
+  if(L.chapter && c < Math.ceil(n*2/3)) return campaignResult("再看一次就懂了", "Quick Check "+c+" / "+n+"。答對至少 "+Math.ceil(n*2/3)+" 題再完成課程。答錯不扣任何東西。", "再看這一課", ()=>openLesson(L.id));
   const first = !S.lessons[L.id];
   S.lessons[L.id] = true; markDirty();
+  syncHUD();
   addExp(first ? 20 : 5);
   if (first){ autoSave(); SFX.fanfare(); }
   const isMain = L.id === "g1" && first;
@@ -2395,6 +2425,7 @@ function afterLesson(isMain){
 
 /* ── NPC ── */
 function talkNpc(n){
+  if(campaign()) return talkCampaignNpc(n);
   if (n.id === "xiahoudun") return talkDun();
   if (n.id === "xuchu")     return talkXuChu();
   return talkXunYu();
@@ -2601,8 +2632,9 @@ function gradeExam(ans){
 }
 
 /* ── 練兵場 / 隊伍 ── */
-function openTraining(){
-  const done = LESSONS.filter(l => S.lessons[l.id]);
+function openTraining(reviewOnly){
+  if(campaign() && !reviewOnly) return openCampaignTraining();
+  const done = availableLessons().filter(l => S.lessons[l.id]);
   if (!done.length){
     return panel("⚔️", "練兵場", "Training Ground",
       '<div class="result"><div class="rk">Locked</div><div class="rbig" style="font-size:26px">尚無可操練的內容</div>' +
@@ -2617,7 +2649,8 @@ function openTraining(){
       '<div class="md">3 題三國情境練習</div></div><span class="mb">操練</span></button>').join("") + '</div>');
 }
 function runTraining(id){
-  const L = LESSONS.find(l => l.id === id);
+  const L = availableLessons().find(l => l.id === id);
+  if(!L || !TRAIN_Q[id]) return;
   panel("⚔️", "操練：" + L.cn, "Training", '<div id="tq"></div>');
   quizBlock(document.getElementById("tq"), TRAIN_Q[id], (c, n) => {
     addExp(c * 5);
@@ -2626,7 +2659,7 @@ function runTraining(id){
       '<div class="pills"><span class="pill">⭐ EXP +' + (c*5) + '</span></div>' +
       '<div class="row center" style="margin-top:18px">' +
         '<button class="btn" id="tr-more">再練一組</button>' +
-        '<button class="btn ghost" id="tr-x">回到陳留</button></div></div>');
+        '<button class="btn ghost" id="tr-x">回到城鎮</button></div></div>');
     document.getElementById("tr-more").addEventListener("click", openTraining);
   });
 }
@@ -2648,6 +2681,7 @@ function openParty(){
 
 /* ── 城門 ── */
 function openGate(){
+  if(campaign()) return openCampaignGate();
   if (MODE === "panel" || topMenu()) return;
   const reqs = [
     { ok: !!S.lessons.g1, t:"Complete Academy",   d:"修完人稱代名詞（Lesson 1）" },
@@ -2683,17 +2717,10 @@ function openGate(){
       '<div style="font-family:var(--serif);font-size:17px;letter-spacing:.1em;color:var(--t2)">Rise of Cao Cao</div>' +
       '<div style="margin-top:20px;font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--gold)">NEXT</div>' +
       '<div style="font-family:var(--serif);font-size:23px;font-weight:700;letter-spacing:.14em;color:var(--goldhi)">兗州　Yanzhou</div>' +
-      '<div style="font-family:var(--serif);font-style:italic;font-size:15px;color:var(--t3);margin-top:14px">To be continued.</div>' +
-      '<div class="row center" style="margin-top:20px"><button class="btn big" id="gt-fin">回到陳留</button></div></div>');
+      '<div style="font-family:var(--serif);font-style:italic;font-size:15px;color:var(--t3);margin-top:14px">第二章已開放・招募典韋與郭嘉，守住兗州。</div>' +
+      '<div class="row center" style="margin-top:20px"><button class="btn big" id="gt-fin">前往第二章・兗州</button></div></div>');
   const fin = document.getElementById("gt-fin");
-  if (fin) fin.addEventListener("click", () => {
-    closePanel();
-    setTimeout(() => say({ cn:"郭嘉", en:"Guo Jia", pal:"guojia" }, [
-      { en:"So this is the lord everyone talks about.", zh:"這位就是大家口中的主公了。" },
-      { en:"I heard you can speak English now.", zh:"聽說您現在會說英文了。" },
-      { en:"Then I will see you in Yanzhou, my lord.", zh:"那麼，兗州見了，主公。" }
-    ]), 320);
-  });
+  if (fin) fin.addEventListener("click", () => startChapter(2));
 }
 </script>
 
