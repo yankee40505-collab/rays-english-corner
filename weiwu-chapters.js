@@ -8,6 +8,120 @@ const lessonPage = (t, idea, formula, examples, tip) => ({t, h:
   examples.map(e => '<p class="fl">' + e[0] + '</p><p class="note">' + e[1] + '</p>').join("") +
   '<div class="mist"><div class="mh">記住這一點就好</div><p style="margin:0;padding:12px 14px">' + tip + '</p></div>'
 });
+
+/* ── 城與城之間的行軍道路 ── */
+const ROAD_MAP = [
+  "ttttttttttttGtttttttttttt",
+  "ttttttttttrrrrrtttttttttt",
+  "ttttttttttrrrrrtttttttttt",
+  "ttttttttttrrrrrtttttttttt",
+  "ttttttttttttrtttttttttttt",
+  "ttttttttttrrrrrtttttttttt",
+  "ttttttttttrrrrrtttttttttt",
+  "ttttttttttrrrrrtttttttttt",
+  "ttttttttttttrtttttttttttt",
+  "ttttttttttrrrrrtttttttttt",
+  "ttttttttttrrrrrtttttttttt",
+  "ttttttttttrrrrrtttttttttt",
+  "ttttttttttttrtttttttttttt",
+  "ttttttttttrrrrrtttttttttt",
+  "ttttttttttrrrrrtttttttttt",
+  "ttttttttttrrrrrtttttttttt",
+  "ttttttttttrrrrrtttttttttt",
+  "ttttttttttttrtttttttttttt"
+];
+
+SCENES.road = {map:ROAD_MAP,solid:"t#",bg:null,label:"Marching Road",cn:"城外道路"};
+
+const JOURNEYS = {
+  "1-2":{
+    from:1,to:2,fromCn:"陳留",toCn:"兗州",title:"陳留 → 兗州",
+    questions:[
+      basicQ("Xiahou Dun is brave. _____ is our general.",["He","Him","His"],0,"空格是句子的主詞，要用主格 <b>He</b>。"),
+      basicQ("Cao Cao trusts _____.",["he","him","his"],1,"trusts 後面要用受格 <b>him</b>。"),
+      basicQ("We _____ ready to march.",["am","is","are"],2,"主詞 We 要配 <b>are</b>。")
+    ]
+  },
+  "2-3":{
+    from:2,to:3,fromCn:"兗州",toCn:"許都",title:"兗州 → 許都",
+    questions:[
+      basicQ("There _____ a guard on the road.",["is","are","am"],0,"a guard 是一位守衛，用 <b>is</b>。"),
+      basicQ("The soldiers _____ every morning.",["trains","train","training"],1,"soldiers 是複數，動詞用原形 <b>train</b>。"),
+      basicQ("He _____ enough food.",["have","are","has"],2,"He 後面用 <b>has</b>。")
+    ]
+  }
+};
+
+const ROAD_ENCOUNTER_POSITIONS = [{x:12,y:12},{x:12,y:8},{x:12,y:4}];
+
+function journey(){ return S && S.journeyKey ? JOURNEYS[S.journeyKey] : null; }
+function journeyState(){
+  if(!journey()) return null;
+  S.journeys ||= {};
+  return S.journeys[S.journeyKey] ||= {cleared:[],complete:false};
+}
+function beginJourney(from,to){
+  const key=from+"-"+to;
+  if(!JOURNEYS[key]) return startChapter(to);
+  closePanel(); closeMenus(); clearInterval(typing); show("#dbox",false);
+  S.journeyKey=key; S.journeys ||= {}; journeyState();
+  scene="road"; MODE="world"; lastQuest=-1;
+  enterGameShell(); placeP(12,16,"up"); FOLLOW.active=hasDun();
+  markDirty(); syncHUD(); autoSave();
+}
+function roadNpcs(){
+  const st=journeyState();
+  if(!st) return [];
+  return ROAD_ENCOUNTER_POSITIONS.map((p,i)=>({id:"road-soldier-"+i,cn:"攔路小兵",en:"Road Soldier",pal:"xuchu",encounter:i,x:p.x,y:p.y,dir:"down"}))
+    .filter(n=>!st.cleared.includes(n.encounter));
+}
+function talkRoadSoldier(n){
+  return say({cn:"攔路小兵",en:"Road Soldier",pal:"xuchu"},[
+    {en:"Halt! Answer one question before you pass.",zh:"站住！答對一題，才讓你們通過。"},
+    {en:"No supplies will be lost if you are wrong.",zh:"答錯不扣兵力或糧食，可以再試一次。"}
+  ],()=>runRoadEncounter(n.encounter));
+}
+function runRoadEncounter(index){
+  const route=journey();
+  if(!route) return;
+  panel("⚔️","小兵攔路","Road Encounter · "+(index+1)+" / "+route.questions.length,
+    '<p class="note">答對這一題，小兵就會讓開。答錯會看到解析，而且不扣任何資源。</p><div class="sheet"><div id="road-quiz"></div></div>');
+  quizBlock(document.getElementById("road-quiz"),[route.questions[index]],correct=>finishRoadEncounter(index,correct));
+}
+function roadResult(title,text,button,on){
+  panel("⚔️",title,"Road Encounter",'<div class="result"><div class="rk">Marching Road</div><div class="rbig" style="font-size:28px">'+title+'</div><p class="rsub">'+text+'</p><div class="row center"><button class="btn big" id="road-action">'+button+'</button><button class="btn ghost" id="road-close">返回道路</button></div></div>');
+  document.getElementById("road-action").addEventListener("click",on);
+  document.getElementById("road-close").addEventListener("click",closePanel);
+}
+function finishRoadEncounter(index,correct){
+  const st=journeyState();
+  if(!st) return;
+  if(correct<1){
+    return roadResult("再答一次","小兵還守在路上。看看剛才的解析，再試一次；不扣兵力或資源。","重新答題",()=>runRoadEncounter(index));
+  }
+  if(!st.cleared.includes(index)){
+    st.cleared.push(index); st.cleared.sort((a,b)=>a-b);
+    markDirty(); syncHUD(); autoSave();
+  }
+  const remaining=roadNpcs().length;
+  roadResult(remaining?"小兵讓路":"道路已清除",remaining?"前方還有 "+remaining+" 處攔路小兵。繼續往北走。":"所有攔路小兵都已退開，前往北方城門。","繼續前進",closePanel);
+}
+function openJourneyGate(){
+  const route=journey(),st=journeyState();
+  if(!route||!st) return;
+  if(st.cleared.length<route.questions.length){
+    return roadResult("前方仍有小兵","還有 "+(route.questions.length-st.cleared.length)+" 處攔路點沒有通過。回到道路上答題後再前進。","返回道路",closePanel);
+  }
+  roadResult("抵達"+route.toCn,"從「"+route.fromCn+"」出發的行軍已完成。全隊平安抵達下一座城。","進入"+route.toCn,arriveJourney);
+}
+function arriveJourney(){
+  const route=journey(),st=journeyState();
+  if(!route||!st) return;
+  st.complete=true;
+  S.journeyKey=null;
+  markDirty();
+  startChapter(route.to);
+}
 const NEW_LESSONS = [
   {id:"g5", chapter:2, cn:"城裡有什麼？", en:"There is / There are", skill:"City Scout", tier:"main", tag:"第二章・基礎", desc:"一個用 is，兩個以上用 are。",
     pages:[
@@ -151,7 +265,7 @@ function campaignNpcs(){
 function startChapter(number){
   if(!CAMPAIGNS[number]) return;
   closePanel(); closeMenus(); clearInterval(typing); show("#dbox",false);
-  S.chapter=number; S.campaigns ||= {}; campaignState();
+  S.chapter=number; S.journeyKey=null; S.campaigns ||= {}; campaignState();
   if(!S.unlockedCities.includes(campaign().city)) S.unlockedCities.push(campaign().city);
   scene=chapterCity(); lastQuest=-1; MODE="world";
   enterGameShell(); placeP(12,15,"up"); FOLLOW.active=hasDun();
@@ -237,13 +351,13 @@ function runCampaignFinal(questions,need){
     const pass=c>=need,first=pass&&!st.complete;
     if(first){st.complete=true;addExp(80);addRes(100,100,0);SFX.fanfare();}
     markDirty();syncHUD();autoSave();
-    campaignResult(pass?"第"+S.chapter+"章完成":"再複習一次",c+" / "+n+"。"+(first?"首通獎勵：EXP +80、金錢 +100、糧食 +100。":pass?"複習完成！首通獎勵已領取。":"不用急，看看解析，再到學堂複習。"),pass&&S.chapter===2?"前往第三章":pass?"查看任務":"再試一次",pass&&S.chapter===2?()=>startChapter(3):pass?()=>{closePanel();openCampaignLog();}:()=>runCampaignFinal(questions,need));
+    campaignResult(pass?"第"+S.chapter+"章完成":"再複習一次",c+" / "+n+"。"+(first?"首通獎勵：EXP +80、金錢 +100、糧食 +100。":pass?"複習完成！首通獎勵已領取。":"不用急，看看解析，再到學堂複習。"),pass&&S.chapter===2?"前往城門":pass?"查看任務":"再試一次",pass?()=>{closePanel();openCampaignLog();}:()=>runCampaignFinal(questions,need));
   });
 }
 function openCampaignGate(){
   if(MODE==="panel"||topMenu())return;
   if(!campaignState().complete) return campaignResult("先把城裡的事做好",currentQuests()[questState()].d,"查看任務",()=>{closePanel();openCampaignLog();});
-  if(S.chapter===2) return campaignResult("兗州已安定","典韋、郭嘉與軍隊會一起前往許都，接續第三章的城鎮基礎任務。","前往第三章",()=>startChapter(3));
+  if(S.chapter===2) return campaignResult("兗州已安定","典韋、郭嘉與軍隊會一起前往許都。城外有小兵攔路，答對沿途題目才能抵達。","出城前往許都",()=>beginJourney(2,3));
   campaignResult("許都新規・基礎篇完成","城鎮基礎任務已完成。回學堂看看重點，或到練兵場再練幾題吧。","回學堂複習",openAcademyMenu);
 }
 function openCampaignLog(){
@@ -253,17 +367,23 @@ function openCampaignLog(){
     msg:'<p style="color:var(--goldhi)">目前：'+qs[questState()].t+'</p><div style="font-size:13px;line-height:1.9">'+qs.slice(0,-1).map(q=>'<div style="color:'+(q.test(st)?'var(--jade)':'var(--t2)')+'">'+(q.test(st)?'✓ ':'○ ')+q.t+'<div style="font-size:11px">'+q.d+'</div></div>').join('')+'</div><p class="note">本章任務都在城鎮內完成，題目都是基礎練習。'+(st.best!=null?' 本章最佳 '+st.best+' / '+campaign().final.length:'')+'</p>',
     items:[{label:"回到遊戲",on:closeMenus}],onCancel:closeMenus});
 }
+function chapterUnlocked(n){
+  if(n===1) return true;
+  if(n===2) return S.chapter>=2||!!(S.journeys&&S.journeys["1-2"]&&S.journeys["1-2"].complete);
+  if(n===3) return S.chapter>=3||!!(S.journeys&&S.journeys["2-3"]&&S.journeys["2-3"].complete);
+  return false;
+}
 function openChapterTravel(){
   closeMenus();
   pushMenu({host:"layer",title:"章節　CHAPTERS",sub:"沿著旅程前進",items:[
     {label:"第一章・陳留起兵",sub:"代名詞與 be 動詞",on:()=>travelToChapter(1)},
-    {label:"第二章・兗州立足",sub:"巡城、招募典韋與郭嘉、守城",disabled:!S.chapterDone,on:()=>travelToChapter(2)},
-    {label:"第三章・許都新規",sub:"Unit 3・城鎮基礎題",disabled:!(S.campaigns[2]&&S.campaigns[2].complete),on:()=>travelToChapter(3)},
+    {label:"第二章・兗州立足",sub:"巡城、招募典韋與郭嘉、守城",disabled:!chapterUnlocked(2),on:()=>travelToChapter(2)},
+    {label:"第三章・許都新規",sub:"Unit 3・城鎮基礎題",disabled:!chapterUnlocked(3),on:()=>travelToChapter(3)},
     {label:"返回",on:closeMenus}],note:"進度會保留。先完成前一章，再前往下一章。",onCancel:closeMenus});
 }
 function travelToChapter(n){
-  if(n>1&&!(n===2?S.chapterDone:S.campaigns[2]&&S.campaigns[2].complete))return;
-  closeMenus();closePanel();S.chapter=n;lastQuest=-1;scene=chapterCity();
+  if(!chapterUnlocked(n))return;
+  closeMenus();closePanel();S.chapter=n;S.journeyKey=null;lastQuest=-1;scene=chapterCity();
   placeP(12,15,"up");FOLLOW.active=hasDun();enterGameShell();markDirty();syncHUD();autoSave();
   if(campaign()&&!campaignState().briefed) say({cn:"曹操",en:"Cao Cao",pal:"caocao"},campaign().opening,()=>talkCampaignNpc({id:"xunyu"}));
 }

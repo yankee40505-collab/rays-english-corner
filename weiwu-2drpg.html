@@ -1001,7 +1001,8 @@ const NEW_STATE = {
   completedQuests:[],
   examScores:[], examBest:null, examPassed:false,
   unlockedCities:["chenliu"],
-  gateOpen:false, chapterDone:false, chapter:1, campaigns:{}
+  gateOpen:false, chapterDone:false, chapter:1, campaigns:{},
+  journeys:{}, journeyKey:null
 };
 
 let S = null;          // 執行期狀態
@@ -1048,6 +1049,8 @@ function makeSaveData(slot){
     chapter: S.chapter,
     chapterName: campaign() ? campaign().cn : "陳留起兵",
     campaigns: JSON.parse(JSON.stringify(S.campaigns)),
+    journeys: JSON.parse(JSON.stringify(S.journeys || {})),
+    journeyKey: S.journeyKey || null,
     currentLocation: SCENES[scene].label,
     locationCn: SCENES[scene].cn,
     scene: scene,
@@ -1087,8 +1090,14 @@ function applySaveData(d){
   S.chapterDone = !!d.chapterDone;
   S.chapter = CAMPAIGNS[d.chapter] ? Number(d.chapter) : 1;
   S.campaigns = d.campaigns && typeof d.campaigns === "object" && !Array.isArray(d.campaigns) ? d.campaigns : {};
+  S.journeys = d.journeys && typeof d.journeys === "object" && !Array.isArray(d.journeys) ? d.journeys : {};
+  if (S.chapter >= 2 && !(S.journeys["1-2"] && S.journeys["1-2"].complete))
+    S.journeys["1-2"] = { cleared:[0,1,2], complete:true };
+  if (S.chapter >= 3 && !(S.journeys["2-3"] && S.journeys["2-3"].complete))
+    S.journeys["2-3"] = { cleared:[0,1,2], complete:true };
+  S.journeyKey = d.journeyKey && JOURNEYS[d.journeyKey] ? d.journeyKey : null;
   playTime = d.playTime || 0;
-  scene = (d.scene === "academy") ? "academy" : chapterCity();
+  scene = d.scene === "academy" ? "academy" : (d.scene === "road" && S.journeyKey ? "road" : chapterCity());
   return { x: d.playerX ?? 12, y: d.playerY ?? 15, dir: d.playerDir || "down" };
 }
 
@@ -1711,7 +1720,7 @@ function loadFromSlot(n){
   curSlot = n; dirty = false;
   enterGameShell();
   placeP(pos.x, pos.y, pos.dir);
-  if (!walkable(P.tx, P.ty)) placeP(scene === "academy" ? 12 : 12, scene === "academy" ? 14 : 15, "up");
+  if (!walkable(P.tx, P.ty)) placeP(12, scene === "academy" ? 14 : (scene === "road" ? 16 : 15), "up");
   if (hasDun() && isTownScene()) FOLLOW.active = true;
   syncHUD();
   $("#h-slot").textContent = n;
@@ -1728,6 +1737,7 @@ function enterGameShell(){
     SCENES.town.bg = buildTown(); SCENES.yanzhou.bg=buildTown("yanzhou");
     SCENES.xuchang.bg=buildTown("xuchang"); SCENES.academy.bg = buildAcademy();
   }
+  if (!SCENES.road.bg) SCENES.road.bg = buildRoad();
   paintFace($("#hudface"), "caocao", 1.05);
   lastQuest = questState();
   initAudio();
@@ -1850,6 +1860,14 @@ function syncHUD(){
   syncQuest();
 }
 function syncQuest(){
+  if(scene === "road" && journey()){
+    const route=journey(),st=journeyState(),next=roadNpcs()[0];
+    $("#q-k").textContent="行軍　"+route.title;
+    $("#q-t").textContent=next?"小兵攔路":"前往城門";
+    $("#q-d").textContent=next?"答題讓路（"+st.cleared.length+" / "+route.questions.length+"）":"道路已清除，往北進入"+route.toCn+"。";
+    $("#quest").classList.toggle("done",!next);
+    return;
+  }
   const q = questState(), box = $("#quest");
   $("#q-k").textContent = chapterComplete() ? "Chapter Clear" : "Chapter " + S.chapter + " · Main Quest";
   $("#q-t").textContent = currentQuests()[q].t;
@@ -1865,6 +1883,10 @@ function syncQuest(){
 }
 
 function questTarget(){
+  if(scene === "road"){
+    const next=roadNpcs()[0];
+    return next?{x:next.x,y:next.y}:{x:12,y:0};
+  }
   const q = questState();
   if(campaign()){
     if(scene === "academy") return {x:12,y:q===0?15:5};
@@ -1880,6 +1902,7 @@ function questTarget(){
 }
 
 function activeNpcs(){
+  if(scene === "road") return roadNpcs();
   if(campaign()) return campaignNpcs();
   const q = questState();
   if (scene === "academy") return [{ id:"xunyu", cn:"荀彧", en:"Xun Yu", pal:"xunyu", x:12, y:5, dir:"down" }];
@@ -1890,6 +1913,10 @@ function activeNpcs(){
   return list;
 }
 function npcHasQuest(id){
+  if(scene === "road"){
+    const next=roadNpcs()[0];
+    return !!next&&next.id===id;
+  }
   if(campaign()){
     const tgt=currentQuests()[questState()].target;
     return campaignNpcs().some(n=>n.id===id&&tgt&&n.x===tgt.x&&n.y===tgt.y);
@@ -1988,6 +2015,37 @@ function buildTown(key="town"){
   return c;
 }
 
+function buildRoad(){
+  const c=document.createElement("canvas"); c.width=MW*TS; c.height=MH*TS;
+  const g=c.getContext("2d");
+  for(let row=0;row<MH;row++) for(let col=0;col<MW;col++){
+    const ch=ROAD_MAP[row][col],x=col*TS,y=row*TS;
+    if(ch==="r"||ch==="G"){
+      g.fillStyle="#806b4c"; g.fillRect(x,y,TS,TS);
+      g.fillStyle=(row+col)%2?"#8d7653":"#756247"; g.fillRect(x+3,y+4,11,9); g.fillRect(x+18,y+18,11,10);
+      noise(g,x,y,5,["#9b835e","#65543e"]);
+    }else{
+      g.fillStyle="#243d2b"; g.fillRect(x,y,TS,TS);
+      noise(g,x,y,4,["#315239","#1d3425"]);
+      g.fillStyle="rgba(0,0,0,.28)"; g.beginPath(); g.ellipse(x+16,y+28,13,5,0,0,Math.PI*2); g.fill();
+      g.fillStyle="#493522"; g.fillRect(x+13,y+15,6,15);
+      g.fillStyle=(row+col)%3?"#315834":"#3d6439";
+      g.fillRect(x+3,y+7,26,12); g.fillRect(x+7,y+2,18,11);
+      g.fillStyle="#1b3521"; g.fillRect(x+3,y+18,26,3);
+    }
+  }
+  const gx=12*TS,gy=0;
+  g.fillStyle="#241711"; g.fillRect(gx-8,gy,TS+16,TS);
+  g.fillStyle="#6b4529"; g.fillRect(gx-5,gy+3,10,TS-3); g.fillRect(gx+TS-5,gy+3,10,TS-3);
+  g.fillStyle="#b48b42"; g.fillRect(gx-8,gy,TS+16,5);
+  g.fillStyle="#17100c"; g.fillRect(gx+5,gy+8,TS-10,TS-8);
+  g.fillStyle="rgba(5,9,14,.9)"; g.fillRect(286,8,228,38);
+  g.strokeStyle="#8c7332"; g.strokeRect(286,8,228,38);
+  g.font="700 15px "+F_SERIF; g.fillStyle="#efd485"; g.textBaseline="middle"; g.fillText("城外道路 · 行軍",302,25);
+  g.font="9px "+F_MONO; g.fillStyle="#9aa8b8"; g.fillText("ROAD ENCOUNTERS",302,39);
+  return c;
+}
+
 function buildAcademy(){
   const c = document.createElement("canvas"); c.width = MW*TS; c.height = MH*TS;
   const g = c.getContext("2d"); const M = ACAD_MAP;
@@ -2071,7 +2129,10 @@ function draw(){
 
   if (it && (it.type === "door" || it.type === "gate" || it.type === "exit")){
     let bx, by, bw = TS, bh = TS;
-    if (it.type === "gate"){ bx = 11*TS; by = 17*TS; bw = TS*3; }
+    if (it.type === "gate"){
+      if(scene === "road"){ bx=12*TS; by=0; bw=TS; }
+      else { bx = 11*TS; by = 17*TS; bw = TS*3; }
+    }
     else if (it.type === "exit"){ bx = 12*TS; by = 15*TS; }
     else { const b = BUILDINGS.find(x => x.key === it.key);
            bx = (b.x + Math.floor(b.w/2))*TS; by = (b.y + b.h - 1)*TS; }
@@ -2093,7 +2154,7 @@ function draw(){
   }
 
   const npcs = activeNpcs();
-  const actors = npcs.map(n => ({ kind:"npc", n, x:n.x*TS+TS/2, y:n.y*TS+TS, dir:n.dir, key:n.id, anim:0 }));
+  const actors = npcs.map(n => ({ kind:"npc", n, x:n.x*TS+TS/2, y:n.y*TS+TS, dir:n.dir, key:n.pal||n.id, anim:0 }));
   if (FOLLOW.active && isTownScene()) actors.push({ kind:"f", x:FOLLOW.x, y:FOLLOW.y, dir:FOLLOW.dir, key:"xiahoudun", anim:FOLLOW.anim });
   actors.push({ kind:"p", x:P.x, y:P.y, dir:P.dir, key:"caocao", anim:P.anim });
   actors.sort((a,b) => a.y - b.y);
@@ -2119,8 +2180,8 @@ function draw(){
   });
 
   if (MODE === "world" && !topMenu() && it){
-    const label = it.type === "npc" ? "E 交談"
-                : it.type === "gate" ? "E 出城"
+    const label = it.type === "npc" ? (scene === "road" ? "E 答題" : "E 交談")
+                : it.type === "gate" ? (scene === "road" ? "E 進城" : "E 出城")
                 : it.type === "exit" ? "E 離開" : "E 進入";
     ctx.font = "700 12px " + F_MONO;
     const w = ctx.measureText(label).width;
@@ -2425,6 +2486,7 @@ function afterLesson(isMain){
 
 /* ── NPC ── */
 function talkNpc(n){
+  if(scene === "road") return talkRoadSoldier(n);
   if(campaign()) return talkCampaignNpc(n);
   if (n.id === "xiahoudun") return talkDun();
   if (n.id === "xuchu")     return talkXuChu();
@@ -2681,6 +2743,7 @@ function openParty(){
 
 /* ── 城門 ── */
 function openGate(){
+  if(scene === "road") return openJourneyGate();
   if(campaign()) return openCampaignGate();
   if (MODE === "panel" || topMenu()) return;
   const reqs = [
@@ -2700,7 +2763,6 @@ function openGate(){
   }
   const first = !S.chapterDone;
   S.gateOpen = true; S.chapterDone = true;
-  if (S.unlockedCities.indexOf("yanzhou") < 0) S.unlockedCities.push("yanzhou");
   markDirty();
   if (first){ addExp(50); addRes(50, 50, 0); SFX.fanfare(); }
   syncHUD(); autoSave();
@@ -2720,7 +2782,7 @@ function openGate(){
       '<div style="font-family:var(--serif);font-style:italic;font-size:15px;color:var(--t3);margin-top:14px">第二章已開放・招募典韋與郭嘉，守住兗州。</div>' +
       '<div class="row center" style="margin-top:20px"><button class="btn big" id="gt-fin">前往第二章・兗州</button></div></div>');
   const fin = document.getElementById("gt-fin");
-  if (fin) fin.addEventListener("click", () => startChapter(2));
+  if (fin) fin.addEventListener("click", () => beginJourney(1,2));
 }
 </script>
 
