@@ -33,6 +33,28 @@ const ROAD_MAP = [
 
 SCENES.road = {map:ROAD_MAP,solid:"sg#",bg:null,label:"Yellow Turban Battlefield",cn:"黃巾戰道"};
 
+/* Generated project art: the procedural scene remains as a loading fallback. */
+const ROAD_BG_ART = new Image();
+ROAD_BG_ART.onload = () => {
+  if(SCENES.road && typeof buildRoad === "function") SCENES.road.bg = buildRoad();
+};
+ROAD_BG_ART.src = "assets/road-yellow-turban-v2.png";
+
+const YELLOW_TURBAN_ART = new Image();
+YELLOW_TURBAN_ART.src = "assets/yellow-turban-soldier-v2.png";
+
+const BATTLE_CHAR_ART = {};
+Object.entries({
+  caocao:"assets/cao-cao-battle-v2.png",
+  xiahoudun:"assets/xiahou-dun-battle-v2.png",
+  dianwei:"assets/dian-wei-battle-v2.png",
+  guojia:"assets/guo-jia-battle-v2.png"
+}).forEach(([key,src])=>{
+  const img=new Image();
+  img.onload=()=>{ if(key==="caocao"&&scene==="road"&&typeof paintFace==="function") paintFace(document.getElementById("hudface"),"caocao",1.05); };
+  img.src=src; BATTLE_CHAR_ART[key]=img;
+});
+
 const JOURNEYS = {
   "1-2":{
     from:1,to:2,fromCn:"陳留",toCn:"兗州",title:"兗州平黃巾",year:"初平三年（192）",
@@ -159,25 +181,19 @@ function roadBattleAllies(){
 }
 function drawRoadSkirmishes(g){
   const remaining=roadNpcs().length,allies=remaining?roadBattleAllies():[];
-  const spots=[{x:176,y:302},{x:432,y:276},{x:650,y:304}];
+  const spots=[{x:176,y:302},{x:432,y:310},{x:650,y:304}];
   allies.forEach((id,i)=>{
     const p=spots[i],phase=tick/7+i*2.2,hit=Math.sin(phase)>0.72;
-    drawActor(g,p.x+(hit?4:0),p.y,id,"right",1+(Math.floor(tick/7+i)%3),.9);
-    drawActor(g,p.x+42-(hit?5:0),p.y,"yellowturban","left",1+(Math.floor(tick/8+i)%3),.9);
+    g.save(); g.globalAlpha=.82;
+    drawActor(g,p.x+(hit?4:0),p.y,id,"right",1+(Math.floor(tick/7+i)%3),.76);
+    drawActor(g,p.x+42-(hit?5:0),p.y,"yellowturban","left",1+(Math.floor(tick/8+i)%3),.78);
     if(hit){
-      g.save(); g.translate(p.x+22,p.y-27); g.rotate(Math.sin(phase)*.35);
+      g.translate(p.x+22,p.y-27); g.rotate(Math.sin(phase)*.35);
       g.strokeStyle="#fff2a8"; g.lineWidth=3; g.beginPath(); g.moveTo(-8,-8); g.lineTo(8,8); g.moveTo(8,-8); g.lineTo(-8,8); g.stroke();
-      g.fillStyle="#ffe066"; g.fillRect(-2,-14,4,5); g.fillRect(11,-2,5,4); g.restore();
+      g.fillStyle="#ffe066"; g.fillRect(-2,-14,4,5); g.fillRect(11,-2,5,4);
     }
+    g.restore();
   });
-  const st=journeyState(),total=journey()?journey().questions.length:10,cleared=st?st.cleared.length:0;
-  g.fillStyle="rgba(20,37,54,.9)"; g.fillRect(286,18,226,48);
-  g.strokeStyle="#f0c84b"; g.lineWidth=2; g.strokeRect(286,18,226,48);
-  const route=journey();
-  g.font="700 15px "+F_SERIF; g.fillStyle="#fff4c2"; g.textBaseline="middle"; g.fillText(route?route.enemyCn+"討伐":"黃巾討伐",300,35);
-  g.font="700 12px "+F_MONO; g.fillStyle="#f8d75c"; g.fillText(cleared+" / "+total,456,35);
-  g.fillStyle="#27384a"; g.fillRect(300,50,198,7);
-  g.fillStyle="#f0c84b"; g.fillRect(300,50,198*(cleared/total),7);
 }
 const NEW_LESSONS = [
   {id:"g5", chapter:2, cn:"城裡有什麼？", en:"There is / There are", skill:"City Scout", tier:"main", tag:"第二章・基礎", desc:"一個用 is，兩個以上用 are。",

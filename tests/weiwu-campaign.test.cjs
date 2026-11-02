@@ -31,6 +31,8 @@ check('!chapterUnlocked(2)','chapter menu cannot bypass an unfinished road');
 check('SCENES.road.bg&&ROAD_MAP.length===18&&ROAD_MAP.every(row=>row.length===25)','road scene builds a complete visible map');
 check('ROAD_ENCOUNTER_POSITIONS.length===10&&ROAD_ENCOUNTER_POSITIONS.every(p=>p.x>1&&p.x<24&&p.y>=11&&p.y<=13)','ten enemies fill the horizontal battlefield lane');
 check('Object.values(JOURNEYS).every(r=>r.questions.length===ROAD_ENCOUNTER_POSITIONS.length&&r.allies.length>0&&new Set(r.allies).size===r.allies.length)','every route keeps its questions and unique background allies in sync');
+check('ROAD_BG_ART.src.includes("road-yellow-turban-v2.png")&&YELLOW_TURBAN_ART.src.includes("yellow-turban-soldier-v2.png")','road battlefield loads its illustrated background and Yellow Turban sprite');
+check('["caocao","xiahoudun","dianwei","guojia"].every(k=>BATTLE_CHAR_ART[k].src.includes("battle-v2.png"))','road battlefield loads the unified chibi art for Cao Cao and his followers');
 check('document.getElementById("q-t").textContent.includes("青州黃巾")&&questTarget().x===3&&questTarget().y===12','journey HUD and quest arrow point to the next Yellow Turban enemy');
 check('journey().year.includes("192")&&journey().history.includes("青州兵")','first battlefield carries the 192 historical setting');
 check('roadBattleAllies().length===1&&roadBattleAllies()[0]==="xiahoudun"','only the currently recruited general joins the first background skirmish');
