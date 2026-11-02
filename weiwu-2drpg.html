@@ -428,7 +428,7 @@ body{ margin:0; background:#05070a; color:var(--t1); font-family:var(--sans);
       <div class="press-any fade" id="t-press">Press Any Key</div>
       <div class="t-menu fade hide" id="t-menu"></div>
     </div>
-    <div class="t-ver">Ver. 0.3</div>
+    <div class="t-ver">Ver. 0.4</div>
   </div>
 
   <!-- ════ 遊戲本體 ════ -->
@@ -503,7 +503,7 @@ body{ margin:0; background:#05070a; color:var(--t1); font-family:var(--sans);
       <button class="tb act" data-k="act">E</button>
     </div>
 
-    <p class="foot">魏武之路　·　Ver. 0.3　·　Chapters 1–3：陳留・兗州・許都<br>英語教學改編劇情・城鎮生活與基礎英文練習。</p>
+    <p class="foot">魏武之路　·　Ver. 0.4　·　Chapters 1–3：陳留・兗州・許都<br>史實年代校正・黃巾戰場與基礎英文練習。</p>
   </div>
 
   <!-- 選單層（存檔／設定／暫停），覆蓋標題與遊戲兩者 -->
@@ -529,7 +529,7 @@ body{ margin:0; background:#05070a; color:var(--t1); font-family:var(--sans);
    魏武之路 v0.1  —  PART A：基礎（地圖 / 人物繪製）
    ════════════════════════════════════════════════════════════ */
 
-const VERSION = "0.3";
+const VERSION = "0.4";
 const TS = 32, MW = 25, MH = 18;
 
 const TOWN_MAP = [
@@ -605,7 +605,8 @@ const PAL = {
   xunyu:     { robe:"#4b4632", trim:"#d6cba6", helm:"#2e2b20", plume:"#6b6448", skin:"#dcb590", boot:"#22201a" },
   xuchu:     { robe:"#5c4326", trim:"#a08858", helm:"#4a3a26", plume:"#7a6440", skin:"#cf9f75", boot:"#241d14" },
   dianwei:   { robe:"#2f3238", trim:"#8f6a2e", helm:"#1e2126", plume:"#8f6a2e", skin:"#c9976e", boot:"#15171b" },
-  guojia:    { robe:"#2f4a3e", trim:"#cfe0cf", helm:"#233329", plume:"#6f8f7a", skin:"#e0bd98", boot:"#1a221d" }
+  guojia:    { robe:"#2f4a3e", trim:"#cfe0cf", helm:"#233329", plume:"#6f8f7a", skin:"#e0bd98", boot:"#1a221d" },
+  yellowturban:{robe:"#8b6532",trim:"#ead14e",helm:"#e6c735",plume:"#f4df62",skin:"#c99168",boot:"#35271b"}
 };
 
 function drawChar(g, cx, cy, pal, dir, walk, scale){
@@ -631,6 +632,24 @@ function drawChar(g, cx, cy, pal, dir, walk, scale){
   else if (dir === "left"){ P(-5,y0+6,2,2,"#1b1a18"); P(-7,y0+8,2,2,pal.skin); }
   else if (dir === "right"){ P(3,y0+6,2,2,"#1b1a18"); P(5,y0+8,2,2,pal.skin); }
   else { P(-6,y0+4,12,7,pal.helm); }
+}
+
+function drawYellowTurban(g,cx,cy,dir,walk,scale){
+  const s=scale||1,bob=walk&&walk%2?1:0,face=dir==="left"?-1:1;
+  g.save(); g.translate(Math.round(cx),Math.round(cy)); g.scale(s,s);
+  g.fillStyle="rgba(34,38,38,.28)"; g.beginPath(); g.ellipse(0,-1,13,4,0,0,Math.PI*2); g.fill();
+  g.fillStyle="#3b2a1d"; g.fillRect(-9,-9+bob,7,9); g.fillRect(3,-9-bob,7,9);
+  g.fillStyle="#83572f"; g.fillRect(-13,-28,26,20);
+  g.fillStyle="#e4c33c"; g.fillRect(-13,-27,26,4); g.fillRect(-2,-27,4,19);
+  g.fillStyle="#c88f64"; g.beginPath(); g.arc(0,-39+bob,12,0,Math.PI*2); g.fill();
+  g.fillStyle="#4a3426"; g.fillRect(-10,-48+bob,20,8);
+  g.fillStyle="#ead24a"; g.fillRect(-13,-45+bob,26,6);
+  g.fillRect(face<0?8:-14,-42+bob,7,3); g.fillRect(face<0?11:-17,-39+bob,9,3);
+  g.fillStyle="#2a2019"; g.fillRect(face*3-1,-39+bob,3,3);
+  g.strokeStyle="#5b3a20"; g.lineWidth=3; g.beginPath();
+  const spearX=face<0?-16:16; g.moveTo(spearX,-54); g.lineTo(spearX,0); g.stroke();
+  g.fillStyle="#d7dde2"; g.beginPath(); g.moveTo(spearX,-62); g.lineTo(spearX-4,-53); g.lineTo(spearX+4,-53); g.closePath(); g.fill();
+  g.restore();
 }
 
 /* 頭像：優先用匯入的 portrait / idle 原圖，沒有才程序繪製 */
@@ -1091,10 +1110,11 @@ function applySaveData(d){
   S.chapter = CAMPAIGNS[d.chapter] ? Number(d.chapter) : 1;
   S.campaigns = d.campaigns && typeof d.campaigns === "object" && !Array.isArray(d.campaigns) ? d.campaigns : {};
   S.journeys = d.journeys && typeof d.journeys === "object" && !Array.isArray(d.journeys) ? d.journeys : {};
-  if (S.chapter >= 2 && !(S.journeys["1-2"] && S.journeys["1-2"].complete))
-    S.journeys["1-2"] = { cleared:[0,1,2], complete:true };
-  if (S.chapter >= 3 && !(S.journeys["2-3"] && S.journeys["2-3"].complete))
-    S.journeys["2-3"] = { cleared:[0,1,2], complete:true };
+  const completeJourney = key => ({ cleared:JOURNEYS[key].questions.map((_,i)=>i), complete:true });
+  if (S.chapter >= 2 || (S.journeys["1-2"] && S.journeys["1-2"].complete))
+    S.journeys["1-2"] = completeJourney("1-2");
+  if (S.chapter >= 3 || (S.journeys["2-3"] && S.journeys["2-3"].complete))
+    S.journeys["2-3"] = completeJourney("2-3");
   S.journeyKey = d.journeyKey && JOURNEYS[d.journeyKey] ? d.journeyKey : null;
   playTime = d.playTime || 0;
   scene = d.scene === "academy" ? "academy" : (d.scene === "road" && S.journeyKey ? "road" : chapterCity());
@@ -1720,7 +1740,7 @@ function loadFromSlot(n){
   curSlot = n; dirty = false;
   enterGameShell();
   placeP(pos.x, pos.y, pos.dir);
-  if (!walkable(P.tx, P.ty)) placeP(12, scene === "academy" ? 14 : (scene === "road" ? 16 : 15), "up");
+  if (!walkable(P.tx, P.ty)) placeP(scene === "road" ? 1 : 12, scene === "academy" ? 14 : (scene === "road" ? 13 : 15), scene === "road" ? "right" : "up");
   if (hasDun() && isTownScene()) FOLLOW.active = true;
   syncHUD();
   $("#h-slot").textContent = n;
@@ -1862,9 +1882,9 @@ function syncHUD(){
 function syncQuest(){
   if(scene === "road" && journey()){
     const route=journey(),st=journeyState(),next=roadNpcs()[0];
-    $("#q-k").textContent="行軍　"+route.title;
-    $("#q-t").textContent=next?"小兵攔路":"前往城門";
-    $("#q-d").textContent=next?"答題讓路（"+st.cleared.length+" / "+route.questions.length+"）":"道路已清除，往北進入"+route.toCn+"。";
+    $("#q-k").textContent=route.year+"　"+route.title;
+    $("#q-t").textContent=next?route.enemyCn+"討伐":"前往城門";
+    $("#q-d").textContent=next?"答題擊退（"+st.cleared.length+" / "+route.questions.length+"）":"戰場已平定，往右進入"+route.toCn+"。";
     $("#quest").classList.toggle("done",!next);
     return;
   }
@@ -1885,7 +1905,7 @@ function syncQuest(){
 function questTarget(){
   if(scene === "road"){
     const next=roadNpcs()[0];
-    return next?{x:next.x,y:next.y}:{x:12,y:0};
+    return next?{x:next.x,y:next.y}:{x:24,y:12};
   }
   const q = questState();
   if(campaign()){
@@ -2018,31 +2038,45 @@ function buildTown(key="town"){
 function buildRoad(){
   const c=document.createElement("canvas"); c.width=MW*TS; c.height=MH*TS;
   const g=c.getContext("2d");
-  for(let row=0;row<MH;row++) for(let col=0;col<MW;col++){
-    const ch=ROAD_MAP[row][col],x=col*TS,y=row*TS;
-    if(ch==="r"||ch==="G"){
-      g.fillStyle="#806b4c"; g.fillRect(x,y,TS,TS);
-      g.fillStyle=(row+col)%2?"#8d7653":"#756247"; g.fillRect(x+3,y+4,11,9); g.fillRect(x+18,y+18,11,10);
-      noise(g,x,y,5,["#9b835e","#65543e"]);
-    }else{
-      g.fillStyle="#243d2b"; g.fillRect(x,y,TS,TS);
-      noise(g,x,y,4,["#315239","#1d3425"]);
-      g.fillStyle="rgba(0,0,0,.28)"; g.beginPath(); g.ellipse(x+16,y+28,13,5,0,0,Math.PI*2); g.fill();
-      g.fillStyle="#493522"; g.fillRect(x+13,y+15,6,15);
-      g.fillStyle=(row+col)%3?"#315834":"#3d6439";
-      g.fillRect(x+3,y+7,26,12); g.fillRect(x+7,y+2,18,11);
-      g.fillStyle="#1b3521"; g.fillRect(x+3,y+18,26,3);
-    }
+  const sky=g.createLinearGradient(0,0,0,440);
+  sky.addColorStop(0,"#77c9f2"); sky.addColorStop(.55,"#c9eff6"); sky.addColorStop(1,"#f7e5ae");
+  g.fillStyle=sky; g.fillRect(0,0,c.width,c.height);
+  [[82,72,42],[246,112,54],[520,78,46],[684,136,38]].forEach(([x,y,r])=>{
+    g.fillStyle="rgba(255,255,255,.78)";
+    g.beginPath(); g.arc(x,y,r*.45,0,Math.PI*2); g.arc(x+r*.55,y+4,r*.58,0,Math.PI*2); g.arc(x+r*1.08,y+8,r*.4,0,Math.PI*2); g.fill();
+  });
+  const mountain=(base,color,amp,step)=>{
+    g.fillStyle=color; g.beginPath(); g.moveTo(0,base);
+    for(let x=0;x<=c.width;x+=step) g.lineTo(x,base-amp*(.35+.65*Math.abs(Math.sin(x*.013+amp))));
+    g.lineTo(c.width,base+90); g.lineTo(0,base+90); g.closePath(); g.fill();
+  };
+  mountain(276,"#7897a0",82,54); mountain(326,"#527b77",66,46); mountain(360,"#37665c",52,38);
+  for(let i=0;i<18;i++){
+    const x=i*49+(i%2)*16,y=300+(i%3)*9;
+    g.fillStyle="#5d3b28"; g.fillRect(x+12,y,8,60);
+    g.fillStyle=i%2?"#2d7a55":"#37885d"; g.beginPath(); g.arc(x+16,y-2,25,0,Math.PI*2); g.arc(x,y+8,20,0,Math.PI*2); g.arc(x+31,y+8,20,0,Math.PI*2); g.fill();
+    g.fillStyle="rgba(255,255,255,.16)"; g.fillRect(x+1,y-6,27,4);
   }
-  const gx=12*TS,gy=0;
-  g.fillStyle="#241711"; g.fillRect(gx-8,gy,TS+16,TS);
-  g.fillStyle="#6b4529"; g.fillRect(gx-5,gy+3,10,TS-3); g.fillRect(gx+TS-5,gy+3,10,TS-3);
-  g.fillStyle="#b48b42"; g.fillRect(gx-8,gy,TS+16,5);
-  g.fillStyle="#17100c"; g.fillRect(gx+5,gy+8,TS-10,TS-8);
-  g.fillStyle="rgba(5,9,14,.9)"; g.fillRect(286,8,228,38);
-  g.strokeStyle="#8c7332"; g.strokeRect(286,8,228,38);
-  g.font="700 15px "+F_SERIF; g.fillStyle="#efd485"; g.textBaseline="middle"; g.fillText("城外道路 · 行軍",302,25);
-  g.font="9px "+F_MONO; g.fillStyle="#9aa8b8"; g.fillText("ROAD ENCOUNTERS",302,39);
+  [[110,294,170],[366,268,150],[580,296,160]].forEach(([x,y,w])=>{
+    g.fillStyle="#70492c"; g.fillRect(x,y,w,13); g.fillStyle="#91603a"; g.fillRect(x+7,y+13,w-14,10);
+    g.fillStyle="#5da83d"; g.fillRect(x-3,y-5,w+6,8); g.fillStyle="#9be25c"; g.fillRect(x,y-7,w,4);
+    for(let n=0;n<w;n+=28){g.fillStyle="#e9d86b";g.fillRect(x+n,y-11,3,5);}
+  });
+  g.fillStyle="#8b6a3f"; g.fillRect(0,320,c.width,160);
+  g.fillStyle="#a47b48";
+  for(let y=330;y<480;y+=32) for(let x=(y/32%2)*16;x<c.width;x+=32) g.fillRect(x,y,23,12);
+  g.fillStyle="#477d35"; g.fillRect(0,472,c.width,108); g.fillStyle="#70b547"; g.fillRect(0,468,c.width,10);
+  for(let x=8;x<c.width;x+=23){
+    g.fillStyle=x%2?"#f7d557":"#f29bca"; g.fillRect(x,456-(x%3)*3,4,7);
+    g.fillStyle="#3f7b33"; g.fillRect(x+1,463-(x%3)*3,2,7);
+  }
+  const gx=744,gy=333;
+  g.fillStyle="#593421"; g.fillRect(gx,gy,56,147); g.fillStyle="#7b4b2c"; g.fillRect(gx+8,gy+8,48,139);
+  g.fillStyle="#2a1a16"; g.fillRect(gx+18,gy+46,38,101); g.fillStyle="#e4bc46"; g.fillRect(gx-8,gy-8,64,10);
+  g.fillStyle="#9b302b"; g.fillRect(gx-3,gy+20,18,36); g.fillStyle="#f1d46a"; g.font="700 17px "+F_SERIF; g.fillText("城",gx+1,gy+40);
+  g.fillStyle="rgba(18,39,55,.88)"; g.fillRect(548,18,234,48); g.strokeStyle="#f0c84b"; g.lineWidth=2; g.strokeRect(548,18,234,48);
+  g.font="700 15px "+F_SERIF; g.fillStyle="#fff4c2"; g.textBaseline="middle"; g.fillText("黃巾戰道 · 十人討伐",564,36);
+  g.font="9px "+F_MONO; g.fillStyle="#d7eaf0"; g.fillText("SIDE-SCROLL BATTLEFIELD",564,54);
   return c;
 }
 
@@ -2125,12 +2159,13 @@ function draw(){
   tick++;
   ctx.clearRect(0,0,cv.width,cv.height);
   ctx.drawImage(SCENES[scene].bg, 0, 0);
+  if(scene === "road") drawRoadSkirmishes(ctx);
   const it = getInteractable();
 
   if (it && (it.type === "door" || it.type === "gate" || it.type === "exit")){
     let bx, by, bw = TS, bh = TS;
     if (it.type === "gate"){
-      if(scene === "road"){ bx=12*TS; by=0; bw=TS; }
+      if(scene === "road"){ bx=24*TS; by=12*TS; bw=TS; }
       else { bx = 11*TS; by = 17*TS; bw = TS*3; }
     }
     else if (it.type === "exit"){ bx = 12*TS; by = 15*TS; }
@@ -2161,12 +2196,14 @@ function draw(){
 
   ctx.textBaseline = "middle";
   actors.forEach(a => {
-    drawActor(ctx, a.x, a.y, a.key, a.dir, a.anim, 1);
+    drawActor(ctx, a.x, a.y, a.key, a.dir, a.anim, scene === "road" ? 1.08 : 1);
     if (a.kind === "npc"){
-      ctx.font = "700 11px " + F_SERIF;
-      const w = ctx.measureText(a.n.cn).width;
-      ctx.fillStyle = "rgba(10,12,16,.85)"; ctx.fillRect(a.x-w/2-4, a.y+3, w+8, 14);
-      ctx.fillStyle = "#cfd8e2"; ctx.fillText(a.n.cn, a.x-w/2, a.y+10);
+      if(scene !== "road" || npcHasQuest(a.n.id)){
+        ctx.font = "700 11px " + F_SERIF;
+        const w = ctx.measureText(a.n.cn).width;
+        ctx.fillStyle = scene === "road" ? "rgba(79,55,18,.9)" : "rgba(10,12,16,.85)"; ctx.fillRect(a.x-w/2-4, a.y+3, w+8, 14);
+        ctx.fillStyle = scene === "road" ? "#fff1a6" : "#cfd8e2"; ctx.fillText(a.n.cn, a.x-w/2, a.y+10);
+      }
       if (npcHasQuest(a.n.id)){
         const bob = Math.sin(tick/8)*3;
         ctx.save();
@@ -2191,9 +2228,9 @@ function draw(){
     ctx.fillStyle = "#efd485"; ctx.fillText(label, bx+7, by+9);
   }
 
-  const grd = ctx.createRadialGradient(P.x, P.y-16, 90, P.x, P.y-16, scene === "academy" ? 340 : 460);
+  const grd = ctx.createRadialGradient(P.x, P.y-16, 90, P.x, P.y-16, scene === "academy" ? 340 : 560);
   grd.addColorStop(0, "rgba(0,0,0,0)");
-  grd.addColorStop(1, scene === "academy" ? "rgba(0,0,0,.6)" : "rgba(0,0,0,.42)");
+  grd.addColorStop(1, scene === "academy" ? "rgba(0,0,0,.6)" : (scene === "road" ? "rgba(10,34,45,.12)" : "rgba(0,0,0,.42)"));
   ctx.fillStyle = grd; ctx.fillRect(0,0,cv.width,cv.height);
   if (fade > 0){ ctx.fillStyle = "rgba(0,0,0," + fade + ")"; ctx.fillRect(0,0,cv.width,cv.height); }
 }
@@ -2779,8 +2816,8 @@ function openGate(){
       '<div style="font-family:var(--serif);font-size:17px;letter-spacing:.1em;color:var(--t2)">Rise of Cao Cao</div>' +
       '<div style="margin-top:20px;font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--gold)">NEXT</div>' +
       '<div style="font-family:var(--serif);font-size:23px;font-weight:700;letter-spacing:.14em;color:var(--goldhi)">兗州　Yanzhou</div>' +
-      '<div style="font-family:var(--serif);font-style:italic;font-size:15px;color:var(--t3);margin-top:14px">第二章已開放・招募典韋與郭嘉，守住兗州。</div>' +
-      '<div class="row center" style="margin-top:20px"><button class="btn big" id="gt-fin">前往第二章・兗州</button></div></div>');
+      '<div style="font-family:var(--serif);font-style:italic;font-size:15px;color:var(--t3);margin-top:14px">初平三年（192）・青州黃巾進入兗州。先平定戰場，再立足兗州。</div>' +
+      '<div class="row center" style="margin-top:20px"><button class="btn big" id="gt-fin">出征兗州・平黃巾</button></div></div>');
   const fin = document.getElementById("gt-fin");
   if (fin) fin.addEventListener("click", () => beginJourney(1,2));
 }
@@ -2939,6 +2976,7 @@ function spriteFor(key, dir, walk, big){
 /* 場上角色統一入口 */
 function drawActor(g, cx, cy, key, dir, walk, scale){
   const s = scale || 1;
+  if (key === "yellowturban") return drawYellowTurban(g,cx,cy,dir,walk,s);
   const img = spriteFor(key, dir, walk, SPRITE_H * s > 80);
   if (img){
     g.fillStyle = "rgba(0,0,0,.34)";
