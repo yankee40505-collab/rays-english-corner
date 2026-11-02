@@ -428,7 +428,7 @@ body{ margin:0; background:#05070a; color:var(--t1); font-family:var(--sans);
       <div class="press-any fade" id="t-press">Press Any Key</div>
       <div class="t-menu fade hide" id="t-menu"></div>
     </div>
-    <div class="t-ver">Ver. 0.5</div>
+    <div class="t-ver">Ver. 0.6</div>
   </div>
 
   <!-- ════ 遊戲本體 ════ -->
@@ -503,7 +503,7 @@ body{ margin:0; background:#05070a; color:var(--t1); font-family:var(--sans);
       <button class="tb act" data-k="act">E</button>
     </div>
 
-    <p class="foot">魏武之路　·　Ver. 0.5　·　Chapters 1–3：陳留・兗州・許都<br>全新黃巾戰場美術・史實年代校正・基礎英文練習。</p>
+    <p class="foot">魏武之路　·　Ver. 0.6　·　Chapters 1–3：陳留・兗州・許都<br>三層橫向 Q 版城鎮・房屋傳送門・黃巾戰場・基礎英文練習。</p>
   </div>
 
   <!-- 選單層（存檔／設定／暫停），覆蓋標題與遊戲兩者 -->
@@ -529,29 +529,27 @@ body{ margin:0; background:#05070a; color:var(--t1); font-family:var(--sans);
    魏武之路 v0.1  —  PART A：基礎（地圖 / 人物繪製）
    ════════════════════════════════════════════════════════════ */
 
-const VERSION = "0.5";
+const VERSION = "0.6";
 const TS = 32, MW = 25, MH = 18;
 
-const TOWN_MAP = [
-  "#########################",
-  "#ggggggggggrrrgggggggggg#",
-  "#gAAAAAggggrrrgggCCCCCgg#",
-  "#gAAAAAggggrrrgggCCCCCgg#",
-  "#gAAaAAggggrrrgggCCcCCgg#",
-  "#ggggggggggrrrgggggggggg#",
-  "#ggggggTTTgrrrgTTTgggggg#",
-  "#rrrrrrrrrrrrrrrrrrrrrrr#",
-  "#rrrrrrrrrrrrrrrrrrrrrrr#",
-  "#ggggggTTTgrrrgTTTgggggg#",
-  "#ggggggggggrrrgggggggggg#",
-  "#gDDDDDggggrrrgggBBBBBgg#",
-  "#gDDDDDggggrrrgggBBBBBgg#",
-  "#gDDdDDggggrrrgggBBbBBgg#",
-  "#ggggggggggrrrgggggggggg#",
-  "#ggggggggggrrrgggggggggg#",
-  "#ggggggggggrrrgggggggggg#",
-  "###########GGG###########"
+const TOWN_W = 50, TOWN_H = 29;
+const TOWN_STAIR_PATHS = [
+  [[4,9],[5,10],[6,11],[7,12],[8,13],[9,14],[10,15]],
+  [[44,9],[44,10],[44,11],[44,12],[44,13],[44,14],[44,15]],
+  [[15,16],[16,17],[17,18],[18,19],[19,20],[20,21],[21,22],[22,23],[23,24],[24,25]],
+  [[44,16],[44,17],[44,18],[44,19],[44,20],[44,21],[44,22],[44,23],[44,24],[44,25]]
 ];
+function makeSideTownMap(){
+  const m=Array.from({length:TOWN_H},()=>Array(TOWN_W).fill("#"));
+  const carve=(x,y,ch="g")=>{ if(x>0&&x<TOWN_W-1&&y>0&&y<TOWN_H-1)m[y][x]=ch; };
+  const street=y=>{ for(let x=1;x<TOWN_W-1;x++)carve(x,y); };
+  [8,9,15,16,25,26].forEach(street);
+  TOWN_STAIR_PATHS.flat().forEach(([x,y])=>carve(x,y,"s"));
+  m[8][10]="a"; m[8][40]="c"; m[15][23]="d"; m[25][36]="b"; m[28][25]="G";
+  carve(25,27); carve(26,27); carve(26,28);
+  return m.map(r=>r.join(""));
+}
+const TOWN_MAP = makeSideTownMap();
 
 const ACAD_MAP = [
   "vvvvvvvvvvvvvvvvvvvvvvvvv",
@@ -575,25 +573,36 @@ const ACAD_MAP = [
 ];
 
 const SCENES = {
-  yanzhou: {map:TOWN_MAP.map((row,i)=> i===6||i===9?row.replaceAll("T","g"):row),solid:"#TABCD",bg:null,label:"Yanzhou",cn:"兗州"},
-  xuchang: {map:TOWN_MAP.map((row,i)=>i===6?row.replaceAll("T","g"):row),solid:"#TABCD",bg:null,label:"Xuchang",cn:"許都"},
-  town:    { map:TOWN_MAP, solid:"#TABCD", bg:null, label:"Chenliu",  cn:"陳留" },
+  yanzhou: {map:TOWN_MAP,solid:"#TABCD",bg:null,label:"Yanzhou",cn:"兗州"},
+  xuchang: {map:TOWN_MAP,solid:"#TABCD",bg:null,label:"Xuchang",cn:"許都"},
+  town:    {map:TOWN_MAP,solid:"#TABCD",bg:null,label:"Chenliu",cn:"陳留"},
   academy: { map:ACAD_MAP, solid:"v#WSK",  bg:null, label:"Academy",  cn:"軍師學堂" }
 };
 let scene = "town";
 
+const TOWN_BG_ART = {};
+Object.entries({
+  town:"assets/town-chenliu-v2.jpg",
+  yanzhou:"assets/town-yanzhou-v2.jpg",
+  xuchang:"assets/town-xuchang-v2.jpg"
+}).forEach(([key,src])=>{
+  const img=new Image();
+  img.onload=()=>{ if(typeof buildTown==="function") SCENES[key].bg=buildTown(key); };
+  img.src=src; TOWN_BG_ART[key]=img;
+});
+
 const DOORS = { a:"academy", c:"recruit", d:"exam", b:"training", G:"gate", X:"exit" };
 
 const BUILDINGS = [
-  { key:"academy",  cn:"軍師學堂", en:"ACADEMY",          x:2,  y:2, w:5, h:3, icon:"📖", roof:"#7a2622" },
-  { key:"recruit",  cn:"招賢館",   en:"RECRUITMENT HALL", x:17, y:2, w:5, h:3, icon:"🏛️", roof:"#6b4a1e" },
-  { key:"exam",     cn:"考場",     en:"EXAMINATION HALL", x:2,  y:11,w:5, h:3, icon:"📝", roof:"#2f4a63" },
-  { key:"training", cn:"練兵場",   en:"TRAINING GROUND",  x:17, y:11,w:5, h:3, icon:"⚔️", roof:"#3f5230" }
+  { key:"academy",  cn:"軍師學堂", en:"ACADEMY",          x:6,  y:4,  w:9,  h:5, icon:"📖", roof:"#7a2622" },
+  { key:"recruit",  cn:"招賢館",   en:"RECRUITMENT HALL", x:36, y:4,  w:9,  h:5, icon:"🏛️", roof:"#6b4a1e" },
+  { key:"exam",     cn:"考場",     en:"EXAMINATION HALL", x:18, y:11, w:11, h:5, icon:"📝", roof:"#2f4a63" },
+  { key:"training", cn:"練兵場",   en:"TRAINING GROUND",  x:32, y:21, w:9,  h:5, icon:"⚔️", roof:"#3f5230" }
 ];
 
 function tileAt(cx, cy){
   const m = SCENES[scene].map;
-  if (cx < 0 || cy < 0 || cx >= MW || cy >= MH) return "#";
+  if (cx < 0 || cy < 0 || cy >= m.length || cx >= m[cy].length) return "#";
   return m[cy][cx];
 }
 function walkable(cx, cy){ return SCENES[scene].solid.indexOf(tileAt(cx, cy)) === -1; }
@@ -637,13 +646,14 @@ function drawChar(g, cx, cy, pal, dir, walk, scale){
 function drawBattleCharacter(g,cx,cy,key,dir,walk,scale){
   const img=typeof BATTLE_CHAR_ART!=="undefined"?BATTLE_CHAR_ART[key]:null;
   if(!img||!img.complete||!img.naturalWidth) return false;
-  const baseH={caocao:82,xiahoudun:78,dianwei:70,guojia:80}[key]||62;
+  const baseH=88;
   const s=scale||1,h=baseH*s,w=h*(img.naturalWidth/img.naturalHeight),bob=walk&&walk%2?1.5:0,smooth=g.imageSmoothingEnabled;
   g.save();
   g.fillStyle="rgba(38,28,17,.3)"; g.beginPath(); g.ellipse(cx,cy-1,14*s,4.5*s,0,0,Math.PI*2); g.fill();
   g.translate(Math.round(cx),Math.round(cy-bob));
   if(dir==="left") g.scale(-1,1);
   if(walk) g.rotate((walk%2?1:-1)*.018);
+  g.shadowColor="rgba(22,15,10,.34)"; g.shadowBlur=3; g.shadowOffsetY=2;
   g.imageSmoothingEnabled=true;
   g.drawImage(img,-w/2,-h,w,h);
   g.restore();
@@ -684,16 +694,17 @@ function drawYellowTurban(g,cx,cy,dir,walk,scale){
 
 /* 頭像：優先用匯入的 portrait / idle 原圖，沒有才程序繪製 */
 function paintFace(canvas, who, size){
-  const battleImg=scene==="road"&&typeof BATTLE_CHAR_ART!=="undefined"?BATTLE_CHAR_ART[who]:null;
+  const battleImg=typeof BATTLE_CHAR_ART!=="undefined"?BATTLE_CHAR_ART[who]:null;
   if(battleImg&&battleImg.complete&&battleImg.naturalWidth){
     const crop={
-      caocao:[126,34,260,320],xiahoudun:[118,36,276,320],
-      dianwei:[82,34,348,320],guojia:[132,28,260,330]
+      caocao:[.25,.07,.51,.71],xiahoudun:[.23,.08,.54,.71],
+      dianwei:[.16,.07,.68,.71],guojia:[.26,.06,.51,.73],
+      xunyu:[.26,.07,.48,.7],xuchu:[.2,.06,.6,.72]
     }[who];
-    const g=canvas.getContext("2d"),sx=battleImg.naturalWidth/512,sy=battleImg.naturalHeight/450;
+    const g=canvas.getContext("2d"),c=crop||[.2,.05,.6,.78];
     g.clearRect(0,0,canvas.width,canvas.height); g.fillStyle="#171d26"; g.fillRect(0,0,canvas.width,canvas.height);
     g.imageSmoothingEnabled=true;
-    g.drawImage(battleImg,crop[0]*sx,crop[1]*sy,crop[2]*sx,crop[3]*sy,0,0,canvas.width,canvas.height);
+    g.drawImage(battleImg,c[0]*battleImg.naturalWidth,c[1]*battleImg.naturalHeight,c[2]*battleImg.naturalWidth,c[3]*battleImg.naturalHeight,0,0,canvas.width,canvas.height);
     return;
   }
   if (typeof paintPortrait === "function" && paintPortrait(canvas, who, 1)) return;
@@ -1152,7 +1163,7 @@ function applySaveData(d){
   S.chapter = CAMPAIGNS[d.chapter] ? Number(d.chapter) : 1;
   S.campaigns = d.campaigns && typeof d.campaigns === "object" && !Array.isArray(d.campaigns) ? d.campaigns : {};
   S.journeys = d.journeys && typeof d.journeys === "object" && !Array.isArray(d.journeys) ? d.journeys : {};
-  const completeJourney = key => ({ cleared:JOURNEYS[key].questions.map((_,i)=>i), complete:true });
+  const completeJourney = key => ({ cleared:roadQuestions(JOURNEYS[key]).map((_,i)=>i), complete:true });
   if (S.chapter >= 2 || (S.journeys["1-2"] && S.journeys["1-2"].complete))
     S.journeys["1-2"] = completeJourney("1-2");
   if (S.chapter >= 3 || (S.journeys["2-3"] && S.journeys["2-3"].complete))
@@ -1761,7 +1772,7 @@ function beginNewGame(slot){
   S = JSON.parse(JSON.stringify(NEW_STATE));
   scene = "town"; playTime = 0; dirty = false; curSlot = slot;
   enterGameShell();
-  placeP(12, 15, "up");
+  placeP(25, 25, "up");
   syncHUD();
   doSave(slot, true);
   $("#h-slot").textContent = slot;
@@ -1782,7 +1793,7 @@ function loadFromSlot(n){
   curSlot = n; dirty = false;
   enterGameShell();
   placeP(pos.x, pos.y, pos.dir);
-  if (!walkable(P.tx, P.ty)) placeP(scene === "road" ? 1 : 12, scene === "academy" ? 14 : (scene === "road" ? 13 : 15), scene === "road" ? "right" : "up");
+  if (!walkable(P.tx, P.ty)) placeP(scene === "road" ? 1 : (scene === "academy" ? 12 : 25), scene === "academy" ? 14 : (scene === "road" ? 13 : 25), scene === "road" ? "right" : "up");
   if (hasDun() && isTownScene()) FOLLOW.active = true;
   syncHUD();
   $("#h-slot").textContent = n;
@@ -1926,7 +1937,7 @@ function syncQuest(){
     const route=journey(),st=journeyState(),next=roadNpcs()[0];
     $("#q-k").textContent=route.year+"　"+route.title;
     $("#q-t").textContent=next?route.enemyCn+"討伐":"前往城門";
-    $("#q-d").textContent=next?"答題擊退（"+st.cleared.length+" / "+route.questions.length+"）":"戰場已平定，往右進入"+route.toCn+"。";
+    $("#q-d").textContent=next?"答題擊退（"+st.cleared.length+" / "+roadQuestions(route).length+"）":"戰場已平定，往右進入"+route.toCn+"。";
     $("#quest").classList.toggle("done",!next);
     return;
   }
@@ -1955,23 +1966,35 @@ function questTarget(){
     return currentQuests()[q].target;
   }
   if (scene === "academy") return q === 1 ? { x:12, y:5 } : { x:12, y:15 };
-  if (q === 0) return { x:16, y:5 };
-  if (q === 1) return { x:4,  y:4 };
-  if (q === 2) return { x:8,  y:10 };
-  if (q === 3) return { x:4,  y:13 };
-  if (q === 4 || q === 5) return { x:12, y:17 };
+  if (q === 0) return { x:28, y:15 };
+  if (q === 1) return { x:10, y:8 };
+  if (q === 2) return { x:12, y:25 };
+  if (q === 3) return { x:23, y:15 };
+  if (q === 4 || q === 5) return { x:25, y:28 };
   return null;
+}
+
+function ambientTownNpcs(){
+  if(!TOWN_BG_ART[scene]) return [];
+  const names=scene==="xuchang"
+    ? ["市集掌櫃","抄書人","巡街小吏","茶攤老闆","工匠","行商","城門衛","少年"]
+    : scene==="yanzhou"
+    ? ["糧商","鐵匠","巡城兵","藥師","農夫","馬販","城門衛","小販"]
+    : ["布商","木匠","義軍兵","老農","藥販","旅人","城門衛","童子"];
+  const spots=[[4,8],[18,8],[31,8],[46,8],[6,15],[34,15],[20,25],[46,25]];
+  const pals=["xunyu","xuchu","xiahoudun","guojia","xuchu","xunyu","dianwei","guojia"];
+  return spots.map((p,i)=>({id:"ambient-"+scene+"-"+i,ambient:true,cn:names[i],en:"Town Resident",pal:pals[i],x:p[0],y:p[1],dir:i%2?"left":"right"}));
 }
 
 function activeNpcs(){
   if(scene === "road") return roadNpcs();
-  if(campaign()) return campaignNpcs();
+  if(campaign()) return scene==="academy"?campaignNpcs():[...campaignNpcs(),...ambientTownNpcs()];
   const q = questState();
   if (scene === "academy") return [{ id:"xunyu", cn:"荀彧", en:"Xun Yu", pal:"xunyu", x:12, y:5, dir:"down" }];
-  const list = [];
-  if (q === 0) list.push({ id:"xunyu", cn:"荀彧", en:"Xun Yu", pal:"xunyu", x:16, y:5, dir:"down" });
-  if (q === 2) list.push({ id:"xiahoudun", cn:"夏侯惇", en:"Xiahou Dun", pal:"xiahoudun", x:8, y:10, dir:"down" });
-  if (S.lessons.g1) list.push({ id:"xuchu", cn:"許褚", en:"Xu Chu", pal:"xuchu", x:18, y:14, dir:"down" });
+  const list = ambientTownNpcs();
+  if (q === 0) list.push({ id:"xunyu", cn:"荀彧", en:"Xun Yu", pal:"xunyu", x:28, y:15, dir:"down" });
+  if (q === 2) list.push({ id:"xiahoudun", cn:"夏侯惇", en:"Xiahou Dun", pal:"xiahoudun", x:12, y:25, dir:"down" });
+  if (S.lessons.g1) list.push({ id:"xuchu", cn:"許褚", en:"Xu Chu", pal:"xuchu", x:42, y:25, dir:"down" });
   return list;
 }
 function npcHasQuest(id){
@@ -1998,9 +2021,37 @@ function noise(g, x, y, n, colors){
 }
 
 function buildTown(key="town"){
-  const c = document.createElement("canvas"); c.width = MW*TS; c.height = MH*TS;
-  const g = c.getContext("2d"); const M = SCENES[key].map;
-  for (let r = 0; r < MH; r++) for (let col = 0; col < MW; col++){
+  const c = document.createElement("canvas");
+  const M = SCENES[key].map; c.width = M[0].length*TS; c.height = M.length*TS;
+  const g = c.getContext("2d");
+  const art=TOWN_BG_ART[key];
+  if(art&&art.complete&&art.naturalWidth){
+    g.imageSmoothingEnabled=true; g.drawImage(art,0,0,c.width,c.height);
+    const shade=g.createLinearGradient(0,0,0,c.height);
+    shade.addColorStop(0,"rgba(31,25,17,0)"); shade.addColorStop(1,"rgba(31,22,13,.12)");
+    g.fillStyle=shade; g.fillRect(0,0,c.width,c.height);
+    BUILDINGS.map(b=>key==="xuchang"&&b.key==="recruit"?{...b,cn:"告示館",en:"NOTICE HALL"}:b).forEach(b=>{
+      const x=b.x*TS,y=b.y*TS,w=b.w*TS,label=b.icon+" "+b.cn;
+      g.font="700 14px "+F_SERIF; g.textBaseline="middle"; const tw=g.measureText(label).width;
+      const lx=x+w/2-tw/2-9,ly=y+4;
+      g.fillStyle="rgba(35,25,17,.84)"; g.fillRect(lx,ly,tw+18,24);
+      g.strokeStyle="#edca68"; g.lineWidth=1.5; g.strokeRect(lx,ly,tw+18,24);
+      g.fillStyle="#fff1bd"; g.fillText(label,lx+9,ly+12);
+      const dx=(b.x+Math.floor(b.w/2))*TS+16,dy=(b.y+b.h-1)*TS+22;
+      g.fillStyle="rgba(255,218,105,.22)"; g.beginPath(); g.arc(dx,dy,11,0,Math.PI*2); g.fill();
+      g.strokeStyle="#f1cf69"; g.lineWidth=2; g.beginPath(); g.arc(dx,dy,8,0,Math.PI*2); g.stroke();
+    });
+    const gx=25*TS+16,gy=28*TS+17;
+    g.fillStyle="rgba(45,29,17,.82)"; g.fillRect(gx-44,gy-20,88,24);
+    g.strokeStyle="#edca68"; g.strokeRect(gx-44,gy-20,88,24);
+    g.font="700 13px "+F_SERIF; g.fillStyle="#fff1bd"; g.fillText("南門・出城",gx-32,gy-8);
+    g.fillStyle="rgba(24,20,15,.84)"; g.fillRect(712,10,176,38);
+    g.strokeStyle="#edca68"; g.strokeRect(712,10,176,38);
+    g.font="700 15px "+F_SERIF; g.fillStyle="#fff1bd"; g.fillText(SCENES[key].cn+" · 城鎮",726,27);
+    g.font="9px "+F_MONO; g.fillStyle="#dbc98f"; g.fillText("EASTERN HAN TOWN",726,40);
+    return c;
+  }
+  for (let r = 0; r < M.length; r++) for (let col = 0; col < M[r].length; col++){
     const ch = M[r][col], x = col*TS, y = r*TS;
     if (ch === "g" || ch === "T"){
       g.fillStyle = key === "yanzhou" ? "#314950" : key === "xuchang" ? "#51482f" : "#38512f"; g.fillRect(x,y,TS,TS);
@@ -2018,7 +2069,7 @@ function buildTown(key="town"){
       g.fillStyle = "rgba(0,0,0,.28)"; g.fillRect(x, y+TS-4, TS, 4);
     }
   }
-  for (let r = 0; r < MH; r++) for (let col = 0; col < MW; col++){
+  for (let r = 0; r < M.length; r++) for (let col = 0; col < M[r].length; col++){
     if (M[r][col] !== "T") continue;
     const x = col*TS, y = r*TS;
     g.fillStyle = "rgba(0,0,0,.3)"; g.beginPath(); g.ellipse(x+16,y+28,10,4,0,0,Math.PI*2); g.fill();
@@ -2185,11 +2236,54 @@ function buildAcademy(){
   return c;
 }
 
+/* 房屋入口：以原創 Q 版 MMORPG 的發光傳送門強化進出辨識。 */
+function drawTownPortals(g){
+  if(!TOWN_BG_ART[scene]) return;
+  BUILDINGS.forEach((b,i)=>{
+    const x=(b.x+Math.floor(b.w/2))*TS+TS/2;
+    const y=(b.y+b.h-1)*TS+TS/2;
+    const pulse=.5+.5*Math.sin(tick/9+i*1.7);
+    g.save();
+    g.globalAlpha=.82;
+    const glow=g.createRadialGradient(x,y,2,x,y,16+pulse*5);
+    glow.addColorStop(0,"rgba(255,250,203,.48)");
+    glow.addColorStop(.35,"rgba(118,232,255,.34)");
+    glow.addColorStop(.72,"rgba(71,157,255,.16)");
+    glow.addColorStop(1,"rgba(51,120,255,0)");
+    g.fillStyle=glow;
+    g.beginPath(); g.ellipse(x,y,13+pulse*3,19+pulse*2,0,0,Math.PI*2); g.fill();
+    g.lineWidth=2;
+    g.strokeStyle="rgba(214,248,255,"+(.38+pulse*.22)+")";
+    g.beginPath(); g.ellipse(x,y,8+pulse*2,16+pulse*2,0,0,Math.PI*2); g.stroke();
+    g.strokeStyle="rgba(255,220,102,"+(.34+pulse*.24)+")";
+    g.beginPath(); g.ellipse(x,y,13+pulse*2,7+pulse,0,0,Math.PI*2); g.stroke();
+    for(let p=0;p<4;p++){
+      const a=tick/18+p*Math.PI/2+i;
+      g.fillStyle=p%2?"rgba(255,233,143,.62)":"rgba(159,239,255,.62)";
+      g.beginPath(); g.arc(x+Math.cos(a)*(12+pulse*3),y+Math.sin(a)*(15+pulse*2),1.7,0,Math.PI*2); g.fill();
+    }
+    g.restore();
+  });
+}
+
+function townCamera(){
+  if(!TOWN_BG_ART[scene]) return {x:0,y:0};
+  const bg=SCENES[scene].bg,maxX=Math.max(0,bg.width-cv.width),maxY=Math.max(0,bg.height-cv.height);
+  return {
+    x:Math.max(0,Math.min(maxX,Math.round(P.x-cv.width/2))),
+    y:Math.max(0,Math.min(maxY,Math.round(P.y-cv.height*.58)))
+  };
+}
+
 /* ── 繪製 ── */
 function draw(){
   tick++;
   ctx.clearRect(0,0,cv.width,cv.height);
-  ctx.drawImage(SCENES[scene].bg, 0, 0);
+  const cam=townCamera(),bg=SCENES[scene].bg;
+  if(cam.x||cam.y) ctx.drawImage(bg,cam.x,cam.y,cv.width,cv.height,0,0,cv.width,cv.height);
+  else ctx.drawImage(bg,0,0);
+  ctx.save(); ctx.translate(-cam.x,-cam.y);
+  drawTownPortals(ctx);
   if(scene === "road") drawRoadSkirmishes(ctx);
   const it = getInteractable();
 
@@ -2197,7 +2291,7 @@ function draw(){
     let bx, by, bw = TS, bh = TS;
     if (it.type === "gate"){
       if(scene === "road"){ bx=24*TS; by=12*TS; bw=TS; }
-      else { bx = 11*TS; by = 17*TS; bw = TS*3; }
+      else { bx = 25*TS; by = 28*TS; bw = TS; }
     }
     else if (it.type === "exit"){ bx = 12*TS; by = 15*TS; }
     else { const b = BUILDINGS.find(x => x.key === it.key);
@@ -2227,7 +2321,8 @@ function draw(){
 
   ctx.textBaseline = "middle";
   actors.forEach(a => {
-    const actorScale=scene === "road" ? (a.key === "yellowturban" ? 1.02 : 1.08) : 1;
+    const actorScale=scene === "road" ? (a.key === "yellowturban" ? 1.02 : 1.08)
+      : isTownScene() ? 1.4 : 1;
     drawActor(ctx, a.x, a.y, a.key, a.dir, a.anim, actorScale);
     if (a.kind === "npc"){
       if(scene !== "road" || npcHasQuest(a.n.id)){
@@ -2251,7 +2346,8 @@ function draw(){
   if (MODE === "world" && !topMenu() && it){
     const label = it.type === "npc" ? (scene === "road" ? "E 答題" : "E 交談")
                 : it.type === "gate" ? (scene === "road" ? "E 進城" : "E 出城")
-                : it.type === "exit" ? "E 離開" : "E 進入";
+                : it.type === "exit" ? "E 離開"
+                : it.type === "door" ? "E 進入傳送門" : "E 進入";
     ctx.font = "700 12px " + F_MONO;
     const w = ctx.measureText(label).width;
     const bx = P.x - w/2 - 7, by = P.y - 54;
@@ -2260,7 +2356,9 @@ function draw(){
     ctx.fillStyle = "#efd485"; ctx.fillText(label, bx+7, by+9);
   }
 
-  const grd = ctx.createRadialGradient(P.x, P.y-16, 90, P.x, P.y-16, scene === "academy" ? 340 : 560);
+  ctx.restore();
+  const screenPX=P.x-cam.x,screenPY=P.y-cam.y;
+  const grd = ctx.createRadialGradient(screenPX,screenPY-16,90,screenPX,screenPY-16,scene === "academy" ? 340 : 560);
   grd.addColorStop(0, "rgba(0,0,0,0)");
   grd.addColorStop(1, scene === "academy" ? "rgba(0,0,0,.6)" : (scene === "road" ? "rgba(10,34,45,.12)" : "rgba(0,0,0,.42)"));
   ctx.fillStyle = grd; ctx.fillRect(0,0,cv.width,cv.height);
@@ -2271,6 +2369,17 @@ function draw(){
 const SPEED = 2.6;
 function canMove(){ return APP === "game" && MODE === "world" && !topMenu() && fadeTo === 0; }
 
+function townStairStep(x,y,dir){
+  if(!isTownScene()||(dir!=="up"&&dir!=="down")) return null;
+  for(const path of TOWN_STAIR_PATHS){
+    const i=path.findIndex(p=>p[0]===x&&p[1]===y);
+    if(i<0) continue;
+    const next=dir==="up"?path[i-1]:path[i+1];
+    return next?{x:next[0],y:next[1]}:null;
+  }
+  return null;
+}
+
 function tryStep(){
   if (P.moving || !canMove()) return;
   let dx = 0, dy = 0, dir = P.dir;
@@ -2280,7 +2389,8 @@ function tryStep(){
   else if (KEYS_DOWN.right) { dx =  1; dir = "right"; }
   if (!dx && !dy){ P.anim = 0; return; }
   P.dir = dir;
-  const nx = P.tx + dx, ny = P.ty + dy;
+  const stair=townStairStep(P.tx,P.ty,dir);
+  const nx=stair?stair.x:P.tx+dx,ny=stair?stair.y:P.ty+dy;
   if (!walkable(nx, ny)) return;
   if (activeNpcs().some(n => n.x === nx && n.y === ny)) return;
   P.ax = nx; P.ay = ny; P.moving = true;
@@ -2364,7 +2474,7 @@ function enterAcademy(){
 function exitAcademy(){
   if (scene !== "academy" || MODE !== "world") return;
   transition(() => {
-    scene = chapterCity(); placeP(4, 5, "down");
+    scene = chapterCity(); placeP(10, 9, "down");
     if (hasDun()) FOLLOW.active = true;
     markDirty(); autoSave(); syncQuest();
   });
@@ -2556,6 +2666,10 @@ function afterLesson(isMain){
 /* ── NPC ── */
 function talkNpc(n){
   if(scene === "road") return talkRoadSoldier(n);
+  if(n.ambient) return say({cn:n.cn,en:n.en,pal:n.pal},[
+    {en:"The streets are lively today.",zh:"今天城裡很熱鬧，樓上樓下都有事情忙。"},
+    {en:"Use the stairs and portals to explore.",zh:"沿著階梯走到不同街層，發光的門可以進入房屋。"}
+  ]);
   if(campaign()) return talkCampaignNpc(n);
   if (n.id === "xiahoudun") return talkDun();
   if (n.id === "xuchu")     return talkXuChu();
@@ -3009,7 +3123,7 @@ function spriteFor(key, dir, walk, big){
 function drawActor(g, cx, cy, key, dir, walk, scale){
   const s = scale || 1;
   if (key === "yellowturban") return drawYellowTurban(g,cx,cy,dir,walk,s);
-  if (scene === "road" && drawBattleCharacter(g,cx,cy,key,dir,walk,s)) return;
+  if ((scene === "road" || isTownScene()) && drawBattleCharacter(g,cx,cy,key,dir,walk,s)) return;
   const img = spriteFor(key, dir, walk, SPRITE_H * s > 80);
   if (img){
     g.fillStyle = "rgba(0,0,0,.34)";

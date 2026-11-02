@@ -48,10 +48,12 @@ Object.entries({
   caocao:"assets/cao-cao-battle-v2.png",
   xiahoudun:"assets/xiahou-dun-battle-v2.png",
   dianwei:"assets/dian-wei-battle-v2.png",
-  guojia:"assets/guo-jia-battle-v2.png"
+  guojia:"assets/guo-jia-battle-v2.png",
+  xunyu:"assets/xun-yu-battle-v2.png",
+  xuchu:"assets/xu-chu-battle-v2.png"
 }).forEach(([key,src])=>{
   const img=new Image();
-  img.onload=()=>{ if(key==="caocao"&&scene==="road"&&typeof paintFace==="function") paintFace(document.getElementById("hudface"),"caocao",1.05); };
+  img.onload=()=>{ if(key==="caocao"&&typeof paintFace==="function") paintFace(document.getElementById("hudface"),"caocao",1.05); };
   img.src=src; BATTLE_CHAR_ART[key]=img;
 });
 
@@ -61,36 +63,14 @@ const JOURNEYS = {
     enemyCn:"青州黃巾",enemyEn:"Qingzhou Yellow Turban",
     allies:["xiahoudun"],
     history:"青州黃巾進入兗州，刺史劉岱戰死。曹操受迎領兗州，擊破黃巾並收編精銳為青州兵。",
-    questions:[
-      basicQ("Xiahou Dun is brave. _____ is our general.",["He","Him","His"],0,"空格是句子的主詞，要用主格 <b>He</b>。"),
-      basicQ("Cao Cao trusts _____.",["he","him","his"],1,"trusts 後面要用受格 <b>him</b>。"),
-      basicQ("We _____ ready to march.",["am","is","are"],2,"主詞 We 要配 <b>are</b>。"),
-      basicQ("This is _____ sword.",["he","him","his"],2,"sword 是名詞，前面要用所有格 <b>his</b>。"),
-      basicQ("I _____ Cao Cao.",["am","is","are"],0,"主詞 I 固定搭配 <b>am</b>。"),
-      basicQ("They _____ Yellow Turban rebels.",["am","is","are"],2,"主詞 They 是複數，要用 <b>are</b>。"),
-      basicQ("The soldiers follow _____.",["he","him","his"],1,"follow 後面是受詞，要用 <b>him</b>。"),
-      basicQ("_____ is a brave general.",["He","Him","His"],0,"空格在句首當主詞，用 <b>He</b>。"),
-      basicQ("Cao Cao and Xiahou Dun _____ ready.",["am","is","are"],2,"兩個人是複數，要用 <b>are</b>。"),
-      basicQ("Is he our general? — Yes, _____ is.",["he","him","his"],0,"簡答句中空格是主詞，要用 <b>he</b>。")
-    ]
+    review:["g1","g2","g3","g4"]
   },
   "2-3":{
     from:2,to:3,fromCn:"兗州",toCn:"許都",title:"汝潁討黃巾",year:"建安元年（196）",
     enemyCn:"黃巾餘部",enemyEn:"Yellow Turban Remnant",
     allies:["xiahoudun","dianwei","guojia"],
     history:"曹操進軍汝南、潁川，擊破何儀、劉辟、黃邵等黃巾餘部；同年迎漢獻帝都許。",
-    questions:[
-      basicQ("There _____ a guard on the road.",["is","are","am"],0,"a guard 是一位守衛，用 <b>is</b>。"),
-      basicQ("The soldiers _____ every morning.",["trains","train","training"],1,"soldiers 是複數，動詞用原形 <b>train</b>。"),
-      basicQ("He _____ enough food.",["have","are","has"],2,"He 後面用 <b>has</b>。"),
-      basicQ("There _____ two yellow banners.",["is","are","has"],1,"two banners 是複數，要用 <b>are</b>。"),
-      basicQ("We _____ enough arrows.",["has","have","are"],1,"主詞 We 後面用 <b>have</b>。"),
-      basicQ("Guo Jia _____ orders every day.",["give","gives","giving"],1,"Guo Jia 是第三人稱單數，動詞用 <b>gives</b>。"),
-      basicQ("Does he _____ the gate?",["guards","guard","guarding"],1,"Does 後面的動詞要回到原形 <b>guard</b>。"),
-      basicQ("There _____ not three horses here.",["is","are","has"],1,"three horses 是複數，用 <b>are not</b>。"),
-      basicQ("There _____ an army ahead.",["is","are","have"],0,"an army 當作一個單位，用 <b>is</b>。"),
-      basicQ("They do not _____ our banner.",["has","have","having"],1,"do not 後面用原形 <b>have</b>。")
-    ]
+    review:["g5","g6","g7"]
   }
 };
 
@@ -100,6 +80,14 @@ const ROAD_ENCOUNTER_POSITIONS = [
 ];
 
 function journey(){ return S && S.journeyKey ? JOURNEYS[S.journeyKey] : null; }
+function roadQuestions(route=journey()){
+  if(!route) return [];
+  const sets=route.review.map(id=>TRAIN_Q[id]||[]),review=[],max=Math.max(0,...sets.map(q=>q.length));
+  for(let i=0;i<max;i++) sets.forEach(q=>{ if(q[i]) review.push(q[i]); });
+  const final=route.from===1?EXAM_Q:(CAMPAIGNS[route.from]?CAMPAIGNS[route.from].final:[]);
+  const count=ROAD_ENCOUNTER_POSITIONS.length,pool=[...review.slice(0,count-2),...final.slice(0,2)];
+  return Array.from({length:count},(_,i)=>pool[i%pool.length]);
+}
 function journeyState(){
   if(!journey()) return null;
   S.journeys ||= {};
@@ -133,11 +121,11 @@ function talkRoadSoldier(n){
   ],()=>runRoadEncounter(n.encounter));
 }
 function runRoadEncounter(index){
-  const route=journey();
+  const route=journey(),questions=roadQuestions(route);
   if(!route) return;
-  panel("🟡",route.enemyCn+"來襲",route.year+" · "+(index+1)+" / "+route.questions.length,
+  panel("🟡",route.enemyCn+"來襲",route.year+" · "+(index+1)+" / "+questions.length,
     '<p class="note">用正確的英文號令擊退這名'+route.enemyCn+'。答錯會看到解析，而且不扣任何資源。</p><div class="sheet"><div id="road-quiz"></div></div>');
-  quizBlock(document.getElementById("road-quiz"),[route.questions[index]],correct=>finishRoadEncounter(index,correct));
+  quizBlock(document.getElementById("road-quiz"),[questions[index]],correct=>finishRoadEncounter(index,correct));
 }
 function roadResult(title,text,button,on){
   panel("⚔️",title,"Historical Campaign",'<div class="result"><div class="rk">'+(journey()?journey().year:'Historical Campaign')+'</div><div class="rbig" style="font-size:28px">'+title+'</div><p class="rsub">'+text+'</p><div class="row center"><button class="btn big" id="road-action">'+button+'</button><button class="btn ghost" id="road-close">返回戰場</button></div></div>');
@@ -158,10 +146,10 @@ function finishRoadEncounter(index,correct){
   roadResult(remaining?"擊退黃巾賊":"黃巾戰道已平定",remaining?"戰場上還有 "+remaining+" 名黃巾賊。繼續往右推進。":"十名黃巾賊都已退開，前往右側城門。","繼續前進",closePanel);
 }
 function openJourneyGate(){
-  const route=journey(),st=journeyState();
+  const route=journey(),st=journeyState(),questions=roadQuestions(route);
   if(!route||!st) return;
-  if(st.cleared.length<route.questions.length){
-    return roadResult("戰鬥尚未結束","還有 "+(route.questions.length-st.cleared.length)+" 名黃巾賊沒有擊退。回到戰場完成討伐後再進城。","返回戰場",closePanel);
+  if(st.cleared.length<questions.length){
+    return roadResult("戰鬥尚未結束","還有 "+(questions.length-st.cleared.length)+" 名黃巾賊沒有擊退。回到戰場完成討伐後再進城。","返回戰場",closePanel);
   }
   roadResult("抵達"+route.toCn,"從「"+route.fromCn+"」出發的行軍已完成。全隊平安抵達下一座城。","進入"+route.toCn,arriveJourney);
 }
@@ -291,29 +279,29 @@ const CAMPAIGNS = {
   2:{cn:"兗州立足",en:"A Home in Yanzhou",city:"yanzhou",cityCn:"兗州",tone:"#294b52", lessons:["g5","g6","g7"], final:C2_FINAL,
     opening:[{en:"From 192 to 196, Yanzhou became our foundation.",zh:"初平三年至建安元年（192–196），兗州逐步成為曹操的根基。"},{en:"We need guards, plans, and food.",zh:"要讓一州安定，還需要守衛、計畫和糧食。"},{en:"Let us build a home in Yanzhou.",zh:"就在兗州，建立我們的根基吧。"}],
     quests:[
-      cq("c2-arrive","初入兗州","找荀彧，了解城裡的情況。",s=>s.briefed,{x:12,y:7}),
-      cq("c2-scout","巡城第一課","到學堂學會 There is / There are。",()=>S.lessons.g5,{x:4,y:4}),
-      cq("c2-dianwei","興平元年・典韋來投","找典韋，完成三題基礎招募題。",()=>S.recruited.includes("dianwei"),{x:8,y:10}),
-      cq("c2-routine","軍營的一天","到學堂學會現在簡單式。",()=>S.lessons.g6,{x:4,y:4}),
-      cq("c2-guojia","建安元年・郭嘉來投","找郭嘉，完成三題基礎招募題。",()=>S.recruited.includes("guojia"),{x:16,y:5}),
-      cq("c2-have","軍糧清點","到學堂分清楚 have / has。",()=>S.lessons.g7,{x:4,y:4}),
-      cq("c2-supply","備齊糧草","到練兵場，完成三題補給任務。",s=>s.supplies,{x:19,y:13}),
-      cq("c2-defend","守住兗州","到城內考場，完成六題基礎守城測驗。",s=>s.complete,{x:4,y:13}),
-      cq("c2-clear","第二章完成・兗州立足","到南門，前往第三章「許都新規」。",()=>false,{x:12,y:17})
+      cq("c2-arrive","初入兗州","找荀彧，了解城裡的情況。",s=>s.briefed,{x:28,y:15}),
+      cq("c2-scout","巡城第一課","到上層學堂學會 There is / There are。",()=>S.lessons.g5,{x:10,y:8}),
+      cq("c2-dianwei","興平元年・典韋來投","到底層找典韋，完成三題基礎招募題。",()=>S.recruited.includes("dianwei"),{x:12,y:25}),
+      cq("c2-routine","軍營的一天","到上層學堂學會現在簡單式。",()=>S.lessons.g6,{x:10,y:8}),
+      cq("c2-guojia","建安元年・郭嘉來投","到上層找郭嘉，完成三題基礎招募題。",()=>S.recruited.includes("guojia"),{x:38,y:8}),
+      cq("c2-have","軍糧清點","到上層學堂分清楚 have / has。",()=>S.lessons.g7,{x:10,y:8}),
+      cq("c2-supply","備齊糧草","到底層練兵場，完成三題補給任務。",s=>s.supplies,{x:36,y:25}),
+      cq("c2-defend","守住兗州","到中層考場，完成六題基礎守城測驗。",s=>s.complete,{x:23,y:15}),
+      cq("c2-clear","第二章完成・兗州立足","到底層南門，前往第三章「許都新規」。",()=>false,{x:25,y:28})
     ]},
   3:{cn:"許都新規",en:"Rules of the City",city:"xuchang",cityCn:"許都",tone:"#554328",lessons:["u3words","u3command","u3lets","u3can","u3or","u3object"],final:C3_FINAL,
     opening:[{en:"A new city. A new beginning.",zh:"新的城鎮，也是新的開始。"},{en:"Read the signs. Help the people.",zh:"看懂告示，幫助城裡的人。"},{en:"Small words can make a city safer.",zh:"學會簡單的英文，也能讓一座城更安全。"}],
     quests:[
-      cq("c3-arrive","許都的新告示","找荀彧，接下城鎮生活任務。",s=>s.briefed,{x:12,y:7}),
-      cq("c3-words","先看懂單字","到學堂認識 Unit 3 的生活單字。",()=>S.lessons.u3words,{x:4,y:4}),
-      cq("c3-command","把規則說清楚","到學堂學會 Please / Be / Don't。",()=>S.lessons.u3command,{x:4,y:4}),
-      cq("c3-signs","告示修復","到告示館，完成三題基礎告示題。",s=>s.signs,{x:19,y:4}),
-      cq("c3-lets","我們一起來","到學堂學會 Let's / Let's not。",()=>S.lessons.u3lets,{x:4,y:4}),
-      cq("c3-can","先問可不可以","到學堂學會 can / can't 和簡單問答。",()=>S.lessons.u3can,{x:4,y:4}),
-      cq("c3-permission","借書與同行","到練兵場，完成三題基礎對話。",s=>s.permission,{x:19,y:13}),
-      cq("c3-or","選一個就好","到學堂學會 or 的簡單選擇。",()=>S.lessons.u3or,{x:4,y:4}),
-      cq("c3-object","互相幫忙","到學堂學會 me / him / us / them。",()=>S.lessons.u3object,{x:4,y:4}),
-      cq("c3-review","城鎮生活小測驗","到城內考場，完成九題基礎複習。",s=>s.complete,{x:4,y:13}),
+      cq("c3-arrive","許都的新告示","到中層找荀彧，接下城鎮生活任務。",s=>s.briefed,{x:28,y:15}),
+      cq("c3-words","先看懂單字","到上層學堂認識 Unit 3 的生活單字。",()=>S.lessons.u3words,{x:10,y:8}),
+      cq("c3-command","把規則說清楚","到上層學堂學會 Please / Be / Don't。",()=>S.lessons.u3command,{x:10,y:8}),
+      cq("c3-signs","告示修復","到上層告示館，完成三題基礎告示題。",s=>s.signs,{x:40,y:8}),
+      cq("c3-lets","我們一起來","到上層學堂學會 Let's / Let's not。",()=>S.lessons.u3lets,{x:10,y:8}),
+      cq("c3-can","先問可不可以","到上層學堂學會 can / can't 和簡單問答。",()=>S.lessons.u3can,{x:10,y:8}),
+      cq("c3-permission","借書與同行","到底層練兵場，完成三題基礎對話。",s=>s.permission,{x:36,y:25}),
+      cq("c3-or","選一個就好","到上層學堂學會 or 的簡單選擇。",()=>S.lessons.u3or,{x:10,y:8}),
+      cq("c3-object","互相幫忙","到上層學堂學會 me / him / us / them。",()=>S.lessons.u3object,{x:10,y:8}),
+      cq("c3-review","城鎮生活小測驗","到中層考場，完成九題基礎複習。",s=>s.complete,{x:23,y:15}),
       cq("c3-clear","第三章完成・許都新規","城鎮基礎任務已完成，可以自由複習。",()=>false,null)
     ]}
 };
@@ -323,19 +311,19 @@ function campaignState(){ return S.campaigns[S.chapter] ||= {briefed:false,compl
 function currentQuests(){ return campaign() ? campaign().quests : QUESTS; }
 function availableLessons(){ return LESSONS.filter(l => campaign() ? l.chapter === S.chapter : !l.chapter); }
 function chapterCity(){ return campaign() ? campaign().city : "town"; }
-function isTownScene(){ return scene !== "academy"; }
+function isTownScene(){ return scene === "town" || scene === "yanzhou" || scene === "xuchang"; }
 function chapterComplete(){ return campaign() ? campaignState().complete : S.chapterDone; }
 function campaignQuest(){ const st=campaignState(), qs=campaign().quests; const n=qs.findIndex(q=>!q.test(st)); return n<0?qs.length-1:n; }
 
 function campaignNpcs(){
   if(scene === "academy") return [{id:"xunyu",cn:"荀彧",en:"Xun Yu",pal:"xunyu",x:12,y:5,dir:"down"}];
-  const list=[{id:"xunyu",cn:"荀彧",en:"Xun Yu",pal:"xunyu",x:12,y:7,dir:"down"}];
+  const list=[{id:"xunyu",cn:"荀彧",en:"Xun Yu",pal:"xunyu",x:28,y:15,dir:"down"}];
   if(S.chapter===2){
-    if(S.lessons.g5||S.recruited.includes("dianwei")) list.push({id:"dianwei",cn:"典韋",en:"Dian Wei",pal:"dianwei",x:8,y:10,dir:"down"});
-    if(S.lessons.g6||S.recruited.includes("guojia")) list.push({id:"guojia",cn:"郭嘉",en:"Guo Jia",pal:"guojia",x:16,y:5,dir:"down"});
+    if(S.lessons.g5||S.recruited.includes("dianwei")) list.push({id:"dianwei",cn:"典韋",en:"Dian Wei",pal:"dianwei",x:12,y:25,dir:"down"});
+    if(S.lessons.g6||S.recruited.includes("guojia")) list.push({id:"guojia",cn:"郭嘉",en:"Guo Jia",pal:"guojia",x:38,y:8,dir:"down"});
   }else{
-    if(S.recruited.includes("dianwei")) list.push({id:"dianwei",cn:"典韋",en:"Dian Wei",pal:"dianwei",x:8,y:10,dir:"down"});
-    if(S.recruited.includes("guojia")) list.push({id:"guojia",cn:"郭嘉",en:"Guo Jia",pal:"guojia",x:16,y:5,dir:"down"});
+    if(S.recruited.includes("dianwei")) list.push({id:"dianwei",cn:"典韋",en:"Dian Wei",pal:"dianwei",x:12,y:25,dir:"down"});
+    if(S.recruited.includes("guojia")) list.push({id:"guojia",cn:"郭嘉",en:"Guo Jia",pal:"guojia",x:38,y:8,dir:"down"});
   }
   return list;
 }
@@ -346,7 +334,7 @@ function startChapter(number){
   S.chapter=number; S.journeyKey=null; S.campaigns ||= {}; campaignState();
   if(!S.unlockedCities.includes(campaign().city)) S.unlockedCities.push(campaign().city);
   scene=chapterCity(); lastQuest=-1; MODE="world";
-  enterGameShell(); placeP(12,15,"up"); FOLLOW.active=hasDun();
+  enterGameShell(); placeP(25,25,"up"); FOLLOW.active=hasDun();
   markDirty(); syncHUD(); autoSave();
   say({cn:"曹操",en:"Cao Cao",pal:"caocao"},campaign().opening,()=>talkCampaignNpc({id:"xunyu"}));
 }
@@ -461,6 +449,6 @@ function openChapterTravel(){
 function travelToChapter(n){
   if(!chapterUnlocked(n))return;
   closeMenus();closePanel();S.chapter=n;S.journeyKey=null;lastQuest=-1;scene=chapterCity();
-  placeP(12,15,"up");FOLLOW.active=hasDun();enterGameShell();markDirty();syncHUD();autoSave();
+  placeP(25,25,"up");FOLLOW.active=hasDun();enterGameShell();markDirty();syncHUD();autoSave();
   if(campaign()&&!campaignState().briefed) say({cn:"曹操",en:"Cao Cao",pal:"caocao"},campaign().opening,()=>talkCampaignNpc({id:"xunyu"}));
 }
