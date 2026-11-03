@@ -56,6 +56,10 @@ Object.entries({
   img.onload=()=>{ if(key==="caocao"&&typeof paintFace==="function") paintFace(document.getElementById("hudface"),"caocao",1.05); };
   img.src=src; BATTLE_CHAR_ART[key]=img;
 });
+const BATTLE_BACK_ART={};
+Object.entries({caocao:"cao-cao",xiahoudun:"xiahou-dun"}).forEach(([key,file])=>{
+  const img=new Image();img.src="assets/"+file+"-climb-back-v1.png";BATTLE_BACK_ART[key]=img;
+});
 
 const JOURNEYS = {
   "1-2":{

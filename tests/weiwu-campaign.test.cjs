@@ -21,13 +21,66 @@ Object.keys(SFX).forEach(k=>SFX[k]=()=>{});
 `);
 let checks=0;
 function check(code,msg){assert.ok(run(code),msg);checks++}
+check('typeof battleLegPose==="function"','chibi walking must articulate the legs, not just bob the whole sprite');
+run(`var stepA=battleLegPose(true,"walk",Math.PI/2),stepB=battleLegPose(true,"walk",Math.PI*1.5),idleLegs=battleLegPose(false,"climb",2);`);
+check('stepA[0].angle===stepB[1].angle&&stepA[1].angle===stepB[0].angle&&stepA[0].angle!==stepA[1].angle','left and right legs alternate through a walking cycle');
+check('idleLegs.every(p=>p.angle===0&&p.stretch===1)','stopping restores both feet to a still standing pose');
+check('battleLegPose(true,"climb",Math.PI/2)[0].stretch<stepA[0].stretch','ladder climbing raises the active foot higher than walking');
+// Art-based regression: Chenliu's central stair foot is around x=624 in
+// the 1600px background, not the old collision graph's x=784.
+// Drive actual key handling/movement from the arrival street, not stair helpers.
+run(`
+applySaveData({chapter:1});scene="town";APP="game";MODE="world";fadeTo=0;curSlot=null;
+placeP(19,townLayout().streets.at(-1),"up");
+function walkFrames(key,frames){clearKeys();KEYS_DOWN[key]=true;for(let i=0;i<frames;i++){tryStep();updateMove();}clearKeys();while(P.moving)updateMove();}
+walkFrames("up",240);
+`);
+check('P.ty<=16&&P.tx>=18&&P.tx<=23','Chenliu: Up at the visible central staircase must reach the middle street');
+// Fixed landmarks read from the background, deliberately independent of the
+// implementation's stair array. Exercise real movement in both directions,
+// including both edges of each entrance and all chapter-one NPC phases.
+const chenliuStairs=[
+  {name:'central',bottom:[19,24],top:[22,15]},
+  {name:'left',bottom:[7,16],top:[2,8]},
+  {name:'right',bottom:[44,16],top:[46,8]},
+  {name:'ladder',bottom:[42,24],top:[42,15]}
+];
+for(const progress of [{},{metXunYu:true},{metXunYu:true,completedLessons:{g1:true}}]){
+  for(const stair of chenliuStairs)for(const offset of [-1,0,1]){
+    run(`applySaveData(${JSON.stringify({chapter:1,...progress})});scene="town";APP="game";MODE="world";fadeTo=0;curSlot=null;placeP(${stair.bottom[0]+offset},${stair.bottom[1]},"up");walkFrames("up",300);`);
+    check(`P.tx===${stair.top[0]}&&P.ty===${stair.top[1]}`,`Chenliu ${stair.name}: climb from visual entrance offset ${offset}`);
+    run(`placeP(${stair.top[0]+offset},${stair.top[1]},"down");walkFrames("down",300);`);
+    check(`P.tx===${stair.bottom[0]}&&P.ty===${stair.bottom[1]}`,`Chenliu ${stair.name}: descend to visual entrance offset ${offset}`);
+  }
+}
+run('placeP(25,24,"up");walkFrames("up",300);');
+check('P.tx===25&&P.ty===23','away from stairs, Up cannot slide through the platform wall');
+check('townTravelKind(42,22,42,21)==="climb"&&townTravelKind(20,18,19,19)==="stairs"&&townTravelKind(25,24,26,24)==="walk"','wooden ladders, stairs and flat streets have separate locomotion');
+run('placeP(42,22,"up");walkFrames("up",1);');
+check('P.travel==="climb"&&P.anim===0&&P.gait>0','stopping midway on a ladder retains the back view without moving the feet');
+run('walkFrames("up",300);');
+check('P.travel==="walk"','reaching a landing returns to the normal facing');
+run(`
+var oldFront=BATTLE_CHAR_ART.caocao,oldBack=BATTLE_BACK_ART.caocao;
+BATTLE_CHAR_ART.caocao={complete:true,naturalWidth:512,naturalHeight:469,tag:"front"};
+BATTLE_BACK_ART.caocao={complete:true,naturalWidth:1199,naturalHeight:1312,tag:"back"};
+var renderCalls=[],renderProbe=new Proxy({imageSmoothingEnabled:true},{get:(o,k)=>k in o?o[k]:(...args)=>renderCalls.push([k,...args])});
+scene="town";drawActor(renderProbe,100,100,"caocao","up",1,1.4,{phase:Math.PI/2,kind:"climb"});
+`);
+check('renderCalls.filter(c=>c[0]==="drawImage").length===3&&renderCalls.filter(c=>c[0]==="drawImage").every(c=>c[1].tag==="back")','the actor renderer draws two articulated back-view legs and one masked body on ladders');
+check('renderCalls.some(c=>c[0]==="clip"&&c[1]==="evenodd")','walking removes original static feet from the body layer');
+run('renderCalls=[];drawActor(renderProbe,100,100,"caocao","down",1,1.4,{phase:2,kind:"stairs"});');
+check('renderCalls.filter(c=>c[0]==="drawImage").every(c=>c[1].tag==="front")','ordinary stairs retain the normal front/side artwork');
+run('renderCalls=[];drawActor(renderProbe,100,100,"caocao","down",0,1.4,{phase:2,kind:"climb"});');
+check('renderCalls.filter(c=>c[0]==="drawImage").length===1&&renderCalls.find(c=>c[0]==="drawImage")[1].tag==="back"','pausing on the ladder keeps the back view, with still feet');
+run('BATTLE_CHAR_ART.caocao=oldFront;BATTLE_BACK_ART.caocao=oldBack;');
 run(`applySaveData({level:5,exp:32,gold:220,food:160,army:1300,chapterDone:true,completedLessons:{g1:true,g2:true},unlockedGenerals:["xiahoudun"],examPassed:true,examBest:8,scene:"academy",playerX:12,playerY:14});`);
 check('S.chapter===1&&S.level===5&&S.army===1300&&S.lessons.g1&&S.recruited.includes("xiahoudun")&&scene==="academy"','legacy save migration');
-run('scene="town";SCENES.town.bg=buildTown("town");placeP(25,25,"up");');
+run('scene="town";SCENES.town.bg=buildTown("town");placeTownPlayer();');
 check('TOWN_MAP.length===29&&TOWN_MAP.every(row=>row.length===50)&&SCENES.town.bg.width===1600&&SCENES.town.bg.height===928','towns use a large three-level side-scrolling world');
 check('townCamera().x>0&&townCamera().y>0','town camera follows the player horizontally and vertically');
 check('ambientTownNpcs().length===8&&activeNpcs().filter(n=>n.ambient).length===8','town streets include eight ambient residents across the levels');
-check('TOWN_MAP[20][25]==="#"&&townStairStep(24,25,"up").x===23&&townStairStep(24,25,"up").y===24','town levels connect through explicit diagonal stairs instead of invisible vertical movement');
+check('TOWN_MAP[20][25]==="#"&&townStairStep(19,23,"up").x===19&&townStairStep(19,23,"up").y===22','town levels connect through the visible central staircase instead of invisible vertical movement');
 run('MODE="world";openGate();document.getElementById("gt-fin").listeners.click();');
 check('scene==="road"&&S.journeyKey==="1-2"','chapter one destination button starts the road instead of skipping to Yanzhou');
 run('beginJourney(1,2);');

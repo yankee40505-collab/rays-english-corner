@@ -533,21 +533,23 @@ const VERSION = "0.6";
 const TS = 32, MW = 25, MH = 18;
 
 const TOWN_W = 50, TOWN_H = 29;
+// Chenliu paths follow the feet of the stairs in town-chenliu-v2.jpg,
+// scaled from 1600x900 art to the 1600x928 world. Store top → bottom.
 const TOWN_STAIR_PATHS = [
-  [[4,9],[5,10],[6,11],[7,12],[8,13],[9,14],[10,15]],
-  [[44,9],[44,10],[44,11],[44,12],[44,13],[44,14],[44,15]],
-  [[15,16],[16,17],[17,18],[18,19],[19,20],[20,21],[21,22],[22,23],[23,24],[24,25]],
-  [[44,16],[44,17],[44,18],[44,19],[44,20],[44,21],[44,22],[44,23],[44,24],[44,25]]
+  [[2,9],[3,10],[4,11],[5,12],[6,13],[7,14],[7,15]],
+  [[46,9],[44,10],[43,11],[44,12],[45,13],[44,14],[44,15]],
+  [[22,16],[21,17],[20,18],[19,19],[18,20],[19,21],[19,22],[19,23]],
+  [[42,16],[42,17],[42,18],[42,19],[42,20],[42,21],[42,22],[42,23]]
 ];
 // Each town owns its street levels, doors, residents and stair graph.
 // Coordinates are game staging aligned to the art, not an archaeological plan.
 const stairLine=(x1,y1,x2,y2)=>Array.from({length:y2-y1+1},(_,i)=>[Math.round(x1+(x2-x1)*i/(y2-y1)),y1+i]);
 const TOWN_LAYOUTS={
-  town:{streets:[8,9,15,16,25,26],stairs:TOWN_STAIR_PATHS,spawn:[25,25],gate:[25,28],
-    doors:{academy:[10,8],recruit:[40,8],exam:[23,15],training:[36,25]},
+  town:{streets:[8,9,15,16,23,24],stairs:TOWN_STAIR_PATHS,spawn:[25,24],gate:[25,26],
+    doors:{academy:[10,8],recruit:[40,8],exam:[23,15],training:[36,23]},
     names:{academy:"義學",recruit:"募兵館",exam:"軍議堂",training:"義軍校場"},
-    officers:{xunyu:[28,15],warrior:[12,25],guojia:[38,8]},
-    residents:[[4,8],[18,8],[31,8],[46,8],[6,15],[34,15],[20,25],[46,25]],
+    officers:{xunyu:[28,15],warrior:[12,23],guojia:[38,8],drillguard:[45,23]},
+    residents:[[5,8],[18,8],[31,8],[47,8],[10,15],[34,15],[30,23],[47,23]],
     district:"陳留郡・募兵街市",period:"190 · 討董起兵",note:"以陳留郡募兵為主題；軍師授課是教學串場，不表示荀彧在 190 年已投曹。"},
   yanzhou:{streets:[8,9,14,15,23,24],
     stairs:[stairLine(3,9,7,14),stairLine(16,9,16,14),stairLine(1,15,11,23),stairLine(47,15,47,23)],
@@ -571,7 +573,7 @@ function townPoint(point,key=scene){
   if(!point)return null;
   const cfg=townLayout(key),ids={"10,8":"academy","40,8":"recruit","23,15":"exam","36,25":"training"};
   const id=point.x+","+point.y;
-  const p=cfg.doors[ids[id]]||(id==="25,28"?cfg.gate:id==="28,15"?cfg.officers.xunyu:id==="12,25"?cfg.officers.warrior:id==="38,8"?cfg.officers.guojia:null);
+  const p=cfg.doors[ids[id]]||(id==="25,28"?cfg.gate:id==="28,15"?cfg.officers.xunyu:id==="12,25"?cfg.officers.warrior:id==="38,8"?cfg.officers.guojia:id==="42,25"?cfg.officers.drillguard:null);
   return p?{x:p[0],y:p[1]}:point;
 }
 function placeTownPlayer(){const [x,y]=townLayout().spawn;placeP(x,y,"up");}
@@ -686,19 +688,61 @@ function drawChar(g, cx, cy, pal, dir, walk, scale){
   else { P(-6,y0+4,12,7,pal.helm); }
 }
 
-function drawBattleCharacter(g,cx,cy,key,dir,walk,scale){
-  const img=typeof BATTLE_CHAR_ART!=="undefined"?BATTLE_CHAR_ART[key]:null;
+// Normalized boot/shin cutouts: leave cloaks, robes and weapons on the body.
+// Each leg pivots at its top edge, underneath the hem, so it stays attached.
+const BATTLE_LEGS = {
+  caocao:[[.37,.80,.12,.105],[.53,.805,.135,.10]],
+  xiahoudun:[[.30,.81,.13,.115],[.60,.835,.145,.09]],
+  dianwei:[[.23,.80,.13,.08],[.555,.80,.14,.08]],
+  guojia:[[.375,.87,.08,.06],[.538,.875,.115,.055]],
+  xunyu:[[.394,.848,.074,.066],[.55,.85,.1,.064]],
+  xuchu:[[.292,.842,.12,.12],[.55,.846,.15,.116]]
+};
+const BATTLE_BACK_LEGS={
+  caocao:[[.29,.82,.145,.13],[.54,.82,.13,.13]],
+  xiahoudun:[[.28,.82,.155,.13],[.56,.82,.155,.13]]
+};
+function battleLegPose(walk,kind,phase){
+  const stride=walk?Math.sin(phase):0;
+  return [stride,-stride].map(v=>({
+    angle:v*(kind==="climb"?.14:.38),
+    stretch:1-Math.max(0,v)*(kind==="climb"?.55:kind==="stairs"?.4:.22)
+  }));
+}
+function drawBattleCharacter(g,cx,cy,key,dir,walk,scale,motion){
+  const rear=motion&&motion.kind==="climb"&&typeof BATTLE_BACK_ART!=="undefined"&&BATTLE_BACK_ART[key];
+  const back=rear&&rear.complete&&rear.naturalWidth;
+  const img=back?rear:typeof BATTLE_CHAR_ART!=="undefined"?BATTLE_CHAR_ART[key]:null;
   if(!img||!img.complete||!img.naturalWidth) return false;
-  const baseH=88;
-  const s=scale||1,h=baseH*s,w=h*(img.naturalWidth/img.naturalHeight),bob=walk&&walk%2?1.5:0,smooth=g.imageSmoothingEnabled;
+  const baseH=back?79:88;
+  const s=scale||1,h=baseH*s,w=h*(img.naturalWidth/img.naturalHeight),smooth=g.imageSmoothingEnabled;
+  const phase=motion?motion.phase:tick*.23,kind=motion?motion.kind:"walk";
+  const bob=walk?Math.abs(Math.sin(phase*2))*.7*s:0;
   g.save();
   g.fillStyle="rgba(38,28,17,.3)"; g.beginPath(); g.ellipse(cx,cy-1,14*s,4.5*s,0,0,Math.PI*2); g.fill();
-  g.translate(Math.round(cx),Math.round(cy-bob));
-  if(dir==="left") g.scale(-1,1);
-  if(walk) g.rotate((walk%2?1:-1)*.018);
+  g.translate(Math.round(cx),Math.round(cy-bob-(back?5*s:0)));
+  if(dir==="left"&&!back) g.scale(-1,1);
   g.shadowColor="rgba(22,15,10,.34)"; g.shadowBlur=3; g.shadowOffsetY=2;
   g.imageSmoothingEnabled=true;
-  g.drawImage(img,-w/2,-h,w,h);
+  const legs=back?BATTLE_BACK_LEGS[key]:BATTLE_LEGS[key];
+  if(walk&&legs){
+    // A shadow on the uncut source would leave ghost boots outside the mask.
+    // Keep the separate ground shadow, not shadows along cutout seams.
+    g.shadowColor="transparent";g.shadowBlur=0;g.shadowOffsetY=0;
+    const poses=battleLegPose(walk,kind,phase);
+    // Draw each boot independently. Stretch toward the knee lifts the foot;
+    // opposing knee rotations produce a stride without translating the body.
+    legs.forEach(([x,y,lw,lh],i)=>{
+      const lx=(x-.5)*w,ly=(y-1)*h,pivot=lx+lw*w/2;
+      g.save();g.translate(pivot,ly);g.rotate(poses[i].angle);g.scale(1,poses[i].stretch);
+      g.drawImage(img,x*img.naturalWidth,y*img.naturalHeight,lw*img.naturalWidth,lh*img.naturalHeight,-lw*w/2,0,lw*w,lh*h);
+      g.restore();
+    });
+    // Remove the original stationary feet; the hem is painted over the joints.
+    g.save();g.beginPath();g.rect(-w/2,-h,w,h);
+    legs.forEach(([x,y,lw,lh])=>g.rect((x-.5)*w,(y-1)*h,lw*w,lh*h));
+    g.clip("evenodd");g.drawImage(img,-w/2,-h,w,h);g.restore();
+  }else g.drawImage(img,-w/2,-h,w,h);
   g.restore();
   g.imageSmoothingEnabled=smooth;
   return true;
@@ -1816,7 +1860,7 @@ function beginNewGame(slot){
   S = JSON.parse(JSON.stringify(NEW_STATE));
   scene = "town"; playTime = 0; dirty = false; curSlot = slot;
   enterGameShell();
-  placeP(25, 25, "up");
+  placeTownPlayer();
   syncHUD();
   doSave(slot, true);
   $("#h-slot").textContent = slot;
@@ -1936,14 +1980,15 @@ let MODE = "world";              // world | dialog | panel
 const KEYS_DOWN = {};
 function clearKeys(){ for (const k in KEYS_DOWN) KEYS_DOWN[k] = false; }
 
-const P = { tx:12, ty:15, x:0, y:0, dir:"down", moving:false, ax:0, ay:0, anim:0 };
-const FOLLOW = { active:false, x:0, y:0, dir:"up", anim:0 };
+const P = { tx:12, ty:15, x:0, y:0, dir:"down", moving:false, ax:0, ay:0, anim:0, gait:0, travel:"walk" };
+const FOLLOW = { active:false, x:0, y:0, dir:"up", anim:0, gait:0, travel:"walk" };
 let trail = [];
 let fade = 0, fadeTo = 0, fadeCb = null;
 let tick = 0, gameRAF = null, lastQuest = -1;
 
 function placeP(tx, ty, dir){
   P.tx = tx; P.ty = ty; P.moving = false; P.anim = 0;
+  P.gait=0;P.travel=townRestKind(tx,ty);FOLLOW.gait=0;FOLLOW.anim=0;FOLLOW.travel=P.travel;
   P.x = tx*TS + TS/2; P.y = ty*TS + TS;
   if (dir) P.dir = dir;
   trail = [{ tx:tx, ty:ty }];
@@ -2011,11 +2056,11 @@ function questTarget(){
     return currentQuests()[q].target;
   }
   if (scene === "academy") return q === 1 ? { x:12, y:5 } : { x:12, y:15 };
-  if (q === 0) return { x:28, y:15 };
-  if (q === 1) return { x:10, y:8 };
-  if (q === 2) return { x:12, y:25 };
-  if (q === 3) return { x:23, y:15 };
-  if (q === 4 || q === 5) return { x:25, y:28 };
+  if (q === 0) return townPoint({ x:28, y:15 });
+  if (q === 1) return townPoint({ x:10, y:8 });
+  if (q === 2) return townPoint({ x:12, y:25 });
+  if (q === 3) return townPoint({ x:23, y:15 });
+  if (q === 4 || q === 5) return townPoint({ x:25, y:28 });
   return null;
 }
 
@@ -2040,7 +2085,7 @@ function activeNpcs(){
   if (q === 0) list.push({ id:"xunyu", cn:"荀彧", en:"Xun Yu", pal:"xunyu", x:28, y:15, dir:"down" });
   if (q === 2) list.push({ id:"xiahoudun", cn:"夏侯惇", en:"Xiahou Dun", pal:"xiahoudun", x:12, y:25, dir:"down" });
   if (S.lessons.g1) list.push({ id:"drillguard", cn:"義軍教頭", en:"Drill Officer", pal:"xuchu", x:42, y:25, dir:"down" });
-  return list;
+  return list.map(n=>n.ambient?n:{...n,...townPoint(n)});
 }
 function npcHasQuest(id){
   if(scene === "road"){
@@ -2361,15 +2406,15 @@ function draw(){
 
   const npcs = activeNpcs();
   const actors = npcs.map(n => ({ kind:"npc", n, x:n.x*TS+TS/2, y:n.y*TS+TS, dir:n.dir, key:n.pal||n.id, anim:0 }));
-  if (FOLLOW.active && isTownScene()) actors.push({ kind:"f", x:FOLLOW.x, y:FOLLOW.y, dir:FOLLOW.dir, key:"xiahoudun", anim:FOLLOW.anim });
-  actors.push({ kind:"p", x:P.x, y:P.y, dir:P.dir, key:"caocao", anim:P.anim });
+  if (FOLLOW.active && isTownScene()) actors.push({ kind:"f", x:FOLLOW.x, y:FOLLOW.y, dir:FOLLOW.dir, key:"xiahoudun", anim:FOLLOW.anim, motion:{phase:FOLLOW.gait,kind:FOLLOW.travel} });
+  actors.push({ kind:"p", x:P.x, y:P.y, dir:P.dir, key:"caocao", anim:P.anim, motion:{phase:P.gait,kind:P.travel} });
   actors.sort((a,b) => a.y - b.y);
 
   ctx.textBaseline = "middle";
   actors.forEach(a => {
     const actorScale=scene === "road" ? (a.key === "yellowturban" ? 1.02 : 1.08)
       : isTownScene() ? 1.4 : 1;
-    drawActor(ctx, a.x, a.y, a.key, a.dir, a.anim, actorScale);
+    drawActor(ctx, a.x, a.y, a.key, a.dir, a.anim, actorScale,a.motion);
     if (a.kind === "npc"){
       if(scene !== "road" || npcHasQuest(a.n.id)){
         ctx.font = "700 11px " + F_SERIF;
@@ -2415,6 +2460,16 @@ function draw(){
 const SPEED = 2.6;
 function canMove(){ return APP === "game" && MODE === "world" && !topMenu() && fadeTo === 0; }
 
+function townTravelKind(x,y,nx,ny){
+  if(!isTownScene()||y===ny)return "walk";
+  const path=townLayout().stairs.find(p=>p.some(t=>t[0]===x&&t[1]===y)&&p.some(t=>t[0]===nx&&t[1]===ny));
+  return !path?"walk":path.every(t=>t[0]===path[0][0])?"climb":"stairs";
+}
+function townRestKind(x,y){
+  if(!isTownScene())return "walk";
+  return townLayout().stairs.some(path=>path.every(t=>t[0]===path[0][0])&&path.slice(1,-1).some(t=>t[0]===x&&t[1]===y))?"climb":"walk";
+}
+
 function townStairStep(x,y,dir){
   if(!isTownScene()||(dir!=="up"&&dir!=="down")) return null;
   for(const path of townLayout().stairs){
@@ -2422,6 +2477,12 @@ function townStairStep(x,y,dir){
     if(i<0) continue;
     const next=dir==="up"?path[i-1]:path[i+1];
     return next?{x:next[0],y:next[1]}:null;
+  }
+  // A stair tread is wider than a tile. At a landing only, align one tile
+  // sideways first; subsequent frames follow the actual path, never a wall.
+  for(const path of townLayout().stairs){
+    const entry=dir==="up"?path.at(-1):path[0];
+    if(y===entry[1]&&Math.abs(x-entry[0])===1)return {x:entry[0],y:entry[1]};
   }
   return null;
 }
@@ -2440,13 +2501,16 @@ function tryStep(){
   if (!walkable(nx, ny)) return;
   if (activeNpcs().some(n => n.x === nx && n.y === ny)) return;
   P.ax = nx; P.ay = ny; P.moving = true;
+  P.travel=townTravelKind(P.tx,P.ty,nx,ny);
 }
 function updateMove(){
   if (!P.moving) return;
   const tX = P.ax*TS + TS/2, tY = P.ay*TS + TS;
   const dx = tX - P.x, dy = tY - P.y, d = Math.hypot(dx, dy);
+  P.gait=(P.gait+Math.min(d,SPEED)*.09)%(Math.PI*2);
   if (d <= SPEED){
     P.x = tX; P.y = tY; P.tx = P.ax; P.ty = P.ay; P.moving = false; P.anim = 0;
+    P.travel=townRestKind(P.tx,P.ty);
     trail.push({ tx:P.tx, ty:P.ty });
     if (trail.length > 12) trail.shift();
     markDirty();
@@ -2465,10 +2529,12 @@ function updateFollower(){
   const tX = t.tx*TS + TS/2, tY = t.ty*TS + TS;
   const dx = tX - FOLLOW.x, dy = tY - FOLLOW.y, d = Math.hypot(dx, dy);
   if (d > 2){
+    FOLLOW.travel=townTravelKind(Math.round((FOLLOW.x-TS/2)/TS),Math.round((FOLLOW.y-TS)/TS),t.tx,t.ty);
+    FOLLOW.gait=(FOLLOW.gait+SPEED*.09)%(Math.PI*2);
     FOLLOW.x += dx/d * SPEED; FOLLOW.y += dy/d * SPEED;
     FOLLOW.anim = 1 + Math.floor(tick/6) % 3;
     FOLLOW.dir = Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "right" : "left") : (dy > 0 ? "down" : "up");
-  } else FOLLOW.anim = 0;
+  } else {FOLLOW.anim=0;FOLLOW.travel=townRestKind(t.tx,t.ty);}
 }
 function updateFade(){
   if (fadeTo === 0) return;
@@ -3167,10 +3233,10 @@ function spriteFor(key, dir, walk, big){
 }
 
 /* 場上角色統一入口 */
-function drawActor(g, cx, cy, key, dir, walk, scale){
+function drawActor(g, cx, cy, key, dir, walk, scale,motion){
   const s = scale || 1;
   if (key === "yellowturban") return drawYellowTurban(g,cx,cy,dir,walk,s);
-  if ((scene === "road" || isTownScene()) && drawBattleCharacter(g,cx,cy,key,dir,walk,s)) return;
+  if ((scene === "road" || isTownScene()) && drawBattleCharacter(g,cx,cy,key,dir,walk,s,motion)) return;
   const img = spriteFor(key, dir, walk, SPRITE_H * s > 80);
   if (img){
     g.fillStyle = "rgba(0,0,0,.34)";
