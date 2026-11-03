@@ -63,26 +63,30 @@ run(`applySaveData({level:5,exp:32,gold:220,food:160,army:1300,chapterDone:true,
 run('curSlot=1;startChapter(2);capturedDialog.onEnd();capturedDialog.onEnd();');
 check('S.chapter===2&&scene==="yanzhou"&&questState()===1','chapter two arrival and briefing');
 check('campaign().opening[0].zh.includes("192–196")&&campaignNpcs().every(n=>n.id!=="dianwei"&&n.id!=="guojia"&&n.id!=="xuchu")','Yanzhou spans 192–196 and later officers do not appear early');
-check('availableLessons().length===3','only chapter two lessons');
+check('availableLessons().map(l=>l.id).join(",")==="y2command,y2lets,y2can,y2or,y2object"','only the five photographed Yanzhou units');
+check('!["g5","g6","g7"].some(id=>LESSONS.some(l=>l.id===id)||TRAIN_Q[id])','wrong syllabus removed from lessons and training');
+check('C2_FINAL.length===10&&YANZHOU_LESSONS.every(l=>C2_FINAL.filter(q=>l.check.includes(q)).length===2)','ten-question final includes two questions from every unit');
 check('makeSaveData(1).chapter===2&&makeSaveData(1).chapterName==="兗州立足"','save chapter metadata');
 run('openCampaignExam();');check('capturedPanel.title==="先完成城鎮任務"','final gated by town tasks');
-run('finishLesson(LESSONS.find(l=>l.id==="g5"),0,3);');check('!S.lessons.g5','lesson mastery gate');
-run('finishLesson(LESSONS.find(l=>l.id==="g5"),2,3);');check('S.lessons.g5&&questState()===2','lesson success advances quest');
+run('finishLesson(LESSONS.find(l=>l.id==="y2command"),3,5);');check('!S.lessons.y2command','lesson mastery requires two thirds, rounded up');
+run('finishLesson(LESSONS.find(l=>l.id==="y2command"),4,5);');check('S.lessons.y2command&&questState()===2','lesson success advances quest');
 check('campaignNpcs().some(n=>n.id==="dianwei")&&!campaignNpcs().some(n=>n.id==="guojia")','Dian Wei appears only when his dated recruitment quest opens');
 run('talkCampaignNpc({id:"dianwei"});capturedDialog.onEnd();capturedQuiz.onDone(1,3);');check('!S.recruited.includes("dianwei")','failed recruit does not join');
 run('talkCampaignNpc({id:"dianwei"});capturedDialog.onEnd();capturedQuiz.onDone(2,3);');check('S.recruited.includes("dianwei")&&S.army===1700&&questState()===3','successful recruitment and army');
-run('S.lessons.g6=true;');check('campaignNpcs().some(n=>n.id==="guojia")','Guo Jia appears only when his 196 recruitment quest opens');
-run('talkCampaignNpc({id:"guojia"});capturedDialog.onEnd();capturedQuiz.onDone(3,3);');check('S.recruited.includes("guojia")&&questState()===5','Guo Jia recruitment');
-run('S.lessons.g7=true;openCampaignTraining();capturedQuiz.onDone(3,3);');check('campaignState().supplies&&questState()===7','supplies quest');
-run('openCampaignExam();runCampaignFinal(C2_FINAL,4);capturedQuiz.onDone(3,6);');check('!campaignState().complete','failed final remains incomplete');
-run('runCampaignFinal(C2_FINAL,4);capturedQuiz.onDone(4,6);var firstGold=S.gold,firstFood=S.food,firstLevel=S.level,firstExp=S.exp;');
-check('campaignState().complete&&questState()===8','chapter two completion');
+run('S.lessons.y2lets=true;');check('!campaignNpcs().some(n=>n.id==="guojia")','Guo Jia requires both invitation and permission units');
+run('S.lessons.y2can=true;');check('campaignNpcs().some(n=>n.id==="guojia")','Guo Jia appears at his recommendation quest without asserting an exact year');
+run('talkCampaignNpc({id:"guojia"});capturedDialog.onEnd();capturedQuiz.onDone(3,3);');check('S.recruited.includes("guojia")&&questState()===6','Guo Jia recruitment');
+run('S.lessons.y2or=true;openCampaignTraining();');check('capturedPanel.title==="先學會選擇與受格"&&!campaignState().supplies','supplies require both or and objects');
+run('S.lessons.y2object=true;openCampaignTraining();capturedQuiz.onDone(3,3);');check('campaignState().supplies&&questState()===9','supplies quest');
+run('openCampaignExam();document.getElementById("cp-action").listeners.click();capturedQuiz.onDone(6,10);');check('!campaignState().complete','six out of ten does not pass');
+run('runCampaignFinal(C2_FINAL,7);capturedQuiz.onDone(7,10);var firstGold=S.gold,firstFood=S.food,firstLevel=S.level,firstExp=S.exp;');
+check('campaignState().complete&&questState()===10','seven out of ten completes chapter two');
 run('document.getElementById("cp-action").listeners.click();');
 check('S.chapter===2&&scene==="yanzhou"','chapter two result returns to the city gate instead of skipping the road');
 run('closeMenus();');
-run('runCampaignFinal(C2_FINAL,4);capturedQuiz.onDone(6,6);');check('S.gold===firstGold&&S.food===firstFood&&S.exp===firstExp&&S.level===firstLevel','first clear reward cannot be farmed');
+run('runCampaignFinal(C2_FINAL,7);capturedQuiz.onDone(10,10);');check('S.gold===firstGold&&S.food===firstFood&&S.exp===firstExp&&S.level===firstLevel','first clear reward cannot be farmed');
 run('MODE="world";openCampaignGate();document.getElementById("cp-action").listeners.click();');
-check('scene==="road"&&S.journeyKey==="2-3"&&TRAIN_Q.g5.includes(roadQuestions(journey())[0])','Yanzhou gate starts the second road with chapter-two review questions');
+check('scene==="road"&&S.journeyKey==="2-3"&&TRAIN_Q.y2command.includes(roadQuestions(journey())[0])','Yanzhou gate starts the second road with corrected review questions');
 check('activeNpcs().length===10&&journey().year.includes("196")&&journey().history.includes("漢獻帝")','second battlefield has ten remnants and the 196 historical setting');
 check('roadBattleAllies().join(",")==="xiahoudun,dianwei,guojia"','all recruited generals stage background skirmishes on the second battlefield');
 check('!chapterUnlocked(3)','chapter three stays locked until the Yanzhou road is complete');
@@ -102,15 +106,43 @@ run('travelToChapter(3);');check('S.chapter===3&&scene==="xuchang"','return to u
 run('applySaveData({chapter:3,scene:"xuchang",completedLessons:{},unlockedGenerals:[]});travelToChapter(1);');
 check('chapterUnlocked(2)&&chapterUnlocked(3)','legacy chapter-three saves retain durable chapter unlocks');
 run('travelToChapter(3);');check('S.chapter===3&&scene==="xuchang"','legacy save can revisit its highest unlocked chapter');
-check('NEW_LESSONS.every(l=>l.check.every(q=>q.difficulty==="basic"))&&C3_FINAL.every(q=>q.difficulty==="basic")','all new content marked basic');
-check('NEW_LESSONS.every(l=>l.pages.length>=2&&l.check.length===3)','detailed lesson pages and quick checks');
-check('[...NEW_LESSONS.flatMap(l=>l.check),...DW_Q,...GJ_Q,...SUPPLY_Q,...SIGNS_Q,...PERMISSION_Q,...C2_FINAL,...C3_FINAL].every(q=>q.o.length===3&&Number.isInteger(q.a)&&q.a>=0&&q.a<q.o.length&&q.w)','quiz answer integrity');
+check('ACTIVE_NEW_LESSONS.every(l=>l.check.every(q=>q.difficulty==="basic"))&&C3_FINAL.every(q=>q.difficulty==="basic")','all new content uses single-focus questions');
+check('ACTIVE_NEW_LESSONS.every(l=>l.pages.length>=2&&l.check.length>=3)','detailed lesson pages and quick checks');
+check('[...ACTIVE_NEW_LESSONS.flatMap(l=>l.check),...DW_Q,...GJ_Q,...SUPPLY_Q,...SIGNS_Q,...PERMISSION_Q,...C2_FINAL,...C3_FINAL].every(q=>q.o.length===3&&Number.isInteger(q.a)&&q.a>=0&&q.a<q.o.length&&q.w)','quiz answer integrity');
+check('YANZHOU_LESSONS.every(l=>roadQuestions(JOURNEYS["2-3"]).some(q=>l.check.includes(q)))','all five Yanzhou topics appear on the ten-soldier road');
+// Content checks for the less obvious points in the three supplied screenshots.
+for(const [id,terms] of Object.entries({y2command:['Never','Ben,','Please','Do not'],y2lets:["Let's not","Let's be"],y2can:["Can't","What can","Why can't","can't be"],y2or:['Are you','I am','否則','兩個動作'],y2object:["It's me",'主詞補語','Wake','them','with']})){
+  const pages=run(`LESSONS.find(l=>l.id===${JSON.stringify(id)}).pages.map(p=>p.t+p.h.replace(/<[^>]+>/g,"")).join(" ")`);
+  for(const term of terms){assert.ok(pages.includes(term),`${id} missing ${term}`);checks++;}
+}
+// Upgrading old saves must not mark a different syllabus mastered or pay resources twice.
+run('applySaveData({chapter:3,scene:"xuchang",gold:500,food:400,army:1700,completedLessons:{g5:true,g6:true,g7:true,u3can:true},unlockedGenerals:["xiahoudun","dianwei","guojia"],campaigns:{2:{briefed:true,complete:true,supplies:true,best:6},3:{briefed:true,complete:true,best:9}}});');
+check('!S.campaigns[2].complete&&!S.campaigns[2].supplies&&S.campaigns[2].best===null&&S.campaigns[2].legacyBest===6','old mastery is reset only for the replaced curriculum');
+check('S.gold===500&&S.food===400&&S.army===1700&&S.recruited.length===3&&S.lessons.u3can&&S.campaigns[3].complete&&chapterUnlocked(3)','old resources, officers, third chapter and unlocks are preserved');
+run('travelToChapter(2);YANZHOU_LESSONS.forEach(l=>S.lessons[l.id]=true);openCampaignTraining();capturedQuiz.onDone(3,3);runCampaignFinal(C2_FINAL,7);capturedQuiz.onDone(10,10);');
+check('S.gold===500&&S.food===400&&campaignState().complete&&campaignState().supplies','new syllabus can be completed without reissuing old resource rewards');
+run('var migrated=makeSaveData(1);applySaveData(JSON.parse(JSON.stringify(migrated)));');
+check('campaignState().complete&&campaignState().best===10&&campaignState().curriculum===YANZHOU_CURRICULUM','migration is idempotent across save and reload');
+run('applySaveData({chapter:2,scene:"road",journeyKey:"2-3",campaigns:{2:{complete:true}},journeys:{"2-3":{cleared:[0,1],complete:false}}});');
+check('S.journeys["2-3"].cleared.length===0&&!S.campaigns[2].complete','unfinished old-syllabus road resets its cleared questions');
+check('new Set(Object.values(TOWN_LAYOUTS).map(l=>JSON.stringify(l.stairs))).size===3&&new Set(Object.values(SCENES).filter(s=>s.label!=="Academy"&&s.map.length===29).map(s=>s.map.join(""))).size===3','three towns have distinct traversable layouts and stairs, not just different backgrounds');
+run('SCENES.academy.bg=null;SCENES.town.bg=buildTown("town");enterGameShell();');
+check('!!SCENES.academy.bg','academy initializes even when background images already loaded');
 // Ensure every town quest can be reached with the actual collision map and NPCs.
-for(const chapter of [2,3]){
-  run(`S.chapter=${chapter};scene=chapterCity();`);
-  const data=run('JSON.stringify({map:SCENES[scene].map,solid:SCENES[scene].solid,npcs:activeNpcs(),quests:campaign().quests,stairs:TOWN_STAIR_PATHS})');
-  const d=JSON.parse(data),seen=new Set(['25,25']),todo=[[25,25]],height=d.map.length,width=d.map[0].length;
+for(const chapter of [1,2,3]){
+  run(`S.chapter=${chapter};scene=chapterCity();S.recruited=["xiahoudun","dianwei","guojia"];`);
+  const data=run('JSON.stringify({map:SCENES[scene].map,solid:SCENES[scene].solid,npcs:activeNpcs(),quests:campaign()?campaign().quests:[],stairs:townLayout().stairs,spawn:townLayout().spawn,doors:townLayout().doors,gate:townLayout().gate})');
+  const d=JSON.parse(data),seen=new Set([d.spawn.join(',')]),todo=[d.spawn],height=d.map.length,width=d.map[0].length;
   while(todo.length){const [x,y]=todo.shift(),steps=[[x+1,y],[x-1,y],[x,y+1],[x,y-1]];for(const path of d.stairs){const i=path.findIndex(p=>p[0]===x&&p[1]===y);if(i>=0){if(path[i-1])steps.push(path[i-1]);if(path[i+1])steps.push(path[i+1]);}}for(const [a,b]of steps){let k=a+','+b;if(a<0||a>=width||b<0||b>=height||seen.has(k)||d.solid.includes(d.map[b][a])||d.npcs.some(n=>n.x===a&&n.y===b))continue;seen.add(k);todo.push([a,b]);}}
   for(const q of d.quests){if(!q.target)continue;const {x,y}=q.target;const npc=d.npcs.some(n=>n.x===x&&n.y===y);assert.ok(npc?[[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy])=>seen.has((x+dx)+','+(y+dy))):seen.has(x+','+y),`Chapter ${chapter}: ${q.id} unreachable`);checks++;}
+  for(const [key,point] of Object.entries({...d.doors,gate:d.gate})){assert.ok(seen.has(point.join(',')),`Chapter ${chapter}: ${key} portal unreachable`);checks++;}
+  for(const npc of d.npcs){assert.ok([[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy])=>seen.has((npc.x+dx)+','+(npc.y+dy))),`Chapter ${chapter}: ${npc.id} unreachable`);checks++;}
+  for(const path of d.stairs){for(let i=1;i<path.length;i++){
+    const [x,y]=path[i],prev=path[i-1];
+    check(`JSON.stringify(townStairStep(${x},${y},"up"))===JSON.stringify({x:${prev[0]},y:${prev[1]}})`,'every upward step follows the town-specific staircase');
+    check(`JSON.stringify(townStairStep(${prev[0]},${prev[1]},"down"))===JSON.stringify({x:${x},y:${y}})`,'every downward step follows the town-specific staircase');
+  }}
+  run('var realTransition=transition;transition=fn=>fn();scene="academy";MODE="world";exitAcademy();transition=realTransition;');
+  check('P.tx===townLayout().doors.academy[0]&&P.ty===townLayout().doors.academy[1]+1&&walkable(P.tx,P.ty)','academy returns to the current city entrance, not Chenliu coordinates');
 }
 console.log(`PASS: ${checks} checks covering legacy saves, chapters 2–3, failure/retry, one-time rewards, lesson access and map reachability.`);
