@@ -21,6 +21,7 @@ Object.keys(SFX).forEach(k=>SFX[k]=()=>{});
 `);
 let checks=0;
 function check(code,msg){assert.ok(run(code),msg);checks++}
+check('typeof createYanzhouCheckpoint==="function"','the published game must provide a Yanzhou checkpoint, not only the local QA page');
 check('typeof battleLegPose==="function"','chibi walking must articulate the legs, not just bob the whole sprite');
 run(`var stepA=battleLegPose(true,"walk",Math.PI/2),stepB=battleLegPose(true,"walk",Math.PI*1.5),idleLegs=battleLegPose(false,"climb",2);`);
 check('stepA[0].angle===stepB[1].angle&&stepA[1].angle===stepB[0].angle&&stepA[0].angle!==stepA[1].angle','left and right legs alternate through a walking cycle');
@@ -178,7 +179,7 @@ run('var migrated=makeSaveData(1);applySaveData(JSON.parse(JSON.stringify(migrat
 check('campaignState().complete&&campaignState().best===10&&campaignState().curriculum===YANZHOU_CURRICULUM','migration is idempotent across save and reload');
 run('applySaveData({chapter:2,scene:"road",journeyKey:"2-3",campaigns:{2:{complete:true}},journeys:{"2-3":{cleared:[0,1],complete:false}}});');
 check('S.journeys["2-3"].cleared.length===0&&!S.campaigns[2].complete','unfinished old-syllabus road resets its cleared questions');
-check('new Set(Object.values(TOWN_LAYOUTS).map(l=>JSON.stringify(l.stairs))).size===3&&new Set(Object.values(SCENES).filter(s=>s.label!=="Academy"&&s.map.length===29).map(s=>s.map.join(""))).size===3','three towns have distinct traversable layouts and stairs, not just different backgrounds');
+check('new Set(Object.values(TOWN_LAYOUTS).map(l=>JSON.stringify(l.stairs))).size===3&&new Set(Object.keys(TOWN_LAYOUTS).map(k=>SCENES[k].map.join(""))).size===3','three towns have distinct traversable layouts and stairs, not just different backgrounds');
 run('SCENES.academy.bg=null;SCENES.town.bg=buildTown("town");enterGameShell();');
 check('!!SCENES.academy.bg','academy initializes even when background images already loaded');
 // Ensure every town quest can be reached with the actual collision map and NPCs.
@@ -198,4 +199,35 @@ for(const chapter of [1,2,3]){
   run('var realTransition=transition;transition=fn=>fn();scene="academy";MODE="world";exitAcademy();transition=realTransition;');
   check('P.tx===townLayout().doors.academy[0]&&P.ty===townLayout().doors.academy[1]+1&&walkable(P.tx,P.ty)','academy returns to the current city entrance, not Chenliu coordinates');
 }
-console.log(`PASS: ${checks} checks covering legacy saves, chapters 2–3, failure/retry, one-time rewards, lesson access and map reachability.`);
+// Ground anchors use visible alpha bounds for every named character and rear pose.
+check('Object.keys(BATTLE_FOOT_BOUNDS).every(k=>{const m=battleSpriteMetrics(k,false,1,1.4);return Math.abs(-m.h+m.offset+m.foot*m.h)<1e-8&&Math.abs(m.h*(m.foot-BATTLE_FOOT_BOUNDS[k][0])-100.8)<1e-8})','all six characters have grounded boots and equal visible height');
+check('Object.keys(BATTLE_BACK_BOUNDS).every(k=>{const m=battleSpriteMetrics(k,true,1,1.4);return Math.abs(-m.h+m.offset+m.foot*m.h)<1e-8})','rear-facing boots share the same ground anchor');
+check('Object.values(RESIDENT_LINES).every(lines=>lines.length===8&&new Set(lines.map(l=>l[1])).size===8)','all 24 residents have role-specific dialogue');
+check('Object.keys(CHARACTER_STORIES).length===6&&Object.values(CHARACTER_STORIES).every(s=>s.line&&s.fact&&s.volume)','all six named characters have original dialogue and sourced history');
+run('var oldRect=document.getElementById("stage").getBoundingClientRect;document.getElementById("stage").getBoundingClientRect=()=>({width:1400,height:700});resizeGameViewport();');
+check('cv.width===1152&&cv.height===576','landscape viewport expands the world without stretching sprites');
+run('document.getElementById("stage").getBoundingClientRect=oldRect;resizeGameViewport();');
+for(const chapter of [1,2,3])for(const venue of ['academy','recruit','exam','training']){
+  run(`applySaveData({chapter:${chapter}});curSlot=null;MODE="world";var oldTransition=transition;transition=fn=>fn();enterVenue("${venue}");transition=oldTransition;`);
+  check(`scene==="${venue}"&&P.tx===6&&P.ty===22&&walkable(P.tx,P.ty)&&SCENES[scene].bg.width===1600`,'every location uses a wide illustrated playable interior');
+  check('activeNpcs().length===1&&questTarget().x===26&&questTarget().y===21','interior arrows point to a reachable host, not old pixel-room coordinates');
+  run('placeP(25,21,"right");');
+  check('getInteractable()?.type==="npc"','venue host is interactable from the floor');
+  run('var interiorSave=makeSaveData(1);writeSlot(1,interiorSave);loadFromSlot(1);');
+  check(`scene==="${venue}"&&P.tx===25&&P.ty===21`,'interior save reload restores the correct venue');
+  run(`curSlot=null;MODE="world";var oldTransition=transition;transition=fn=>fn();exitAcademy();transition=oldTransition;`);
+  check(`scene===chapterCity()&&P.tx===townLayout().doors.${venue}[0]&&P.ty===townLayout().doors.${venue}[1]+1&&walkable(P.tx,P.ty)`,'each venue returns to its own city doorway');
+}
+// Reproduce a fresh website origin with three old saves. Creating a checkpoint
+// must not depend on a localhost-only script or overwrite any existing record.
+storage.clear();
+run('writeSlot(1,{chapter:1,marker:"keep1"});writeSlot(2,{chapter:1,marker:"keep2"});writeSlot(3,{chapter:1,marker:"keep3"});var createdCheckpoint=createYanzhouCheckpoint();');
+check('createdCheckpoint===4&&S.chapter===2&&scene==="yanzhou"&&curSlot===4&&questState()===0','published checkpoint creates and loads Yanzhou in a free slot');
+check('[1,2,3].every(n=>readSlot(n).marker==="keep"+n)','all original saves survive checkpoint creation');
+check('S.recruited.join(",")==="xiahoudun"&&YANZHOU_LESSONS.every(l=>!S.lessons[l.id])&&S.journeys["1-2"].complete','checkpoint starts with only Xiahou Dun, no Yanzhou lessons, and the previous road completed');
+run('loadFromSlot(4);');
+check('S.chapter===2&&scene==="yanzhou"&&lastSlot()===4','checkpoint persists and Continue points to it after reload');
+run('var protectedSave=JSON.stringify(readSlot(4));var noSlot=createYanzhouCheckpoint();');
+check('noSlot===false&&JSON.stringify(readSlot(4))===protectedSave','full slots never overwrite an existing checkpoint');
+run('closeMenus();');
+console.log(`PASS: ${checks} checks covering campaign progression, stairs, grounded animation, all interiors and safe published checkpoints.`);

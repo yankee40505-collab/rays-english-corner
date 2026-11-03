@@ -1,0 +1,39 @@
+/* Full-window, landscape stage; world coordinates keep their aspect ratio. */
+html,body{width:100%;height:100%;overflow:hidden}
+#app{max-width:none;width:100%;height:100dvh;margin:0;padding:0;background:#171b19}
+#game{height:100%;display:flex;flex-direction:column;position:relative}
+.hud{flex:none;margin:0;border:0;border-bottom:2px solid #8b7146;border-radius:0;padding:8px 14px;background:linear-gradient(#302b23,#191c1a)}
+#stage{flex:1;min-height:0;width:100%;border:0;border-radius:0}
+#stage>canvas{width:100%;height:100%;image-rendering:auto;outline:none}
+#title-scene{width:100%;height:100%;border:0;border-radius:0}
+#title-scene>canvas{width:100%;height:100%;object-fit:cover;image-rendering:auto}
+#title-ui{padding:3vh 4vw 4vh}
+.t-name{font-size:clamp(36px,6vw,74px)}
+.t-menu{width:min(360px,78vw);padding-bottom:0}
+.t-menu .gi{padding:6px 12px}
+.foot{display:none}
+.quest{max-width:min(430px,48%);background:rgba(35,42,32,.9);border-radius:12px;padding:10px 16px}
+.quest .qt{font-size:18px}.quest .qd{font-size:13px;font-style:normal}
+.dbox{left:4%;right:4%;bottom:32px;border-radius:16px;background:linear-gradient(135deg,#322a20f5,#172827f5);padding:16px}
+.hud-face,.gslot .sface,canvas{image-rendering:auto!important}
+.gpanel,.gslot,.gi{border-radius:10px}
+.ov{padding:28px 24px;align-items:flex-start;background:rgba(13,25,24,.76);backdrop-filter:blur(5px)}
+.ovbox{max-width:1040px;border:2px solid #b38e53;border-radius:18px;background:linear-gradient(125deg,#2f3429f7,#142627f7);box-shadow:0 20px 80px #0008}
+.ov-head{background:linear-gradient(90deg,#58432d,#2e3830);padding:13px 22px}
+.ov-t{font-size:22px}.ov-body{padding:22px 28px}
+#venue-hero{min-height:245px;display:flex;align-items:flex-end;gap:20px;padding:16px 40px;background-size:cover;background-position:center 62%;position:relative;border-bottom:2px solid #ac8851}
+#venue-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#172015df,transparent 75%)}
+#venue-hero>div,#venue-hero>img{position:relative;z-index:1}
+#venue-hero b{font:700 24px var(--serif);color:#fff3cf}#venue-hero p{margin:5px 0;color:#fff1d7}
+.venue-host{height:190px;width:210px;object-fit:contain;filter:drop-shadow(0 3px 4px #0005)}
+.ov[data-venue="academy"] #venue-hero{background-image:url('assets/venue-academy-v1.png')}
+.ov[data-venue="recruit"] #venue-hero{background-image:url('assets/venue-recruit-v1.png')}
+.ov[data-venue="exam"] #venue-hero{background-image:url('assets/venue-exam-v1.png')}
+.ov[data-venue="training"] #venue-hero{background-image:url('assets/venue-training-v1.png')}
+.sheet,.examsheet{border-radius:12px;background-color:#fff4db;padding:24px;color:#30291f}
+.btn,.opt{border-radius:8px}.story-card{display:flex;align-items:center;gap:24px;padding:18px 0;border-bottom:1px solid #bca16b55}
+.story-card img{width:145px;height:160px;object-fit:contain}.story-card h3{color:#ffe6aa;margin:0}
+.story-card p{margin:8px 0}.story-card a{color:#cde1ba}.history-note{color:#b7c9c5;font-size:14px}
+.touch{position:absolute;z-index:15;left:16px;right:16px;bottom:34px;margin:0;pointer-events:none}.touch>*{pointer-events:auto}
+@media(max-width:700px){.hud{gap:4px;padding:5px}.stat{font-size:10px;padding:2px 4px}.xpwrap{display:none}.hud-lord{padding-right:4px}.mini{padding:5px}.ov{padding:8px}.ov-body{padding:14px}#venue-hero{min-height:170px;padding:10px 18px;gap:8px}.venue-host{height:145px;width:120px}.quest{max-width:60%;padding:6px 10px}.quest .qt{font-size:15px}.quest .qd{font-size:11px}.story-card{gap:10px}.story-card img{width:90px}.dbox{left:2%;right:2%}}
+@media(max-height:540px){.t-sub-top,.t-tag,.t-rule{display:none}.t-name{font-size:36px}.t-en{font-size:12px}#title-ui{padding:12px}.t-menu .gi{padding:4px 12px;font-size:15px}.quest{top:4px}.hud{padding:3px 9px}}

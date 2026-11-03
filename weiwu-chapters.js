@@ -430,13 +430,19 @@ function talkCampaignNpc(n){
     if(!S.lessons.y2lets||!S.lessons.y2can) return campaignHint("郭嘉","guojia","先學會 Let's 與 can，再來討論如何協力與詢問許可。");
     return say({cn:"郭嘉",en:"Guo Jia",pal:"guojia"},[{en:"Let's help the guards. Can we enter?",zh:"荀彧薦才的故事在這裡化成教學任務：先邀大家合作，再問清楚可不可以。"}],()=>runCampaignQuiz("招募郭嘉",GJ_Q,2,()=>{S.recruited.push("guojia");addRes(50,0,0);},"郭嘉加入！金錢 +50。"));
   }
-  return campaignHint(n.id==="dianwei"?"典韋":"郭嘉",n.id,S.chapter===3?"先看懂告示、問清楚可不可以，再一起幫忙。這樣城裡就更安全了。":"守城不是一個人的事，末將會和主公一起努力。");
+  const story=CHARACTER_STORIES[n.id];
+  if(story)return say({cn:story.cn,pal:n.id},[
+    {en:"We each have a part to play.",zh:story.line},
+    {en:"A note from history.",zh:"【史料旁注】"+story.fact+"（《三國志》卷"+story.volume+"）"}
+  ]);
+  return campaignHint(n.cn||"城中居民",n.pal||"guojia","先看懂告示、問清楚可不可以，再一起幫忙。");
 }
 function campaignHint(cn,pal,zh){say({cn,pal},[{en:"We are ready to help, my lord.",zh}]);}
 
 function campaignResult(title,text,button,on){
   panel("📜",title,"Town · Basic practice",'<div class="result"><div class="rk">'+(campaign()?"Chapter "+S.chapter:"Campaign")+'</div><div class="rbig" style="font-size:28px">'+title+'</div><p class="rsub">'+text+'</p><div class="row center"><button class="btn big" id="cp-action">'+button+'</button><button class="btn ghost" id="cp-close">回到城鎮</button></div></div>');
   document.getElementById("cp-action").addEventListener("click",on);
+  document.getElementById("cp-close").textContent=isInteriorScene()?"返回場所":"回到城鎮";
   document.getElementById("cp-close").addEventListener("click",closePanel);
 }
 function runCampaignQuiz(title,questions,pass,onPass,reward){
